@@ -1,0 +1,23 @@
+
+
+#teachers{
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+
+.teacher{
+	text-align: center;
+	padding: 15px;
+}
+
+.teacher img:hover{
+	transform: rotate(360deg);
+}
+
+.teacher img{
+	border-radius: 100%;
+	transition-property: all;
+	transition-duration: 0.5s;
+}

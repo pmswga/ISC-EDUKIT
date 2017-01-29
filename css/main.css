@@ -1,0 +1,96 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+
+body{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#header{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+#logoDiv{
+	display: flex;
+	justify-content: center;
+}
+
+#menuDiv{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+}
+
+#menu{
+	display: flex;
+	border: 1px solid black;
+	padding: 5px;
+	width: 100%;
+}
+
+#menu ul{
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+}
+
+#menu ul li a{
+	transition-property: all;
+	transition-duration: 0.4s;
+}
+
+#menu ul li a:hover{
+	box-shadow: 0px 0px 5px black;
+	background-color: white;
+	border-radius: 10px;
+}
+
+#rings{
+	text-align: center;
+}
+
+#content{
+	display: flex;
+	flex-direction: column;
+	align-items:center;
+}
+
+.oneNews{
+	padding: 10px;
+	margin: 15px;
+	border: 1px solid black;
+}
+
+.oneNews pre{
+	border: none;
+	background-color: white;
+	font-size: 14px;
+}
+
+#authorizateButtonDiv{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+@keyframes rotate{
+	to{
+		transform: rotate3D(1, 1, 1, 360deg);
+	}
+}
+
+.circle{
+	width: 250px;
+	height: 250px;
+	background-color: purple;
+	border-radius: 50px;
+	animation-name: rotate;
+	animation-iteration-count:infinite; 
+	animation-duration: 5s;
+}

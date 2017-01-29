@@ -1,0 +1,56 @@
+.container{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+}
+
+#error_p{
+	font-size: 25px;
+}
+
+#loginDiv{
+	border: 1px solid black;
+	transition-property: all;
+	transition-duration: 0.5s;
+}
+
+#loginDiv:hover{
+	box-shadow: 0px 0px 5px black;
+}
+
+#loginDiv h3{
+	text-align: center;
+}
+
+.form-group:last-child{
+	display: flex;
+	justify-content: space-between;
+}
+
+#adminInfo{
+	display: flex;
+}
+
+#logo{
+	flex-basis: 15%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#info{
+	display: flex;
+	flex-direction: column;
+	flex-basis: 20%;
+	padding: 10px;
+	border: 1px solid black;
+	align-items: center;
+}
+
+.info_table tr:first-child{
+	text-align: center;
+	font-weight: bold;
+	font-variant: capitalize;
+}
