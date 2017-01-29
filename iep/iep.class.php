@@ -21,7 +21,6 @@
 			return $this->DBC;
 		}
 		
-		
 		public function get(string $what, array $params = array())
 		{
 			if(!empty($params))

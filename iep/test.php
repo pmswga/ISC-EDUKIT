@@ -1,8 +1,9 @@
 <?php
     
-    require_once __DIR__.DIRECTORY_SEPARATOR."onenews.class.php";
+    require_once __DIR__.DIRECTORY_SEPARATOR."newsmanager.class.php";
     
     use IEP\Managers\NewsManager;
+    use IEP\Structures\OneNews;
     
     $opt = array(
 		"PDO::ATTR_ERRMODE" => PDO::ERRMODE_EXCEPTION,
@@ -14,6 +15,6 @@
     
     $NM = new NewsManager($DB);
     
-    $NM->add(new OneNews("First", "Content", "Жуков", "09091009"));
+    $NM->change(new OneNews("First", "Content", "jackxp@gmail.com", "09.09.1998"), new OneNews("Second", "Contesnt", "jackxp@gmail.com", "09.09.1998"));
     
 ?>

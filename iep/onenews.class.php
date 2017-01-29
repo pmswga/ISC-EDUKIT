@@ -9,7 +9,7 @@
 		private $author;
 		private $date_publication;
 		
-		function OneNews($caption, $content, $author, $date_publication)
+		function __construct(string $caption, string $content, string $author, string $date_publication)
 		{
 			$this->caption = $caption;
 			$this->content = $content;
@@ -17,22 +17,22 @@
 			$this->date_publication = $date_publication;
 		}
 		
-		public function getCaption()
+		public function getCaption() : string
 		{
 			return $this->caption;
 		}
 		
-		public function getContent()
+		public function getContent() : string
 		{
 			return $this->content;
 		}
 		
-		public function getAuthor()
+		public function getAuthor() : string
 		{
 			return $this->author;
 		}
 		
-		public function getDatePublication()
+		public function getDatePublication() : string
 		{
 			return $this->date_publication;
 		}
