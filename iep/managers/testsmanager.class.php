@@ -3,70 +3,51 @@
 	namespace IEP\Managers;
 	
 	require_once "iep.class.php";
-	require_once "../structures/test.class.php";
-	require_once "../structures/onequestion.class.php";
+	require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/test.class.php";
+	require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/onequestion.class.php";
 	
 	class TestsManager extends IEP
 	{
 		
-		public function add($test)
+		public function add($test) : bool
 		{
-			$add_test_query = $this->dbc()->prepare("INSERT INTO `tests`
-				(`id_subject`, `id_teacher`, `caption`)
-				VALUES
-				(:id_subject, :id_teacher, :caption)
-			");
-			$add_test_query->bindValue(":id_subject", $test->getSubject());
-			$add_test_query->bindValue(":id_teacher",$test->getAuthor());
-			$add_test_query->bindValue(":caption",$test->getCaption());
-			
-			if($add_test_query->execute())
-			{
-				$id_test = $this->get("SELECT `id_test` FROM `tests` WHERE `caption`=:caption", [":caption" => $test->getCaption()])[0]['id_test'];
-				foreach($test->getQuestions() as $question)
-				{
-					$add_question_query = $this->dbc()->prepare("INSERT INTO `questions`
-						(`id_test`, `question`, `r_answer`)
-						VALUES
-						(:id_test, :question, :r_answer)
-					");
-					$add_question_query->bindValue(":id_test", $id_test);
-					$add_question_query->bindValue(":question", $question->getQuestion());
-					$add_question_query->bindValue(":r_answer", $question->getRAnswer());
-					
-					if($add_question_query->execute())
-					{
-						$status = true;
-						$id_question = $this->get("SELECT `id_question` FROM `questions` WHERE `question`=:question", ["question" => $question->getQuestion()])[0]['id_question'];
-						foreach($question->getAnswers() as $answer)
-						{
-							$add_answer_query = $this->dbc()->prepare("INSERT INTO `answers`
-								(`id_question`, `answer`)
-								VALUES
-								(:id_question, :answer)
-							");
-							$add_answer_query->bindValue(":id_question", $id_question);
-							$add_answer_query->bindValue(":answer", $answer);
-							
-							$status *= $add_answer_query->execute();
-						}
-						return $status;
-					}
-					return false;
-				}
-			}
-			else return false;
+			try
+            {
+                $this->dbc()->beginTransaction();
+                
+                $test_add_query = $this->dbc()->prepare("INSERT INTO `tests`
+                    (`id_subject`, `id_teacher`, `caption`)
+                    VALUES
+                    ((SELECT `id_subject` FROM `subjects` WHERE `description`=:subject), (SELECT `id_user` FROM `users` WHERE `email`=:teacher_email), :caption)
+                ");
+                
+                $test_add_query->bindValue(":subject", $test->getSubject());
+                $test_add_query->bindValue(":teacher_email", $test->getAuthor());
+                $test_add_query->bindValue(":caption", $test->getCaption());
+                
+                if($test_add_query->execute())
+                {
+                    echo "to be continue...";
+                }
+                
+                return $this->dbc()->commit();
+            }
+            catch(PDOException $e)
+            {
+                $db->rollBack();
+                return false;
+            }
 		}
 		
-		public function remove($caption)
+		public function remove($caption) : bool
 		{
 			return $this->get("DELETE FROM `tests` WHERE `caption`=:caption", [":caption" => $caption]);
 		}
-		
-		public function getTestsByTeacherId($id)
-		{
-			return $this->get("SELECT `caption`, `description` FROM `tests` t INNER JOIN `subjects` s ON t.id_subject=s.id_subject WHERE t.id_teacher=:id_teacher", [":id_teacher" => $id]);
-		}
+        
+        public function getTests() : array
+        {
+            
+        }
 		
 		public function change($oldTest, $newTest)
 		{

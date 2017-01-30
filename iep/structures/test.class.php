@@ -8,35 +8,42 @@
 		private $subject;
 		private $questions;
 		private $author;
+        private $for_groups;
 		
-		function Test($caption, $subject, $author, $questions)
+		function __construct(string $caption, string $subject, string $author, string $for_groups, array $questions)
 		{
 			$this->caption = $caption;
 			$this->subject = $subject;
 			$this->author = $author;
+            $this->for_groups = $for_groups;
 			$this->questions = $questions;
 		}
 		
-		public function getCaption()
+		public function getCaption() : string
 		{
 			return $this->caption;
 		}
 		
-		public function getSubject()
+		public function getSubject() : string
 		{
 			return $this->subject;
 		}
 		
-		public function getQuestions()
+		public function getQuestions() : array
 		{
 			return $this->questions;
 		}
 		
-		public function getAuthor()
+		public function getAuthor() : string
 		{
 			return $this->author;
 		}
 		
+        public function getGroups() : array
+        {
+            return explode(";", $this->for_groups);
+        }
+        
 	}
 	
 ?>

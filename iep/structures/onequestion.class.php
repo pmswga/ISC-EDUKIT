@@ -8,24 +8,24 @@
 		private $answers;
 		private $r_answer;
 		
-		function OneQuestion($question, $answers, $r_answer)
+		function __construct(string $question, array $answers, string $r_answer)
 		{
 			$this->question = $question;
 			$this->answers = $answers;
 			$this->r_answer = $r_answer;
 		}
 		
-		public function getQuestion()
+		public function getQuestion() : string
 		{
 			return $this->question;
 		}
 		
-		public function getAnswers()
+		public function getAnswers() : string
 		{
 			return $this->answers;
 		}
 		
-		public function getRAnswer()
+		public function getRAnswer() : string
 		{
 			return $this->r_answer;
 		}
