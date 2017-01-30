@@ -1,4 +1,7 @@
 <?php
+    declare(strict_types = 1);
+	namespace IEP\Structures;
+    
 	require_once "user.class.php";
 	
 	class Parent_ extends User

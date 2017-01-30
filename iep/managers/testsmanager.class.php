@@ -1,4 +1,6 @@
 <?php
+    declare(strict_types = 1);
+	namespace IEP\Managers;
 	
 	require_once "../start.php";
 	require_once "iep.class.php";

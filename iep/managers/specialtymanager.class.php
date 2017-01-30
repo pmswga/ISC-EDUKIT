@@ -1,7 +1,9 @@
 <?php
+    declare(strict_types = 1);
+	namespace IEP\Managers;
 	
-	require_once "specialty.class.php";
 	require_once "iep.class.php";
+	require_once "../structures/specialty.class.php";
 	
 	class SpecialtyManager extends IEP
 	{

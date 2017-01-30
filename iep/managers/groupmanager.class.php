@@ -3,7 +3,7 @@
     namespace IEP\Managers;
     
 	require_once "iep.class.php";
-	require_once "group.class.php";
+	require_once "../structures/group.class.php";
     
 	class GroupManager extends IEP
 	{
