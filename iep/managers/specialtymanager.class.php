@@ -3,8 +3,10 @@
 	namespace IEP\Managers;
 	
 	require_once "iep.class.php";
-	require_once "../structures/specialty.class.php";
+	require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/specialty.class.php";
 	
+    use IEP\Structures\Specialty;
+    
 	class SpecialtyManager extends IEP
 	{
 		
@@ -23,22 +25,30 @@
 			return $add_spec_query->execute();
 		}
 		
-		public function getSpecs()
+		public function getSpecialty() : array
 		{
-			return $this->get("SELECT * FROM `specialty`");
+			$db_specs = $this->get("SELECT * FROM `specialty`");
+            
+            $specialtys = array();
+            foreach($db_specs as $spec)
+            {
+                $new_spec = new Specialty($spec['code_spec'], $spec['description'], $spec['current_file']);
+                $specialtys[] = $new_spec;
+            }
+            
+            return $specialtys;
 		}
 		
-		public function remove($what)
+		public function remove($code) : bool
 		{
 			$remove_query = $this->dbc()->prepare("DELETE FROM `specialty` WHERE `code_spec`=:code_spec");
-			$remove_query->bindValue(":code_spec", $what);
+			$remove_query->bindValue(":code_spec", $code);
 			
 			return $remove_query->execute();
 		}
 		
-		public function change($old, $new)
+		public function change($old, $new) : bool
 		{
-			
 			$update_query = $this->dbc()->prepare("UPDATE `specialty` SET 
 				`code_spec`=:n_csp, `description`=:n_d, `current_file`=:n_cf
 				WHERE `code_spec`=:o_csp OR `description`=:o_d OR `current_file`=:o_f

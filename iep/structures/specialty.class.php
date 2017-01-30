@@ -8,7 +8,7 @@
 		private $description;
 		private $file;
 		
-		function Specialty(string $code, string $description, string $file = "")
+		function __construct(string $code, string $description, string $file = "")
 		{
 			$this->code = $code;
 			$this->description = $description;

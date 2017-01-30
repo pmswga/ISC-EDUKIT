@@ -2,11 +2,11 @@
     declare(strict_types = 1);
 	namespace IEP\Managers;
 	
-	require_once "user.class.php";
-	require_once "student.class.php";
-	require_once "teacher.class.php";
-	require_once "parent.class.php";
 	require_once "iep.class.php";
+	require_once "../structures/user.class.php";
+	require_once "../structures/student.class.php";
+	require_once "../structures/teacher.class.php";
+	require_once "../structures/parent.class.php";
 	
 	class UserManager extends IEP
 	{
@@ -241,27 +241,17 @@
 			}
 		}
 		
-		public function get($what, $params = array())
-		{
-			if(!empty($params))
-			{
-				$get_query = $this->dbc()->prepare($what);
-				$get_query->execute($params);
-				return $get_query->fetchAll();
-			}
-			else return $this->dbc()->query($what)->fetchAll();
-		}
-		
 		public function getUserByID($id)
 		{
 			$user_data = $this->get("SELECT * FROM `users` u INNER JOIN `students` s ON s.id_student=u.id_user WHERE `id_user`=:id", [":id" => $id])[0];
 			
-			return new Student( new User($user_data["second_name"], 
-							$user_data["first_name"], 
-							$user_data["patronymic"],
-							$user_data["email"],
-							$user_data["password"],
-							$user_data["id_type_user"]
+			return new Student( new User(
+                $user_data["second_name"], 
+                $user_data["first_name"], 
+                $user_data["patronymic"],
+                $user_data["email"],
+                $user_data["password"],
+                $user_data["id_type_user"]
 			), $user_data['grp'], $user_data["date_birthday"], $user_data['home_address'], $user_data["cell_phone"]);
 		}
 		

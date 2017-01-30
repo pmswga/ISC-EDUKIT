@@ -2,8 +2,8 @@
     declare(strict_types = 1);
 	namespace IEP\Managers;
 	
-	require_once "subject.class.php";
 	require_once "iep.class.php";
+	require_once "../structures/subject.class.php";
 	
 	class SubjectsManager extends IEP
 	{

@@ -2,10 +2,9 @@
     declare(strict_types = 1);
 	namespace IEP\Managers;
 	
-	require_once "../start.php";
 	require_once "iep.class.php";
-	require_once "test.class.php";
-	require_once "onequestion.class.php";
+	require_once "../structures/test.class.php";
+	require_once "../structures/onequestion.class.php";
 	
 	class TestsManager extends IEP
 	{
@@ -75,13 +74,5 @@
 		}
 		
 	}
-	
-	$TM = new TestsManager();
-	$TM->setDBC($DB);
-	
-	$Test = new Test("Test", 1, 1, [new OneQuestion("Question 1", ["first", "second", "third"], "second")]);
-	
-	$TM->add($Test);
-	$TM->remove("Test");
 	
 ?>
