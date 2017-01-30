@@ -5,8 +5,6 @@
 	require_once "iep.class.php";
 	require_once "group.class.php";
     
-    use IEP\Structures\Group;
-    
 	class GroupManager extends IEP
 	{
         
@@ -64,7 +62,7 @@
 			
 			return $update_query->execute();
 		}
-		
+		/*
 		public function upCourse()
 		{
 			$course = $this->dbc()->query("SELECT left(`grp`, 1) FROM `groups`")->fetchAll()[0][0];
@@ -80,7 +78,7 @@
 			if($course > 1) return $this->dbc()->query("UPDATE `groups` SET `grp`=`grp`-100");
 			else return false;
 		}
-		
+		*/
 	}
     
 ?>

@@ -5,6 +5,8 @@
 	require_once "iep.class.php";
 	require_once "onenews.class.php";
 	
+    use IEP\Structures\OneNews;
+    
 	class NewsManager extends IEP
 	{
 		
@@ -24,20 +26,34 @@
             return $add_news_query->execute();
 		}
 		
-		public function getNews()
+		public function getNews() : array
 		{
-			return $this->get("SELECT * FROM `news`");
+            $db_news = $this->get("SELECT `caption`, `content`, CONCAT(`second_name`, ' ', LEFT(`first_name`, 1), '.', LEFT(`patronymic`, 1), '.') as author, `date_publication` FROM `news` n INNER JOIN `users` u ON n.id_author = u.id_user");
+            
+            $news = array();
+            foreach($db_news as $db_one_news)
+            {
+                $one_news = new OneNews($db_one_news['caption'], $db_one_news['content'], $db_one_news['author'], $db_one_news['date_publication']);
+                $news[] = $one_news;
+            }
+            
+            return $news;
 		}
 		
-		public function remove($news_caption)
+		public function remove($news_caption) : bool
 		{
 			$remove_news_query = $this->dbc()->prepare("DELETE FROM `news` WHERE `caption`=:caption");
             $remove_news_query->bindValue(":caption", $news_caption);
             
             return $remove_news_query->execute();
 		}
+        
+        public function clear() : bool
+        {
+            return $this->dbc()->prepare("DELETE FROM `news`")->execute();
+        }
 		
-		public function change($old, $new)
+		public function change($old, $new) : bool
 		{
 			$update_news_query = $this->dbc()->prepare("UPDATE `news` SET
                 `caption`=:n_caption, `content`=:n_content
