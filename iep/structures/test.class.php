@@ -10,7 +10,7 @@
 		private $author;
         private $for_groups;
 		
-		function __construct(string $caption, string $subject, string $author, string $for_groups, array $questions)
+		function __construct(string $caption, string $subject, string $author, string $for_groups, array $questions = array())
 		{
 			$this->caption = $caption;
 			$this->subject = $subject;
@@ -39,9 +39,9 @@
 			return $this->author;
 		}
 		
-        public function getGroups() : array
+        public function getGroups() : string
         {
-            return explode(";", $this->for_groups);
+            return $this->for_groups;
         }
         
 	}

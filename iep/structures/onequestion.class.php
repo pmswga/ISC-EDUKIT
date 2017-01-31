@@ -20,7 +20,7 @@
 			return $this->question;
 		}
 		
-		public function getAnswers() : string
+		public function getAnswers() : array
 		{
 			return $this->answers;
 		}

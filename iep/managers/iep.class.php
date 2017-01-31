@@ -29,7 +29,7 @@
 				$get_query->execute($params);
 				return $get_query->fetchAll(\PDO::FETCH_ASSOC);
 			}
-			else return $this->dbc()->query($what)->fetchAll();
+			else return $this->dbc()->query($what)->fetchAll(\PDO::FETCH_ASSOC);
 		}
         
 		abstract public function add($data);
