@@ -44,6 +44,13 @@
             return $this->for_groups;
         }
         
+        public function addQuestion(array $questions)
+        {
+            foreach ($questions as $q) {
+                $this->questions[] = $q;
+            }
+        }
+        
 	}
 	
 ?>

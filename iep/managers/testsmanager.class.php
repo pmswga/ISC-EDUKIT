@@ -112,22 +112,17 @@
                     
                     $id_question = $this->get("SELECT `id_question` FROM `questions` WHERE `question`=:question", [":question" => $question->getQuestion()])[0]['id_question'];
                     
-                    echo $id_question."<br>";
-                    
-                    foreach ($question->getAnswers() as $answer) {
+                    foreach ($question->getAnswers() as $ans) {
                         
-                        $add_answer_query = $this->dbc()->prepare("INSERT INTO `answers`
-                            (`id_question`, `answer`)
-                            VALUES
-                            (:id_question, :answer)
-                        ");
+                        $add_answ_query = $this->dbc()->prepare("INSERT INTO `answers` (`id_question`, `answer`) VALUES (:id_q, :ans)");
                         
-                        $add_answer_query->bindValue(":id_question", $id_question);
-                        $add_answer_query->bindValue(":answer", $answer);
+                        $add_answ_query->bindValue(":id_q", $id_question);
+                        $add_answ_query->bindValue(":ans", $ans);
                         
-                        var_dump($add_question_query->execute())."<br>";
-                        
-                        //$this->dbc()->exec("INSERT INTO `answers` (`id_question`, `answer`) VALUES ('$id_question', '$answer')");
+                        if (!$add_answ_query->execute()) {
+                            $this->dbc()->rollBack();
+                            return false;
+                        }
                         
                     }
                     
@@ -135,7 +130,6 @@
                 }
                 else {
                     $this->dbc()->rollBack();
-                    echo __LINE__."<br>";
                     return false;
                 }
             }
@@ -153,6 +147,14 @@
             
             return $remove_test_query->execute();
 		}
+        
+        public function removeQuestion(string $question)
+        {
+            $remove_question_query = $this->dbc()->prepare("DELETE FROM `questions` WHERE `question`=:question");
+            $remove_question_query->bindValue(":question", $question);
+            
+            return $remove_question_query->execute();
+        }
         
         public function getTests() : array
         {
