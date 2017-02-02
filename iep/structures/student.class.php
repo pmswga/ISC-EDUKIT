@@ -11,7 +11,7 @@
 		private $cell_phone;
 		private $group;
 		
-		function __construct($user, $group, $home_address, $cell_phone)
+		function __construct(User $user, int $group, string $home_address, string $cell_phone)
 		{
 			parent::__construct($user->sn, $user->fn, $user->pt, $user->email, $user->password, $user->typeUser);
 			$this->group = $group;
@@ -19,17 +19,17 @@
 			$this->cell_phone = $cell_phone;
 		}
 		
-		public function getHomeAddress()
+		public function getHomeAddress() : string
 		{
 			return $this->home_address;
 		}
 		
-		public function getCellPhone()
+		public function getCellPhone() : string
 		{
 			return $this->cell_phone;
 		}
 		
-		public function getGroup()
+		public function getGroup() : int
 		{
 			return $this->group;
 		}

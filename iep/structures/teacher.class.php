@@ -10,7 +10,7 @@
 		private $subjects;
 		private $tests;
 		
-		function __construct($user, $info)
+		function __construct(User $user, string $info)
 		{
 			parent::__construct($user->sn, $user->fn, $user->pt, $user->email, $user->password, $user->typeUser);
 			$this->info = $info;

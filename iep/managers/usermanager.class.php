@@ -175,7 +175,6 @@
                                 ((SELECT `id_user` FROM `users` WHERE `email`=:email), :info)
                             ");
                             
-                            
                             $add_teacher_query->bindValue(":email", $user->getEmail());
                             $add_teacher_query->bindValue(":info", $user->getInfo());
                             
@@ -199,7 +198,6 @@
                                     
                                     if (!$status) {                                    
                                         $this->dbc()->rollBack();
-                                        echo __LINE__."<br>";
                                         return false;
                                     }
                                     else return $this->dbc()->commit();
@@ -223,64 +221,86 @@
                         $this->dbc()->rollBack();
                         return false;
                     }
-                    					
 				} break;
 				case USER_TYPE_PARENT:
 				{
-					
-					$add_user_query = $this->dbc()->prepare("INSERT INTO `users`
-						(`second_name`, `first_name`, `patronymic`, `email`, `password`, `id_type_user`)
-						VALUES
-						(:second_name, :first_name, :patronymic, :email, :password, :id_type_user);
-					");
-					
-					$add_user_query->bindValue(":second_name", $user['second_name']);
-					$add_user_query->bindValue(":first_name", $user['first_name']);
-					$add_user_query->bindValue(":patronymic", $user['patronymic']);
-					$add_user_query->bindValue(":email", $user['email']);
-					$add_user_query->bindValue(":password", $user['password']);
-					$add_user_query->bindValue(":id_type_user", $user['id_type_user']);
-					
-					if($add_user_query->execute())
-					{
-						$add_parent_query = $this->dbc()->prepare("INSERT INTO `parents`
-							(`id_parent`, `age`, `education`, `work_place`, `post`, `home_phone`, `cell_phone`)
-							VALUES
-							((SELECT `id_user` FROM `users` WHERE `email`=:email), :age, :education, :work_place, :post, :home_phone, :cell_phone)
-						");
-						
-						$add_parent_query->bindValue(":email", $user['email']);
-						$add_parent_query->bindValue(":age", $user['age']);
-						$add_parent_query->bindValue(":education", $user['education']);
-						$add_parent_query->bindValue(":work_place", $user['work_place']);
-						$add_parent_query->bindValue(":post", $user['post']);
-						$add_parent_query->bindValue(":home_phone", $user['home_phone']);
-						$add_parent_query->bindValue(":cell_phone", $user['cell_phone']);
-						
-						if($add_parent_query->execute())
-						{
-							$success = true;
-							for($i = 0; $i < count($user['childs']); $i++)
-							{
-								$set_parent_child_query = $this->dbc()->prepare("INSERT INTO `parent_child`
-									(`id_parent`, `id_children`, `id_type_releation`)
-									VALUES
-									((SELECT `id_user` FROM `users` WHERE `email`=:email), :id_children, :id_releation)
-								");
-								
-								
-								$set_parent_child_query->bindValue(":email", $user['email']);
-								$set_parent_child_query->bindValue(":id_children", $user['childs'][$i]);
-								$set_parent_child_query->bindValue(":id_releation", 6);
-								
-								$success *= $set_parent_child_query->execute();
-							}
-							return $success;
-						}
-						else return false;
-					}
-					else return false;
-					
+                    try
+                    {
+                        $this->dbc()->beginTransaction();
+                        
+                        $add_user_query = $this->dbc()->prepare("INSERT INTO `users`
+                            (`second_name`, `first_name`, `patronymic`, `email`, `password`, `id_type_user`)
+                            VALUES
+                            (:second_name, :first_name, :patronymic, :email, :password, :id_type_user);
+                        ");
+                        
+                        $add_user_query->bindValue(":second_name", $user->getSn());
+                        $add_user_query->bindValue(":first_name", $user->getFn());
+                        $add_user_query->bindValue(":patronymic", $user->getPt());
+                        $add_user_query->bindValue(":email", $user->getEmail());
+                        $add_user_query->bindValue(":password", $user->getPassword());
+                        $add_user_query->bindValue(":id_type_user", $user->getTypeUser());
+                        
+                        if($add_user_query->execute())
+                        {
+                            $add_parent_query = $this->dbc()->prepare("INSERT INTO `parents`
+                                (`id_parent`, `age`, `education`, `work_place`, `post`, `home_phone`, `cell_phone`)
+                                VALUES
+                                ((SELECT `id_user` FROM `users` WHERE `email`=:email), :age, :education, :work_place, :post, :home_phone, :cell_phone)
+                            ");
+                            
+                            $add_parent_query->bindValue(":email", $user->getEmail());
+                            $add_parent_query->bindValue(":age", $user->getAge());
+                            $add_parent_query->bindValue(":education", $user->getEducation());
+                            $add_parent_query->bindValue(":work_place", $user->getWorkPlace());
+                            $add_parent_query->bindValue(":post", $user->getPost());
+                            $add_parent_query->bindValue(":home_phone", $user->getHomePhone());
+                            $add_parent_query->bindValue(":cell_phone", $user->getCellPhone());
+                            
+                            if($add_parent_query->execute())
+                            {
+                                $childs = $user->getChilds();
+                                $success = true;
+                                for($i = 0; $i < count($childs); $i++)
+                                {
+                                    $set_parent_child_query = $this->dbc()->prepare("INSERT INTO `parent_child`
+                                        (`id_parent`, `id_children`, `id_type_releation`)
+                                        VALUES
+                                        ((SELECT `id_user` FROM `users` WHERE `email`=:email), (SELECT `id_user` FROM `users` WHERE `email`=:child_email), :id_releation)
+                                    ");
+                                    
+                                    $set_parent_child_query->bindValue(":email", $user->getEmail());
+                                    $set_parent_child_query->bindValue(":child_email", $childs[$i]['child']->getEmail());
+                                    $set_parent_child_query->bindValue(":id_releation", $childs[$i]['type_relation']);
+                                    
+                                    $success *= $set_parent_child_query->execute();
+                                }
+                                
+                                if (!$success) {
+                                    $this->dbc()->rollBack();
+                                        echo __LINE__."<br>";
+                                    return false;
+                                }
+                                else return $this->dbc()->commit();
+                            }
+                            else   
+                            {
+                                $this->dbc()->rollBack();
+                                        echo __LINE__."<br>";
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            $this->dbc()->rollBack();
+                            return false;
+                        }
+                    }
+                    catch(PDOException $e)
+                    {
+                        $this->dbc()->rollBack();
+                        return false;
+                    }				
 				} break;
 				case USER_TYPE_ADMIN:
 				{
