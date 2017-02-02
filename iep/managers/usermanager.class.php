@@ -300,11 +300,38 @@
                     {
                         $this->dbc()->rollBack();
                         return false;
-                    }				
+                    }
 				} break;
 				case USER_TYPE_ADMIN:
 				{
-					echo "Add USER_TYPE_ADMIN";
+                    try
+                    {
+                        $this->dbc()->beginTransaction();
+                        
+                        $add_user_query = $this->dbc()->prepare("INSERT INTO `users`
+                            (`second_name`, `first_name`, `patronymic`, `email`, `password`, `id_type_user`)
+                            VALUES
+                            (:second_name, :first_name, :patronymic, :email, :password, :id_type_user);
+                        ");
+                        
+                        $add_user_query->bindValue(":second_name", $user->getSn());
+                        $add_user_query->bindValue(":first_name", $user->getFn());
+                        $add_user_query->bindValue(":patronymic", $user->getPt());
+                        $add_user_query->bindValue(":email", $user->getEmail());
+                        $add_user_query->bindValue(":password", $user->getPassword());
+                        $add_user_query->bindValue(":id_type_user", $user->getTypeUser());
+                        
+                        if (!$add_user_query->execute()) {
+                            $this->dbc()->rollBack();
+                            return false;
+                        }
+                        else return $this->dbc()->commit();
+                    }
+                    catch(PDOException $e)
+                    {
+                        $this->dbc()->rollBack();
+                        return false;
+                    }
 				} break;
 				default: return false; break;
 			}
@@ -324,14 +351,47 @@
 			), $user_data['grp'], $user_data["date_birthday"], $user_data['home_address'], $user_data["cell_phone"]);
 		}
 		
-		public function getUsers()
+		public function getUsers() : array
 		{
-			return $this->get("SELECT * FROM `users`");
+			$db_users =  $this->get("SELECT * FROM `users`");
+            
+            $users = array();
+            foreach ($db_users as $db_user) {
+                $users[] = new User(
+                    $db_user['second_name'], 
+                    $db_user['first_name'], 
+                    $db_user['patronymic'], 
+                    $db_user['email'], 
+                    $db_user['password'], 
+                    (int)$db_user['id_type_user']
+                );
+            }
+            
+            return $users;
 		}
 		
-		public function getStudents()
+		public function getStudents() : array
 		{
-			return $this->get("SELECT * FROM `students` s INNER JOIN `users` u ON s.id_student=u.id_user");
+			$db_students = $this->get("SELECT * FROM `students` s INNER JOIN `users` u ON s.id_student=u.id_user");
+            
+            $studnets = array();
+            foreach ($db_students as $db_student) {
+                $students[] = new Student(
+                    new User(
+                        $db_student['second_name'],
+                        $db_student['first_name'],
+                        $db_student['patronymic'],
+                        $db_student['email'],
+                        $db_student['password'],
+                        (int)$db_student['id_type_user']
+                    ),
+                    (int)$db_student['grp'],
+                    $db_student['home_address'],
+                    $db_student['cell_phone']
+                );
+            }
+            
+            return $students;
 		}			
 		
 		public function getTeachers()
@@ -341,7 +401,14 @@
 		
 		public function getParents()
 		{
-			return $this->get("SELECT * FROM `parents` p INNER JOIN `users` u ON p.id_parent=u.id_user");
+			$db_parents = $this->get("SELECT * FROM `parents` p INNER JOIN `users` u ON p.id_parent=u.id_user");
+            
+            $parents = array();
+            foreach ($db_parents as $db_parent) {
+                
+            }
+            
+            return $parents;
 		}
 		
 		public function getChilds($parent)
