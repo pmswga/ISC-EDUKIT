@@ -11,7 +11,7 @@
 		protected $password;
 		protected $typeUser;
 		
-		function __construct($sn, $fn, $pt, $email, $password, $typeUser)
+		function __construct(string $sn, string $fn, string $pt, string $email, string $password, int $typeUser)
 		{
 			$this->sn = $sn;
 			$this->fn = $fn;
@@ -21,32 +21,32 @@
 			$this->typeUser = $typeUser;
 		}
 		
-		public function getSn()
+		public function getSn() : string
 		{
 			return $this->sn;
 		}
 		
-		public function getFn()
+		public function getFn() : string
 		{
 			return $this->fn;
 		}
 		
-		public function getPt()
+		public function getPt() : string
 		{
 			return $this->pt;
 		}
 		
-		public function getEmail()
+		public function getEmail() : string
 		{
 			return $this->email;
 		}
 		
-		public function getPassword()
+		public function getPassword() : string
 		{
 			return $this->password;
 		}
 		
-		public function getTypeUser()
+		public function getTypeUser() : int
 		{
 			return $this->typeUser;
 		}
