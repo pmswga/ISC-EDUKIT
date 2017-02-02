@@ -8,7 +8,7 @@
 		private $answers;
 		private $r_answer;
 		
-		function __construct(string $question, array $answers, string $r_answer)
+		function __construct(string $question, string $r_answer, array $answers = array())
 		{
 			$this->question = $question;
 			$this->answers = $answers;
@@ -30,6 +30,13 @@
 			return $this->r_answer;
 		}
 		
+        public function addAnswer(array $answers)
+        {
+            foreach ($answers as $a) {
+                $this->answers[] = $a;
+            }
+        }
+        
 	}
 	
 ?>

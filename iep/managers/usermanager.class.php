@@ -8,12 +8,16 @@
 	require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/teacher.class.php";
 	require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/parent.class.php";
 	require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/subject.class.php";
+	require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/test.class.php";
+	require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/onequestion.class.php";
     
     use IEP\Structures\User;
     use IEP\Structures\Student;
     use IEP\Structures\Teacher;
     use IEP\Structures\Parent_;
     use IEP\Structures\Subject;
+    use IEP\Structures\Test;
+    use IEP\Structures\OneQuestion;
 	
 	class UserManager extends IEP
 	{
@@ -394,7 +398,63 @@
 		
 		public function getTeachers()
 		{
-			return $this->get("SELECT * FROM `teachers` t INNER JOIN `users` u ON t.id_teacher=u.id_user");
+			$db_teachers = $this->get("SELECT * FROM `teachers` t INNER JOIN `users` u ON t.id_teacher=u.id_user");
+            
+            $teachers = array();
+            foreach ($db_teachers as $db_teacher) {
+                $id_subjects = $this->get("SELECT `id_subject` FROM `teacher_subjects` WHERE `id_teacher`=:id_teacher", [":id_teacher" => $db_teacher['id_teacher']]);
+                
+                $teacher = new Teacher(
+                    new User(
+                        $db_teacher['second_name'],
+                        $db_teacher['first_name'],
+                        $db_teacher['patronymic'],
+                        $db_teacher['email'],
+                        $db_teacher['password'],
+                        (int)$db_teacher['id_type_user']
+                    ),
+                    $db_teacher['info']
+                );
+                
+                $subjects = array();
+                for ($i = 0; $i < count($id_subjects); $i++) {
+                    $subject = $this->get("SELECT `description` FROM `subjects` WHERE `id_subject`=:id_subject", [":id_subject" => $id_subjects[$i]['id_subject']])[0]['description'];
+                    $subjects[] = new Subject($subject);
+                }
+                
+                $db_tests = $this->get("SELECT * FROM `tests` WHERE `id_teacher`=:id_teacher", [":id_teacher" => $db_teacher['id_teacher']]);
+                
+                $tests = array();
+                for ($i = 0; $i < count($db_tests); $i++) {
+                    $subject = $this->get("SELECT `description` FROM `subjects` WHERE `id_subject`=:id_subject", [":id_subject" => $db_tests[$i]['id_subject']])[0]['description'];
+                    
+                    $author = $this->get("SELECT `email` FROM `users` WHERE `id_user`=:id_user", [":id_user" => $db_tests[$i]['id_teacher']])[0]['email'];
+                    
+                    $questions = $this->get("SELECT * FROM `questions` WHERE `id_test`=:id_test", [":id_test" => $db_tests[$i]['id_test']]);
+                    
+                    $new_test = new Test($db_tests[$i]['caption'], $subject, $author, $db_tests[$i]['for_group']);
+                    
+                    for ($j = 0; $j < count($questions); $j++) {
+                        $answers = $this->get("SELECT `answer` FROM `answers` WHERE `id_question`=:id_question", [":id_question" => $questions[$j]['id_question']]);
+                        
+                        $new_question = new OneQuestion($questions[$j]['question'], $questions[$j]['r_answer']);
+                        
+                        for ($k = 0; $k < count($answers); $k++) $new_question->addAnswer([$answers[$k]['answer']]);
+                                                
+                        $new_test->addQuestion([$new_question]);
+                    }
+                    
+                    $tests[] = $new_test;
+                }
+                
+                echo "<hr>";
+                
+                $teacher->setSubjects($subjects);
+                $teacher->setTests($tests);
+                $teachers[] = $teacher;
+            }
+            
+            return $teachers;
 		}
 		
 		public function getParents()
@@ -450,21 +510,12 @@
             return $parents;
 		}
 		
-		public function getChilds($parent)
+		public function remove($email) : bool
 		{
-			$id_childrens = $this->get("SELECT DISTINCT `id_children` FROM `parents` p INNER JOIN `parent_child` pc ON pc.id_parent=(SELECT `id_user` FROM `users` WHERE `email`='".$parent->getEmail()."')");
-			
-			for($i = 0; $i < count($id_childrens); $i++)
-			{
-				$childs[] = $this->get("SELECT DISTINCT * FROM `students` s INNER JOIN `users` u ON s.id_student=u.id_user WHERE s.id_student=:id_children", [":id_children" => $id_childrens[$i]['id_children']])[0];
-			}
-			
-			return $childs;
-		}
-		
-		public function remove($what)
-		{
-			
+            $remove_user_query = $this->dbc()->prepare("DELETE FROM `users` WHERE `email`=:email");
+            $remove_user_query->bindValue(":email", $email);
+            
+            return $remove_user_query->execute();
 		}
 		
 		public function change($old, $new)

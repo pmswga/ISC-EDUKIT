@@ -22,7 +22,7 @@
 			$this->subjects = $subjects;
 		}
 		
-		public function setTests($tests)
+		public function setTests(array $tests)
 		{
 			$this->tests = $tests;
 		}
