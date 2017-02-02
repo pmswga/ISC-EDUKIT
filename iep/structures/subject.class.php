@@ -6,12 +6,12 @@
 	{
 		private $description;
 		
-		function Subject($description)
+		function __construct(string $description)
 		{
 			$this->description = $description;
 		}
 		
-		public function getSubject()
+		public function getDescription() : string
 		{
 			return $this->description;
 		}

@@ -7,11 +7,13 @@
 	require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/student.class.php";
 	require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/teacher.class.php";
 	require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/parent.class.php";
+	require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/subject.class.php";
     
     use IEP\Structures\User;
     use IEP\Structures\Student;
     use IEP\Structures\Teacher;
     use IEP\Structures\Parent_;
+    use IEP\Structures\Subject;
 	
 	class UserManager extends IEP
 	{
@@ -186,11 +188,11 @@
                                         $add_subject_query = $this->dbc()->prepare("INSERT INTO `teacher_subjects`
                                             (`id_teacher`, `id_subject`)
                                             VALUES
-                                            ((SELECT `id_user` FROM `users` WHERE `email`=:email), :id_subject)
+                                            ((SELECT `id_user` FROM `users` WHERE `email`=:email), (SELECT `id_subject` FROM `subjects` WHERE `description`=:subject))
                                         ");
                                         
                                         $add_subject_query->bindValue(":email", $user->getEmail());
-                                        $add_subject_query->bindValue(":id_subject", $subject);
+                                        $add_subject_query->bindValue(":subject", $subject->getDescription());
                                         
                                         $status *= $add_subject_query->execute();
                                     }
@@ -207,14 +209,12 @@
                             else
                             {                                    
                                 $this->dbc()->rollBack();
-                                echo __LINE__."<br>";
                                 return false;
                             }
                         }
                         else
                         {
                             $this->dbc()->rollBack();
-                            echo __LINE__."<br>";
                             return false;
                         }
                     }
