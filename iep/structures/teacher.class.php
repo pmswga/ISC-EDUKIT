@@ -10,14 +10,14 @@
 		private $subjects;
 		private $tests;
 		
-		function Teacher($user, $info)
+		function __construct($user, $info)
 		{
 			parent::__construct($user->sn, $user->fn, $user->pt, $user->email, $user->password, $user->typeUser);
 			$this->info = $info;
-			$this->subjects = $subjects;
+			$this->subjects = array();
 		}
 	
-		public function setSubjects($subjects)
+		public function setSubjects(array $subjects)
 		{
 			$this->subjects = $subjects;
 		}
@@ -27,17 +27,17 @@
 			$this->tests = $tests;
 		}
 	
-		public function getInfo()
+		public function getInfo() : string
 		{
 			return $this->info;
 		}
 		
-		public function getSubjects()
+		public function getSubjects() : array
 		{
 			return $this->subjects;
 		}
 		
-		public function getTests()
+		public function getTests() : array
 		{
 			return $this->tests();
 		}

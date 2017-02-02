@@ -1,6 +1,6 @@
 <?php
-	require_once "../start.php";
-	
+	require_once $_SERVER['DOCUMENT_ROOT']."/start.php";
+    
 	if(!empty($_POST['authorizateButton']))
 	{
 		$email = htmlspecialchars($_POST['email']);

@@ -3,7 +3,9 @@
     namespace IEP\Managers;
     
 	require_once "iep.class.php";
-	require_once "../structures/group.class.php";
+	require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/group.class.php";
+    
+    use IEP\Structures\Group;
     
 	class GroupManager extends IEP
 	{

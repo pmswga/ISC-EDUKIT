@@ -1,11 +1,14 @@
 <?php
 	require_once "start.php";
 	const _THIS_ = "index.php";
-	
+    
+    use IEP\Structures\User;
+    
 	if(isset($_SESSION['admin']))
 	{
-		$CT->assign("fio", $_SESSION['admin']->getSn());
-		$CT->assign("email", $_SESSION['admin']->getEmail());
+        $CT->assign("admin", $_SESSION['admin']);
+        
+        print_r($_SESSION['admin']);
 		
 		$groups = $GM->getGroups();
 		$students = $UM->getStudents();
@@ -16,7 +19,7 @@
 		$groups_students = array();
 		for($i = 0; $i < count($groups); $i++)
 		{
-			$groups_students[$i] = $DB->query("SELECT * FROM `students` s INNER JOIN `users` u ON s.id_student=u.id_user WHERE s.grp=".$groups[$i]['grp']."")->fetchAll();
+			$groups_students[$i] = $DB->query("SELECT * FROM `students` s INNER JOIN `users` u ON s.id_student=u.id_user WHERE s.grp=".$groups[$i]->getNumberGroup()."")->fetchAll();
 		}
 		
 		$CT->assign("specs", $DB->query("SELECT * FROM `specialty`")->fetchAll());

@@ -11,7 +11,7 @@
 		protected $password;
 		protected $typeUser;
 		
-		function User($sn, $fn, $pt, $email, $password, $typeUser)
+		function __construct($sn, $fn, $pt, $email, $password, $typeUser)
 		{
 			$this->sn = $sn;
 			$this->fn = $fn;

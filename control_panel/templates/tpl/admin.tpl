@@ -38,8 +38,8 @@
 							</figure>
 						</div>
 						<section id="info">
-							<p><label>ФИО:</label> {$fio}</p>
-							<p><label>E-mail:</label> {$email}</p>
+							<p><label>ФИО:</label> {$admin->getSn()}</p>
+							<p><label>E-mail:</label> {$admin->getFn()}</p>
 						</section>
 					</div>
 					<hr/>

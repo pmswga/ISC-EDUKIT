@@ -42,9 +42,9 @@
 				<div id="u_students" class="panel-collapse collapse">
 					<div class="panel-body">
 					{if $groups_students != NULL}
+                        <div class="panel-group" id="students_groups">
 						{foreach from=$groups_students item=it}
 							{if $it != NULL}
-								<div class="panel-group" id="students_groups">
 									<div class="panel panel-default">
 										<div class="panel-heading">
 											<h4 class="panel-title">
@@ -75,9 +75,9 @@
 											</div>
 										</div>
 									</div>
-								</div>
 							{/if}
 						{/foreach}
+                        </div>
 					{else}
 						<h1 align="center">Студентов нету</h1>
 					{/if}
@@ -129,7 +129,7 @@
 											<table class="table table-border">
 												<tr>
 													<td>Email</td>
-													<td><a href=mailto:{$parent['email']}>{$parent['email']}</a></td>
+													<td><a href="mailto:{$parent['email']}">{$parent['email']}</a></td>
 												</tr>
 												<tr>
 													<td>Сотовый телефон</td>
@@ -181,7 +181,7 @@
 					<label>Группа</label>
 					<select name="grp" class="form-control" required>
 						{foreach from=$groups item=it}
-						<option value={$it['grp']}>{$it['grp']}</option>
+						<option value="{$it->getNumberGroup()}">{$it->getNumberGroup()}</option>
 						{/foreach}
 					</select>
 				</div>

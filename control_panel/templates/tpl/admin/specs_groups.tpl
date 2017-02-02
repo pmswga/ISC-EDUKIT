@@ -84,18 +84,16 @@
 						<table class="table table-bordered info_table">
 							<tr>
 								<td>Группа</td>
-								<td>Специальность</td>
 								<td>Код специальности</td>
 								<td>Тип</td>
 								<td>Выбрать</td>
 							</tr>
 							{foreach from=$groups item=it}
 								<tr>
-									<td>{$it['grp']}</td>
-									<td>{$it['description']}</td>
-									<td>{$it['id_spec']}</td>
-									<td>{if {$it['is_budget']} == 1} Бюджетная {else} Коммерческая {/if}</td>
-									<td><input name="removesGroup[]" value={$it['grp']} type="checkbox" class="form-control"></td>
+									<td>{$it->getNumberGroup()}</td>
+									<td>{$it->getCodeSpec()}</td>
+									<td>{if {$it->getStatus()} == 1} Бюджетная {else} Коммерческая {/if}</td>
+									<td><input name="removesGroup[]" value="{$it->getNumberGroup()}" type="checkbox" class="form-control"></td>
 								</tr>
 							{/foreach}
 						</table>

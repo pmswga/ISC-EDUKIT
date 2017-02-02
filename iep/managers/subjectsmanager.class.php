@@ -3,7 +3,7 @@
 	namespace IEP\Managers;
 	
 	require_once "iep.class.php";
-	require_once "../structures/subject.class.php";
+	require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/subject.class.php";
 	
 	class SubjectsManager extends IEP
 	{

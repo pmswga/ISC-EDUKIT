@@ -13,7 +13,7 @@
 		private $home_phone;
 		private $cell_phone;
 		
-		function Parent_($user, $age, $education, $work_place, $post, $home_phone, $cell_phone)
+		function __construct($user, $age, $education, $work_place, $post, $home_phone, $cell_phone)
 		{
 			parent::__construct($user->sn, $user->fn, $user->pt, $user->email, $user->password, $user->typeUser);
 			$this->age = $age;

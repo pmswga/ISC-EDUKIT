@@ -3,7 +3,7 @@
 	namespace IEP\Managers;
     
 	require_once "iep.class.php";
-	require_once "../structures/onenews.class.php";
+	require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/onenews.class.php";
 	
     use IEP\Structures\OneNews;
     
