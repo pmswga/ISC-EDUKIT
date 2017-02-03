@@ -1,27 +1,39 @@
 <?php
-    declare(strict_types = 1);
+  declare(strict_types = 1);
 	namespace IEP\Managers;
-	
+  
 	require_once "iep.class.php";
 	require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/subject.class.php";
 	
+  use IEP\Structures\Subject;
+  
 	class SubjectsManager extends IEP
 	{
 		
 		public function add($subject)
 		{
 			$add_subject_query = $this->dbc()->prepare("INSERT INTO `subjects` (`description`) VALUES (:description)");
-			$add_subject_query->bindValue(":description", $subject->getSubject());
+			$add_subject_query->bindValue(":description", $subject->getDescription());
 			
 			return $add_subject_query->execute();
 		}
 		
-		public function getSubjects()
+		public function getSubjects() : array
 		{
-			return $this->get("SELECT * FROM `subjects`");
+			$db_subjects = $this->get("SELECT * FROM `subjects`");
+      
+      $subjects = array();
+      foreach ($db_subjects as $db_subject) {
+        $subject = new Subject($db_subject['description']);
+        $subject->setID((int)$db_subject['id_subject']);
+        
+        $subjects[] = $subject;
+      }
+      
+      return $subjects;
 		}
 		
-		public function remove($subject)
+		public function remove($subject) : bool
 		{
 			$remove_query = $this->dbc()->prepare("DELETE FROM `subjects` WHERE `description`=:description");
 			
@@ -33,19 +45,6 @@
 		public function change($old, $new)
 		{
 			
-		}
-		
-		public function getTeacherSubjects($teacher)
-		{
-			$subjects = $this->get("
-				SELECT s.id_subject, s.description FROM `teachers` t 
-				INNER JOIN `users` u ON t.id_teacher=u.id_user 
-				INNER JOIN `teacher_subjects` ts ON t.id_teacher=ts.id_teacher 
-				INNER JOIN `subjects` s ON ts.id_subject=s.id_subject 
-				WHERE `email`=:email
-			", [":email" => $teacher->getEmail()]);
-			
-			return $subjects;
 		}
 		
 	}

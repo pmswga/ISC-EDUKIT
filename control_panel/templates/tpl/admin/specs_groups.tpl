@@ -99,7 +99,6 @@
 						</table>
 						<input name="removeGroupButton" type="submit" class="btn btn-danger" value="Удалить">
 					</form>
-				
 				</div>
 			</div>
 		</fieldset>

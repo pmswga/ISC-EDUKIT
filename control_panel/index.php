@@ -3,19 +3,22 @@
 	const _THIS_ = "index.php";
     
     use IEP\Structures\User;
+    use IEP\Structures\Teacher;
+    use IEP\Structures\Student;
+    use IEP\Structures\Parent_;
+    use IEP\Structures\Subject;
+    use IEP\Structures\Specialty;
     
 	if(isset($_SESSION['admin']))
 	{
         $CT->assign("admin", $_SESSION['admin']);
-        
-        print_r($_SESSION['admin']);
 		
 		$groups = $GM->getGroups();
 		$students = $UM->getStudents();
 		$parents = $UM->getParents();
 		$teachers = $UM->getTeachers();
 		$subjects = $SM->getSubjects();
-		
+    
 		$groups_students = array();
 		for($i = 0; $i < count($groups); $i++)
 		{
@@ -27,7 +30,7 @@
 		$CT->assign("students", $students);
 		$CT->assign("parents", $parents);
 		$CT->assign("groups_students", $groups_students);
-		$CT->assign("subjects", $subjects);
+    $CT->assign("subjects", $subjects);
 		$CT->assign("teachers", $teachers);
 		
 		$CT->assign("status", $_SESSION['status']);
@@ -119,9 +122,16 @@
 		if(!empty($_POST['add_subject_button']))
 		{
 			$description = htmlspecialchars($_POST['descritption']);
-			if($SM->add(new Subject($description))) CTools::Message("Предмет успешно добавлен");
-			else CTools::Message("Произошла ошибка при добавлении");
-			
+			if ($SM->add(new Subject($description))) {
+				$_SESSION['status'] = 1;
+				$_SESSION['error_header'] = "Предмет добавлен";
+      }
+      else
+      {
+				$_SESSION['status'] = -1;
+				$_SESSION['error_header'] = "Не удалось добавить предмет";
+      }
+      
 			CTools::Redirect(_THIS_);
 		}
 		
@@ -140,12 +150,31 @@
 			$reg_teacher_data['subjects'] = $_POST['subjects'];
 			$reg_teacher_data['id_type_user'] = USER_TYPE_TEACHER;
 			
-			CTools::var_dump($reg_teacher_data['subjects']);
-			
-			if($UM->add($reg_teacher_data)) CTools::Message("Добавление преподавателя прошло успешно");
-			else CTools::Message("Произошла ошибка при добавлении");
-			
-			CTools::Redirect(_THIS_);
+            if (empty($reg_teacher_data['subjects'])) {
+                $_SESSION['status'] = -1;
+                $_SESSION['error_header'] = "Не выбраны предметы"; 
+            }
+            else
+            {
+                $t = new Teacher(
+                    new User(
+                        $reg_teacher_data['second_name'],
+                        $reg_teacher_data['first_name'],
+                        $reg_teacher_data['patronymic'],
+                        $reg_teacher_data['email'],
+                        $reg_teacher_data['password'],
+                        $reg_teacher_data['id_type_user']
+                    ),
+                    $reg_teacher_data['info']
+                );
+                $t->setTests($reg_teacher_data['subjects']);
+                
+                if($UM->add($t)) CTools::Message("Добавление преподавателя прошло успешно");
+                else CTools::Message("Произошла ошибка при добавлении");
+                
+            }
+            
+            CTools::Redirect(_THIS_);
 		}
 		
 	}

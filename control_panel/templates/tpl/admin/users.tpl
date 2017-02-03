@@ -20,10 +20,11 @@
 										</tr>
 										{foreach from=$teachers item=teacher}
 											<tr>
-												<td>{$teacher['second_name']}</td>
-												<td>{$teacher['first_name']}</td>
-												<td>{$teacher['patronymic']}</td>
-												<td>{$teacher['email']}</td>
+												<td>{$teacher->getSn()}</td>
+												<td>{$teacher->getFn()}</td>
+												<td>{$teacher->getPt()}</td>
+												<td>{$teacher->getEmail()}</td>
+                        <td>{$teacher->getStrSubjects()}</td>
 											</tr>
 										{/foreach}
 									</table>
@@ -37,47 +38,47 @@
 			</div>
 			<div class="panel panel-success">
 				<div class="panel-heading">
-					<h4 class="panel-title"><a data-toggle="collapse" data-parent="#u" href="#u_students">Студенты</a></h4>
+          <h4 class="panel-title"><a data-toggle="collapse" data-parent="#u" href="#u_students">Студенты</a></h4>
 				</div>
 				<div id="u_students" class="panel-collapse collapse">
 					<div class="panel-body">
 					{if $groups_students != NULL}
-                        <div class="panel-group" id="students_groups">
+            <div class="panel-group" id="students_groups">
 						{foreach from=$groups_students item=it}
 							{if $it != NULL}
-									<div class="panel panel-default">
-										<div class="panel-heading">
-											<h4 class="panel-title">
-												<a data-toggle="collapse" data-parent="#students_groups" href=#{$it[0]['grp']}>{$it[0]['grp']}</a>
-											</h4>
-										</div>
-										<div id={$it[0]['grp']} class="panel-collapse collapse">
-											<div class="panel-body">
-												<table class="table table-hover info_table">
-													<tr>
-														<td>Фамилия</td>
-														<td>Имя</td>
-														<td>Отчество</td>
-														<td>Email</td>
-														<td>Телефон</td>
-														<td></td>
-													</tr>
-													{foreach from=$it item=this}
-														<tr>
-															<td>{$this['second_name']}</td>
-															<td>{$this['first_name']}</td>
-															<td>{$this['patronymic']}</td>
-															<td>{$this['email']}</td>
-															<td>{$this['cell_phone']}</td>
-														</tr>
-													{/foreach}
-												</table>
-											</div>
-										</div>
-									</div>
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                      <h4 class="panel-title">
+                          <a data-toggle="collapse" data-parent="#students_groups" href=#{$it[0]['grp']}>{$it[0]['grp']}</a>
+                      </h4>
+                  </div>
+                  <div id={$it[0]['grp']} class="panel-collapse collapse">
+                    <div class="panel-body">
+                      <table class="table table-hover info_table">
+                          <tr>
+                              <td>Фамилия</td>
+                              <td>Имя</td>
+                              <td>Отчество</td>
+                              <td>Email</td>
+                              <td>Телефон</td>
+                              <td></td>
+                          </tr>
+                          {foreach from=$it item=this}
+                              <tr>
+                                  <td>{$this['second_name']}</td>
+                                  <td>{$this['first_name']}</td>
+                                  <td>{$this['patronymic']}</td>
+                                  <td>{$this['email']}</td>
+                                  <td>{$this['cell_phone']}</td>
+                              </tr>
+                          {/foreach}
+                      </table>
+                    </div>
+                  </div>
+                </div>
 							{/if}
 						{/foreach}
-                        </div>
+            </div>
 					{else}
 						<h1 align="center">Студентов нету</h1>
 					{/if}
@@ -121,29 +122,29 @@
 								</tr>
 								{foreach from=$parents item=parent}
 									<tr>
-										<td>{$parent['second_name']}</td>
-										<td>{$parent['first_name']}</td>
-										<td>{$parent['patronymic']}</td>
-										<td>{$parent['age']}</td>
+										<td>{$parent->getSn()}</td>
+										<td>{$parent->getFn()}</td>
+										<td>{$parent->getPt()}</td>
+										<td>{$parent->getAge()}</td>
 										<td>
 											<table class="table table-border">
 												<tr>
 													<td>Email</td>
-													<td><a href="mailto:{$parent['email']}">{$parent['email']}</a></td>
+													<td><a href="mailto:{$parent->getEmail()}">{$parent->getEmail()}</a></td>
 												</tr>
 												<tr>
 													<td>Сотовый телефон</td>
-													<td>{$parent['cell_phone']}</td>
+													<td>{$parent->getCellPhone()}</td>
 												</tr>
 												<tr>
 													<td>Домашний телефон</td>
-													<td>{$parent['home_phone']}</td>
+													<td>{$parent->getHomePhone()}</td>
 												</tr>
 												</tr>
 											</table>
 										</td>
-										<td>{$parent['work_place']}</td>
-										<td>{$parent['post']}</td>
+										<td>{$parent->getWorkPlace()}</td>
+										<td>{$parent->getPost()}</td>
 									</tr>
 								{/foreach}
 							</table>
@@ -257,7 +258,7 @@
 											<label>Предметы</label>
 											<select id="sbuss" class="form-control">
 												{foreach from=$subjects item=subject}
-													<option value={$subject["id_subject"]}>{$subject['description']}</option>
+													<option value="{$subject->getID()}">{$subject}</option>
 												{/foreach}
 											</select>
 										</div>

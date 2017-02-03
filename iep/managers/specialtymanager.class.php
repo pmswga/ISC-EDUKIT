@@ -25,7 +25,7 @@
 			return $add_spec_query->execute();
 		}
 		
-		public function getSpecialty() : array
+		public function getSpecialtyes() : array
 		{
 			$db_specs = $this->get("SELECT * FROM `specialty`");
             

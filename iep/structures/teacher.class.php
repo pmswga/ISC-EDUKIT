@@ -36,6 +36,11 @@
 		{
 			return $this->subjects;
 		}
+    
+    public function getStrSubjects() : string
+    {
+      return implode(", ", $this->subjects);
+    }
 		
 		public function getTests() : array
 		{

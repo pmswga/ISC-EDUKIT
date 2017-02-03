@@ -13,19 +13,19 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-12">
-						{if $status == -1}
-							<div class="alert alert-danger fade in bs-callout">
-								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-								<h4>{$error_header}</h4>
-								<p>{$error_message}</p>
-							</div>
-						{elseif $status == 1}
-							<div class="alert alert-success fade in bs-callout">
-								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-								<h4>{$error_header}</h4>
-								<p>{$error_message}</p>
-							</div>
-						{/if}
+          {if $status == -1}
+              <div class="alert alert-danger fade in bs-callout">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <h4>{$error_header}</h4>
+                  <p>{$error_message}</p>
+              </div>
+          {elseif $status == 1}
+              <div class="alert alert-success fade in bs-callout">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <h4>{$error_header}</h4>
+                  <p>{$error_message}</p>
+              </div>
+          {/if}
 				</div>
 			</div>
 			<div class="row">
@@ -42,7 +42,7 @@
 							<p><label>E-mail:</label> {$admin->getFn()}</p>
 						</section>
 					</div>
-					<hr/>
+					<hr>
 					<div class="col-md-2">
 						<ul class="nav nav-tabs tabs-left">
 							<li class="active"><a href="#faq" data-toggle="tab">Руководство</a></li>

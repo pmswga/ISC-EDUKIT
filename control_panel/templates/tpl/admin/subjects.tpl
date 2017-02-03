@@ -17,11 +17,10 @@
 		<table class="table table-bordered info_table">
 			<tr>
 				<td>Название предмета</td>
-				<td>Перподаватель</td>
 			</tr>
 			{foreach from=$subjects item=subject}
 				<tr>
-					<td>{$subject['description']}</td>
+					<td>{$subject}</td>
 				</tr>
 			{/foreach}
 		</table>
