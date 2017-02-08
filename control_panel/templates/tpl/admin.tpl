@@ -46,6 +46,7 @@
 					<div class="col-md-2">
 						<ul class="nav nav-tabs tabs-left">
 							<li class="active"><a href="#faq" data-toggle="tab">Руководство</a></li>
+              <li><a href="#notifications" data-toggle="tab">Оповещения</a></li>
 							<li><a href="#users" data-toggle="tab">Пользователи</a></li>
 							<li><a href="#news" data-toggle="tab">Новости</a></li>
 							<li><a href="#tests" data-toggle="tab">Тесты</a></li>
@@ -58,6 +59,7 @@
 					<div class="col-md-10">
 						<div class="tab-content">
 							<div class="tab-pane active" id="faq">Руководство</div>
+              <div class="tab-pane" id="notifications">{include file='admin/notifications.tpl'}</div>
 							<div class="tab-pane" id="users">{include file='admin/users.tpl'}</div>
 							<div class="tab-pane" id="news">{include file='admin/news.tpl'}</div>
 							<div class="tab-pane" id="sepcs_groups">{include file='admin/specs_groups.tpl'}</div>

@@ -44,10 +44,6 @@
 						</select>
 					</div>
 					<div class="form-group">
-						<label>Дата рождения</label>
-						<input name="date_birthday" type="date" class="form-control" required>
-					</div>
-					<div class="form-group">
 						<label>Адрес проживания</label>
 						<input name="home_address" type="text" class="form-control">
 					</div>

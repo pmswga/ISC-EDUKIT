@@ -2,16 +2,16 @@
 	require_once "start.php";
 	const _THIS_ = "index.php";
     
-    use IEP\Structures\User;
-    use IEP\Structures\Teacher;
-    use IEP\Structures\Student;
-    use IEP\Structures\Parent_;
-    use IEP\Structures\Subject;
-    use IEP\Structures\Specialty;
+  use IEP\Structures\User;
+  use IEP\Structures\Teacher;
+  use IEP\Structures\Student;
+  use IEP\Structures\Parent_;
+  use IEP\Structures\Subject;
+  use IEP\Structures\Specialty;
     
 	if(isset($_SESSION['admin']))
 	{
-        $CT->assign("admin", $_SESSION['admin']);
+    $CT->assign("admin", $_SESSION['admin']);
 		
 		$groups = $GM->getGroups();
 		$students = $UM->getStudents();
@@ -36,13 +36,25 @@
 		$CT->assign("status", $_SESSION['status']);
 		$CT->assign("error_header", $_SESSION['error_header']);
 		$CT->assign("error_message", $_SESSION['error_message']);
-		
 		$CT->Show("admin.tpl");
 		
 		unset($_SESSION['status']);
 		unset($_SESSION['error_header']);
 		unset($_SESSION['error_message']);
 		
+    if (!empty($_POST['send_notification_button'])) {
+      $emails = $_POST['select_parent'];
+      
+      
+      
+    }
+    
+    
+    
+    
+    
+    
+    
 		//< Добавление специальности
 		if(!empty($_POST['addNewSpec']))
 		{

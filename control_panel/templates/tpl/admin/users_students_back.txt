@@ -1,0 +1,42 @@
+<div class="panel-body">
+					{if $groups_students != NULL}
+            <div class="panel-group" id="students_groups">
+						{foreach from=$groups_students item=it}
+							{if $it != NULL}
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                      <h4 class="panel-title">
+                          <a data-toggle="collapse" data-parent="#students_groups" href=#{$it[0]['grp']}>{$it[0]['grp']}</a>
+                      </h4>
+                  </div>
+                  <div id={$it[0]['grp']} class="panel-collapse collapse">
+                    <div class="panel-body">
+                      <table class="table table-hover info_table">
+                          <tr>
+                              <td>Фамилия</td>
+                              <td>Имя</td>
+                              <td>Отчество</td>
+                              <td>Email</td>
+                              <td>Телефон</td>
+                              <td></td>
+                          </tr>
+                          {foreach from=$it item=this}
+                              <tr>
+                                  <td>{$this['second_name']}</td>
+                                  <td>{$this['first_name']}</td>
+                                  <td>{$this['patronymic']}</td>
+                                  <td>{$this['email']}</td>
+                                  <td>{$this['cell_phone']}</td>
+                              </tr>
+                          {/foreach}
+                      </table>
+                    </div>
+                  </div>
+                </div>
+							{/if}
+						{/foreach}
+            </div>
+					{else}
+						<h1 align="center">Студентов нету</h1>
+					{/if}
+					</div>

@@ -11,9 +11,9 @@
 	require_once "iep/managers/newsmanager.class.php";
 	require_once "iep/typesUser.php";
 	
-    use IEP\Managers\UserManager;
-    use IEP\Managers\SubjectsManager;
-    use IEP\Managers\NewsManager;
+  use IEP\Managers\UserManager;
+  use IEP\Managers\SubjectsManager;
+  use IEP\Managers\NewsManager;
 	
 	$CT = new CTemplater("templates/tpl", "templates/tpl_c", "templates/configs", "templates/cache");
 	

@@ -1,29 +1,30 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-01-06 17:08:30
+/* Smarty version 3.1.29, created on 2017-02-08 16:03:24
   from "C:\OpenServer\domains\iep.mgkit\control_panel\templates\tpl\admin.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_586fa4dec54966_56059924',
+  'unifunc' => 'content_589b171c746356_89878369',
   'file_dependency' => 
   array (
     '87a6d1dceed117358c5e6cbcb8690e7a9f500ba5' => 
     array (
       0 => 'C:\\OpenServer\\domains\\iep.mgkit\\control_panel\\templates\\tpl\\admin.tpl',
-      1 => 1483711710,
+      1 => 1486558828,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
+    'file:admin/notifications.tpl' => 1,
     'file:admin/users.tpl' => 1,
     'file:admin/news.tpl' => 1,
     'file:admin/specs_groups.tpl' => 1,
     'file:admin/subjects.tpl' => 1,
   ),
 ),false)) {
-function content_586fa4dec54966_56059924 ($_smarty_tpl) {
+function content_589b171c746356_89878369 ($_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html>
@@ -44,23 +45,23 @@ function content_586fa4dec54966_56059924 ($_smarty_tpl) {
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-12">
-						<?php if ($_smarty_tpl->tpl_vars['status']->value == -1) {?>
-							<div class="alert alert-danger fade in bs-callout">
-								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-								<h4><?php echo $_smarty_tpl->tpl_vars['error_header']->value;?>
+          <?php if ($_smarty_tpl->tpl_vars['status']->value == -1) {?>
+              <div class="alert alert-danger fade in bs-callout">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <h4><?php echo $_smarty_tpl->tpl_vars['error_header']->value;?>
 </h4>
-								<p><?php echo $_smarty_tpl->tpl_vars['error_message']->value;?>
+                  <p><?php echo $_smarty_tpl->tpl_vars['error_message']->value;?>
 </p>
-							</div>
-						<?php } elseif ($_smarty_tpl->tpl_vars['status']->value == 1) {?>
-							<div class="alert alert-success fade in bs-callout">
-								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-								<h4><?php echo $_smarty_tpl->tpl_vars['error_header']->value;?>
+              </div>
+          <?php } elseif ($_smarty_tpl->tpl_vars['status']->value == 1) {?>
+              <div class="alert alert-success fade in bs-callout">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <h4><?php echo $_smarty_tpl->tpl_vars['error_header']->value;?>
 </h4>
-								<p><?php echo $_smarty_tpl->tpl_vars['error_message']->value;?>
+                  <p><?php echo $_smarty_tpl->tpl_vars['error_message']->value;?>
 </p>
-							</div>
-						<?php }?>
+              </div>
+          <?php }?>
 				</div>
 			</div>
 			<div class="row">
@@ -73,16 +74,17 @@ function content_586fa4dec54966_56059924 ($_smarty_tpl) {
 							</figure>
 						</div>
 						<section id="info">
-							<p><label>ФИО:</label> <?php echo $_smarty_tpl->tpl_vars['fio']->value;?>
+							<p><label>ФИО:</label> <?php echo $_smarty_tpl->tpl_vars['admin']->value->getSn();?>
 </p>
-							<p><label>E-mail:</label> <?php echo $_smarty_tpl->tpl_vars['email']->value;?>
+							<p><label>E-mail:</label> <?php echo $_smarty_tpl->tpl_vars['admin']->value->getFn();?>
 </p>
 						</section>
 					</div>
-					<hr/>
+					<hr>
 					<div class="col-md-2">
 						<ul class="nav nav-tabs tabs-left">
 							<li class="active"><a href="#faq" data-toggle="tab">Руководство</a></li>
+              <li><a href="#notifications" data-toggle="tab">Оповещения</a></li>
 							<li><a href="#users" data-toggle="tab">Пользователи</a></li>
 							<li><a href="#news" data-toggle="tab">Новости</a></li>
 							<li><a href="#tests" data-toggle="tab">Тесты</a></li>
@@ -95,6 +97,9 @@ function content_586fa4dec54966_56059924 ($_smarty_tpl) {
 					<div class="col-md-10">
 						<div class="tab-content">
 							<div class="tab-pane active" id="faq">Руководство</div>
+              <div class="tab-pane" id="notifications"><?php $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:admin/notifications.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?>
+</div>
 							<div class="tab-pane" id="users"><?php $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:admin/users.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 </div>

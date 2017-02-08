@@ -18,7 +18,7 @@
 			$this->home_address = $home_address;
 			$this->cell_phone = $cell_phone;
 		}
-		
+    
 		public function getHomeAddress() : string
 		{
 			return $this->home_address;

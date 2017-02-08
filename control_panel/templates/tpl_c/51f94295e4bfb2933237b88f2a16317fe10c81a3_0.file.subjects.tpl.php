@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-01-04 20:04:15
+/* Smarty version 3.1.29, created on 2017-02-03 21:30:20
   from "C:\OpenServer\domains\iep.mgkit\control_panel\templates\tpl\admin\subjects.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_586d2b0f89e733_89335738',
+  'unifunc' => 'content_5894cc3c7dc7b8_59832438',
   'file_dependency' => 
   array (
     '51f94295e4bfb2933237b88f2a16317fe10c81a3' => 
     array (
       0 => 'C:\\OpenServer\\domains\\iep.mgkit\\control_panel\\templates\\tpl\\admin\\subjects.tpl',
-      1 => 1483549454,
+      1 => 1486146619,
       2 => 'file',
     ),
   ),
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_586d2b0f89e733_89335738 ($_smarty_tpl) {
+function content_5894cc3c7dc7b8_59832438 ($_smarty_tpl) {
 ?>
 <div class="row">
 	<div class="col-md-4">
@@ -40,7 +40,6 @@ function content_586d2b0f89e733_89335738 ($_smarty_tpl) {
 		<table class="table table-bordered info_table">
 			<tr>
 				<td>Название предмета</td>
-				<td>Перподаватель</td>
 			</tr>
 			<?php
 $_from = $_smarty_tpl->tpl_vars['subjects']->value;
@@ -55,7 +54,7 @@ $_smarty_tpl->tpl_vars['subject']->_loop = true;
 $__foreach_subject_0_saved_local_item = $_smarty_tpl->tpl_vars['subject'];
 ?>
 				<tr>
-					<td><?php echo $_smarty_tpl->tpl_vars['subject']->value['description'];?>
+					<td><?php echo $_smarty_tpl->tpl_vars['subject']->value;?>
 </td>
 				</tr>
 			<?php

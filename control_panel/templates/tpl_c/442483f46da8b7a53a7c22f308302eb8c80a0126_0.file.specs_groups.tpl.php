@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-01-06 16:24:30
+/* Smarty version 3.1.29, created on 2017-02-03 21:09:19
   from "C:\OpenServer\domains\iep.mgkit\control_panel\templates\tpl\admin\specs_groups.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_586f9a8e1213d2_77018692',
+  'unifunc' => 'content_5894c74f9668c7_89099401',
   'file_dependency' => 
   array (
     '442483f46da8b7a53a7c22f308302eb8c80a0126' => 
     array (
       0 => 'C:\\OpenServer\\domains\\iep.mgkit\\control_panel\\templates\\tpl\\admin\\specs_groups.tpl',
-      1 => 1483708992,
+      1 => 1486145352,
       2 => 'file',
     ),
   ),
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_586f9a8e1213d2_77018692 ($_smarty_tpl) {
+function content_5894c74f9668c7_89099401 ($_smarty_tpl) {
 ?>
 <div class="row">
 	<div class="col-md-12">
@@ -126,7 +126,6 @@ $_smarty_tpl->tpl_vars['it'] = $__foreach_it_0_saved_item;
 						<table class="table table-bordered info_table">
 							<tr>
 								<td>Группа</td>
-								<td>Специальность</td>
 								<td>Код специальности</td>
 								<td>Тип</td>
 								<td>Выбрать</td>
@@ -144,18 +143,16 @@ $_smarty_tpl->tpl_vars['it']->_loop = true;
 $__foreach_it_1_saved_local_item = $_smarty_tpl->tpl_vars['it'];
 ?>
 								<tr>
-									<td><?php echo $_smarty_tpl->tpl_vars['it']->value['grp'];?>
+									<td><?php echo $_smarty_tpl->tpl_vars['it']->value->getNumberGroup();?>
 </td>
-									<td><?php echo $_smarty_tpl->tpl_vars['it']->value['description'];?>
-</td>
-									<td><?php echo $_smarty_tpl->tpl_vars['it']->value['id_spec'];?>
+									<td><?php echo $_smarty_tpl->tpl_vars['it']->value->getCodeSpec();?>
 </td>
 									<td><?php ob_start();
-echo $_smarty_tpl->tpl_vars['it']->value['is_budget'];
+echo $_smarty_tpl->tpl_vars['it']->value->getStatus();
 $_tmp1=ob_get_clean();
 if ($_tmp1 == 1) {?> Бюджетная <?php } else { ?> Коммерческая <?php }?></td>
-									<td><input name="removesGroup[]" value=<?php echo $_smarty_tpl->tpl_vars['it']->value['grp'];?>
- type="checkbox" class="form-control"></td>
+									<td><input name="removesGroup[]" value="<?php echo $_smarty_tpl->tpl_vars['it']->value->getNumberGroup();?>
+" type="checkbox" class="form-control"></td>
 								</tr>
 							<?php
 $_smarty_tpl->tpl_vars['it'] = $__foreach_it_1_saved_local_item;
@@ -167,7 +164,6 @@ $_smarty_tpl->tpl_vars['it'] = $__foreach_it_1_saved_item;
 						</table>
 						<input name="removeGroupButton" type="submit" class="btn btn-danger" value="Удалить">
 					</form>
-				
 				</div>
 			</div>
 		</fieldset>
