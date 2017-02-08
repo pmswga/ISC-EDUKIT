@@ -45,7 +45,23 @@
     if (!empty($_POST['send_notification_button'])) {
       $emails = $_POST['select_parent'];
       
+      for ($i = 0; $i < count($emails); $i++) {
+        
+        $to = $emails[$i];
+        
+        $subject = "Это тестовое сообщение";
+        $message = $_POST['notification'];
+        $headers = "Content-Type: text/html; charset=windows-1251 \r\n";
+        $headers .= "Content-Transfer-Encoding: base64 \r\n";
+        
+        $headers .= "From: EDUKIT <edukit@iep.mgkit> \r\n";
+        $headers .= "Reply-To: edukit@iep.com \r\n";
+        
+        mail($to, $subject, $message, $headers);
+        
+      }
       
+      //CTools::Redirect(_THIS_);
       
     }
     
