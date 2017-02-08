@@ -7,17 +7,17 @@
       </div>
       <div class="modal-body">
 		<div class="row">
-			<form name="registration" method="POST" action="php/registration.php" onsubmit="return checkRegistrationForm(this);">
+			<form name="registration" method="POST" action="php/registration.php">
 				<div class="col-md-6">
-					<div class="form-group">
+					<div id="snDiv" class="form-group">
 						<label>Фамилия:</label>
 						<input type="text" name="second_name" class="form-control" required>
 					</div>
-					<div class="form-group">
+					<div id="fnDiv" class="form-group">
 						<label>Имя:</label>
 						<input type="text" name="first_name" class="form-control" required>
 					</div>
-					<div class="form-group">
+					<div id="ptDiv" class="form-group">
 						<label>Отчество:</label>
 						<input type="text" name="patronymic" class="form-control">
 					</div>
@@ -35,19 +35,20 @@
 					</div>
 				</div>
 				<div class="col-md-6">
-					<div class="form-group">
+					<div id="grpDiv" class="form-group">
 						<label>Группа</label>
 						<select name="grp" class="form-control" required>
+              <option value=""></option>
 							{foreach from=$groups item=it}
 							<option value={$it['grp']}>{$it['grp']}</option>
 							{/foreach}
 						</select>
 					</div>
-					<div class="form-group">
+					<div id="addressDiv" class="form-group">
 						<label>Адрес проживания</label>
 						<input name="home_address" type="text" class="form-control">
 					</div>
-					<div class="form-group">
+					<div id="cellPhoneDiv" class="form-group">
 						<label>Сотовый телефон</label>
 						<input name="cell_phone_child" type="tel" class="form-control" required>
 					</div>
@@ -70,11 +71,4 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
-<!--
-	
-	!!!СДЕЛАТЬ ТЩАТЕЛЬНУЮ ПРОВРЕКУ ДАННЫХ!!!
-
--->
-
 <script type="text/javascript" src="js/checkStudentRegForm.js"></script>
