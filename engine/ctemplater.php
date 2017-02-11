@@ -4,7 +4,7 @@
     class CTemplater extends Smarty
     {
         
-		function CTemplater($templaterDir, $compileDir, $configDir, $cacheDir)
+		function __construct($templaterDir, $compileDir, $configDir, $cacheDir)
 		{
 			parent::__construct();
 			$this->template_dir = $templaterDir;

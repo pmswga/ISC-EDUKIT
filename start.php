@@ -1,6 +1,5 @@
 <?php
 	require_once "engine/ctemplater.php";
-	require_once "engine/cdatabase.php";
 	require_once "engine/ctools.php";
 	require_once "engine/cform.php";
 	require_once "engine/settings.php";

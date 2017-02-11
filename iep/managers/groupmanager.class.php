@@ -18,6 +18,11 @@
 				(:grp, (SELECT `id_spec` FROM `specialty` WHERE `code_spec`=:code_spec), :payment)
 			");
 			
+      echo "<pre>";
+      print_r($grp);
+      echo "</pre>";
+      
+      
 			$add_group_query->bindValue(":grp", $grp->getNumberGroup());
 			$add_group_query->bindValue(":code_spec", $grp->getCodeSpec());
 			$add_group_query->bindValue(":payment", $grp->getStatus());

@@ -22,7 +22,7 @@
 	class UserManager extends IEP
 	{
 		
-		public function authorizate($email, $password) : User
+		public function authorizate($email, $password)
 		{
 			$user_data = $this->get("SELECT * FROM `users` WHERE `email`=:email AND `password`=:password",
 				[":email" => $email, ":password" => $password]
@@ -388,7 +388,7 @@
 			), (int)$user_data['grp'], $user_data['home_address'], $user_data["cell_phone"]);
 		}
 		
-		public function getUsers() : array
+		public function getUsers() 
 		{
 			$db_users =  $this->get("SELECT * FROM `users`");
             
@@ -407,7 +407,7 @@
       return $users;
 		}
 		
-		public function getStudents() : array
+		public function getStudents()
 		{
 			$db_students = $this->get("SELECT * FROM `students` s INNER JOIN `users` u ON s.id_student=u.id_user");
             

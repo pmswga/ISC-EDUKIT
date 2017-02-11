@@ -9,6 +9,7 @@
   use IEP\Structures\Parent_;
   use IEP\Structures\Subject;
   use IEP\Structures\Specialty;
+  use IEP\Structures\Group;
     
 	if(isset($_SESSION['admin']))
 	{
@@ -112,7 +113,7 @@
 				"payment"
 			));
 			
-			if($GM->add(new Group($grp_data['grp'], $grp_data['code_spec_grp'], $grp_data['payment'])))
+			if($GM->add(new Group((int)$grp_data['grp'], $grp_data['code_spec_grp'], $grp_data['payment'])))
 			{
 				$_SESSION['status'] = 1;
 				$_SESSION['error_header'] = "Группа успешно добавлена";
@@ -124,7 +125,7 @@
 				$_SESSION['error_message'] = "Не удалось добавить новую группу";
 			}
 			
-			CTools::Redirect(_THIS_);
+			//CTools::Redirect(_THIS_);
 		}
 		
 		
