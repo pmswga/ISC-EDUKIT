@@ -28,6 +28,8 @@
 				[":email" => $email, ":password" => $password]
 			);
 			
+      var_dump($user_data);
+      
 			switch($user_data[0]['id_type_user'])
 			{
 				case USER_TYPE_STUDENT:
@@ -40,53 +42,86 @@
 						$user_data[0]['patronymic'],
 						$user_data[0]['email'],
 						$user_data[0]['password'],
-						$user_data[0]['id_type_user']
+						(int)$user_data[0]['id_type_user']
 					),
-						$student_data[0]['grp'],
-						$student_data[0]['date_birthday'],
+						(int)$student_data[0]['grp'],
 						$student_data[0]['home_address'],
 						$student_data[0]['cell_phone']
 					);
 					
+          
 					return $s;
 				} break;
 				case USER_TYPE_TEACHER:
 				{
 					$teacaher_data = $this->get("SELECT * FROM `teachers` WHERE `id_teacher`=:id_user", [":id_user" => $user_data[0]['id_user']]);
-					
-					
+          
 					$t = new Teacher(new User(
 						$user_data[0]['second_name'],
 						$user_data[0]['first_name'],
 						$user_data[0]['patronymic'],
 						$user_data[0]['email'],
 						$user_data[0]['password'],
-						$user_data[0]['id_type_user']
+						(int)$user_data[0]['id_type_user']
 					),
-						$teacaher_data['info']
+						$teacaher_data[0]['info']
 					);
 					
+          $db_subjects = $this->get("SELECT DISTINCT `description` FROM `subjects` INNER JOIN `teacher_subjects` WHERE `id_teacher`=:id_teacher", [":id_teacher" => $user_data[0]['id_user']]);;
+          
+          $subjects = array();
+          for ($i = 0; $i < count($db_subjects); $i++) {
+            $subjects[] = $db_subjects[$i]['description'];
+          }
+          
+          $t->setSubjects($subjects);
+          
 					return $t;
 				} break;
 				case USER_TYPE_PARENT:
 				{
 					$parent_data = $this->get("SELECT * FROM `parents` WHERE `id_parent`=:id_user", [":id_user" => $user_data[0]['id_user']]);
 					
+          $db_childs = $this->get("SELECT `id_children`, `id_type_releation` FROM `parent_child` WHERE `id_parent`=(SELECT `id_user` FROM `users` WHERE `email`=:parent_email)", [":parent_email" => $user_data[0]['email']]);
+          
+          $childs = array();
+          for ($i = 0; $i < count($db_childs); $i++) {
+            $db_child = $this->get("SELECT * FROM `users` u INNER JOIN `students` s ON u.id_user=s.id_student
+            WHERE `id_student`=:id_child", [":id_child" => $db_childs[$i]['id_children']])[0];
+            
+            $childs[$i]['child'] = new Student(
+                new User(
+                    $db_child['second_name'],
+                    $db_child['first_name'],
+                    $db_child['patronymic'],
+                    $db_child['email'],
+                    $db_child['password'],
+                    (int)$db_child['id_type_user']
+                ),
+                (int)$db_child['grp'],
+                $db_child['home_address'],
+                $db_child['cell_phone']
+            );
+            $childs[$i]['type_relation'] = $db_childs[$i]['id_type_releation'];
+          }
+          
 					$p = new Parent_(new User(
 						$user_data[0]['second_name'],
 						$user_data[0]['first_name'],
 						$user_data[0]['patronymic'],
 						$user_data[0]['email'],
 						$user_data[0]['password'],
-						$user_data[0]['id_type_user']
+						(int)$user_data[0]['id_type_user']
 					),
-						$parent_data[0]['age'],
+						(int)$parent_data[0]['age'],
 						$parent_data[0]['education'],
 						$parent_data[0]['work_place'],
 						$parent_data[0]['post'],
 						$parent_data[0]['home_phone'],
 						$parent_data[0]['cell_phone']
 					);
+          
+          $p->setChilds($childs);
 					
 					return $p;
 				} break;
@@ -349,8 +384,8 @@
         $user_data["patronymic"],
         $user_data["email"],
         $user_data["password"],
-        $user_data["id_type_user"]
-			), $user_data['grp'], $user_data["date_birthday"], $user_data['home_address'], $user_data["cell_phone"]);
+        (int)$user_data["id_type_user"]
+			), (int)$user_data['grp'], $user_data['home_address'], $user_data["cell_phone"]);
 		}
 		
 		public function getUsers() : array

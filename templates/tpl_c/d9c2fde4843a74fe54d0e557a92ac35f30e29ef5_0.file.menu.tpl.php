@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-01-02 21:26:59
+/* Smarty version 3.1.29, created on 2017-02-11 23:18:14
   from "C:\OpenServer\domains\iep.mgkit\templates\tpl\users\menu.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_586a9b73de5d46_71547996',
+  'unifunc' => 'content_589f7186b58e34_36759386',
   'file_dependency' => 
   array (
     'd9c2fde4843a74fe54d0e557a92ac35f30e29ef5' => 
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_586a9b73de5d46_71547996 ($_smarty_tpl) {
+function content_589f7186b58e34_36759386 ($_smarty_tpl) {
 ?>
 <div id="menuDiv">
 	<nav id="menu">

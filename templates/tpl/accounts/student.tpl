@@ -52,10 +52,6 @@
 								<td>{$user->getGroup()}</td>
 							</tr>
 							<tr>
-								<td>Дата рождения</td>
-								<td>{$user->getDateBirthday()|date_format:"%d.%m.%Y"|default:"не указано"}</td>
-							</tr>
-							<tr>
 								<td>Сотовый телефон</td>
 								<td>{$user->getCellPhone()}</td>
 							</tr>

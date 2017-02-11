@@ -22,10 +22,7 @@
 			} break;
 			case USER_TYPE_TEACHER:
 			{
-				$subjects = $SM->getTeacherSubjects($user);
-				
 				$CT->assign("user", $user);
-				$CT->assign("subjects", $subjects);
 				
 				$CT->Show("accounts/teacher.tpl");
 				
@@ -48,8 +45,7 @@
 			{
 				$CT->assign("fio", $user->getSn()." ".$user->getFn()." ".$user->getPt());
 				$CT->assign("user", $user);
-				$CT->assign("childs", $UM->getChilds($user));
-				
+        
 				$CT->Show("accounts/parent.tpl");
 			} break;
 		}

@@ -1,5 +1,6 @@
 <?php
 	require_once "start.php";
+  require_once "../mail/PHPMailerAutoload.php";
 	const _THIS_ = "index.php";
     
   use IEP\Structures\User;
@@ -45,23 +46,28 @@
     if (!empty($_POST['send_notification_button'])) {
       $emails = $_POST['select_parent'];
       
+      $message = $_POST['notification'];
+      
+      $mail = new PHPMailer;
+
+      $mail->setFrom("fromMe@admin.ru", "John Green");
       for ($i = 0; $i < count($emails); $i++) {
-        
-        $to = $emails[$i];
-        
-        $subject = "Это тестовое сообщение";
-        $message = $_POST['notification'];
-        $headers = "Content-Type: text/html; charset=windows-1251 \r\n";
-        $headers .= "Content-Transfer-Encoding: base64 \r\n";
-        
-        $headers .= "From: EDUKIT <edukit@iep.mgkit> \r\n";
-        $headers .= "Reply-To: edukit@iep.com \r\n";
-        
-        mail($to, $subject, $message, $headers);
-        
+        $mail->addAddress($emails[$i]);
       }
       
-      //CTools::Redirect(_THIS_);
+      $mail->isHTML(true);
+
+      $mail->Subject = "Заголовок письма";
+      $mail->Body = $message;
+
+      if (!$mail->send()) {
+        echo "Message could not be sent";
+        echo "Mailer error: ".$mail->ErrorInfo;
+      } else {
+        echo "All good";
+      }
+        
+      CTools::Redirect(_THIS_);
       
     }
     

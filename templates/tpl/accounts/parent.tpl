@@ -31,48 +31,48 @@
 				<div class="col-md-8">
 					<h2>Мои дети</h2>
 					<div class="panel-group" id="accordion">
-						{foreach from=$childs item=child}
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#accordion">{$child['second_name']} {$child['first_name']} {$child['patronymic']}</a>
-									</h4>
-								</div>
-								<div class="panel-collapse collapse in">
-									<div class="panel-body">
-										<div class="row">
-											<div class="col-md-6">
-												<div class="circle">
-												
-												</div>
-											</div>
-											<div class="col-md-6">
-												<fieldset>
-													<legend style="text-align: center;">Информация о ребёнке</legend>
-													<table class="table table-striped">
-														<tr>
-															<td>Email:</td>
-															<td>{$child['email']}</td>
-														</tr>
-														<tr>
-															<td>Группа:</td>
-															<td>{$child['grp']}</td>
-														</tr>
-														<tr>
-															<td>Дата рождения:</td>
-															<td>{$child['date_birthday']}</td>
-														</tr>
-														<tr>
-															<td>Телефон:</td>
-															<td>{$child['cell_phone']}</td>
-														</tr>
-													</table>
-												</fieldset>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+						{foreach from=$user->getChilds() item=child}
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion">{$child['child']->getSn()} {$child['child']->getFn()} {$child['child']->getPt()} </a>
+                  </h4>
+                </div>
+                <div class="panel-collapse collapse in">
+                  <div class="panel-body">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="circle">
+                        
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <fieldset>
+                          <legend style="text-align: center;">Информация о ребёнке</legend>
+                          <table class="table table-striped">
+                            <tr>
+                              <td>Email:</td>
+                              <td>{$child['child']->getEmail()}</td>
+                            </tr>
+                            <tr>
+                              <td>Группа:</td>
+                              <td>{$child['child']->getGroup()}</td>
+                            </tr>
+                            <tr>
+                              <td>Телефон:</td>
+                              <td>{$child['child']->getCellPhone()}</td>
+                            </tr>
+                            <tr>
+                              <td>Отношения:</td>
+                              <td>{$child['type_relation']}</td>
+                            </tr>
+                          </table>
+                        </fieldset>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 						{/foreach}
 					</div>
 				</div>

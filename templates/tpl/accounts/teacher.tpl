@@ -76,8 +76,8 @@
 							<div id="u_teachers" class="panel-collapse collapse">
 								<div class="panel-body">
 									<table class="table table-bordered">
-										{foreach from=$subjects item=subject}
-											<tr><td>{$subject['description']}</td></tr>
+										{foreach from=$user->getSubjects() item=subject}
+											<tr><td>{$subject}</td></tr>
 										{/foreach}
 									</table>
 								</div>
