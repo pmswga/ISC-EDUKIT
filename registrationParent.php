@@ -27,7 +27,7 @@
 		$reg_parent_data['id_type_user'] = USER_TYPE_PARENT;
 		
 		
-		if($UM->add($reg_parent_data))CTools::Message("Регистрация прогла успешно");
+		if($UM->add($reg_parent_data)) CTools::Message("Регистрация прогла успешно");
 		else CTools::Message("При регистрации произошла ошибка");
 		
 		CTools::Redirect("index.php");

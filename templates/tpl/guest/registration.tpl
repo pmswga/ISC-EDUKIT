@@ -109,7 +109,7 @@
 										</div>
 										<datalist id="childrens">
 											{foreach from=$childrens item=child}
-												<option value={$child['id_student']}>{$child['second_name']} {$child['first_name']} {$child['patronymic']}</option>
+												<option value="{$child->getEmail()}">{$child->getSn()} {$child->getFn()} {$child->getPt()}</option>
 											{/foreach}
 										</datalist>
 									</fieldset>
@@ -137,14 +137,13 @@
 			
 			$("#add_child").click(function(){
 				var child = $("#selectChild").val();
-				
-				if(child != "")
-				{
+        var child_text = $("[value='" + child + "']").text();
+        
+				if (child != "") {
 					if($.inArray(child, childs) > -1) alert("Вы уже добавили ребёнка");
-					else
-					{
+					else {
 						childs.push(child);
-						$("#parent_child").append('<tr id="' + countChilds + '"><td>' + child + '<input name="childs[]" type="hidden" value="' + child + '"></td></tr>');
+						$("#parent_child").append('<tr id="' + countChilds + '"><td>' + child_text + '<input name="childs[]" type="hidden" value="' + child + '"></td></tr>');
 						countChilds++;
 					}
 				}
@@ -159,8 +158,7 @@
 			
 			function checkRegParentForm(form)
 			{
-				if(childs.toString() == "")
-				{
+				if (childs.toString() == "") {
 					alert("Вы не выбрали ребёнка");
 					return false;
 				}
