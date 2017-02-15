@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-02-03 21:09:19
+/* Smarty version 3.1.29, created on 2017-02-15 11:24:24
   from "C:\OpenServer\domains\iep.mgkit\control_panel\templates\tpl\admin\specs_groups.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_5894c74f9668c7_89099401',
+  'unifunc' => 'content_58a410384b6751_37847556',
   'file_dependency' => 
   array (
     '442483f46da8b7a53a7c22f308302eb8c80a0126' => 
     array (
       0 => 'C:\\OpenServer\\domains\\iep.mgkit\\control_panel\\templates\\tpl\\admin\\specs_groups.tpl',
-      1 => 1486145352,
+      1 => 1487147062,
       2 => 'file',
     ),
   ),
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_5894c74f9668c7_89099401 ($_smarty_tpl) {
+function content_58a410384b6751_37847556 ($_smarty_tpl) {
 ?>
 <div class="row">
 	<div class="col-md-12">
@@ -47,7 +47,7 @@ function content_5894c74f9668c7_89099401 ($_smarty_tpl) {
 				</fieldset>
 			</div>
 			<div class="col-md-6">
-				<?php if ($_smarty_tpl->tpl_vars['specs']->value != NULL) {?>
+				<?php if ($_smarty_tpl->tpl_vars['specialtyes']->value != NULL) {?>
 					<fieldset>
 						<legend>Добавить группу</legend>
 						<form name="add_grp" method="POST">
@@ -59,25 +59,25 @@ function content_5894c74f9668c7_89099401 ($_smarty_tpl) {
 								<label>Специальность:</label>
 								<select name="code_spec_grp" class="form-control" required>
 									<?php
-$_from = $_smarty_tpl->tpl_vars['specs']->value;
+$_from = $_smarty_tpl->tpl_vars['specialtyes']->value;
 if (!is_array($_from) && !is_object($_from)) {
 settype($_from, 'array');
 }
-$__foreach_it_0_saved_item = isset($_smarty_tpl->tpl_vars['it']) ? $_smarty_tpl->tpl_vars['it'] : false;
-$_smarty_tpl->tpl_vars['it'] = new Smarty_Variable();
-$_smarty_tpl->tpl_vars['it']->_loop = false;
-foreach ($_from as $_smarty_tpl->tpl_vars['it']->value) {
-$_smarty_tpl->tpl_vars['it']->_loop = true;
-$__foreach_it_0_saved_local_item = $_smarty_tpl->tpl_vars['it'];
+$__foreach_specialty_0_saved_item = isset($_smarty_tpl->tpl_vars['specialty']) ? $_smarty_tpl->tpl_vars['specialty'] : false;
+$_smarty_tpl->tpl_vars['specialty'] = new Smarty_Variable();
+$_smarty_tpl->tpl_vars['specialty']->_loop = false;
+foreach ($_from as $_smarty_tpl->tpl_vars['specialty']->value) {
+$_smarty_tpl->tpl_vars['specialty']->_loop = true;
+$__foreach_specialty_0_saved_local_item = $_smarty_tpl->tpl_vars['specialty'];
 ?>
-										<option value=<?php echo $_smarty_tpl->tpl_vars['it']->value['id_spec'];?>
-><?php echo $_smarty_tpl->tpl_vars['it']->value['description'];?>
+										<option value="<?php echo $_smarty_tpl->tpl_vars['specialty']->value->getCode();?>
+"><?php echo $_smarty_tpl->tpl_vars['specialty']->value->getDescription();?>
 </option>
 									<?php
-$_smarty_tpl->tpl_vars['it'] = $__foreach_it_0_saved_local_item;
+$_smarty_tpl->tpl_vars['specialty'] = $__foreach_specialty_0_saved_local_item;
 }
-if ($__foreach_it_0_saved_item) {
-$_smarty_tpl->tpl_vars['it'] = $__foreach_it_0_saved_item;
+if ($__foreach_specialty_0_saved_item) {
+$_smarty_tpl->tpl_vars['specialty'] = $__foreach_specialty_0_saved_item;
 }
 ?>
 								</select>

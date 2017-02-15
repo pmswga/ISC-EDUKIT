@@ -5,7 +5,6 @@
 	{
 		$user = $_SESSION['user'];
 		
-		
 		switch($user->getTypeUser())
 		{
 			case USER_TYPE_STUDENT:

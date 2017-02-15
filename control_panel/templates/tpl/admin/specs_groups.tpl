@@ -24,7 +24,7 @@
 				</fieldset>
 			</div>
 			<div class="col-md-6">
-				{if $specs!=NULL}
+				{if $specialtyes!=NULL}
 					<fieldset>
 						<legend>Добавить группу</legend>
 						<form name="add_grp" method="POST">
@@ -35,8 +35,8 @@
 							<div class="form-group">
 								<label>Специальность:</label>
 								<select name="code_spec_grp" class="form-control" required>
-									{foreach from=$specs item=it}
-										<option value={$it['id_spec']}>{$it['description']}</option>
+									{foreach from=$specialtyes item=specialty}
+										<option value="{$specialty->getCode()}">{$specialty->getDescription()}</option>
 									{/foreach}
 								</select>
 							</div>

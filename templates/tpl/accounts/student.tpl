@@ -83,6 +83,7 @@
 			<div class="row" style="padding: 15px;">
 				<div class="col-md-8">
 					<h2>Моя посещаемость</h2>
+          <img src="img/calendar.jpg">
 				</div>
 				<div class="col-md-4">
 					<div class="panel-group" id="tests">
@@ -93,7 +94,7 @@
 							<div id="s_tests" class="panel-collapse collapse">
 								<div class="panel-body">
 									<table class="table table-bordered">
-									
+                  
 									</table>
 								</div>
 							</div>

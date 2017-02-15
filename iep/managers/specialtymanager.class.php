@@ -29,14 +29,14 @@
 		{
 			$db_specs = $this->get("SELECT * FROM `specialty`");
             
-            $specialtys = array();
-            foreach($db_specs as $spec)
-            {
-                $new_spec = new Specialty($spec['code_spec'], $spec['description'], $spec['current_file']);
-                $specialtys[] = $new_spec;
-            }
-            
-            return $specialtys;
+      $specialtys = array();
+      foreach($db_specs as $spec)
+      {
+          $new_spec = new Specialty($spec['code_spec'], $spec['description'], $spec['current_file']);
+          $specialtys[] = $new_spec;
+      }
+      
+      return $specialtys;
 		}
 		
 		public function remove($code) : bool

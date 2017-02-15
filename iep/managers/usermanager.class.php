@@ -27,8 +27,6 @@
 			$user_data = $this->get("SELECT * FROM `users` WHERE `email`=:email AND `password`=:password",
 				[":email" => $email, ":password" => $password]
 			);
-			
-      var_dump($user_data);
       
 			switch($user_data[0]['id_type_user'])
 			{
@@ -48,7 +46,6 @@
 						$student_data[0]['home_address'],
 						$student_data[0]['cell_phone']
 					);
-					
           
 					return $s;
 				} break;
@@ -67,7 +64,7 @@
 						$teacaher_data[0]['info']
 					);
 					
-          $db_subjects = $this->get("SELECT DISTINCT `description` FROM `subjects` INNER JOIN `teacher_subjects` WHERE `id_teacher`=:id_teacher", [":id_teacher" => $user_data[0]['id_user']]);;
+          $db_subjects = $this->get("SELECT `description` FROM `subjects` s INNER JOIN `teacher_subjects` ts ON s.id_subject=ts.id_subject WHERE `id_teacher`=:id_teacher", [":id_teacher" => $user_data[0]['id_user']]);;
           
           $subjects = array();
           for ($i = 0; $i < count($db_subjects); $i++) {
@@ -90,17 +87,17 @@
             WHERE `id_student`=:id_child", [":id_child" => $db_childs[$i]['id_children']])[0];
             
             $childs[$i]['child'] = new Student(
-                new User(
-                    $db_child['second_name'],
-                    $db_child['first_name'],
-                    $db_child['patronymic'],
-                    $db_child['email'],
-                    $db_child['password'],
-                    (int)$db_child['id_type_user']
-                ),
-                (int)$db_child['grp'],
-                $db_child['home_address'],
-                $db_child['cell_phone']
+              new User(
+                  $db_child['second_name'],
+                  $db_child['first_name'],
+                  $db_child['patronymic'],
+                  $db_child['email'],
+                  $db_child['password'],
+                  (int)$db_child['id_type_user']
+              ),
+              (int)$db_child['grp'],
+              $db_child['home_address'],
+              $db_child['cell_phone']
             );
             $childs[$i]['type_relation'] = $db_childs[$i]['id_type_releation'];
           }
@@ -191,74 +188,75 @@
 				{
           try
           {
-              $this->dbc()->beginTransaction();
-              
-              $add_user_query = $this->dbc()->prepare("INSERT INTO `users`
-                  (`second_name`, `first_name`, `patronymic`, `email`, `password`, `id_type_user`)
+            $this->dbc()->beginTransaction();
+            
+            $add_user_query = $this->dbc()->prepare("INSERT INTO `users`
+                (`second_name`, `first_name`, `patronymic`, `email`, `password`, `id_type_user`)
+                VALUES
+                (:second_name, :first_name, :patronymic, :email, :password, :id_type_user);
+            ");
+            
+            $add_user_query->bindValue(":second_name", $user->getSn());
+            $add_user_query->bindValue(":first_name", $user->getFn());
+            $add_user_query->bindValue(":patronymic", $user->getPt());
+            $add_user_query->bindValue(":email", $user->getEmail());
+            $add_user_query->bindValue(":password", $user->getPassword());
+            $add_user_query->bindValue(":id_type_user", $user->getTypeUser());
+            
+            if($add_user_query->execute())
+            {
+              $add_teacher_query = $this->dbc()->prepare("INSERT INTO `teachers`
+                  (`id_teacher`, `info`)
                   VALUES
-                  (:second_name, :first_name, :patronymic, :email, :password, :id_type_user);
+                  ((SELECT `id_user` FROM `users` WHERE `email`=:email), :info)
               ");
               
-              $add_user_query->bindValue(":second_name", $user->getSn());
-              $add_user_query->bindValue(":first_name", $user->getFn());
-              $add_user_query->bindValue(":patronymic", $user->getPt());
-              $add_user_query->bindValue(":email", $user->getEmail());
-              $add_user_query->bindValue(":password", $user->getPassword());
-              $add_user_query->bindValue(":id_type_user", $user->getTypeUser());
+              $add_teacher_query->bindValue(":email", $user->getEmail());
+              $add_teacher_query->bindValue(":info", $user->getInfo());
               
-              if($add_user_query->execute())
-              {
-                  $add_teacher_query = $this->dbc()->prepare("INSERT INTO `teachers`
-                      (`id_teacher`, `info`)
-                      VALUES
-                      ((SELECT `id_user` FROM `users` WHERE `email`=:email), :info)
-                  ");
-                  
-                  $add_teacher_query->bindValue(":email", $user->getEmail());
-                  $add_teacher_query->bindValue(":info", $user->getInfo());
-                  
-                  if ($add_teacher_query->execute()) {
-                      
-                      if (!empty($user->getSubjects())) {
-                          $status = true;
-                          foreach($user->getSubjects() as $subject)
-                          {
-                              $add_subject_query = $this->dbc()->prepare("INSERT INTO `teacher_subjects`
-                                  (`id_teacher`, `id_subject`)
-                                  VALUES
-                                  ((SELECT `id_user` FROM `users` WHERE `email`=:email), (SELECT `id_subject` FROM `subjects` WHERE `description`=:subject))
-                              ");
-                              
-                              $add_subject_query->bindValue(":email", $user->getEmail());
-                              $add_subject_query->bindValue(":subject", $subject->getDescription());
-                              
-                              $status *= $add_subject_query->execute();
-                          }
-                          
-                          if (!$status) {                                    
-                              $this->dbc()->rollBack();
-                              return false;
-                          }
-                          else return $this->dbc()->commit();
-                      }
-                      else return $this->dbc()->commit();
+              if ($add_teacher_query->execute()) {
+                
+                if (!empty($user->getSubjects())) {
+                  $status = true;
+                  foreach($user->getSubjects() as $subject)
+                  {
+                    $add_subject_query = $this->dbc()->prepare("INSERT INTO `teacher_subjects`
+                        (`id_teacher`, `id_subject`)
+                        VALUES
+                        ((SELECT `id_user` FROM `users` WHERE `email`=:email), :id_subject)
+                    ");
+                    
+                    $add_subject_query->bindValue(":email", $user->getEmail());
+                    $add_subject_query->bindValue(":id_subject", $subject);
+                    
+                    $status *= $add_subject_query->execute();
                   }
-                  else
-                  {                                    
-                      $this->dbc()->rollBack();
-                      return false;
+                  
+                  if (!$status) {                                    
+                    $this->dbc()->rollBack();
+                    return false;
                   }
+                  else return $this->dbc()->commit();
+                }
+                else return $this->dbc()->commit();
+                
               }
               else
-              {
-                  $this->dbc()->rollBack();
-                  return false;
+              {                                    
+                $this->dbc()->rollBack();
+                return false;
               }
+            }
+            else
+            {
+                $this->dbc()->rollBack();
+                return false;
+            }
           }
           catch(PDOException $e)
           {
-              $this->dbc()->rollBack();
-              return false;
+            $this->dbc()->rollBack();
+            return false;
           }
 				} break;
 				case USER_TYPE_PARENT:

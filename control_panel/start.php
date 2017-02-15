@@ -11,19 +11,15 @@
 	require_once $_SERVER['DOCUMENT_ROOT']."/iep/managers/subjectsmanager.class.php";
 	require_once $_SERVER['DOCUMENT_ROOT']."/iep/managers/specialtymanager.class.php";
 	
-    use IEP\Managers\UserManager;
-    use IEP\Managers\SubjectsManager;
-    use IEP\Managers\NewsManager;
-    use IEP\Managers\GroupManager;
-    use IEP\Managers\SpecialtyManager;
+  use IEP\Managers\UserManager;
+  use IEP\Managers\SubjectsManager;
+  use IEP\Managers\NewsManager;
+  use IEP\Managers\GroupManager;
+  use IEP\Managers\SpecialtyManager;
     
 	$CT = new CTemplater("templates/tpl", "templates/tpl_c", "templates/configs", "templates/cache");
-    
-	$opt = array(
-		"PDO::ATTR_ERRMODE" => PDO::ERRMODE_EXCEPTION,
-		"PDO::ATTR_DEFAULT_FETCH_MODE" => PDO::FETCH_ASSOC
-	);
-	$DB = new PDO("mysql:dbname=".DATA_BASE_NAME.";host=127.0.0.1", USER_NAME, USER_PASSWORD, $opt);
+  
+	$DB = new PDO("mysql:dbname=".DATA_BASE_NAME.";host=127.0.0.1", USER_NAME, USER_PASSWORD);
 	$DB->exec("SET NAMES utf8");
 	
 	$GM = new GroupManager($DB);

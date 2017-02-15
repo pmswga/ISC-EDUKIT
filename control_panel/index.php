@@ -27,7 +27,7 @@
 			$groups_students[$i] = $DB->query("SELECT * FROM `students` s INNER JOIN `users` u ON s.id_student=u.id_user WHERE s.grp=".$groups[$i]->getNumberGroup()."")->fetchAll();
 		}
 		
-		$CT->assign("specs", $DB->query("SELECT * FROM `specialty`")->fetchAll());
+		$CT->assign("specialtyes", $SPM->getSpecialtyes());
 		$CT->assign("groups", $groups);
 		$CT->assign("students", $students);
 		$CT->assign("parents", $parents);
@@ -125,7 +125,7 @@
 				$_SESSION['error_message'] = "Не удалось добавить новую группу";
 			}
 			
-			//CTools::Redirect(_THIS_);
+			CTools::Redirect(_THIS_);
 		}
 		
 		
@@ -137,19 +137,6 @@
 			$status = 0;
 			for($i = 0; $i < count($r_groups); $i++) $status *= $GM->remove($r_groups[$i]);
 			
-			CTools::Redirect(_THIS_);
-		}
-		
-		if(!empty($_POST['up_course']))
-		{
-			//< Повышение на курс
-			$GM->upCourse();
-			CTools::Redirect(_THIS_);
-		}
-		elseif(!empty($_POST['down_course']))
-		{
-			//< Понижение на курс			
-			$GM->downCourse();
 			CTools::Redirect(_THIS_);
 		}
 		
@@ -185,31 +172,38 @@
 			$reg_teacher_data['subjects'] = $_POST['subjects'];
 			$reg_teacher_data['id_type_user'] = USER_TYPE_TEACHER;
 			
-            if (empty($reg_teacher_data['subjects'])) {
-                $_SESSION['status'] = -1;
-                $_SESSION['error_header'] = "Не выбраны предметы"; 
-            }
-            else
-            {
-                $t = new Teacher(
-                    new User(
-                        $reg_teacher_data['second_name'],
-                        $reg_teacher_data['first_name'],
-                        $reg_teacher_data['patronymic'],
-                        $reg_teacher_data['email'],
-                        $reg_teacher_data['password'],
-                        $reg_teacher_data['id_type_user']
-                    ),
-                    $reg_teacher_data['info']
-                );
-                $t->setTests($reg_teacher_data['subjects']);
-                
-                if($UM->add($t)) CTools::Message("Добавление преподавателя прошло успешно");
-                else CTools::Message("Произошла ошибка при добавлении");
-                
-            }
-            
-            CTools::Redirect(_THIS_);
+      if (empty($reg_teacher_data['subjects'])) {
+        $_SESSION['status'] = -1;
+        $_SESSION['error_header'] = "Не выбраны предметы"; 
+      }
+      else
+      {
+        $t = new Teacher(
+          new User(
+              $reg_teacher_data['second_name'],
+              $reg_teacher_data['first_name'],
+              $reg_teacher_data['patronymic'],
+              $reg_teacher_data['email'],
+              $reg_teacher_data['password'],
+              $reg_teacher_data['id_type_user']
+          ),
+          $reg_teacher_data['info']
+        );
+        $t->setSubjects($reg_teacher_data['subjects']);
+        
+        if($UM->add($t)) {
+          $_SESSION['status'] = 1;
+          $_SESSION['error_header'] = "Преподаватель успешно добавлен";
+        }
+        else
+        {
+          $_SESSION['status'] = -1;
+          $_SESSION['error_header'] = "Произошла ошибка при добавлении пользователя";
+        }
+        
+      }
+      
+      CTools::Redirect(_THIS_);
 		}
 		
 	}

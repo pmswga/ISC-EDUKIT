@@ -5,7 +5,7 @@
 	require_once "iep.class.php";
 	require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/group.class.php";
     
-    use IEP\Structures\Group;
+  use IEP\Structures\Group;
     
 	class GroupManager extends IEP
 	{
@@ -17,11 +17,6 @@
 				VALUES
 				(:grp, (SELECT `id_spec` FROM `specialty` WHERE `code_spec`=:code_spec), :payment)
 			");
-			
-      echo "<pre>";
-      print_r($grp);
-      echo "</pre>";
-      
       
 			$add_group_query->bindValue(":grp", $grp->getNumberGroup());
 			$add_group_query->bindValue(":code_spec", $grp->getCodeSpec());
@@ -34,22 +29,22 @@
 		{
 			$grps = $this->get("SELECT * FROM `groups` g INNER JOIN `specialty` s ON g.code_spec=s.id_spec");
             
-            $groups = array();
-            foreach($grps as $grp)
-            {
-                $group = new Group((int)$grp['grp'], $grp['code_spec'], (bool)$grp['is_budget']);
-                $groups[] = $group;
-            }
-            
-            return $groups;
+      $groups = array();
+      foreach($grps as $grp)
+      {
+          $group = new Group((int)$grp['grp'], $grp['code_spec'], (bool)$grp['is_budget']);
+          $groups[] = $group;
+      }
+      
+      return $groups;
 		}
 		
 		public function remove($number_grp) : bool
 		{
-            $remove_grp_query = $this->dbc()->prepare("DELETE FROM `groups` WHERE `grp`=:grp");
-            $remove_grp_query->bindValue(":grp", $number_grp);
-            
-            return $remove_grp_query->execute();
+      $remove_grp_query = $this->dbc()->prepare("DELETE FROM `groups` WHERE `grp`=:grp");
+      $remove_grp_query->bindValue(":grp", $number_grp);
+      
+      return $remove_grp_query->execute();
 		}
 		
 		public function change($old, $new) : bool
@@ -69,23 +64,7 @@
 			
 			return $update_query->execute();
 		}
-		/*
-		public function upCourse()
-		{
-			$course = $this->dbc()->query("SELECT left(`grp`, 1) FROM `groups`")->fetchAll()[0][0];
-			
-			if($course < 4) return $this->dbc()->query("UPDATE `groups` SET `grp`=`grp`+100");
-			else return false;
-		}
-		
-		public function downCourse()
-		{
-			$course = $this->dbc()->query("SELECT left(`grp`, 1) FROM `groups`")->fetchAll()[0][0];
-			
-			if($course > 1) return $this->dbc()->query("UPDATE `groups` SET `grp`=`grp`-100");
-			else return false;
-		}
-		*/
-	}
     
+	}
+  
 ?>
