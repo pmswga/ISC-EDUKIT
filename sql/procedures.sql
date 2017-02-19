@@ -15,5 +15,6 @@ BEGIN
 	(sn, fn, pt, email, pswd, type_user);
 END;
 
-
 //
+
+DELIMITER ;
