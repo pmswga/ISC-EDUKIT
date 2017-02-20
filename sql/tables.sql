@@ -45,7 +45,7 @@ INSERT INTO `typeUser` (`description`) VALUES ('PARENT');
 CREATE TABLE `students` (
 	id_student int PRIMARY KEY,
 	home_address char(255) NOT NULL,
-	cell_phone char(18) NOT NULL,
+	cell_phone char(20) NOT NULL,
 	grp int NOT NULL,
 	INDEX (grp)
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
@@ -73,8 +73,8 @@ CREATE TABLE `parents` (
 	education char(50) NOT NULL,
 	work_place char(255) NOT NULL,
 	post char(255) NOT NULL,
-	home_phone int(10) NOT NULL,
-	cell_phone int(10) NOT NULL
+	home_phone char(20) NOT NULL,
+	cell_phone char(20) NOT NULL
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
 /* Создание таблицы "Родитель-ребёнок" */

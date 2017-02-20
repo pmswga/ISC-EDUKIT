@@ -180,7 +180,7 @@ $(document).ready(function(){
     
     var cp = document.registration.cell_phone_child.value;
     
-    if ((cp.length <= 30) && (cp != "")) {
+    if ((cp.length <= 20) && (cp != "")) {
       setStatus(["cellPhoneDiv"], "success");
       status_send.setStatusTo("cell_phone", true);
     } else {
