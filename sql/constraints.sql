@@ -30,7 +30,7 @@ ALTER TABLE `parent_child` ADD CONSTRAINT relations_pc FOREIGN KEY (id_type_rela
 ALTER TABLE `teachers` ADD CONSTRAINT teacher_to_user FOREIGN KEY (id_teacher) REFERENCES `users` (id_user) ON UPDATE CASCADE ON DELETE CASCADE;
 
 /* Связка таблицы "news" с таблицей "teachers" */
-ALTER TABLE `news` ADD CONSTRAINT news_to_teacher FOREIGN KEY (id_author) REFERENCES `teachers` (id_teacher) ON UPDATE CASCADE;
+ALTER TABLE `news` ADD CONSTRAINT news_to_teacher FOREIGN KEY (id_author) REFERENCES `teachers` (id_teacher) ON UPDATE CASCADE ON DELETE CASCADE;
 
 /* Связка таблицы "teacher_subjects" с таблицей "teachers" */
 ALTER TABLE `teacher_subjects` ADD CONSTRAINT teachers_to_subjects_1 FOREIGN KEY (id_teacher) REFERENCES  `teachers` (id_teacher) ON UPDATE CASCADE;

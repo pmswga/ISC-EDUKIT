@@ -389,17 +389,17 @@
 		public function getUsers() 
 		{
 			$db_users =  $this->get("SELECT * FROM `users`");
-            
+      
       $users = array();
       foreach ($db_users as $db_user) {
-          $users[] = new User(
-              $db_user['second_name'], 
-              $db_user['first_name'], 
-              $db_user['patronymic'], 
-              $db_user['email'], 
-              $db_user['password'], 
-              (int)$db_user['id_type_user']
-          );
+        $users[] = new User(
+            $db_user['second_name'], 
+            $db_user['first_name'], 
+            $db_user['patronymic'], 
+            $db_user['email'], 
+            $db_user['password'], 
+            (int)$db_user['id_type_user']
+        );
       }
       
       return $users;
@@ -490,7 +490,7 @@
 		
 		public function getParents()
 		{
-			$db_parents = $this->get("SELECT * FROM `parents` p INNER JOIN `users` u ON p.id_parent=u.id_user");
+			$db_parents = $this->get("SELECT * FROM `v_parents`");
             
       $parents = array();
       foreach ($db_parents as $db_parent) {

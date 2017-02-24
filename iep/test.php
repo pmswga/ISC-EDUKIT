@@ -9,12 +9,8 @@
     use IEP\Structures\Teacher;
     use IEP\Structures\Parent_;
     use IEP\Structures\Subject;
-
-    $opt = array(
-  		"PDO::ATTR_ERRMODE" => PDO::ERRMODE_EXCEPTION,
-  		"PDO::ATTR_DEFAULT_FETCH_MODE" => PDO::FETCH_ASSOC
-  	);
-  	$DB = new PDO("mysql:dbname=iep;host=127.0.0.1", "root", "", $opt);
+    
+  	$DB = new PDO("mysql:dbname=iep;host=127.0.0.1", "root", "");
   	$DB->exec("SET NAMES utf8");
 
     $UM = new UserManager($DB);
@@ -23,7 +19,7 @@
     
     
     echo "<pre>";
-    print_r($UM->getTeachers());
+    print_r($UM->getParents());
     echo "</pre>";
 
 

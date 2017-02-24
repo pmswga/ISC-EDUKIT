@@ -1,8 +1,6 @@
 DROP DATABASE IF EXISTS `iep`;
 CREATE DATABASE IF NOT EXISTS `iep` CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-
-
 USE `iep`;
 
 /* Создание таблицы "Пользователи" */
@@ -15,7 +13,12 @@ CREATE TABLE `users` (
 	password char(32) NOT NULL,
 	id_type_user int NOT NULL,
 	INDEX (id_type_user),
-	CONSTRAINT type_user CHECK(id_type_user <= 5) 
+	CONSTRAINT uc_sn CHECK(second_name <> NULL AND second_name <> ''),
+	CONSTRAINT uc_fn CHECK(first_name <> NULL AND first_name <> ''),
+	CONSTRAINT uc_pt CHECK(patronymic <> NULL AND patronymic <> ''),
+	CONSTRAINT uc_email CHECK(email <> NULL AND email <> ''),
+	CONSTRAINT uc_password CHECK(password <> NULL AND password <> ''),
+	CONSTRAINT uc_type_user CHECK(id_type_user <> NULL AND id_type_user > 0 AND id_type_user <> 0)
 ) ENGINE = InnoDB	 CHARACTER SET = UTF8;
 
 /*
@@ -32,7 +35,8 @@ CREATE TABLE `users` (
 */
 CREATE TABLE `typeUser` (
 	id_type_user int AUTO_INCREMENT PRIMARY KEY,
-	description char(30) NOT NULL
+	description char(30) NOT NULL,
+	CONSTRAINT tuc_desc CHECK(description <> NULL AND description <> '')
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
 INSERT INTO `typeUser` (`description`) VALUES ('ADMIN');
@@ -45,17 +49,24 @@ INSERT INTO `typeUser` (`description`) VALUES ('PARENT');
 CREATE TABLE `students` (
 	id_student int PRIMARY KEY,
 	home_address char(255) NOT NULL,
-	cell_phone char(20) NOT NULL,
+	cell_phone char(30) NOT NULL,
 	grp int NOT NULL,
-	INDEX (grp)
+	INDEX (grp),
+	CONSTRAINT sc_ha CHECK(home_address <> NULL AND home_address <> ''),
+	CONSTRAINT sc_cp CHECK(cell_phone <> NULL AND cell_phone <> ''),
+	CONSTRAINT sc_grp CHECK(grp <> NULL AND grp > 0)
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
 /* Создание таблицы "Группы" */
 CREATE TABLE `groups` (
-	grp int  PRIMARY KEY,
+	grp int AUTO_INCREMENT PRIMARY KEY,
+	description char(10) NOT NULL,
 	code_spec int NOT NULL,
 	is_budget boolean NOT NULL,
-	INDEX (code_spec)
+	INDEX (code_spec),
+	CONSTRAINT gc_desc CHECK(description <> NULL AND description <> ''),
+	CONSTRAINT gc_cs CHECK(code_spec <> NULL AND code_spec > 0),
+	CONSTRAINT gc_is_budget CHECK(is_budget <> NULL)
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
 /* Создание таблицы "Специальности" */
@@ -63,7 +74,10 @@ CREATE TABLE `specialty` (
 	id_spec int AUTO_INCREMENT PRIMARY KEY,
 	code_spec char(10) NOT NULL UNIQUE,
 	description char(255) NOT NULL,
-	current_file char(255) NOT NULL
+	pdf_file char(255) NOT NULL,
+	CONSTRAINT sc_cs CHECK(code_spec <> NULL AND code_spec <> ''),
+	CONSTRAINT sc_desc CHECK(description <> NULL AND description <> ''),
+	CONSTRAINT sc_file CHECK(pdf_file <> NULL AND pdf_file <> '')
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
 /* Создание таблицы "Родители" */
@@ -108,7 +122,7 @@ CREATE TABLE `teachers` (
 
 /* Создание таблицы "Новости" */
 CREATE TABLE `news` (
-	id_news int PRIMARY KEY,
+	id_news int AUTO_INCREMENT PRIMARY KEY,
 	caption char(255) NOT NULL UNIQUE,
 	content text NOT NULL,
 	id_author int NOT NULL,
