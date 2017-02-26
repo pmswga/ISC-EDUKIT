@@ -184,30 +184,36 @@ CREATE TABLE IF NOT EXISTS `answers` (
 
 /* Создание таблицы "Ответов студентов на тесты" */
 CREATE TABLE IF NOT EXISTS `student_test` (
-  `id_student_test` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `id_student` int(11) NOT NULL,
-  `id_test` int(11) NOT NULL,
-  `date_passage` date NOT NULL,
+  id_student_test int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id_student int NOT NULL,
+  id_test int NOT NULL,
+  date_passage date NOT NULL,
   INDEX(id_student),
   INDEX(id_test)
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
 /* Создание таблицы "Ответы студентов" */
 CREATE TABLE IF NOT EXISTS `student_answer` (
-  `id_student_test` int(11) NOT NULL PRIMARY KEY,
-  `id_question` int(11) NOT NULL,
-  `answer` char(255) NOT NULL,
+  id_student_test int NOT NULL PRIMARY KEY,
+  id_question int NOT NULL,
+  answer char(255) NOT NULL,
   INDEX(id_question),
   CONSTRAINT sac_answer CHECK(answer <> '')
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
 /* Создание таблицы "Посещаемости" */
 CREATE TABLE IF NOT EXISTS `student_traffic` (
-  `id_traffic` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `id_student` int(11) NOT NULL,
-  `date_traffic` date NOT NULL,
+  id_traffic int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id_student int NOT NULL,
+  date_traffic date NOT NULL,
   INDEX(id_student)
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
 /* Создание таблицы "Группы-тесты" */
-
+CREATE TABLE IF NOT EXISTS `groups_tests` (
+	id_grp_test int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	id_test int NOT NULL,
+	id_group int NOT NULL,
+	INDEX(id_group),
+	INDEX(id_test)
+) ENGINE = InnoDB CHARACTER SET = UTF8;
