@@ -1,16 +1,30 @@
 use `iep`;
 
+DROP PROCEDURE IF EXISTS getSubjectsByTeacher;
+
 DROP PROCEDURE IF EXISTS addSpecialty;
 DROP PROCEDURE IF EXISTS addGroup;
 DROP PROCEDURE IF EXISTS addSubject;
 DROP PROCEDURE IF EXISTS addStudent;
 DROP PROCEDURE IF EXISTS addParent;
 DROP PROCEDURE IF EXISTS addTeacher;
+
 DROP PROCEDURE IF EXISTS assignParentStudent;
+DROP PROCEDURE IF EXISTS assignTeacherSubject;
 
 DELIMITER //
 
 
+CREATE PROCEDURE getSubjectsByTeacher(emailTeacher char(30))
+BEGIN
+	SELECT DISTINCT `description` FROM `subjects` s INNER JOIN `teacher_subjects` ts WHERE `id_teacher`=(SELECT `id_teacher` FROM `users` WHERE `email`=emailTeacher AND `id_type_user`=2) ORDER BY `description`;
+END;
+
+
+CREATE PROCEDURE addNews(n_caption char(255), n_content text, emailTeacher char(30), n_date date)
+BEGIN
+	INSERT INTO `news` (`caption`, `content`, `id_author`, `date_publication`) VALUES (n_caption, n_content, (SELECT `id_user` FROM `users` WHERE `email`=emailTeacher AND `id_type_user`=2), n_date);
+END;
 
 CREATE PROCEDURE addSpecialty(code_spec CHAR(10), descp CHAR(255), pdf_file CHAR(255))
 BEGIN
@@ -52,11 +66,16 @@ BEGIN
 END;
 
 
-
 CREATE PROCEDURE assignParentStudent(emailParent CHAR(255), emailStudent CHAR(255), type_relation INT)
 BEGIN
   INSERT INTO `parent_child` (`id_parent`, `id_children`, `id_type_relation`) VALUES ((SELECT `id_user` FROM `users` WHERE `email`=emailParent AND `id_type_user`=5), (SELECT `id_user` FROM `users` WHERE `email`=emailStudent AND `id_type_user`=4), type_relation);
 END;
+
+CREATE PROCEDURE assignTeacherSubject(emailTeacher char(30), t_subject char(255))
+BEGIN
+  INSERT INTO `teacher_subjects` (`id_teacher`, `id_subject`) VALUES ((SELECT `id_user` FROM `users` WHERE `email`=emailTeacher AND `id_type_user`=2), (SELECT `id_subject` FROM `subjects` WHERE `description`=t_subject));
+END;
+
 
 //
 

@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `teachers` (
 /* Создание таблицы "Новости" */
 CREATE TABLE IF NOT EXISTS `news` (
 	id_news int AUTO_INCREMENT PRIMARY KEY,
-	caption char(255) NOT NULL UNIQUE,
+	caption char(255) NOT NULL,
 	content text NOT NULL,
 	id_author int NOT NULL,
 	date_publication date NOT NULL,
