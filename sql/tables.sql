@@ -4,7 +4,7 @@ CREATE DATABASE IF NOT EXISTS `iep` CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `iep`;
 
 /* Создание таблицы "Пользователи" */
-CREATE TABLE `users` (
+CREATE TABLE IF NOT EXISTS `users` (
 	id_user int NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	second_name char(30) NOT NULL,
 	first_name char(30) NOT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE `users` (
 		5 - PARENT
 	
 */
-CREATE TABLE `typeUser` (
+CREATE TABLE IF NOT EXISTS `typeUser` (
 	id_type_user int AUTO_INCREMENT PRIMARY KEY,
 	description char(30) NOT NULL,
 	CONSTRAINT tuc_desc CHECK(description <> '')
