@@ -2,7 +2,10 @@ use `iep`;
 
 DROP PROCEDURE IF EXISTS addSpecialty;
 DROP PROCEDURE IF EXISTS addGroup;
+DROP PROCEDURE IF EXISTS addSubject;
 DROP PROCEDURE IF EXISTS addStudent;
+DROP PROCEDURE IF EXISTS addParent;
+DROP PROCEDURE IF EXISTS addTeacher;
 DROP PROCEDURE IF EXISTS assignParentStudent;
 
 DELIMITER //
@@ -19,13 +22,36 @@ BEGIN
   INSERT INTO `groups` (`code_spec`, `description`, `is_budget`) VALUES ((SELECT `id_spec` FROM `specialty` WHERE `code_spec`=code_spec), descp, is_budget);
 END;
 
-CREATE PROCEDURE addStudent(fn char(30), sn char(30), pt char(30), s_email char(30), password char(30), ha char(255), cp char(30), s_grp char(10))
+CREATE PROCEDURE addSubject(descp char(255))
 BEGIN
-	start transaction;
-	INSERT INTO `users` (`first_name`, `second_name`, `patronymic`, `email`, `password`, `id_type_user`) VALUES (fn, sn, pt, email, password, 4);
-	INSERT INTO `students` (`id_student`, `home_address`, `cell_phone`, `grp`) VALUES ((SELECT `id_user` FROM `users` WHERE `email`=s_email), ha, cp, (SELECT `grp` FROM `groups` WHERE `description`=s_grp));
-	commit;
+	INSERT INTO `subjects` (`description`) VALUES (descp);
 END;
+
+CREATE PROCEDURE addStudent(fn char(30), sn char(30), pt char(30), s_email char(30), paswd char(30), ha char(255), cp char(30), s_grp char(10))
+BEGIN
+	START TRANSACTION;
+	INSERT INTO `users` (`first_name`, `second_name`, `patronymic`, `email`, `password`, `id_type_user`) VALUES (fn, sn, pt, s_email, paswd, 4);
+	INSERT INTO `students` (`id_student`, `home_address`, `cell_phone`, `grp`) VALUES ((SELECT `id_user` FROM `users` WHERE `email`=s_email), ha, cp, (SELECT `grp` FROM `groups` WHERE `description`=s_grp));
+	COMMIT;
+END;
+
+CREATE PROCEDURE addParent(fn char(30), sn char(30), pt char(30), p_email char(30), paswd char(30), p_age smallint, p_education char(50), p_wp char(255), p_post char(255), hp char(30), cp char(30))
+BEGIN
+	START TRANSACTION;
+	INSERT INTO `users` (`first_name`, `second_name`, `patronymic`, `email`, `password`, `id_type_user`) VALUES (fn, sn, pt, p_email, paswd, 5);
+	INSERT INTO `parents` (`id_parent`, `age`, `education`, `work_place`, `post`, `home_phone`, `cell_phone`) VALUES ((SELECT `id_user` FROM `users` WHERE `email`=p_email), p_age, p_education, p_wp, p_post, hp, cp);
+	COMMIT;
+END;
+
+CREATE PROCEDURE addTeacher(fn char(30), sn char(30), pt char(30), t_email char(30), paswd char(30), info text)
+BEGIN
+	START TRANSACTION;
+	INSERT INTO `users` (`first_name`, `second_name`, `patronymic`, `email`, `password`, `id_type_user`) VALUES (fn, sn, pt, t_email, paswd, 2);
+	INSERT INTO `teachers` (`id_teacher`, `info`) VALUES ((SELECT `id_user` FROM `users` WHERE `email`=t_email), info);
+	COMMIT;
+END;
+
+
 
 CREATE PROCEDURE assignParentStudent(emailParent CHAR(255), emailStudent CHAR(255), type_relation INT)
 BEGIN

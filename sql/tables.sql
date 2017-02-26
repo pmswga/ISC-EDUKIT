@@ -48,7 +48,7 @@ INSERT INTO `typeUser` (`description`) VALUES ('PARENT');
 CREATE TABLE IF NOT EXISTS `students` (
 	id_student int PRIMARY KEY,
 	home_address char(255) NOT NULL,
-	cell_phone char(30) NOT NULL,
+	cell_phone char(12) NOT NULL,
 	grp int NOT NULL,
 	INDEX (grp),
 	CONSTRAINT sc_ha CHECK(home_address <> ''),
@@ -83,8 +83,8 @@ CREATE TABLE IF NOT EXISTS `parents` (
 	education char(50) NOT NULL,
 	work_place char(255) NOT NULL,
 	post char(255) NOT NULL,
-	home_phone char(20) NOT NULL,
-	cell_phone char(20) NOT NULL,
+	home_phone char(30) NOT NULL,
+	cell_phone char(30) NOT NULL,
 	CONSTRAINT pc_edu CHECK(education <> ''),
 	CONSTRAINT pc_wp CHECK(work_place <> ''),
 	CONSTRAINT pc_post CHECK(post <> ''),
@@ -139,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `news` (
 /* Создание таблицы "Предметы" */
 CREATE TABLE IF NOT EXISTS `subjects` (
 	id_subject int AUTO_INCREMENT PRIMARY KEY,
-	description char(255) NOT NULL,
+	description char(255) NOT NULL UNIQUE,
 	CONSTRAINT sc_desc CHECK(description <> '')
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
@@ -167,7 +167,7 @@ CREATE TABLE IF NOT EXISTS `questions` (
 	id_question int AUTO_INCREMENT PRIMARY KEY,
 	id_test int NOT NULL,
 	INDEX(id_test),
-	question char(255) NOT NULL UNIQUE,
+	question char(255) NOT NULL,
 	r_answer char(255) NOT NULL,
 	CONSTRAINT qc_question CHECK(question <> ''),
 	CONSTRAINT qc_ranswer CHECK(r_answer <> '')
