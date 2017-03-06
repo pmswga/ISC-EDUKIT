@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 */
 CREATE TABLE IF NOT EXISTS `typeUser` (
 	id_type_user int AUTO_INCREMENT PRIMARY KEY,
-	description char(30) NOT NULL,
+	description char(30) NOT NULL UNIQUE,
 	CONSTRAINT tuc_desc CHECK(description <> '')
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
@@ -89,7 +89,8 @@ CREATE TABLE IF NOT EXISTS `parents` (
 	CONSTRAINT pc_wp CHECK(work_place <> ''),
 	CONSTRAINT pc_post CHECK(post <> ''),
 	CONSTRAINT pc_home_phone CHECK (home_phone <> ''),
-	CONSTRAINT pc_cell_phone CHECK (cell_phone <> '')
+	CONSTRAINT pc_cell_phone CHECK (cell_phone <> ''),
+	CONSTRAINT pc_age CHECK (age > 0)
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
 /* Создание таблицы "Родитель-ребёнок" */
@@ -158,7 +159,7 @@ CREATE TABLE IF NOT EXISTS `tests` (
 	id_teacher int NOT NULL,
 	INDEX(id_subject),
 	INDEX(id_teacher),
-	caption char(255) NOT NULL UNIQUE,
+	caption char(255) NOT NULL,
 	CONSTRAINT tc_caption CHECK(caption <> '')
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
@@ -178,7 +179,7 @@ CREATE TABLE IF NOT EXISTS `answers` (
 	id_answer int AUTO_INCREMENT PRIMARY KEY,
 	id_question int NOT NULL,
 	INDEX(id_question),
-	answer char(255) NOT NULL UNIQUE,
+	answer char(255) NOT NULL,
 	CONSTRAINT ac_answer CHECK(answer <> '')
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
