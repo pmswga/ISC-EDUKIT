@@ -206,8 +206,12 @@ CREATE TABLE IF NOT EXISTS `student_answer` (
 CREATE TABLE IF NOT EXISTS `student_traffic` (
   id_traffic int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   id_student int NOT NULL,
-  date_traffic date NOT NULL,
-  INDEX(id_student)
+  date_visit date NOT NULL,
+  count_passed_hours int NOT NULL,
+  count_all_hours int NOT NULL,
+  INDEX(id_student),
+  CONSTRAINT stc_cph CHECK (count_passed_hours > 0 AND count_passed_hours <= count_all_hours),
+  CONSTRAINT stc_cah CHECK (count_all_hours > 0)
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
 /* Создание таблицы "Группы-тесты" */
