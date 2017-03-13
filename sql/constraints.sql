@@ -3,16 +3,16 @@ USE `iep`;
 /* УСТАНОВКА СВЯЗЕЙ */
 
 /* Связка таблицы "Users" с таблицей "typeUsers" */
-ALTER TABLE `users` ADD CONSTRAINT typeUser_to_users FOREIGN KEY (id_type_user) REFERENCES `typeUser` (id_type_user) ON UPDATE  CASCADE ON DELETE CASCADE;
+ALTER TABLE `users` ADD CONSTRAINT typeUser_to_users FOREIGN KEY (id_type_user) REFERENCES `typeUser` (id_type_user) ON UPDATE CASCADE ON DELETE CASCADE; 
 
 /* Связка таблицы "students" с таблицей "users" */
-ALTER TABLE `students` ADD CONSTRAINT student_to_user FOREIGN KEY (id_student) REFERENCES `users` (id_user) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE `students` ADD CONSTRAINT student_to_user FOREIGN KEY (id_student) REFERENCES `users` (id_user) ON UPDATE CASCADE ON DELETE CASCADE; 
 
 /* Связка таблицы "parents" с таблицей "users" */
 ALTER TABLE `parents` ADD CONSTRAINT parent_to_user FOREIGN KEY (id_parent) REFERENCES `users` (id_user) ON UPDATE CASCADE ON DELETE CASCADE;
 
 /* Связка таблицы "students" с таблицей "groups" */
-ALTER TABLE `students` ADD CONSTRAINT student_to_group FOREIGN KEY (grp) REFERENCES `groups` (grp) ON UPDATE CASCADE;
+ALTER TABLE `students` ADD CONSTRAINT student_to_group FOREIGN KEY (grp) REFERENCES `groups` (grp) ON UPDATE CASCADE ON DELETE CASCADE;
 
 /* Связка таблицы "groups" с таблицей "specialty" */
 ALTER TABLE `groups` ADD CONSTRAINT group_to_specialty FOREIGN KEY (code_spec) REFERENCES `specialty` (id_spec) ON UPDATE CASCADE ON DELETE CASCADE;
