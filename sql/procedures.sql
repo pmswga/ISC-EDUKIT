@@ -15,32 +15,14 @@ DROP PROCEDURE IF EXISTS assignTeacherSubject;
 
 DELIMITER //
 
+/* 
 
-CREATE PROCEDURE getSubjectsByTeacher(emailTeacher char(30))
-BEGIN
-	SELECT DISTINCT `description` FROM `subjects` s INNER JOIN `teacher_subjects` ts WHERE `id_teacher`=(SELECT `id_teacher` FROM `users` WHERE `email`=emailTeacher AND `id_type_user`=2) ORDER BY `description`;
-END;
+	[UML Диаграмма - "Общее"]
 
+*/
 
-CREATE PROCEDURE addNews(n_caption char(255), n_content text, emailTeacher char(30), n_date date)
-BEGIN
-	INSERT INTO `news` (`caption`, `content`, `id_author`, `date_publication`) VALUES (n_caption, n_content, (SELECT `id_user` FROM `users` WHERE `email`=emailTeacher AND `id_type_user`=2), n_date);
-END;
+/* Для просмотра новостей, нужно использовать представление v_News */
 
-CREATE PROCEDURE addSpecialty(code_spec CHAR(10), descp CHAR(255), pdf_file CHAR(255))
-BEGIN
-  INSERT INTO `specialty` (`code_spec`, `description`, `pdf_file`) VALUES (code_spec, descp, pdf_file);
-END;
-
-CREATE PROCEDURE addGroup(descp CHAR(255), code_spec CHAR(10), is_budget BOOL)
-BEGIN
-  INSERT INTO `groups` (`code_spec`, `description`, `is_budget`) VALUES ((SELECT `id_spec` FROM `specialty` WHERE `code_spec`=code_spec), descp, is_budget);
-END;
-
-CREATE PROCEDURE addSubject(descp char(255))
-BEGIN
-	INSERT INTO `subjects` (`description`) VALUES (descp);
-END;
 
 CREATE PROCEDURE addStudent(fn char(30), sn char(30), pt char(30), s_email char(30), paswd char(30), ha char(255), cp char(30), s_grp char(10))
 BEGIN
@@ -67,6 +49,86 @@ BEGIN
 END;
 
 
+/* ---------------------------------------------------------------------------------- */
+
+/* 
+
+	[UML Диаграмма - "Панель администратора"]
+
+*/
+
+/* Работа с новостями */
+
+/* Для получения новостей, нужно использовать представление `v_News` */
+
+CREATE PROCEDURE addNews(n_caption char(255), n_content text, emailTeacher char(30), n_date date)
+BEGIN
+	INSERT INTO `news` (`caption`, `content`, `id_author`, `date_publication`) VALUES (n_caption, n_content, (SELECT `id_user` FROM `users` WHERE `email`=emailTeacher AND `id_type_user`=2), n_date);
+END;
+
+CREATE PROCEDURE removeNews(caption CHAR(255), author CHAR(255))
+BEGIN
+	DELETE `news` FROM 
+END;
+
+/* Работа со специальностями */
+
+/* Для получение специальностей, нужно использовать представление `v_Specialtyes`  */
+
+CREATE PROCEDURE addSpecialty(code_spec CHAR(10), descp CHAR(255), pdf_file CHAR(255))
+BEGIN
+ INSERT INTO `specialty` (`code_spec`, `description`, `pdf_file`) VALUES (code_spec, descp, pdf_file);
+END;
+
+CREATE PROCEDURE removSpecialty(descp CHAR(255))
+BEGIN
+	DELETE FROM `specialty` WHERE `description`=descp;
+END;
+
+CREATE PROCEDURE changeSpecialty(old_spec CHAR(255), new_spec CHAR(255))
+BEGIN
+	UPDATE `specialty` SET `description`=new_spec WHERE `description`=old_spec;
+END;
+
+/* Работа с группами */
+
+CREATE PROCEDURE addGroup(descp CHAR(255), code_spec CHAR(10), is_budget BOOL)
+BEGIN
+  INSERT INTO `groups` (`code_spec`, `description`, `is_budget`) VALUES ((SELECT `id_spec` FROM `specialty` WHERE `code_spec`=code_spec), descp, is_budget);
+END;
+
+CREATE PROCEDURE removeGroup()
+BEGIN
+	
+END;
+
+CREATE PROCEDURE changeGroup(old_descp CHAR(255), new_descp CHAR(255))
+BEGIN
+	UPDATE `groups` SET `description`=new_descp WHERE `description`=old_descp
+END;
+
+CREATE PROCEDURE upCourse()
+BEGIN
+
+END;
+
+/* Работа с предметами */
+
+CREATE PROCEDURE addSubject(descp CHAR(255))
+BEGIN
+	INSERT INTO `subjects` (`description`) VALUES (descp);
+END;
+
+CREATE PROCEDURE removeSubject(descp CHAR(255))
+BEGIN
+	DELETE FROM `subjects` WHERE `description`=descp;
+END;
+
+CREATE PROCEDURE changeSubject(old_descp CHAR(255), new_descp CHAR(255))
+BEGIN
+	UPDATE `subjects` SET `description`=new_descp WHERE `description`=old_descp;
+END;
+
 CREATE PROCEDURE assignParentStudent(emailParent CHAR(255), emailStudent CHAR(255), type_relation INT)
 BEGIN
   INSERT INTO `parent_child` (`id_parent`, `id_children`, `id_type_relation`) VALUES ((SELECT `id_user` FROM `users` WHERE `email`=emailParent AND `id_type_user`=5), (SELECT `id_user` FROM `users` WHERE `email`=emailStudent AND `id_type_user`=4), type_relation);
@@ -77,6 +139,18 @@ BEGIN
   INSERT INTO `teacher_subjects` (`id_teacher`, `id_subject`) VALUES ((SELECT `id_user` FROM `users` WHERE `email`=emailTeacher AND `id_type_user`=2), (SELECT `id_subject` FROM `subjects` WHERE `description`=t_subject));
 END;
 
+CREATE PROCEDURE getSubjectsByTeacher(emailTeacher char(30))
+BEGIN
+	SELECT DISTINCT `description` 
+	FROM `subjects` s 
+		INNER JOIN `teacher_subjects` ts ON s.id_subject=ts.id_subject
+		INNER JOIN `users` u ON ts.id_teacher=u.id_user
+	WHERE u.id_type_user=4;
+	ORDER BY `description`;
+END;
+
+
+/* ---------------------------------------------------------------------------------- */
 
 //
 
