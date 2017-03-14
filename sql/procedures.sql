@@ -1,5 +1,10 @@
 use `iep`;
 
+/* Служебные */
+
+DROP PROCEDURE IF EXISTS getUserID;
+
+/* ----- */
 
 DROP PROCEDURE IF EXISTS addStudent;
 DROP PROCEDURE IF EXISTS addParent;
@@ -16,7 +21,6 @@ DROP PROCEDURE IF EXISTS getAllStudents;
 DROP PROCEDURE IF EXISTS getAllElders;
 DROP PROCEDURE IF EXISTS getAllParents;
 DROP PROCEDURE IF EXISTS getAllTeachers;
-
 
 DROP PROCEDURE IF EXISTS addNews;
 DROP PROCEDURE IF EXISTS removeNews;
@@ -82,6 +86,19 @@ DROP PROCEDURE IF EXISTS getStudentAnswers;
 
 
 DELIMITER //
+
+/* 
+	
+	[Служебные]
+	
+*/
+
+CREATE PROCEDURE getUserID(emailUser CHAR(30))
+BEGIN
+	SELECT `id_user` FROM `users` WHERE `email`=emailUser;
+END;
+
+
 
 /* 
 
@@ -339,10 +356,10 @@ BEGIN
 	COMMIT;
 END;
 
-CREATE PROCEDURE removeGroup(descp CHAR(255))
+CREATE PROCEDURE removeGroup(id_grp INT)
 BEGIN
 	START TRANSACTION;
-	DELETE FROM `groups`;
+	DELETE FROM `groups` WHERE `grp`=id_grp;
 	COMMIT;
 END;
 
@@ -435,9 +452,25 @@ CREATE PROCEDURE setChild(emailParent CHAR(30), emailStudent CHAR(30), type_rela
 BEGIN
 	START TRANSACTION;
   	INSERT INTO `parent_child` (`id_parent`, `id_children`, `id_type_relation`) VALUES ((SELECT `id_user` FROM `users` WHERE `email`=emailParent AND `id_type_user`=5), (SELECT `id_user` FROM `users` WHERE `email`=emailStudent AND `id_type_user`=4), type_relation);
-  	COMMIT;
+  COMMIT;
 END;
 
+CREATE PROCEDURE unsetChild(emailParent CHAR(30), emailStudent CHAR(30), type_relation INT)
+BEGIN
+	START TRANSACTION;
+	DELETE FROM `parent_child`
+	WHERE `id_parent`=getUserID(emailParent) AND `id_student`=getUserID(emailStudent);
+	COMMIT;
+END;
+
+CREATE PROCEDURE changeRelation(emailParent CHAR(30), emailStudent CHAR(30), old_id_relation INT, new_id_relation INT)
+BEGIN
+	START TRANSACTION;
+	UPDATE `parent_child`
+	SET `id_type_relation`=new_id_relation
+	WHERE `id_type_relation`=old_id_relation AND `id_parent`=getUserID(emailParent) AND `id_student`=getUserID(emailStudent);
+	COMMIT;
+END;
 
 CREATE PROCEDURE getChilds(emailParent char(30))
 BEGIN
@@ -447,17 +480,9 @@ BEGIN
 		INNER JOIN `students` s ON u.id_user=s.id_student
 		INNER JOIN `groups` g ON s.grp=g.grp
 		INNER JOIN `specialty` sp ON g.code_spec=sp.id_spec
-	WHERE pc.id_parent=(SELECT `id_user` FROM `users` WHERE `email`=emailParent)
+	WHERE pc.id_parent=getUserID(emailParent)
 	ORDER BY u.first_name, u.second_name, u.patronymic;
 END;
-
-
-
-
-
-
-
-
 
 CREATE PROCEDURE setSubject(emailTeacher char(30), t_subject char(255))
 BEGIN
@@ -466,7 +491,10 @@ BEGIN
   	COMMIT;
 END;
 
-
+CREATE PROCEDURE unsetSubject()
+BEGIN
+	
+END;
 
 /* ---------------------------------------------------------------------------------- */
 
