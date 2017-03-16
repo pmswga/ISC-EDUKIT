@@ -14,17 +14,30 @@
       <div class="col-md-10">
         <div class="tab-content">
           <div class="tab-pane active" id="viewGroups">
-            <div class="row">              
-              <div class="col-md-12">
-                <table class="table table-bordered">
-                  <tr>
-                    <th>Группа</th>
-                    <th>Специальность</th>
-                    <th>Кол-во студентов</th>
-                    <th>Выбрать</th>
-                  </tr>
-                </table>
-              </div>
+            <div class="row">      
+              <form name="removeGroupForm" method="POST">
+                <div class="col-md-10">
+                  <table class="table table-bordered">
+                    <tr>
+                      <th>Группа</th>
+                      <th>Специальность</th>
+                      <th>Кол-во студентов</th>
+                      <th>Выбрать</th>
+                    </tr>
+                    {foreach from=$groups item=group}
+                      <tr>
+                        <td>{$group->getNumberGroup()}</td>
+                        <td>{$group->getCodeSpec()}</td>
+                        <td></td>
+                        <td><input type="checkbox" name="select_grp[]" value="{$group->getID()}" class="form-control"></td>
+                      </tr>
+                    {/foreach}
+                  </table>
+                </div>
+                <div class="col-md-2">
+                  <input type="submit" name="removeGroupButton" value="Удалить" class="btn btn-danger btn-block">
+                </div>
+              </form>
             </div>
           </div>
           <div class="tab-pane" id="addGroup">
@@ -35,15 +48,25 @@
                   <form name="addGroupForm" method="POST">
                     <div class="form-group">
                       <label>Наименование</label>
-                      <input class="form-control">
+                      <input type="text" name="group" class="form-control">
                     </div>
                     <div class="form-group">
                       <label>Специальность</label>
-                      <select class="form-control">
+                      <select name="spec" class="form-control">
+                        {foreach from=$specialtyes item=specialty}
+                          <option value="{$specialty->getCode()}">{$specialty->getCode()} -> {$specialty->getDescription()}</option>
+                        {/foreach}
                       </select>
                     </div>
                     <div class="form-group">
-                      <input type="submit" value="Добавить">
+                      <label>Тип</label>
+                      <select name="payment" class="form-control">
+                        <option value="1">Бюджетная</option>
+                        <option value="0">Коммерческая</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <input type="submit" name="addGroupButton" value="Добавить" class="btn btn-primary">
                     </div>
                   </form>
                 </fieldset>

@@ -4,18 +4,31 @@
     
 	class Group
 	{
+    private $id;
 		private $grp;
 		private $code_spec;
 		private $is_budget;
-		
-		function __construct(int $number, string $code_spec, bool $is_budget)
+		private $count_students;
+    
+		function __construct(string $number, string $code_spec, bool $is_budget)
 		{
+      $this->id = 0;
 			$this->grp = $number;
 			$this->code_spec = $code_spec;
 			$this->is_budget = $is_budget;
 		}
+    
+    public function setID(int $id)
+    {
+      $this->id = $id;
+    }
+    
+    public function getID() : int
+    {
+      return $this->id;
+    }
         
-		public function getNumberGroup() : int
+		public function getNumberGroup() : string
 		{
 			return $this->grp;
 		}
@@ -29,6 +42,16 @@
 		{
 			return $this->is_budget;
 		}
+    
+    public function setCountStudents(int $count_of_students)
+    {
+      $this->count_students = $count_of_students;
+    }
+    
+    public function getCountStudents() : int
+    {
+      return $this->count_students;
+    }
 		
 	}
     

@@ -12,11 +12,7 @@
         
 		public function add($grp) : bool
 		{
-			$add_group_query = $this->dbc()->prepare("INSERT INTO `groups`
-				(`grp`, `code_spec`, `is_budget`)
-				VALUES
-				(:grp, (SELECT `id_spec` FROM `specialty` WHERE `code_spec`=:code_spec), :payment)
-			");
+			$add_group_query = $this->dbc()->prepare("call addGroup(:grp, :code_spec, :payment)");
       
 			$add_group_query->bindValue(":grp", $grp->getNumberGroup());
 			$add_group_query->bindValue(":code_spec", $grp->getCodeSpec());
@@ -27,12 +23,13 @@
 		
 		public function getGroups() : array
 		{
-			$grps = $this->get("SELECT * FROM `groups` g INNER JOIN `specialty` s ON g.code_spec=s.id_spec");
+			$grps = $this->get("call getAllGroups()");
             
       $groups = array();
       foreach($grps as $grp)
       {
-          $group = new Group((int)$grp['grp'], $grp['code_spec'], (bool)$grp['is_budget']);
+          $group = new Group($grp['grp'], $grp['spec'], (bool)$grp['budget']);
+          $group->setID((int)$grp['id_grp']);
           $groups[] = $group;
       }
       
@@ -41,7 +38,7 @@
 		
 		public function remove($number_grp) : bool
 		{
-      $remove_grp_query = $this->dbc()->prepare("DELETE FROM `groups` WHERE `grp`=:grp");
+      $remove_grp_query = $this->dbc()->prepare("call removeGroup(:grp)");
       $remove_grp_query->bindValue(":grp", $number_grp);
       
       return $remove_grp_query->execute();
