@@ -56,6 +56,9 @@ ALTER TABLE `student_test` ADD CONSTRAINT students_tests FOREIGN KEY (`id_studen
 /* Связка таблицы "student_test" с таблицей "tests" */
 ALTER TABLE `student_test` ADD CONSTRAINT stud_test FOREIGN KEY (`id_test`) REFERENCES `tests` (`id_test`) ON UPDATE CASCADE ON DELETE CASCADE;
 
+/* Связка таблицы "students" с таблицей "student_test" */
+ALTER TABLE `student_answer` ADD CONSTRAINT t_s_a FOREIGN KEY (`id_student`) REFERENCES `students` (`id_student`) ON UPDATE CASCADE ON DELETE CASCADE;
+
 /* Связка таблицы "student_answer" с таблицей "student_test" */
 ALTER TABLE `student_answer` ADD CONSTRAINT students_answers FOREIGN KEY (`id_student_test`) REFERENCES `student_test` (`id_student_test`) ON UPDATE CASCADE ON DELETE CASCADE;
 

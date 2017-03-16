@@ -11,6 +11,7 @@ DROP VIEW IF EXISTS v_Subjects;
 DROP VIEW IF EXISTS v_News;
 DROP VIEW IF EXISTS v_Traffic;
 DROP VIEW IF EXISTS v_Relations;
+DROP VIEW IF EXISTS v_Tests;
 
 CREATE VIEW v_Users (sn, fn, pt, email, paswd, type_user) as
 	SELECT `second_name`, `first_name`, `patronymic`, `password`, `email`, `id_type_user` 
@@ -49,8 +50,8 @@ CREATE VIEW v_Elders (sn, fn, pt, email, paswd, home_address, cell_phone, grp) a
 	ORDER BY u.second_name, u.first_name, u.patronymic;
 
 
-CREATE VIEW v_Groups (grp, spec, budget) as
-	SELECT g.description, s.description, g.is_budget 
+CREATE VIEW v_Groups (id_grp, grp, spec, budget) as
+	SELECT g.grp, g.description, s.description, g.is_budget 
 	FROM `groups` g 
 		INNER JOIN `specialty` s ON g.code_spec=s.id_spec
 	ORDER BY g.description;
@@ -84,3 +85,9 @@ CREATE VIEW v_Traffic (fn, sn, pt, email, date_visit, count_passed_hours, count_
 	WHERE u.id_type_user=4
 	ORDER BY u.second_name, u.first_name, u.patronymic;
 	
+CREATE VIEW v_Tests (id_test, snp, email, test_name, subject, count_questions) as  SELECT t.id_test, CONCAT(u.second_name, ' ', LEFT(u.first_name, 1), '. ', LEFT(u.patronymic, 1), '.'), u.email, t.caption, s.description as subject, 1
+  FROM `tests` t
+    INNER JOIN `users` u ON t.id_teacher=u.id_user
+    INNER JOIN `subjects` s ON t.id_subject=s.id_subject
+  ORDER BY u.second_name
+  

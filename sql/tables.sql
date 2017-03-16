@@ -195,10 +195,13 @@ CREATE TABLE IF NOT EXISTS `student_test` (
 
 /* Создание таблицы "Ответы студентов" */
 CREATE TABLE IF NOT EXISTS `student_answer` (
-  id_student_test int NOT NULL PRIMARY KEY,
+  id_student int NOT NULL,
+  id_student_test int NOT NULL,
   id_question int NOT NULL,
   answer char(255) NOT NULL,
   INDEX(id_question),
+  INDEX(id_student),
+  PRIMARY KEY (id_student_test, id_question),
   CONSTRAINT sac_answer CHECK(answer <> '')
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
@@ -216,9 +219,7 @@ CREATE TABLE IF NOT EXISTS `student_traffic` (
 
 /* Создание таблицы "Группы-тесты" */
 CREATE TABLE IF NOT EXISTS `groups_tests` (
-	id_grp_test int NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	id_test int NOT NULL,
 	id_group int NOT NULL,
-	INDEX(id_group),
-	INDEX(id_test)
+  PRIMARY KEY(id_test, id_group)
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
