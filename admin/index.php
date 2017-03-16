@@ -10,7 +10,23 @@
   use IEP\Structures\Subject;
   use IEP\Structures\Specialty;
   use IEP\Structures\Group;
-    
+
+
+
+  $CT->Show("index.tpl");
+
+
+
+
+
+
+
+
+
+
+  
+
+  /*
 	if(isset($_SESSION['admin']))
 	{
     $CT->assign("admin", $_SESSION['admin']);
@@ -202,7 +218,7 @@
 		
 	}
 	else CTools::Redirect("login.php");
-	
+	*/
 	
 	/*! ПРОДУМАТЬ КАСКАДНОЕ УДАЛЕНИЕ ДАННЫХ */
 ?>

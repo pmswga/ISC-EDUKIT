@@ -488,9 +488,9 @@
       return $teachers;
 		}
 		
-		public function getParents()
+		public function getParents() : array
 		{
-			$db_parents = $this->get("SELECT * FROM `v_parents`");
+			$db_parents = $this->get("SELECT * FROM `v_Parents`");
             
       $parents = array();
       foreach ($db_parents as $db_parent) {

@@ -27,9 +27,19 @@
 		
 		public function getFile() : string
 		{
-			return $this->file;
+			return str_replace("/", "\\", $this->file);
 		}
+    
+    public function getFilename() : string
+    {
+      return basename($this->file);
+    }
 		
+    public function setFile(string $filename)
+    {
+      $this->file = $filename;
+    }
+    
 	}
 	
 ?>
