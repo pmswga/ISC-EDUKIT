@@ -12,7 +12,7 @@
 		
 		public function add($subject)
 		{
-			$add_subject_query = $this->dbc()->prepare("INSERT INTO `subjects` (`description`) VALUES (:description)");
+			$add_subject_query = $this->dbc()->prepare("call addSubject(:description)");
 			$add_subject_query->bindValue(":description", $subject->getDescription());
 			
 			return $add_subject_query->execute();
@@ -20,7 +20,7 @@
 		
 		public function getSubjects() : array
 		{
-			$db_subjects = $this->get("SELECT * FROM `subjects`");
+			$db_subjects = $this->get("call getAllSubjects()");
       
       $subjects = array();
       foreach ($db_subjects as $db_subject) {
@@ -35,7 +35,7 @@
 		
 		public function remove($subject) : bool
 		{
-			$remove_query = $this->dbc()->prepare("DELETE FROM `subjects` WHERE `description`=:description");
+			$remove_query = $this->dbc()->prepare("call removeSubject(:description)");
 			
 			$remove_query->bindValue(":description", $subject);
 			

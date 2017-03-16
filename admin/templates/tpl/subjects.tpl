@@ -6,40 +6,33 @@
     <div class="row">
       <div class="col-md-12">
         <div class="row">
-          <form name="changeSpecialtyForm" method="POST" enctype="multipart/form-data">
+          <form name="changeSpecialtyForm" method="POST">
             <div class="col-md-8">
-                <input type="submit" name="editSpecialtyButton" value="Изменить" class="btn btn-warning btn-block">
-                <input type="submit" name="removeSpecialtyButton" value="Удалить" class="btn btn-danger btn-block">
-                <br>
                 <table class="table table-bordered">
                   <tr>
                     <th>Название предмета</th>
+                    <th>Выбрать</th>
                   </tr>
                   {foreach from=$subjects item=subject}
                     <tr>
-                      <td>{$subject->getCode()}</td>
+                      <td>{$subject->getDescription()}</td>
+                      <td><input type="checkbox" name="select_subject[]" value="{$subject->getDescription()}" class="form-control"></td>
                     </tr>
                   {/foreach}
                 </table>
             </div>
             <div class="col-md-4">
+              <input type="submit" name="removeSpecialtyButton" value="Удалить" class="btn btn-danger btn-block">
+                <br>
               <fieldset>
                 <legend>Добавить новый предмет</legend>
-                <form name="addSpecialtyForm" method="POST" enctype="multipart/form-data">
+                <form name="addSubjectForm" method="POST">
                   <div class="form-group">
-                    <label>Код специальности</label>
-                    <input type="text" name="code_spec" maxlength="10" class="form-control">
+                    <label>Название предмета</label>
+                    <input type="text" name="subject" maxlength="255" class="form-control">
                   </div>
                   <div class="form-group">
-                    <label>Описание</label>
-                    <input type="text" name="descp" maxlength="255" class="form-control">
-                  </div>
-                  <div class="form-group">
-                    <label>Файл специальности</label>
-                    <input type="file" name="pdf_file">
-                  </div>
-                  <div class="form-group">
-                    <input type="submit" name="addSpecialtyButton" value="Добавить" class="btn btn-primary">
+                    <input type="submit" name="addSubjectButton" value="Добавить" class="btn btn-primary">
                   </div>
                 </form>
               </fieldset>
