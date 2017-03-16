@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-03-16 19:50:35
+/* Smarty version 3.1.29, created on 2017-03-16 20:02:51
   from "C:\OpenServer\domains\iep.mgkit\admin\templates\tpl\subjects.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_58cac25b5a9211_40744200',
+  'unifunc' => 'content_58cac53bbe7416_71468725',
   'file_dependency' => 
   array (
     '3a9f9d5a8045baf9b0f519d7bc96be775a40979f' => 
     array (
       0 => 'C:\\OpenServer\\domains\\iep.mgkit\\admin\\templates\\tpl\\subjects.tpl',
-      1 => 1489683034,
+      1 => 1489683769,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
     'file:html/end.tpl' => 1,
   ),
 ),false)) {
-function content_58cac25b5a9211_40744200 ($_smarty_tpl) {
+function content_58cac53bbe7416_71468725 ($_smarty_tpl) {
 $_smarty_tpl->tpl_vars["title"] = new Smarty_Variable("EDUKIT | Предметы", null);
 $_smarty_tpl->ext->_updateScope->updateScope($_smarty_tpl, "title", 0);
 $_smarty_tpl->smarty->ext->_var->createLocalArrayVariable($_smarty_tpl, 'css_links', null);
@@ -73,8 +73,8 @@ $_smarty_tpl->tpl_vars['subject'] = $__foreach_subject_0_saved_item;
                 </table>
             </div>
             <div class="col-md-4">
-              <input type="submit" name="removeSpecialtyButton" value="Удалить" class="btn btn-danger btn-block">
-                <br>
+              <input type="submit" name="removeSubjectButton" value="Удалить" class="btn btn-danger btn-block">
+              <br>
               <fieldset>
                 <legend>Добавить новый предмет</legend>
                 <form name="addSubjectForm" method="POST">

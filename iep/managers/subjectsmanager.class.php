@@ -24,7 +24,7 @@
       
       $subjects = array();
       foreach ($db_subjects as $db_subject) {
-        $subject = new Subject($db_subject['description']);
+        $subject = new Subject($db_subject['descp']);
         $subject->setID((int)$db_subject['id_subject']);
         
         $subjects[] = $subject;

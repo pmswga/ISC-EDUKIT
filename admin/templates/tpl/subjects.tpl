@@ -22,8 +22,8 @@
                 </table>
             </div>
             <div class="col-md-4">
-              <input type="submit" name="removeSpecialtyButton" value="Удалить" class="btn btn-danger btn-block">
-                <br>
+              <input type="submit" name="removeSubjectButton" value="Удалить" class="btn btn-danger btn-block">
+              <br>
               <fieldset>
                 <legend>Добавить новый предмет</legend>
                 <form name="addSubjectForm" method="POST">
