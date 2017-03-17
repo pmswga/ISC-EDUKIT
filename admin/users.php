@@ -16,6 +16,7 @@
   
   $CT->assign("groups", $GM->getGroups());
   $CT->assign("subjects", $SM->getSubjects());
+  $CT->assign("teachers", $UM->getTeachers());
   
   $CT->Show("users.tpl");
   

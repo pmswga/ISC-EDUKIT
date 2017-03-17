@@ -385,60 +385,35 @@
       return $students;
 		}			
 		
-		public function getTeachers()
+		public function getTeachers() : array
 		{
-			$db_teachers = $this->get("SELECT * FROM `teachers` t INNER JOIN `users` u ON t.id_teacher=u.id_user");
-            
+			$db_teachers = $this->get("call getAllTeachers()");
+      
       $teachers = array();
       foreach ($db_teachers as $db_teacher) {
-          $id_subjects = $this->get("SELECT `id_subject` FROM `teacher_subjects` WHERE `id_teacher`=:id_teacher", [":id_teacher" => $db_teacher['id_teacher']]);
+        $new_teacher = new Teacher(
+          new User(
+            $db_teacher['sn'],
+            $db_teacher['fn'],
+            $db_teacher['pt'],
+            $db_teacher['email'],
+            $db_teacher['paswd'],
+            (int)$db_teacher['type_user']
+          ),
+          $db_teacher['info']
+        );
+        
+        $db_subjects = $this->get("call getSubjects(:emailTeacher)", [":emailTeacher" => $db_teacher['email']]);
+        
+        $subjects = array();
+        foreach ($db_subjects as $db_subject) {
+          $new_subject = new Subject($db_subject['description']);
           
-          $teacher = new Teacher(
-              new User(
-                  $db_teacher['second_name'],
-                  $db_teacher['first_name'],
-                  $db_teacher['patronymic'],
-                  $db_teacher['email'],
-                  $db_teacher['password'],
-                  (int)$db_teacher['id_type_user']
-              ),
-              $db_teacher['info']
-          );
-          
-          $subjects = array();
-          for ($i = 0; $i < count($id_subjects); $i++) {
-              $subject = $this->get("SELECT `description` FROM `subjects` WHERE `id_subject`=:id_subject", [":id_subject" => $id_subjects[$i]['id_subject']])[0]['description'];
-              $subjects[] = new Subject($subject);
-          }
-          
-          $db_tests = $this->get("SELECT * FROM `tests` WHERE `id_teacher`=:id_teacher", [":id_teacher" => $db_teacher['id_teacher']]);
-          
-          $tests = array();
-          for ($i = 0; $i < count($db_tests); $i++) {
-              $subject = $this->get("SELECT `description` FROM `subjects` WHERE `id_subject`=:id_subject", [":id_subject" => $db_tests[$i]['id_subject']])[0]['description'];
-              
-              $author = $this->get("SELECT `email` FROM `users` WHERE `id_user`=:id_user", [":id_user" => $db_tests[$i]['id_teacher']])[0]['email'];
-              
-              $questions = $this->get("SELECT * FROM `questions` WHERE `id_test`=:id_test", [":id_test" => $db_tests[$i]['id_test']]);
-              
-              $new_test = new Test($db_tests[$i]['caption'], $subject, $author, $db_tests[$i]['for_group']);
-              
-              for ($j = 0; $j < count($questions); $j++) {
-                  $answers = $this->get("SELECT `answer` FROM `answers` WHERE `id_question`=:id_question", [":id_question" => $questions[$j]['id_question']]);
-                  
-                  $new_question = new OneQuestion($questions[$j]['question'], $questions[$j]['r_answer']);
-                  
-                  for ($k = 0; $k < count($answers); $k++) $new_question->addAnswer([$answers[$k]['answer']]);
-                                          
-                  $new_test->addQuestion([$new_question]);
-              }
-              
-              $tests[] = $new_test;
-          }
-          
-          $teacher->setSubjects($subjects);
-          $teacher->setTests($tests);
-          $teachers[] = $teacher;
+          $subjects[] = $new_subject;
+        }
+        
+        $new_teacher->setSubjects($subjects);
+        $teachers[] = $new_teacher;
       }
       
       return $teachers;

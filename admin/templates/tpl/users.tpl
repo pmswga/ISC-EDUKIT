@@ -91,7 +91,6 @@
                       <textarea name="info" rows="5" class="form-control"></textarea>
                     </div>
                     <div class="form-group">
-                      
                       <div class="panel-group" id="accordion">
                         <div class="panel panel-default">
                           <div class="panel-heading">
@@ -180,10 +179,45 @@
             </div>
           </div>
           <div class="tab-pane" id="viewUsers">
-            2
+            <div class="panel-group" id="views_users">
+              <div class="panel panel-primary">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#views_users" href="#view_teachers">Преподаватели</a>
+                  </h4>
+                </div>
+                <div id="view_teachers" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    <table class="table table-bordered">
+                      <tr>
+                        <th>Фамилия</th>
+                        <th>Имя</th>
+                        <th>Отчество</th>
+                        <th>E-mail</th>
+                        <th>Предметы</th>
+                      </tr>
+                      {foreach from=$teachers item=teacher}
+                        <tr>
+                          <td>{$teacher->getSn()}</td>
+                          <td>{$teacher->getFn()}</td>
+                          <td>{$teacher->getPt()}</td>
+                          <td>{$teacher->getEmail()}</td>
+                          <td>
+                              <ul>
+                            {foreach from=$teacher->getSubjects() item=subject}
+                                <li>{$subject->getDescription()}</li>
+                            {/foreach}
+                              </ul>
+                          </td>
+                        </tr>
+                      {/foreach}
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="tab-pane" id="grant">
-          
             <div class="row">
               <div class="col-md-6">
                 <fieldset>
