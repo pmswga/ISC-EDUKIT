@@ -8,6 +8,10 @@ DROP PROCEDURE IF EXISTS getElderID;
 DROP PROCEDURE IF EXISTS getParentID;
 DROP PROCEDURE IF EXISTS getSubjectID;
 
+DROP FUNCTION IF EXISTS getStudentId;
+DROP FUNCTION IF EXISTS getElderId;
+DROP FUNCTION IF EXISTS getParentId;
+
 DROP FUNCTION IF EXISTS getTID;
 DROP FUNCTION IF EXISTS getSID;
 
@@ -136,18 +140,44 @@ BEGIN
 	SELECT `id_user` FROM `users` WHERE `email`=emailUser AND `id_type_user`=2;
 END;
 
-CREATE PROCEDURE getSubjectID(subject CHAR(255))
+CREATE PROCEDURE getSubjectID(subject CHAR(30))
 BEGIN
 	SELECT `id_subject` FROM `subjects` WHERE `description`=subject;
 END;
 
+CREATE FUNCTION getStudentId (emailUser CHAR(30)) RETURNS INT
+BEGIN
+  DECLARE sid int;
+  
+  SELECT `id_user` INTO sid FROM `users` WHERE `email`=emailUser AND `id_type_user`=4;
+  
+  RETURN sid;
+END;
+
+CREATE FUNCTION getParentId (emailUser CHAR(30)) RETURNS INT
+BEGIN
+  DECLARE pid int;
+  
+  SELECT `id_user` INTO pid FROM `users` WHERE `email`=emailUser AND `id_type_user`=5;
+  
+  RETURN pid;
+END;
+
+CREATE FUNCTION getElderId (emailUser CHAR(30)) RETURNS INT
+BEGIN
+  DECLARE eid int;
+  
+  SELECT `id_user` INTO eid FROM `users` WHERE `email`=emailUser AND `id_type_user`=3;
+  
+  RETURN eid;
+END;
 
 CREATE FUNCTION getTID(emailTeacher char(30)) 
   RETURNS int
 BEGIN
   DECLARE tid int;
   
-  SELECT `id_user` INTO tid FROM `users` WHERE `email`=emailTeacher;
+  SELECT `id_user` INTO tid FROM `users` WHERE `email`=emailTeacher AND `id_type_user`=2;
   
   RETURN tid;
 END;
@@ -169,11 +199,11 @@ END;
 
 */
 
-CREATE PROCEDURE addStudent(sn char(30), fn char(30), pt char(30), s_email char(30), paswd char(32), ha char(255), cp char(30), s_grp char(10))
+CREATE PROCEDURE addStudent(sn char(30), fn char(30), pt char(30), s_email char(30), paswd char(32), ha char(255), cp char(30), s_grp int)
 BEGIN
 	START TRANSACTION;
-	INSERT INTO `users` (`first_name`, `second_name`, `patronymic`, `email`, `password`, `id_type_user`) VALUES (fn, sn, pt, s_email, paswd, 4);
-	INSERT INTO `students` (`id_student`, `home_address`, `cell_phone`, `grp`) VALUES ((SELECT `id_user` FROM `users` WHERE `email`=s_email), ha, cp, (SELECT `grp` FROM `groups` WHERE `description`=s_grp));
+	INSERT INTO `users` (`second_name`, `first_name`, `patronymic`, `email`, `password`, `id_type_user`) VALUES (sn, fn, pt, s_email, paswd, 4);
+	INSERT INTO `students` (`id_student`, `home_address`, `cell_phone`, `grp`) VALUES (getStudentID(s_email), ha, cp, s_grp);
 	COMMIT;
 END;
 
@@ -185,11 +215,11 @@ BEGIN
 	COMMIT;
 END;
 
-CREATE PROCEDURE addTeacher(sn char(30), fn char(30), pt char(32), t_email char(30), paswd char(30), info text)
+CREATE PROCEDURE addTeacher(sn char(30), fn char(30), pt char(32), t_email char(30), paswd char(32), info text)
 BEGIN
 	START TRANSACTION;
 	INSERT INTO `users` (`first_name`, `second_name`, `patronymic`, `email`, `password`, `id_type_user`) VALUES (fn, sn, pt, t_email, paswd, 2);
-	INSERT INTO `teachers` (`id_teacher`, `info`) VALUES ((SELECT `id_user` FROM `users` WHERE `email`=t_email), info);
+	INSERT INTO `teachers` (`id_teacher`, `info`) VALUES (getTID(t_email), info);
 	COMMIT;
 END;
 
@@ -492,7 +522,7 @@ END;
 
 CREATE PROCEDURE setSubject(emailTeacher char(30), t_subject char(255))
 BEGIN
-  INSERT INTO `teacher_subjects` (`id_teacher`, `id_subject`) VALUES (getTeacherID(emailTeacher), getSubjectID(t_subject));
+  INSERT INTO `teacher_subjects` (`id_teacher`, `id_subject`) VALUES (getTID(emailTeacher), getSID(t_subject));
 END;
 
 CREATE PROCEDURE unsetSubject(emailTeacher char(30), t_subject char(255))

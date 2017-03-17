@@ -50,12 +50,14 @@
                     </div>
                     <div class="form-group">
                       <label>Группа</label>
-                      <select>
-                        
+                      <select name="grp" class="form-control">
+                        {foreach from=$groups item=group}
+                          <option value="{$group->getID()}">{$group->getNumberGroup()}</option>
+                        {/foreach}
                       </select>
                     </div>
                     <div class="form-group">
-                      <input type="submit" value="Добавить" class="btn btn-primary">
+                      <input type="submit" name="addStudentButton" value="Добавить" class="btn btn-primary">
                     </div>
                   </form>
                 </fieldset>
@@ -99,13 +101,24 @@
                           </div>
                           <div id="subjects" class="panel-collapse collapse">
                             <div class="panel-body">
-                              <!-- Table with subjects -->
+                              <table class="table table-bordered">
+                                <tr>
+                                  <th>Название</th>
+                                  <th>Выбрать</th>
+                                </tr>
+                                {foreach from=$subjects item=subject}
+                                  <tr>
+                                    <td>{$subject->getDescription()}</td>
+                                    <td><input type="checkbox" name="subjects[]" value="{$subject->getDescription()}" class="form-control"></td>
+                                  </tr>
+                                {/foreach}
+                              </table>
                             </div>
                           </div>
                         </div>
                       </div>
                     <div class="form-group">
-                      <input type="submit" value="Добавить" class="btn btn-primary">
+                      <input type="submit" name="addTeacherButton" value="Добавить" class="btn btn-primary">
                     </div>
                   </form>
                 </fieldset>

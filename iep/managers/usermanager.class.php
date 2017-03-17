@@ -138,45 +138,23 @@
 				{
           try
           {
-              $this->dbc()->beginTransaction();
-              
-              $add_user_query = $this->dbc()->prepare("INSERT INTO `users`
-                  (`second_name`, `first_name`, `patronymic`, `email`, `password`, `id_type_user`)
-                  VALUES
-                  (:second_name, :first_name, :patronymic, :email, :password, :id_type_user);
-              ");
-              
-              $add_user_query->bindValue(":second_name", $user->getSn());
-              $add_user_query->bindValue(":first_name", $user->getFn());
-              $add_user_query->bindValue(":patronymic", $user->getPt());
-              $add_user_query->bindValue(":email", $user->getEmail());
-              $add_user_query->bindValue(":password", $user->getPassword());
-              $add_user_query->bindValue(":id_type_user", $user->getTypeUser());
-              
-              if($add_user_query->execute())
-              {
-                  $add_student_query = $this->dbc()->prepare("INSERT INTO `students`
-                      (`id_student`, `home_address`, `cell_phone`, `grp`)
-                      VALUES
-                      ((SELECT `id_user` FROM `users` WHERE `email`=:email), :home_address, :cell_phone_child, :grp)
-                  ");
-                  
-                  $add_student_query->bindValue(":email", $user->getEmail());
-                  $add_student_query->bindValue(":home_address", $user->getHomeAddress());
-                  $add_student_query->bindValue(":cell_phone_child", $user->getCellPhone());
-                  $add_student_query->bindValue(":grp", $user->getGroup());
-                  
-                  if (!$add_student_query->execute()) {
-                      $this->dbc()->rollBack();
-                      return false;
-                  }
-                  else return $this->dbc()->commit();
-              }
-              else
-              {
-                  $this->dbc()->rollBack();
-                  return false;
-              }
+            $this->dbc()->beginTransaction();
+            
+            $add_user_query = $this->dbc()->prepare("call addStudent(:sn, :fn, :pt, :email, :paswd, :ha, :cp, :grp)");
+            
+            $add_user_query->bindValue(":sn", $user->getSn());
+            $add_user_query->bindValue(":fn", $user->getFn());
+            $add_user_query->bindValue(":pt", $user->getPt());
+            $add_user_query->bindValue(":email", $user->getEmail());
+            $add_user_query->bindValue(":paswd", $user->getPassword());
+            $add_user_query->bindValue(":ha", $user->getHomeAddress());
+            $add_user_query->bindValue(":cp", $user->getCellPhone());
+            $add_user_query->bindValue(":grp", $user->getGroupID());
+            
+            if ($add_user_query->execute()) {
+              return $this->dbc()->commit();
+            }
+            
           }
           catch(PDOException $e)
           {
@@ -190,68 +168,46 @@
           {
             $this->dbc()->beginTransaction();
             
-            $add_user_query = $this->dbc()->prepare("INSERT INTO `users`
-                (`second_name`, `first_name`, `patronymic`, `email`, `password`, `id_type_user`)
-                VALUES
-                (:second_name, :first_name, :patronymic, :email, :password, :id_type_user);
-            ");
+            $add_user_query = $this->dbc()->prepare("call addTeacher(:sn, :fn, :pt, :email, :paswd, :info)");
             
-            $add_user_query->bindValue(":second_name", $user->getSn());
-            $add_user_query->bindValue(":first_name", $user->getFn());
-            $add_user_query->bindValue(":patronymic", $user->getPt());
+            $add_user_query->bindValue(":sn", $user->getSn());
+            $add_user_query->bindValue(":fn", $user->getFn());
+            $add_user_query->bindValue(":pt", $user->getPt());
             $add_user_query->bindValue(":email", $user->getEmail());
-            $add_user_query->bindValue(":password", $user->getPassword());
-            $add_user_query->bindValue(":id_type_user", $user->getTypeUser());
+            $add_user_query->bindValue(":paswd", $user->getPassword());
+            $add_user_query->bindValue(":info", $user->getInfo());
             
-            if($add_user_query->execute())
-            {
-              $add_teacher_query = $this->dbc()->prepare("INSERT INTO `teachers`
-                  (`id_teacher`, `info`)
-                  VALUES
-                  ((SELECT `id_user` FROM `users` WHERE `email`=:email), :info)
-              ");
+            if ($add_user_query->execute()) {
               
-              $add_teacher_query->bindValue(":email", $user->getEmail());
-              $add_teacher_query->bindValue(":info", $user->getInfo());
+              $subjects = $user->getSubjects();
               
-              if ($add_teacher_query->execute()) {
+              if (!empty($subjects)) {
                 
-                if (!empty($user->getSubjects())) {
-                  $status = true;
-                  foreach($user->getSubjects() as $subject)
-                  {
-                    $add_subject_query = $this->dbc()->prepare("INSERT INTO `teacher_subjects`
-                        (`id_teacher`, `id_subject`)
-                        VALUES
-                        ((SELECT `id_user` FROM `users` WHERE `email`=:email), :id_subject)
-                    ");
-                    
-                    $add_subject_query->bindValue(":email", $user->getEmail());
-                    $add_subject_query->bindValue(":id_subject", $subject);
-                    
-                    $status *= $add_subject_query->execute();
-                  }
+                $set_subject_query = $this->dbc()->prepare("call setSubject(:email, :subject)");
+                $set_subject_query->bindValue(":email", $user->getEmail());
+                
+                $result = true;
+                for ($i = 0; $i < count($subjects); $i++) {
+                  $set_subject_query->bindValue(":subject", $subjects[$i]);
                   
-                  if (!$status) {                                    
-                    $this->dbc()->rollBack();
-                    return false;
-                  }
-                  else return $this->dbc()->commit();
+                  $result *= $set_subject_query->execute();
                 }
-                else return $this->dbc()->commit();
                 
-              }
-              else
-              {                                    
-                $this->dbc()->rollBack();
-                return false;
-              }
+                if ($result) {
+                  return $this->dbc()->commit();
+                } else {
+                  $this->dbc()->rollBack();
+                  return false;
+                }
+                
+              } 
+              else return $this->dbc()->commit();
+              
+            } else {
+              $this->dbc()->rollBack();
+              return false;
             }
-            else
-            {
-                $this->dbc()->rollBack();
-                return false;
-            }
+            
           }
           catch(PDOException $e)
           {

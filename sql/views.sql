@@ -18,31 +18,31 @@ CREATE VIEW v_Users (sn, fn, pt, email, paswd, type_user) as
 	FROM `users` 
 	ORDER BY `second_name`, `first_name`, `patronymic`;
 	
-CREATE VIEW v_Students (sn, fn, pt, email, paswd, home_address, cell_phone, grp) as
-	SELECT u.second_name, u.first_name, u.patronymic, u.email, u.password, s.home_address, s.cell_phone, g.description 
+CREATE VIEW v_Students (sn, fn, pt, email, paswd, home_address, cell_phone, grp, type_user) as
+	SELECT u.second_name, u.first_name, u.patronymic, u.email, u.password, s.home_address, s.cell_phone, g.description, u.id_type_user
 	FROM `users` u 
 		INNER JOIN `students` s ON u.id_user=s.id_student
 		INNER JOIN `groups` g ON s.grp=g.grp
 	WHERE u.id_type_user=4
 	ORDER BY u.second_name, u.first_name, u.patronymic;
 
-CREATE VIEW v_Parents (sn, fn, pt, email, paswd, age, education, work_place, post, home_phone, cell_phone) as
-  SELECT u.second_name, u.first_name, u.patronymic, u.email, u.password, p.age, p.education, p.work_place, p.post, p.home_phone, p.cell_phone 
+CREATE VIEW v_Parents (sn, fn, pt, email, paswd, age, education, work_place, post, home_phone, cell_phone, type_user) as
+  SELECT u.second_name, u.first_name, u.patronymic, u.email, u.password, p.age, p.education, p.work_place, p.post, p.home_phone, p.cell_phone, u.id_type_user
   FROM `users` u 
 		INNER JOIN `parents` p ON u.id_user=p.id_parent
   WHERE u.id_type_user=5
   ORDER BY u.second_name, u.first_name, u.patronymic;
 
-CREATE VIEW v_Teachers (sn, fn, pt, email, paswd, info) as
-	SELECT u.second_name, u.first_name, u.patronymic, u.email, u.password, t.info
+CREATE VIEW v_Teachers (sn, fn, pt, email, paswd, info, type_user) as
+	SELECT u.second_name, u.first_name, u.patronymic, u.email, u.password, t.info, u.id_type_user
 	FROM `users` u
 		INNER JOIN `teachers` t ON u.id_user=t.id_teacher
   WHERE u.id_type_user=2
   ORDER BY u.second_name, u.first_name, u.patronymic;
 	
 
-CREATE VIEW v_Elders (sn, fn, pt, email, paswd, home_address, cell_phone, grp) as
-	SELECT u.second_name, u.first_name, u.patronymic, u.email, u.password, s.home_address, s.cell_phone, g.description 
+CREATE VIEW v_Elders (sn, fn, pt, email, paswd, home_address, cell_phone, grp, type_user) as
+	SELECT u.second_name, u.first_name, u.patronymic, u.email, u.password, s.home_address, s.cell_phone, g.description, u.id_type_user
 	FROM `users` u 
 		INNER JOIN `students` s ON u.id_user=s.id_student
 		INNER JOIN `groups` g ON s.grp=g.grp
@@ -85,7 +85,8 @@ CREATE VIEW v_Traffic (fn, sn, pt, email, date_visit, count_passed_hours, count_
 	WHERE u.id_type_user=4
 	ORDER BY u.second_name, u.first_name, u.patronymic;
 	
-CREATE VIEW v_Tests (id_test, snp, email, test_name, subject, count_questions) as  SELECT t.id_test, CONCAT(u.second_name, ' ', LEFT(u.first_name, 1), '. ', LEFT(u.patronymic, 1), '.'), u.email, t.caption, s.description as subject, 1
+CREATE VIEW v_Tests (id_test, snp, email, test_name, subject, count_questions) as
+  SELECT t.id_test, CONCAT(u.second_name, ' ', LEFT(u.first_name, 1), '. ', LEFT(u.patronymic, 1), '.'), u.email, t.caption, s.description as subject, 1
   FROM `tests` t
     INNER JOIN `users` u ON t.id_teacher=u.id_user
     INNER JOIN `subjects` s ON t.id_subject=s.id_subject

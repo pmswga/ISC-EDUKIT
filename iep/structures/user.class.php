@@ -20,7 +20,7 @@
 			$this->password = $password;
 			$this->typeUser = $typeUser;
 		}
-		
+    
 		public function getSn() : string
 		{
 			return $this->sn;

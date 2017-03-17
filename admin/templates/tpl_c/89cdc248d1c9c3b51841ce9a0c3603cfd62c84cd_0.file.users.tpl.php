@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-03-16 15:28:45
+/* Smarty version 3.1.29, created on 2017-03-17 19:50:02
   from "C:\OpenServer\domains\iep.mgkit\admin\templates\tpl\users.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_58ca84fd716b95_88817734',
+  'unifunc' => 'content_58cc13ba4748a5_60620625',
   'file_dependency' => 
   array (
     '89cdc248d1c9c3b51841ce9a0c3603cfd62c84cd' => 
     array (
       0 => 'C:\\OpenServer\\domains\\iep.mgkit\\admin\\templates\\tpl\\users.tpl',
-      1 => 1489667324,
+      1 => 1489769017,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
     'file:html/end.tpl' => 1,
   ),
 ),false)) {
-function content_58ca84fd716b95_88817734 ($_smarty_tpl) {
+function content_58cc13ba4748a5_60620625 ($_smarty_tpl) {
 $_smarty_tpl->tpl_vars["title"] = new Smarty_Variable("EDUKIT | Пользователи", null);
 $_smarty_tpl->ext->_updateScope->updateScope($_smarty_tpl, "title", 0);
 $_smarty_tpl->smarty->ext->_var->createLocalArrayVariable($_smarty_tpl, 'css_links', null);
@@ -82,12 +82,33 @@ $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:html/begin.t
                     </div>
                     <div class="form-group">
                       <label>Группа</label>
-                      <select>
-                        
+                      <select name="grp" class="form-control">
+                        <?php
+$_from = $_smarty_tpl->tpl_vars['groups']->value;
+if (!is_array($_from) && !is_object($_from)) {
+settype($_from, 'array');
+}
+$__foreach_group_0_saved_item = isset($_smarty_tpl->tpl_vars['group']) ? $_smarty_tpl->tpl_vars['group'] : false;
+$_smarty_tpl->tpl_vars['group'] = new Smarty_Variable();
+$_smarty_tpl->tpl_vars['group']->_loop = false;
+foreach ($_from as $_smarty_tpl->tpl_vars['group']->value) {
+$_smarty_tpl->tpl_vars['group']->_loop = true;
+$__foreach_group_0_saved_local_item = $_smarty_tpl->tpl_vars['group'];
+?>
+                          <option value="<?php echo $_smarty_tpl->tpl_vars['group']->value->getID();?>
+"><?php echo $_smarty_tpl->tpl_vars['group']->value->getNumberGroup();?>
+</option>
+                        <?php
+$_smarty_tpl->tpl_vars['group'] = $__foreach_group_0_saved_local_item;
+}
+if ($__foreach_group_0_saved_item) {
+$_smarty_tpl->tpl_vars['group'] = $__foreach_group_0_saved_item;
+}
+?>
                       </select>
                     </div>
                     <div class="form-group">
-                      <input type="submit" value="Добавить" class="btn btn-primary">
+                      <input type="submit" name="addStudentButton" value="Добавить" class="btn btn-primary">
                     </div>
                   </form>
                 </fieldset>
@@ -131,13 +152,43 @@ $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:html/begin.t
                           </div>
                           <div id="subjects" class="panel-collapse collapse">
                             <div class="panel-body">
-                              <!-- Table with subjects -->
+                              <table class="table table-bordered">
+                                <tr>
+                                  <th>Название</th>
+                                  <th>Выбрать</th>
+                                </tr>
+                                <?php
+$_from = $_smarty_tpl->tpl_vars['subjects']->value;
+if (!is_array($_from) && !is_object($_from)) {
+settype($_from, 'array');
+}
+$__foreach_subject_1_saved_item = isset($_smarty_tpl->tpl_vars['subject']) ? $_smarty_tpl->tpl_vars['subject'] : false;
+$_smarty_tpl->tpl_vars['subject'] = new Smarty_Variable();
+$_smarty_tpl->tpl_vars['subject']->_loop = false;
+foreach ($_from as $_smarty_tpl->tpl_vars['subject']->value) {
+$_smarty_tpl->tpl_vars['subject']->_loop = true;
+$__foreach_subject_1_saved_local_item = $_smarty_tpl->tpl_vars['subject'];
+?>
+                                  <tr>
+                                    <td><?php echo $_smarty_tpl->tpl_vars['subject']->value->getDescription();?>
+</td>
+                                    <td><input type="checkbox" name="subjects[]" value="<?php echo $_smarty_tpl->tpl_vars['subject']->value->getDescription();?>
+" class="form-control"></td>
+                                  </tr>
+                                <?php
+$_smarty_tpl->tpl_vars['subject'] = $__foreach_subject_1_saved_local_item;
+}
+if ($__foreach_subject_1_saved_item) {
+$_smarty_tpl->tpl_vars['subject'] = $__foreach_subject_1_saved_item;
+}
+?>
+                              </table>
                             </div>
                           </div>
                         </div>
                       </div>
                     <div class="form-group">
-                      <input type="submit" value="Добавить" class="btn btn-primary">
+                      <input type="submit" name="addTeacherButton" value="Добавить" class="btn btn-primary">
                     </div>
                   </form>
                 </fieldset>
