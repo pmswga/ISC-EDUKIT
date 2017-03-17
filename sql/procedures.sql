@@ -535,7 +535,7 @@ BEGIN
   SELECT DISTINCT `description` 
 	FROM `subjects` s 
 		INNER JOIN `teacher_subjects` ts ON s.id_subject=ts.id_subject
-	WHERE ts.id_teacher=getTeacherID(s_teacher_email)
+	WHERE ts.id_teacher=getTID(s_teacher_email)
 	ORDER BY `description`;
 END;
 
