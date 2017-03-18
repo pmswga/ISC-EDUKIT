@@ -125,7 +125,7 @@
               <div class="col-md-4">
                 <fieldset>
                   <legend>Родитель</legend>
-                  <form name="addTeacherForm" method="POST">
+                  <form name="addParentForm" method="POST">
                     <div class="form-group">
                       <label>Фамилия</label>
                       <input type="text" name="sn" maxlength="30" class="form-control">
@@ -203,12 +203,86 @@
                           <td>{$teacher->getPt()}</td>
                           <td>{$teacher->getEmail()}</td>
                           <td>
-                              <ul>
-                            {foreach from=$teacher->getSubjects() item=subject}
-                                <li>{$subject->getDescription()}</li>
-                            {/foreach}
-                              </ul>
+														<ul>
+														{foreach from=$teacher->getSubjects() item=subject}
+																<li>{$subject->getDescription()}</li>
+														{/foreach}
+														</ul>
                           </td>
+                        </tr>
+                      {/foreach}
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="panel panel-danger">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#views_users" href="#view_students">Студенты</a>
+                  </h4>
+                </div>
+                <div id="view_students" class="panel-collapse collapse">
+                  <div class="panel-body">
+										{foreach from=$studentsByGroup key=group item=student}
+											<div class="panel-group" id="view_groups_with_students">
+												<div class="panel panel-default">
+													<div class="panel-heading">
+														<h4 class="panel-title">
+															<a data-toggle="collapse" data-parent="#view_groups_with_students" href="#{$group}">{$group}</a>
+														</h4>
+													</div>
+													<div id="{$group}" class="panel-collapse collapse">
+														<div class="panel-body"><table class="table table-bordered">
+															<table class="table table-bordered">
+																<tr>
+																	<th>Фамилия</th>
+																	<th>Имя</th>
+																	<th>Отчество</th>
+																	<th>E-mail</th>
+																	<th>Адрес</th>
+																	<th>Телефон</th>
+																</tr>
+																{foreach from=$student item=one_student}
+																	<tr>
+																		<td>{$one_student->getSn()}</td>
+																		<td>{$one_student->getFn()}</td>
+																		<td>{$one_student->getPt()}</td>
+																		<td>{$one_student->getEmail()}</td>
+																		<td>{$one_student->getHomeAddress()}</td>
+																		<td>{$one_student->getCellPhone()}</td>
+																	</tr>
+																{/foreach}
+															</table>
+														</div>
+													</div>
+												</div>
+											</div>
+										{/foreach}
+                  </div>
+                </div>
+              </div>
+              <div class="panel panel-success">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#views_users" href="#view_elders">Старосты</a>
+                  </h4>
+                </div>
+                <div id="view_elders" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    <table class="table table-bordered">
+                      <tr>
+                        <th>Фамилия</th>
+                        <th>Имя</th>
+                        <th>Отчество</th>
+                        <th>E-mail</th>
+                        <th>Предметы</th>
+                      </tr>
+                      {foreach from=$elders item=elder}
+                        <tr>
+                          <td>{$elder->getSn()}</td>
+                          <td>{$elder->getFn()}</td>
+                          <td>{$elder->getPt()}</td>
+                          <td>{$elder->getEmail()}</td>
                         </tr>
                       {/foreach}
                     </table>
@@ -222,16 +296,17 @@
               <div class="col-md-6">
                 <fieldset>
                   <legend>Назначить</legend>
-                  <form name="grantElderForm">
+                  <form name="grantElderForm" method="POST">
                     <div class="form-group">
                       <label>Студент</label>
-                      <select class="form-control"></select>
-                      <datalist>
-                        <!-- All Students -->
-                      </datalist>
+                      <select name="studentEmail" class="form-control">
+												{foreach from=$students item=student}
+													<option value="{$student->getEmail()}">{$student->getSn()} {$student->getFn()} {$student->getPt()} | <small>{$student->getGroup()}</small></option>
+												{/foreach}
+											</select>
                     </div>
                     <div class="form-group">
-                      <input type="submit" value="Назначить" class="btn btn-primary">
+                      <input type="submit" name="grantElderButton" value="Назначить" class="btn btn-primary">
                     </div>
                   </form>
                 </fieldset>
@@ -239,33 +314,20 @@
               <div class="col-md-6">
                 <fieldset>
                   <legend>Разжаловать</legend>
-                  <form name="revokeElderForm">
+                  <form name="revokeElderForm" method="POST">
                     <div class="form-group">
                       <label>Студент</label>
-                      <select class="form-control"></select>
-                      <datalist>
-                        <!-- All Students -->
-                      </datalist>
+                      <select name="studentEmail" class="form-control">
+												{foreach from=$elders item=elder}
+													<option value="{$elder->getEmail()}">{$elder->getSn()} {$elder->getFn()} {$elder->getPt()} | <small>{$elder->getGroup()}</small></option>
+												{/foreach}
+											</select>
                     </div>
                     <div class="form-group">
-                      <input type="submit" value="Разжаловать" class="btn btn-primary">
+                      <input type="submit" name="revokeElderButton" value="Разжаловать" class="btn btn-primary">
                     </div>
                   </form>
                 </fieldset>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <table class="table table-bordered">
-                  <tr>
-                    <th>Фамилия</th>
-                    <th>Имя</th>
-                    <th>Отчество</th>
-                    <th>E-mail</th>
-                    <th>Телефон</th>
-                    <th>Группа</th>
-                  </tr>
-                </table>
               </div>
             </div>
           </div>

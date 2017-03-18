@@ -28,7 +28,7 @@
                       <tr>
                         <td>{$group->getNumberGroup()}</td>
                         <td>{$group->getCodeSpec()}</td>
-                        <td></td>
+                        <td>{$group->getCountStudents()}</td>
                         <td><input type="checkbox" name="select_grp[]" value="{$group->getID()}" class="form-control"></td>
                       </tr>
                     {/foreach}

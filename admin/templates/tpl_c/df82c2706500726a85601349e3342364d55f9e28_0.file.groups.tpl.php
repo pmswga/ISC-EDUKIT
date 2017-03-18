@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-03-16 19:25:38
+/* Smarty version 3.1.29, created on 2017-03-18 18:20:59
   from "C:\OpenServer\domains\iep.mgkit\admin\templates\tpl\groups.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_58cabc82ec6c40_52134280',
+  'unifunc' => 'content_58cd505b419e01_05883509',
   'file_dependency' => 
   array (
     'df82c2706500726a85601349e3342364d55f9e28' => 
     array (
       0 => 'C:\\OpenServer\\domains\\iep.mgkit\\admin\\templates\\tpl\\groups.tpl',
-      1 => 1489681538,
+      1 => 1489850458,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
     'file:html/end.tpl' => 1,
   ),
 ),false)) {
-function content_58cabc82ec6c40_52134280 ($_smarty_tpl) {
+function content_58cd505b419e01_05883509 ($_smarty_tpl) {
 $_smarty_tpl->tpl_vars["title"] = new Smarty_Variable("EDUKIT | Группы", null);
 $_smarty_tpl->ext->_updateScope->updateScope($_smarty_tpl, "title", 0);
 $_smarty_tpl->smarty->ext->_var->createLocalArrayVariable($_smarty_tpl, 'css_links', null);
@@ -73,7 +73,8 @@ $__foreach_group_0_saved_local_item = $_smarty_tpl->tpl_vars['group'];
 </td>
                         <td><?php echo $_smarty_tpl->tpl_vars['group']->value->getCodeSpec();?>
 </td>
-                        <td></td>
+                        <td><?php echo $_smarty_tpl->tpl_vars['group']->value->getCountStudents();?>
+</td>
                         <td><input type="checkbox" name="select_grp[]" value="<?php echo $_smarty_tpl->tpl_vars['group']->value->getID();?>
 " class="form-control"></td>
                       </tr>

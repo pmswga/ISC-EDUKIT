@@ -12,7 +12,7 @@
 		private $group;
     private $group_id;
 		
-		function __construct(User $user, string $home_address, string $cell_phone)
+		function __construct(User $user, string $home_address, string $cell_phone, string $group = "")
 		{
 			parent::__construct($user->sn, $user->fn, $user->pt, $user->email, $user->password, $user->typeUser);
 			$this->group = $group;
@@ -34,8 +34,8 @@
     {
       $this->group = $grp;
     }
-    
-		public function getGroup() : int
+		
+		public function getGroup() : string
 		{
 			return $this->group;
 		}

@@ -153,7 +153,11 @@
             
             if ($add_user_query->execute()) {
               return $this->dbc()->commit();
-            }
+            } else {
+							echo $add_user_query->errorInfo();
+              $this->dbc()->rollBack();
+              return false;
+						}
             
           }
           catch(PDOException $e)
@@ -221,71 +225,27 @@
           {
               $this->dbc()->beginTransaction();
               
-              $add_user_query = $this->dbc()->prepare("INSERT INTO `users`
-                  (`second_name`, `first_name`, `patronymic`, `email`, `password`, `id_type_user`)
-                  VALUES
-                  (:second_name, :first_name, :patronymic, :email, :password, :id_type_user);
-              ");
+              $add_user_query = $this->dbc()->prepare("call addParent(:sn, :fn, :pt, :email, :paswd, :age, :education, :wp, :post, :hp, :cp)");
               
-              $add_user_query->bindValue(":second_name", $user->getSn());
-              $add_user_query->bindValue(":first_name", $user->getFn());
-              $add_user_query->bindValue(":patronymic", $user->getPt());
+              $add_user_query->bindValue(":sn", $user->getSn());
+              $add_user_query->bindValue(":fn", $user->getFn());
+              $add_user_query->bindValue(":pt", $user->getPt());
               $add_user_query->bindValue(":email", $user->getEmail());
-              $add_user_query->bindValue(":password", $user->getPassword());
-              $add_user_query->bindValue(":id_type_user", $user->getTypeUser());
-              
-              if($add_user_query->execute())
-              {
-                  $add_parent_query = $this->dbc()->prepare("INSERT INTO `parents`
-                      (`id_parent`, `age`, `education`, `work_place`, `post`, `home_phone`, `cell_phone`)
-                      VALUES
-                      ((SELECT `id_user` FROM `users` WHERE `email`=:email), :age, :education, :work_place, :post, :home_phone, :cell_phone)
-                  ");
-                  
-                  $add_parent_query->bindValue(":email", $user->getEmail());
-                  $add_parent_query->bindValue(":age", $user->getAge());
-                  $add_parent_query->bindValue(":education", $user->getEducation());
-                  $add_parent_query->bindValue(":work_place", $user->getWorkPlace());
-                  $add_parent_query->bindValue(":post", $user->getPost());
-                  $add_parent_query->bindValue(":home_phone", $user->getHomePhone());
-                  $add_parent_query->bindValue(":cell_phone", $user->getCellPhone());
-                  
-                  if($add_parent_query->execute())
-                  {
-                      $childs = $user->getChilds();
-                      $success = true;
-                      for($i = 0; $i < count($childs); $i++)
-                      {
-                          $set_parent_child_query = $this->dbc()->prepare("INSERT INTO `parent_child`
-                              (`id_parent`, `id_children`, `id_type_releation`)
-                              VALUES
-                              ((SELECT `id_user` FROM `users` WHERE `email`=:email), (SELECT `id_user` FROM `users` WHERE `email`=:child_email), :id_releation)
-                          ");
-                          
-                          $set_parent_child_query->bindValue(":email", $user->getEmail());
-                          $set_parent_child_query->bindValue(":child_email", $childs[$i]['child']->getEmail());
-                          $set_parent_child_query->bindValue(":id_releation", $childs[$i]['type_relation']);
-                          
-                          $success *= $set_parent_child_query->execute();
-                      }
-                      
-                      if (!$success) {
-                          $this->dbc()->rollBack();
-                          return false;
-                      }
-                      else return $this->dbc()->commit();
-                  }
-                  else   
-                  {
-                      $this->dbc()->rollBack();
-                      return false;
-                  }
-              }
-              else
-              {
-                  $this->dbc()->rollBack();
-                  return false;
-              }
+              $add_user_query->bindValue(":paswd", $user->getPassword());
+              $add_user_query->bindValue(":age", $user->getPassword());
+              $add_user_query->bindValue(":education", $user->getPassword());
+              $add_user_query->bindValue(":wp", $user->getPassword());
+              $add_user_query->bindValue(":post", $user->getPassword());
+              $add_user_query->bindValue(":hp", $user->getPassword());
+              $add_user_query->bindValue(":cp", $user->getPassword());
+							
+							if ($add_user_query->execute()) {
+								return $this->dbc()->commit();
+							} else {
+								$this->dbc()->rollBack();
+								return false;
+							}
+							
           }
           catch(PDOException $e)
           {
@@ -363,25 +323,27 @@
 		
 		public function getStudents()
 		{
-			$db_students = $this->get("SELECT * FROM `students` s INNER JOIN `users` u ON s.id_student=u.id_user");
+			$db_students = $this->get("call getAllStudents()");
             
-      $studnets = array();
+      $students = array();
       foreach ($db_students as $db_student) {
-        $students[] = new Student(
+        $new_student = new Student(
           new User(
-              $db_student['second_name'],
-              $db_student['first_name'],
-              $db_student['patronymic'],
+              $db_student['sn'],
+              $db_student['fn'],
+              $db_student['pt'],
               $db_student['email'],
-              $db_student['password'],
+              $db_student['paswd'],
               (int)$db_student['id_type_user']
           ),
-          (int)$db_student['grp'],
           $db_student['home_address'],
-          $db_student['cell_phone']
+          $db_student['cell_phone'],
+					$db_student['grp']
         );
+				
+				$students[] = $new_student;
       }
-      
+			
       return $students;
 		}			
 		
@@ -470,6 +432,50 @@
       }
       
       return $parents;
+		}
+		
+		public function getElders()
+		{
+			$db_students = $this->get("call getAllElders()");
+            
+      $students = array();
+      foreach ($db_students as $db_student) {
+        $new_student = new Student(
+          new User(
+              $db_student['sn'],
+              $db_student['fn'],
+              $db_student['pt'],
+              $db_student['email'],
+              $db_student['paswd'],
+              (int)$db_student['type_user']
+          ),
+          $db_student['home_address'],
+          $db_student['cell_phone'],
+					$db_student['grp']
+        );
+				
+				$students[] = $new_student;
+      }
+			
+      return $students;
+		}
+		
+		public function grantElder($emailStudent) : bool
+		{
+			$grant_elder_query = $this->dbc()->prepare("call grantElder(:email)");
+			
+			$grant_elder_query->bindValue(":email", $emailStudent);
+			
+			return $grant_elder_query->execute();
+		}
+		
+		public function revokeElder($emailStudent) : bool
+		{
+			$revoke_elder_query = $this->dbc()->prepare("call revokeElder(:email)");
+			
+			$revoke_elder_query->bindValue(":email", $emailStudent);
+			
+			return $revoke_elder_query->execute();
 		}
 		
 		public function remove($email) : bool

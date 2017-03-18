@@ -10,14 +10,26 @@
   use IEP\Structures\Teacher;
   use IEP\Structures\User;
   
-	$UM = new UserManager($DB);
+  
+  $UM = new UserManager($DB);
   $GM = new GroupManager($DB);
   $SM = new SubjectsManager($DB);
   
+  $all_students = $UM->getStudents();
+	
+  $studentsByGroup = array();
+  
+  for ($i = 0; $i < count($all_students); $i++) {
+		$studentsByGroup[$all_students[$i]->getGroup()][] = $all_students[$i];
+  }
+	
   $CT->assign("groups", $GM->getGroups());
   $CT->assign("subjects", $SM->getSubjects());
   $CT->assign("teachers", $UM->getTeachers());
-  
+  $CT->assign("students", $UM->getStudents());
+  $CT->assign("elders", $UM->getElders());
+  $CT->assign("studentsByGroup", $studentsByGroup);
+	
   $CT->Show("users.tpl");
   
   if (!empty($_POST['addStudentButton'])) {
@@ -36,6 +48,8 @@
       $data['cp']
     );
     $new_student->setGroupID((int)$data['grp']);
+		
+		CTools::var_dump($new_student);
     
     if ($UM->add($new_student)) {
       CTools::Redirect("users.php");
@@ -69,7 +83,24 @@
     }
     
   }
-  
+	
+	if (!empty($_POST['grantElderButton'])) {
+		$emailStudent = htmlspecialchars($_POST['studentEmail']);
+		
+		if ($UM->grantElder($emailStudent)) {
+      CTools::Redirect("users.php");
+		}
+		
+	}
+	
+	if (!empty($_POST['revokeElderButton'])) {
+		$emailStudent = htmlspecialchars($_POST['studentEmail']);
+		
+		if ($UM->revokeElder($emailStudent)) {
+      CTools::Redirect("users.php");
+		}
+		
+	}
   
   
 ?>

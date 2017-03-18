@@ -28,9 +28,12 @@
       $groups = array();
       foreach($grps as $grp)
       {
-          $group = new Group($grp['grp'], $grp['spec'], (bool)$grp['budget']);
-          $group->setID((int)$grp['id_grp']);
-          $groups[] = $group;
+				$countStudents = $this->get("SELECT COUNT(`id_student`) as cs FROM `students` WHERE `grp`=:grp", [":grp" => $grp['id_grp']]);
+				$group = new Group($grp['grp'], $grp['spec'], (bool)$grp['budget']);
+				$group->setID((int)$grp['id_grp']);
+				$group->setCountStudents((int)$countStudents[0]['cs']);
+				
+				$groups[] = $group;
       }
       
       return $groups;
