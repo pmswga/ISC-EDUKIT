@@ -171,7 +171,7 @@
                       <input type="telephone" name="cp" class="form-control">
                     </div>
                     <div class="form-group">
-                      <input type="submit" value="Добавить" class="btn btn-primary">
+                      <input type="submit" name="addParentButton" value="Добавить" class="btn btn-primary">
                     </div>
                   </form>
                 </fieldset>
@@ -258,6 +258,34 @@
 												</div>
 											</div>
 										{/foreach}
+                  </div>
+                </div>
+              </div>
+              <div class="panel panel-warning">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#views_users" href="#view_parents">Родители</a>
+                  </h4>
+                </div>
+                <div id="view_parents" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    <table class="table table-bordered">
+                      <tr>
+                        <th>Фамилия</th>
+                        <th>Имя</th>
+                        <th>Отчество</th>
+                        <th>E-mail</th>
+                        <th>Предметы</th>
+                      </tr>
+                      {foreach from=$parents item=parent}
+                        <tr>
+                          <td>{$parent->getSn()}</td>
+                          <td>{$parent->getFn()}</td>
+                          <td>{$parent->getPt()}</td>
+                          <td>{$parent->getEmail()}</td>
+                        </tr>
+                      {/foreach}
+                    </table>
                   </div>
                 </div>
               </div>

@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `specialty` (
 /* Создание таблицы "Родители" */
 CREATE TABLE IF NOT EXISTS `parents` (
 	id_parent int NOT NULL PRIMARY KEY,
-	age smallint NOT NULL,
+	age int NOT NULL,
 	education char(50) NOT NULL,
 	work_place char(255) NOT NULL,
 	post char(255) NOT NULL,

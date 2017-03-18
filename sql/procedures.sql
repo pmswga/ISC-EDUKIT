@@ -207,7 +207,7 @@ BEGIN
 	COMMIT;
 END;
 
-CREATE PROCEDURE addParent(sn char(30), fn char(30), pt char(30), p_email char(30), paswd char(32), p_age smallint, p_education char(50), p_wp char(255), p_post char(255), hp char(30), cp char(30))
+CREATE PROCEDURE addParent(sn char(30), fn char(30), pt char(30), p_email char(30), paswd char(32), p_age int(11), p_education char(50), p_wp char(255), p_post char(255), hp char(30), cp char(30))
 BEGIN
 	START TRANSACTION;
 	INSERT INTO `users` (`first_name`, `second_name`, `patronymic`, `email`, `password`, `id_type_user`) VALUES (fn, sn, pt, p_email, paswd, 5);

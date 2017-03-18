@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-03-18 18:11:45
+/* Smarty version 3.1.29, created on 2017-03-18 18:48:15
   from "C:\OpenServer\domains\iep.mgkit\admin\templates\tpl\users.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_58cd4e31c2d9f0_42653685',
+  'unifunc' => 'content_58cd56bf2242f3_30645776',
   'file_dependency' => 
   array (
     '89cdc248d1c9c3b51841ce9a0c3603cfd62c84cd' => 
     array (
       0 => 'C:\\OpenServer\\domains\\iep.mgkit\\admin\\templates\\tpl\\users.tpl',
-      1 => 1489849903,
+      1 => 1489852094,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
     'file:html/end.tpl' => 1,
   ),
 ),false)) {
-function content_58cd4e31c2d9f0_42653685 ($_smarty_tpl) {
+function content_58cd56bf2242f3_30645776 ($_smarty_tpl) {
 $_smarty_tpl->tpl_vars["title"] = new Smarty_Variable("EDUKIT | Пользователи", null);
 $_smarty_tpl->ext->_updateScope->updateScope($_smarty_tpl, "title", 0);
 $_smarty_tpl->smarty->ext->_var->createLocalArrayVariable($_smarty_tpl, 'css_links', null);
@@ -241,7 +241,7 @@ $_smarty_tpl->tpl_vars['subject'] = $__foreach_subject_1_saved_item;
                       <input type="telephone" name="cp" class="form-control">
                     </div>
                     <div class="form-group">
-                      <input type="submit" value="Добавить" class="btn btn-primary">
+                      <input type="submit" name="addParentButton" value="Добавить" class="btn btn-primary">
                     </div>
                   </form>
                 </fieldset>
@@ -418,6 +418,55 @@ $_smarty_tpl->tpl_vars['group'] = $__foreach_student_4_saved_key;
                   </div>
                 </div>
               </div>
+              <div class="panel panel-warning">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#views_users" href="#view_parents">Родители</a>
+                  </h4>
+                </div>
+                <div id="view_parents" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    <table class="table table-bordered">
+                      <tr>
+                        <th>Фамилия</th>
+                        <th>Имя</th>
+                        <th>Отчество</th>
+                        <th>E-mail</th>
+                        <th>Предметы</th>
+                      </tr>
+                      <?php
+$_from = $_smarty_tpl->tpl_vars['parents']->value;
+if (!is_array($_from) && !is_object($_from)) {
+settype($_from, 'array');
+}
+$__foreach_parent_6_saved_item = isset($_smarty_tpl->tpl_vars['parent']) ? $_smarty_tpl->tpl_vars['parent'] : false;
+$_smarty_tpl->tpl_vars['parent'] = new Smarty_Variable();
+$_smarty_tpl->tpl_vars['parent']->_loop = false;
+foreach ($_from as $_smarty_tpl->tpl_vars['parent']->value) {
+$_smarty_tpl->tpl_vars['parent']->_loop = true;
+$__foreach_parent_6_saved_local_item = $_smarty_tpl->tpl_vars['parent'];
+?>
+                        <tr>
+                          <td><?php echo $_smarty_tpl->tpl_vars['parent']->value->getSn();?>
+</td>
+                          <td><?php echo $_smarty_tpl->tpl_vars['parent']->value->getFn();?>
+</td>
+                          <td><?php echo $_smarty_tpl->tpl_vars['parent']->value->getPt();?>
+</td>
+                          <td><?php echo $_smarty_tpl->tpl_vars['parent']->value->getEmail();?>
+</td>
+                        </tr>
+                      <?php
+$_smarty_tpl->tpl_vars['parent'] = $__foreach_parent_6_saved_local_item;
+}
+if ($__foreach_parent_6_saved_item) {
+$_smarty_tpl->tpl_vars['parent'] = $__foreach_parent_6_saved_item;
+}
+?>
+                    </table>
+                  </div>
+                </div>
+              </div>
               <div class="panel panel-success">
                 <div class="panel-heading">
                   <h4 class="panel-title">
@@ -439,12 +488,12 @@ $_from = $_smarty_tpl->tpl_vars['elders']->value;
 if (!is_array($_from) && !is_object($_from)) {
 settype($_from, 'array');
 }
-$__foreach_elder_6_saved_item = isset($_smarty_tpl->tpl_vars['elder']) ? $_smarty_tpl->tpl_vars['elder'] : false;
+$__foreach_elder_7_saved_item = isset($_smarty_tpl->tpl_vars['elder']) ? $_smarty_tpl->tpl_vars['elder'] : false;
 $_smarty_tpl->tpl_vars['elder'] = new Smarty_Variable();
 $_smarty_tpl->tpl_vars['elder']->_loop = false;
 foreach ($_from as $_smarty_tpl->tpl_vars['elder']->value) {
 $_smarty_tpl->tpl_vars['elder']->_loop = true;
-$__foreach_elder_6_saved_local_item = $_smarty_tpl->tpl_vars['elder'];
+$__foreach_elder_7_saved_local_item = $_smarty_tpl->tpl_vars['elder'];
 ?>
                         <tr>
                           <td><?php echo $_smarty_tpl->tpl_vars['elder']->value->getSn();?>
@@ -457,10 +506,10 @@ $__foreach_elder_6_saved_local_item = $_smarty_tpl->tpl_vars['elder'];
 </td>
                         </tr>
                       <?php
-$_smarty_tpl->tpl_vars['elder'] = $__foreach_elder_6_saved_local_item;
+$_smarty_tpl->tpl_vars['elder'] = $__foreach_elder_7_saved_local_item;
 }
-if ($__foreach_elder_6_saved_item) {
-$_smarty_tpl->tpl_vars['elder'] = $__foreach_elder_6_saved_item;
+if ($__foreach_elder_7_saved_item) {
+$_smarty_tpl->tpl_vars['elder'] = $__foreach_elder_7_saved_item;
 }
 ?>
                     </table>
@@ -483,12 +532,12 @@ $_from = $_smarty_tpl->tpl_vars['students']->value;
 if (!is_array($_from) && !is_object($_from)) {
 settype($_from, 'array');
 }
-$__foreach_student_7_saved_item = isset($_smarty_tpl->tpl_vars['student']) ? $_smarty_tpl->tpl_vars['student'] : false;
+$__foreach_student_8_saved_item = isset($_smarty_tpl->tpl_vars['student']) ? $_smarty_tpl->tpl_vars['student'] : false;
 $_smarty_tpl->tpl_vars['student'] = new Smarty_Variable();
 $_smarty_tpl->tpl_vars['student']->_loop = false;
 foreach ($_from as $_smarty_tpl->tpl_vars['student']->value) {
 $_smarty_tpl->tpl_vars['student']->_loop = true;
-$__foreach_student_7_saved_local_item = $_smarty_tpl->tpl_vars['student'];
+$__foreach_student_8_saved_local_item = $_smarty_tpl->tpl_vars['student'];
 ?>
 													<option value="<?php echo $_smarty_tpl->tpl_vars['student']->value->getEmail();?>
 "><?php echo $_smarty_tpl->tpl_vars['student']->value->getSn();?>
@@ -497,10 +546,10 @@ $__foreach_student_7_saved_local_item = $_smarty_tpl->tpl_vars['student'];
  | <small><?php echo $_smarty_tpl->tpl_vars['student']->value->getGroup();?>
 </small></option>
 												<?php
-$_smarty_tpl->tpl_vars['student'] = $__foreach_student_7_saved_local_item;
+$_smarty_tpl->tpl_vars['student'] = $__foreach_student_8_saved_local_item;
 }
-if ($__foreach_student_7_saved_item) {
-$_smarty_tpl->tpl_vars['student'] = $__foreach_student_7_saved_item;
+if ($__foreach_student_8_saved_item) {
+$_smarty_tpl->tpl_vars['student'] = $__foreach_student_8_saved_item;
 }
 ?>
 											</select>
@@ -523,12 +572,12 @@ $_from = $_smarty_tpl->tpl_vars['elders']->value;
 if (!is_array($_from) && !is_object($_from)) {
 settype($_from, 'array');
 }
-$__foreach_elder_8_saved_item = isset($_smarty_tpl->tpl_vars['elder']) ? $_smarty_tpl->tpl_vars['elder'] : false;
+$__foreach_elder_9_saved_item = isset($_smarty_tpl->tpl_vars['elder']) ? $_smarty_tpl->tpl_vars['elder'] : false;
 $_smarty_tpl->tpl_vars['elder'] = new Smarty_Variable();
 $_smarty_tpl->tpl_vars['elder']->_loop = false;
 foreach ($_from as $_smarty_tpl->tpl_vars['elder']->value) {
 $_smarty_tpl->tpl_vars['elder']->_loop = true;
-$__foreach_elder_8_saved_local_item = $_smarty_tpl->tpl_vars['elder'];
+$__foreach_elder_9_saved_local_item = $_smarty_tpl->tpl_vars['elder'];
 ?>
 													<option value="<?php echo $_smarty_tpl->tpl_vars['elder']->value->getEmail();?>
 "><?php echo $_smarty_tpl->tpl_vars['elder']->value->getSn();?>
@@ -537,10 +586,10 @@ $__foreach_elder_8_saved_local_item = $_smarty_tpl->tpl_vars['elder'];
  | <small><?php echo $_smarty_tpl->tpl_vars['elder']->value->getGroup();?>
 </small></option>
 												<?php
-$_smarty_tpl->tpl_vars['elder'] = $__foreach_elder_8_saved_local_item;
+$_smarty_tpl->tpl_vars['elder'] = $__foreach_elder_9_saved_local_item;
 }
-if ($__foreach_elder_8_saved_item) {
-$_smarty_tpl->tpl_vars['elder'] = $__foreach_elder_8_saved_item;
+if ($__foreach_elder_9_saved_item) {
+$_smarty_tpl->tpl_vars['elder'] = $__foreach_elder_9_saved_item;
 }
 ?>
 											</select>

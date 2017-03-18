@@ -28,6 +28,7 @@
   $CT->assign("teachers", $UM->getTeachers());
   $CT->assign("students", $UM->getStudents());
   $CT->assign("elders", $UM->getElders());
+  $CT->assign("parents", $UM->getParents());
   $CT->assign("studentsByGroup", $studentsByGroup);
 	
   $CT->Show("users.tpl");
@@ -83,6 +84,35 @@
     }
     
   }
+	
+	if (!empty($_POST['addParentButton'])) {
+    $data = CForm::getData(["sn", "fn", "pt", "email", "paswd", "age", "education", "wp", "post", "hp", "cp"]);
+    $data['paswd'] = md5($data['paswd']);
+    
+    $new_parent = new Parent_(
+      new User(
+        $data['sn'], 
+        $data['fn'], 
+        $data['pt'], 
+        $data['email'], 
+        $data['paswd'], 
+        5), 
+			$data['age'],
+			$data['education'],
+			$data['wp'],
+			$data['post'],
+			$data['hp'],
+			$data['cp']
+    );
+		
+		
+		CTools::var_dump($new_parent);
+		
+		if ($UM->add($new_parent)) {
+      CTools::Redirect("users.php");
+		}
+		
+	}
 	
 	if (!empty($_POST['grantElderButton'])) {
 		$emailStudent = htmlspecialchars($_POST['studentEmail']);

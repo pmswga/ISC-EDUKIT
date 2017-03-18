@@ -232,17 +232,18 @@
               $add_user_query->bindValue(":pt", $user->getPt());
               $add_user_query->bindValue(":email", $user->getEmail());
               $add_user_query->bindValue(":paswd", $user->getPassword());
-              $add_user_query->bindValue(":age", $user->getPassword());
-              $add_user_query->bindValue(":education", $user->getPassword());
-              $add_user_query->bindValue(":wp", $user->getPassword());
-              $add_user_query->bindValue(":post", $user->getPassword());
-              $add_user_query->bindValue(":hp", $user->getPassword());
-              $add_user_query->bindValue(":cp", $user->getPassword());
+              $add_user_query->bindValue(":age", $user->getAge());
+              $add_user_query->bindValue(":education", $user->getEducation());
+              $add_user_query->bindValue(":wp", $user->getWorkPlace());
+              $add_user_query->bindValue(":post", $user->getPost());
+              $add_user_query->bindValue(":hp", $user->getHomePhone());
+              $add_user_query->bindValue(":cp", $user->getCellPhone());
 							
 							if ($add_user_query->execute()) {
 								return $this->dbc()->commit();
 							} else {
 								$this->dbc()->rollBack();
+								print_r($add_user_query->errorInfo());
 								return false;
 							}
 							
