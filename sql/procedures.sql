@@ -39,6 +39,7 @@ DROP PROCEDURE IF EXISTS removeNews;
 DROP PROCEDURE IF EXISTS changeNews;
 DROP PROCEDURE IF EXISTS getNews;
 DROP PROCEDURE IF EXISTS getAllNews;
+DROP PROCEDURE IF EXISTS clearAllNews;
 
 DROP PROCEDURE IF EXISTS addSpecialty;
 DROP PROCEDURE IF EXISTS removeSpecialty;
@@ -304,11 +305,11 @@ BEGIN
 END;
 
 
-CREATE PROCEDURE removeNews(id_news INT, n_author_email CHAR(255))
+CREATE PROCEDURE removeNews(id_news INT)
 BEGIN
 	DELETE n FROM `news` n
     INNER JOIN `users` u ON n.id_author=u.id_user
-  WHERE n.id_news=id_news AND u.email=n_author_email;
+  WHERE n.id_news=id_news;
 END;
 
 /*
@@ -335,6 +336,11 @@ END;
 CREATE PROCEDURE getAllNews() /* Для вывода в панели администратора */
 BEGIN
 	SELECT * FROM `v_news`;
+END;
+
+CREATE PROCEDURE clearAllNews()
+BEGIN
+	DELETE FROM `news`;
 END;
 
 /* Работа со специальностями */

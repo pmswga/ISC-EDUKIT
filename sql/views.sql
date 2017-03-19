@@ -71,8 +71,8 @@ CREATE VIEW v_Relations (descp) as
 	FROM `relations`
 	ORDER BY `description`;
 	
-CREATE VIEW v_News (caption, content, author, email, dp) as
-	SELECT n.caption, n.content, CONCAT(u.second_name, ' ', LEFT(u.first_name, 1), '. ', LEFT(u.patronymic, 1), '.') as author, u.email, n.date_publication
+CREATE VIEW v_News (id_news, caption, content, author, email, dp) as
+	SELECT n.id_news, n.caption, n.content, CONCAT(u.second_name, ' ', LEFT(u.first_name, 1), '. ', LEFT(u.patronymic, 1), '.') as author, u.email, n.date_publication
 	FROM `news` n
 		INNER JOIN `users` u ON n.id_author=u.id_user
 	ORDER BY n.date_publication, n.caption;

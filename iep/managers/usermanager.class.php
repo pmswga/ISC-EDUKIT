@@ -384,41 +384,39 @@
 		
 		public function getParents() : array
 		{
-			$db_parents = $this->get("SELECT * FROM `v_Parents`");
+			$db_parents = $this->get("call getAllParents()");
             
       $parents = array();
       foreach ($db_parents as $db_parent) {
-        $db_childs = $this->get("SELECT `id_children`, `id_type_releation` FROM `parent_child` WHERE `id_parent`=(SELECT `id_user` FROM `users` WHERE `email`=:parent_email)", [":parent_email" => $db_parent['email']]);
+        // $db_childs = $this->get("call getChilds(:emailParent)", [":emailParent" => $db_parent['email']]);
         
-        $childs = array();
-        for ($i = 0; $i < count($db_childs); $i++) {
-            $db_child = $this->get("SELECT * FROM `users` u INNER JOIN `students` s ON u.id_user=s.id_student
-            WHERE `id_student`=:id_child", [":id_child" => $db_childs[$i]['id_children']])[0];
+        // $childs = array();
+        // for ($i = 0; $i < count($db_childs); $i++) {
             
-            $childs[$i]['child'] = new Student(
-                new User(
-                    $db_child['second_name'],
-                    $db_child['first_name'],
-                    $db_child['patronymic'],
-                    $db_child['email'],
-                    $db_child['password'],
-                    (int)$db_child['id_type_user']
-                ),
-                (int)$db_child['grp'],
-                $db_child['home_address'],
-                $db_child['cell_phone']
-            );
-            $childs[$i]['type_relation'] = $db_childs[$i]['id_type_releation'];
-        }
+            // $childs[$i]['child'] = new Student(
+                // new User(
+                    // $db_child['second_name'],
+                    // $db_child['first_name'],
+                    // $db_child['patronymic'],
+                    // $db_child['email'],
+                    // $db_child['password'],
+                    // (int)$db_child['type_user']
+                // ),
+                // (int)$db_child['grp'],
+                // $db_child['home_address'],
+                // $db_child['cell_phone']
+            // );
+            // $childs[$i]['type_relation'] = $db_childs[$i]['id_type_releation'];
+        // }
         
         $new_parent = new Parent_(
             new User(
-                $db_parent['second_name'],
-                $db_parent['first_name'],
-                $db_parent['patronymic'],
+                $db_parent['sn'],
+                $db_parent['fn'],
+                $db_parent['pt'],
                 $db_parent['email'],
-                $db_parent['password'],
-                (int)$db_parent['id_type_user']
+                $db_parent['paswd'],
+                (int)$db_parent['type_user']
             ),
             (int)$db_parent['age'],
             $db_parent['education'],
@@ -427,7 +425,7 @@
             $db_parent['home_phone'],
             $db_parent['cell_phone']
         );
-        $new_parent->setChilds($childs);
+        // $new_parent->setChilds($childs);
         
         $parents[] = $new_parent;
       }

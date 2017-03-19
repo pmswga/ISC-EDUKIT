@@ -1,7 +1,7 @@
 <?php
 	require_once "start.php";
     
-    use IEP\Structures\User;
+	use IEP\Structures\User;
     
 	if(!isset($_SESSION['admin']))
 	{

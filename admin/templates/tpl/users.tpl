@@ -275,14 +275,29 @@
                         <th>Имя</th>
                         <th>Отчество</th>
                         <th>E-mail</th>
-                        <th>Предметы</th>
+                        <th>Возраст</th>
+                        <th>Образование</th>
+                        <th>Место работы</th>
+                        <th>Пост</th>
+                        <th>Телефон</th>
+                        <th>Дети</th>
                       </tr>
                       {foreach from=$parents item=parent}
                         <tr>
-                          <td>{$parent->getSn()}</td>
                           <td>{$parent->getFn()}</td>
+                          <td>{$parent->getSn()}</td>
                           <td>{$parent->getPt()}</td>
                           <td>{$parent->getEmail()}</td>
+                          <td>{$parent->getAge()}</td>
+                          <td>{$parent->getEducation()}</td>
+                          <td>{$parent->getWorkPlace()}</td>
+                          <td>{$parent->getPost()}</td>
+                          <td>
+														<ul>
+															<li>Домашний: {$parent->getHomePhone()}</li>
+															<li>Сотовый: {$parent->getCellPhone()}</li>
+														</ul>
+													</td>
                         </tr>
                       {/foreach}
                     </table>

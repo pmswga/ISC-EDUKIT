@@ -10,6 +10,7 @@
 	require_once $_SERVER['DOCUMENT_ROOT']."/iep/managers/usermanager.class.php";
 	require_once $_SERVER['DOCUMENT_ROOT']."/iep/managers/subjectsmanager.class.php";
 	require_once $_SERVER['DOCUMENT_ROOT']."/iep/managers/specialtymanager.class.php";
+	require_once $_SERVER['DOCUMENT_ROOT']."/iep/managers/newsmanager.class.php";
 	
   use IEP\Managers\NewsManager;
     

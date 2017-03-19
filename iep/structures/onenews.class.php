@@ -4,6 +4,7 @@
 
 	class OneNews
 	{
+		private $id_news;
 		private $caption;
 		private $content;
 		private $author;
@@ -15,6 +16,16 @@
 			$this->content = $content;
 			$this->author = $author;
 			$this->date_publication = $date_publication;
+		}
+		
+		public function setNewsID(int $id_news)
+		{
+			$this->id_news = $id_news;
+		}
+		
+		public function getNewsID() : int
+		{
+			return $this->id_news;
 		}
 		
 		public function getCaption() : string

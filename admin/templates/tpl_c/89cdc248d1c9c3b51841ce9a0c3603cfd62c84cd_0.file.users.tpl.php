@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-03-18 18:48:15
+/* Smarty version 3.1.29, created on 2017-03-18 18:58:10
   from "C:\OpenServer\domains\iep.mgkit\admin\templates\tpl\users.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_58cd56bf2242f3_30645776',
+  'unifunc' => 'content_58cd591211e938_34062343',
   'file_dependency' => 
   array (
     '89cdc248d1c9c3b51841ce9a0c3603cfd62c84cd' => 
     array (
       0 => 'C:\\OpenServer\\domains\\iep.mgkit\\admin\\templates\\tpl\\users.tpl',
-      1 => 1489852094,
+      1 => 1489852689,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
     'file:html/end.tpl' => 1,
   ),
 ),false)) {
-function content_58cd56bf2242f3_30645776 ($_smarty_tpl) {
+function content_58cd591211e938_34062343 ($_smarty_tpl) {
 $_smarty_tpl->tpl_vars["title"] = new Smarty_Variable("EDUKIT | Пользователи", null);
 $_smarty_tpl->ext->_updateScope->updateScope($_smarty_tpl, "title", 0);
 $_smarty_tpl->smarty->ext->_var->createLocalArrayVariable($_smarty_tpl, 'css_links', null);
@@ -432,7 +432,12 @@ $_smarty_tpl->tpl_vars['group'] = $__foreach_student_4_saved_key;
                         <th>Имя</th>
                         <th>Отчество</th>
                         <th>E-mail</th>
-                        <th>Предметы</th>
+                        <th>Возраст</th>
+                        <th>Образование</th>
+                        <th>Место работы</th>
+                        <th>Пост</th>
+                        <th>Телефон</th>
+                        <th>Дети</th>
                       </tr>
                       <?php
 $_from = $_smarty_tpl->tpl_vars['parents']->value;
@@ -447,14 +452,30 @@ $_smarty_tpl->tpl_vars['parent']->_loop = true;
 $__foreach_parent_6_saved_local_item = $_smarty_tpl->tpl_vars['parent'];
 ?>
                         <tr>
-                          <td><?php echo $_smarty_tpl->tpl_vars['parent']->value->getSn();?>
-</td>
                           <td><?php echo $_smarty_tpl->tpl_vars['parent']->value->getFn();?>
+</td>
+                          <td><?php echo $_smarty_tpl->tpl_vars['parent']->value->getSn();?>
 </td>
                           <td><?php echo $_smarty_tpl->tpl_vars['parent']->value->getPt();?>
 </td>
                           <td><?php echo $_smarty_tpl->tpl_vars['parent']->value->getEmail();?>
 </td>
+                          <td><?php echo $_smarty_tpl->tpl_vars['parent']->value->getAge();?>
+</td>
+                          <td><?php echo $_smarty_tpl->tpl_vars['parent']->value->getEducation();?>
+</td>
+                          <td><?php echo $_smarty_tpl->tpl_vars['parent']->value->getWorkPlace();?>
+</td>
+                          <td><?php echo $_smarty_tpl->tpl_vars['parent']->value->getPost();?>
+</td>
+                          <td>
+														<ul>
+															<li>Домашний: <?php echo $_smarty_tpl->tpl_vars['parent']->value->getHomePhone();?>
+</li>
+															<li>Сотовый: <?php echo $_smarty_tpl->tpl_vars['parent']->value->getCellPhone();?>
+</li>
+														</ul>
+													</td>
                         </tr>
                       <?php
 $_smarty_tpl->tpl_vars['parent'] = $__foreach_parent_6_saved_local_item;
