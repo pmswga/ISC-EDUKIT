@@ -22,17 +22,15 @@
 	class UserManager extends IEP
 	{
 		
-		public function authorizate($email, $password)
+		public function authorizate($email, $password) : User
 		{
-			$user_data = $this->get("SELECT * FROM `users` WHERE `email`=:email AND `password`=:password",
-				[":email" => $email, ":password" => $password]
-			);
+			$user_data = $this->get("call authentification(:email, :password)", [":email" => $email, ":password" => $password]);
       
 			switch($user_data[0]['id_type_user'])
 			{
 				case USER_TYPE_STUDENT:
 				{
-					$student_data = $this->get("SELECT * FROM `students` WHERE `id_student`=:id_user", [":id_user" => $user_data[0]['id_user']]);
+					$student_data = $this->get("call getStudentInfo(:email)", [":email" => $email]);
 					
 					$s = new Student(new User(
 						$user_data[0]['second_name'],
@@ -42,16 +40,16 @@
 						$user_data[0]['password'],
 						(int)$user_data[0]['id_type_user']
 					),
-						(int)$student_data[0]['grp'],
 						$student_data[0]['home_address'],
-						$student_data[0]['cell_phone']
+						$student_data[0]['cell_phone'],
+						$student_data[0]['grp']
 					);
           
 					return $s;
 				} break;
 				case USER_TYPE_TEACHER:
 				{
-					$teacaher_data = $this->get("SELECT * FROM `teachers` WHERE `id_teacher`=:id_user", [":id_user" => $user_data[0]['id_user']]);
+					$teacaher_data = $this->get("call getTeacherInfo(:email)", [":email" => $email]);
           
 					$t = new Teacher(new User(
 						$user_data[0]['second_name'],
@@ -63,45 +61,13 @@
 					),
 						$teacaher_data[0]['info']
 					);
-					
-          $db_subjects = $this->get("SELECT `description` FROM `subjects` s INNER JOIN `teacher_subjects` ts ON s.id_subject=ts.id_subject WHERE `id_teacher`=:id_teacher", [":id_teacher" => $user_data[0]['id_user']]);;
-          
-          $subjects = array();
-          for ($i = 0; $i < count($db_subjects); $i++) {
-            $subjects[] = $db_subjects[$i]['description'];
-          }
-          
-          $t->setSubjects($subjects);
           
 					return $t;
 				} break;
 				case USER_TYPE_PARENT:
 				{
-					$parent_data = $this->get("SELECT * FROM `parents` WHERE `id_parent`=:id_user", [":id_user" => $user_data[0]['id_user']]);
+					$parent_data = $this->get("call getParentInfo(:email)", [":email" => $email]);
 					
-          $db_childs = $this->get("SELECT `id_children`, `id_type_releation` FROM `parent_child` WHERE `id_parent`=(SELECT `id_user` FROM `users` WHERE `email`=:parent_email)", [":parent_email" => $user_data[0]['email']]);
-          
-          $childs = array();
-          for ($i = 0; $i < count($db_childs); $i++) {
-            $db_child = $this->get("SELECT * FROM `users` u INNER JOIN `students` s ON u.id_user=s.id_student
-            WHERE `id_student`=:id_child", [":id_child" => $db_childs[$i]['id_children']])[0];
-            
-            $childs[$i]['child'] = new Student(
-              new User(
-                  $db_child['second_name'],
-                  $db_child['first_name'],
-                  $db_child['patronymic'],
-                  $db_child['email'],
-                  $db_child['password'],
-                  (int)$db_child['id_type_user']
-              ),
-              (int)$db_child['grp'],
-              $db_child['home_address'],
-              $db_child['cell_phone']
-            );
-            $childs[$i]['type_relation'] = $db_childs[$i]['id_type_releation'];
-          }
-          
 					$p = new Parent_(new User(
 						$user_data[0]['second_name'],
 						$user_data[0]['first_name'],
@@ -117,8 +83,6 @@
 						$parent_data[0]['home_phone'],
 						$parent_data[0]['cell_phone']
 					);
-          
-          $p->setChilds($childs);
 					
 					return $p;
 				} break;

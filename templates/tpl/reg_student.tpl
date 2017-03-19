@@ -39,8 +39,8 @@
 						<label>Группа</label>
 						<select name="grp" class="form-control" required>
               <option value=""></option>
-							{foreach from=$groups item=it}
-							<option value={$it['grp']}>{$it['grp']}</option>
+							{foreach from=$groups item=group}
+								<option value="{$group->getID()}">{$group->getNumberGroup()}</option>
 							{/foreach}
 						</select>
 					</div>
@@ -59,7 +59,7 @@
 					<div class="form-group">
 						<div class="row">
 							<div class="col-md-12">
-							<a href="registrationParent.php">Я родитель</a>
+								<a href="registrationParent.php">Я родитель</a>
 							</div>
 						</div>
 					</div>

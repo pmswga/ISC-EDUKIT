@@ -28,6 +28,11 @@ DROP PROCEDURE IF EXISTS grantElder;
 DROP PROCEDURE IF EXISTS revokeElder;
 DROP PROCEDURE IF EXISTS changeUserPassword;
 DROP PROCEDURE IF EXISTS authentification;
+
+DROP PROCEDURE IF EXISTS getTeacherInfo;
+DROP PROCEDURE IF EXISTS getStudentInfo;
+DROP PROCEDURE IF EXISTS getParentInfo;
+
 DROP PROCEDURE IF EXISTS getAllUsers;
 DROP PROCEDURE IF EXISTS getAllStudents;
 DROP PROCEDURE IF EXISTS getAllElders;
@@ -257,10 +262,26 @@ BEGIN
 	WHERE `email`=u_email AND `password`=old_paswd;
 END;
 
-CREATE PROCEDURE authentification(email char(30), paswd char(32))
+CREATE PROCEDURE authentification(u_email char(30), u_paswd char(32))
 BEGIN
-	SELECT * FROM `v_Users` WHERE `email`=email AND `paswd`=paswd;
+	SELECT * FROM `users` WHERE `email`=u_email AND `password`=u_paswd;
 END;
+
+CREATE PROCEDURE getTeacherInfo(emailUser char(30))
+BEGIN
+	SELECT * FROM `v_Teachers` WHERE `email`=emailUser;
+END;
+
+CREATE PROCEDURE getStudentInfo(emailUser char(30))
+BEGIN
+	SELECT * FROM `v_Students` WHERE `email`=emailUser;
+END;
+
+CREATE PROCEDURE getParentInfo(emailUser char(30))
+BEGIN
+	SELECT * FROM `v_Parents` WHERE `email`=emailUser;
+END;
+
 
 CREATE PROCEDURE getAllUsers()
 BEGIN
