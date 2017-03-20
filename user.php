@@ -37,6 +37,8 @@
 				$user->setSubjects($teacher_subjects);
 				$CT->assign("user", $user);
 				$CT->assign("subjects", $other_subjects);
+				$CT->assign("teachersNews", $NM->getTeachersNews($user->getEmail()));
+				$CT->assign("groups", $GM->getGroups());
 				
 				$CT->Show("accounts/teacher.tpl");
 				
@@ -60,11 +62,10 @@
 				
 				if (!empty($_POST['setSubjectButton'])) {
 					$select_subject = $_POST['select_subject'];
-					$email = htmlspecialchars($_POST['emailTeacher']);
 					
 					$result = true;
 					for ($i = 0; $i < count($select_subject); $i++) {
-						$result *= $SM->setSubject($email, $select_subject[$i]);
+						$result *= $SM->setSubject($user->getEmail(), $select_subject[$i]);
 					}
 					
 					if ($result) {

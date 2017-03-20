@@ -22,6 +22,22 @@
 			return $add_news_query->execute();
 		}
 		
+		public function getTeachersNews(string $emailTeacher) : array
+		{
+			$db_news = $this->get("call getNews(:email)", [":email" => $emailTeacher]);
+			
+			$news = array();
+			foreach($db_news as $db_one_news)
+			{
+					$one_news = new OneNews($db_one_news['caption'], $db_one_news['content'], $db_one_news['author'], $db_one_news['dp']);
+					$one_news->setNewsID((int)$db_one_news['id_news']);
+					
+					$news[] = $one_news;
+			}
+			
+			return $news;
+		}
+		
 		public function getNews() : array
 		{
 			$db_news = $this->get("call getAllNews()");

@@ -15,79 +15,74 @@
 		public function add($test) : bool
 		{
 			try
-            {
-                $this->dbc()->beginTransaction();
-                
-                $test_add_query = $this->dbc()->prepare("INSERT INTO `tests`
-                    (`id_subject`, `id_teacher`, `for_group`, `caption`)
-                    VALUES
-                    ((SELECT `id_subject` FROM `subjects` WHERE `description`=:subject), (SELECT `id_user` FROM `users` WHERE `email`=:teacher_email), :for_group, :caption)
-                ");
-                
-                $test_add_query->bindValue(":subject", $test->getSubject());
-                $test_add_query->bindValue(":teacher_email", $test->getAuthor());
-                $test_add_query->bindValue(":for_group", $test->getGroups());
-                $test_add_query->bindValue(":caption", $test->getCaption());
-                
-                if ($test_add_query->execute()) {
-                    
-                    $id_test = $this->get("SELECT `id_test` FROM `tests` WHERE `caption`=:caption", [":caption" => $test->getCaption()])[0]["id_test"];
-                    
-                    foreach($test->getQuestions() as $question) {
-                        
-                        $question_add_query = $this->dbc()->prepare("INSERT INTO `questions`
-                            (`id_test`, `question`, `r_answer`)
-                            VALUES
-                            (:id_test, :question, :r_answer)
-                        ");
-                        
-                        $question_add_query->bindValue(":id_test", $id_test);
-                        $question_add_query->bindValue(":question", $question->getQuestion());
-                        $question_add_query->bindValue(":r_answer", $question->getRAnswer());
-                        
-                        if ($question_add_query->execute()) {
-                            
-                            $id_question = $this->get("SELECT `id_question` FROM `questions` WHERE `question`=:question", [":question" => $question->getQuestion()])[0]['id_question'];
-                            
-                            foreach ($question->getAnswers() as $answer) {
-                                
-                                $answer_add_query = $this->dbc()->prepare("INSERT INTO `answers`
-                                    (`id_question`, `answer`)
-                                    VALUES
-                                    (:id_question, :answer)
-                                ");
-                                
-                                $answer_add_query->bindValue(":id_question", $id_question);
-                                $answer_add_query->bindValue(":answer", $answer);
-                                
-                                if (!$answer_add_query->execute()) {
-                                    $this->dbc()->rollBack();
-                                    return false;
-                                }
-                                
-                            }
-                            
-                        }
-                        else {
-                            $this->dbc()->rollBack();
-                            return false;
-                        }
-                        
-                    }
-                    
-                    return $this->dbc()->commit();
-                }
-                else {
-                    $this->dbc()->rollBack();
-                    return false;
-                }
-                
-            }
-            catch(PDOException $e)
-            {
-                $this->dbc()->rollBack();
-                return false;
-            }
+			{
+					$this->dbc()->beginTransaction();
+					
+					$test_add_query = $this->dbc()->prepare("call addTest(:emailTeacher, :subject, :test_caption)");
+					
+					$test_add_query->bindValue(":subject", $test->getSubject());
+					$test_add_query->bindValue(":teacher_email", $test->getAuthor());
+					$test_add_query->bindValue(":caption", $test->getCaption());
+					
+					if ($test_add_query->execute()) {
+							
+							$id_test = $this->get("SELECT `id_test` FROM `tests` WHERE `caption`=:caption", [":caption" => $test->getCaption()])[0]["id_test"];
+							
+							foreach($test->getQuestions() as $question) {
+									
+									$question_add_query = $this->dbc()->prepare("INSERT INTO `questions`
+											(`id_test`, `question`, `r_answer`)
+											VALUES
+											(:id_test, :question, :r_answer)
+									");
+									
+									$question_add_query->bindValue(":id_test", $id_test);
+									$question_add_query->bindValue(":question", $question->getQuestion());
+									$question_add_query->bindValue(":r_answer", $question->getRAnswer());
+									
+									if ($question_add_query->execute()) {
+											
+											$id_question = $this->get("SELECT `id_question` FROM `questions` WHERE `question`=:question", [":question" => $question->getQuestion()])[0]['id_question'];
+											
+											foreach ($question->getAnswers() as $answer) {
+													
+													$answer_add_query = $this->dbc()->prepare("INSERT INTO `answers`
+															(`id_question`, `answer`)
+															VALUES
+															(:id_question, :answer)
+													");
+													
+													$answer_add_query->bindValue(":id_question", $id_question);
+													$answer_add_query->bindValue(":answer", $answer);
+													
+													if (!$answer_add_query->execute()) {
+															$this->dbc()->rollBack();
+															return false;
+													}
+													
+											}
+											
+									}
+									else {
+											$this->dbc()->rollBack();
+											return false;
+									}
+									
+							}
+							
+							return $this->dbc()->commit();
+					}
+					else {
+							$this->dbc()->rollBack();
+							return false;
+					}
+					
+			}
+			catch(PDOException $e)
+			{
+					$this->dbc()->rollBack();
+					return false;
+			}
 		}
         
         public function addQuestion(string $caption_test, OneQuestion $question)

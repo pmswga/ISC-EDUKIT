@@ -1,20 +1,7 @@
 {assign var="title" value="Новости"}
 {include file='html/begin.tpl'}
 		<div class="container-fluid">
-			<div class="row">
-				<div class="col-md-12">
-					<header id="header" class="container">
-						<div id="logoDiv" class="col-md-4">
-							<figure>
-								<img src="img/ukit.png" alt="">
-								<figcaption></figcaption>
-							</figure>
-						</div>
-						{include file='users/menu.tpl'}
-					</header>
-				</div>
-			</div>
-			<hr>
+			{include file='users/menu.tpl'}
 			<div class="row">
 				<div class="col-md-12">
 					<div id="content" class="container">

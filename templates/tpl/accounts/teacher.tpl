@@ -4,7 +4,6 @@
 		<title>Мой аккаунт</title>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" type="text/css" href="css/boostrap/bootstrap.css">
-		<link rel="stylesheet" type="text/css" href="css/main.css">
 		<script type="text/javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" src="js/bootstrap.js"></script>
 		<style>
@@ -20,17 +19,8 @@
 		</style>
 	</head>
 	<body>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<h1>{$user->getSn()} {$user->getFn()} {$user->getPt()}</h1>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					{include file='users/menu.tpl'}
-				</div>
-			</div>
+		<div class="container-fluid">
+			{include file="users/menu.tpl"}
 			<div class="row" style="padding: 15px;">
 				<div class="col-md-8">
 					<div class="row">
@@ -45,7 +35,16 @@
 									<th>Название</th>
 									<th>Тема</th>
 									<th>Для групп</th>
+									<th>Выбрать</th>
 								</tr>
+								{foreach from=$teachersTests item=teacherTest}
+									<tr>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								{/foreach}
 							</table>
 						</div>
 					</div>
@@ -72,12 +71,24 @@
 							</tr>
 						</table>
 					</fieldset>
-					<div class="panel-group" id="u">
+					<div class="panel-group" id="controls">
 						<div class="panel panel-success">
 							<div class="panel-heading">
-								<h4 class="panel-title"><a data-toggle="collapse" data-parent="#u" href="#u_teachers">Мои предметы</a></h4>
+								<h4 class="panel-title"><a data-toggle="collapse" data-parent="#controls" href="#teachers_tests">Тесты</a></h4>
 							</div>
-							<div id="u_teachers" class="panel-collapse collapse">
+							<div id="teachers_tests" class="panel-collapse collapse">
+								<div class="panel-body">
+									<a class="btn btn-primary btn-block" data-toggle="modal" data-target="#addTestDialog">Добавить</a>
+									<a class="btn btn-primary btn-block">Удалить выбранный тест</a>
+									<a class="btn btn-primary btn-block">Изменить</a>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-success">
+							<div class="panel-heading">
+								<h4 class="panel-title"><a data-toggle="collapse" data-parent="#controls" href="#teacher_subjects">Предметы</a></h4>
+							</div>
+							<div id="teacher_subjects" class="panel-collapse collapse">
 								<div class="panel-body">
 									<form name="workWithSubjectForm" method="POST">
 										<a class="btn btn-primary btn-block" data-toggle="modal" data-target="#setSubjectDialog">Добавить</a>
@@ -99,57 +110,25 @@
 								</div>
 							</div>
 						</div>
-					</div>
-					<fieldset>
-						<legend>Работа с тестами</legend>
-						<div id="tests_action_panel">
-							<a class="btn btn-primary btn-block" data-toggle="modal" data-target="#addTestDialog">Добавить</a>
-							<a class="btn btn-primary btn-block">Удалить выбранный тест</a>
-							<a class="btn btn-primary btn-block">Изменить</a>
-						</div>
-					</fieldset>
-				</div>
-			</div>
-			<hr>
-			<div class="row" style="padding: 15px;">
-				<div class="col-md-8">
-					<h2>Добавить новость</h2>
-					<form name="addNewsForm" method="POST">
-						<div class="form-group">
-							<label>Заголовок</label>
-							<input type="text" name="caption" class="form-control">
-						</div>
-						<div class="form-group">
-							<label>Контент</label>
-							<textarea name="content" rows="10" class="form-control"></textarea>
-						</div>
-						<div class="form-group">
-							<label>Автор</label>
-							<p class="form-control-static">{$user->getFn()} {$user->getSn()}</p>
-							<input type="hidden" name="teacherEmail" value="{$user->getEmail()}">
-						</div>
-						<div class="form-group">
-							<label>Дата публикации</label>
-							<input type="date" name="dp" class="form-control">
-						</div>
-						<div class="form-group">
-							<input type="submit" name="addNewsButton" class="btn btn-primary pull-right" value="Опубликовать">
-						</div>
-					</form>
-				</div>
-				<div class="col-md-4">
-					<div class="panel-group" id="teacher_news">
 						<div class="panel panel-success">
 							<div class="panel-heading">
-								<h4 class="panel-title"><a data-toggle="collapse" data-parent="#teacher_news" href="#my_news">Мои опубликованные новости</a></h4>
+								<h4 class="panel-title"><a data-toggle="collapse" data-parent="#controls" href="#teachers_news">Новости</a></h4>
 							</div>
-							<div id="my_news" class="panel-collapse collapse">
+							<div id="teachers_news" class="panel-collapse collapse">
 								<div class="panel-body">
+									<a class="btn btn-primary btn-block" data-toggle="modal" data-target="#addNewNews">Добавить</a>
+									<h4>Опубликованные</h4>
 									<table class="table table-bordered">
 										<tr>
-											<td>Заголовок</td>
-											<td>Дата публикации</td>
+											<th>Заголовок</th>
+											<th>Дата публикации</th>
 										</tr>
+										{foreach from=$teachersNews item=teacherNews}
+											<tr>
+												<td>{$teacherNews->getCaption()}</td>
+												<td>{$teacherNews->getDatePublication()|date_format: "%d.%m.%Y"}</td>
+											</tr>
+										{/foreach}
 									</table>
 								</div>
 							</div>
@@ -193,10 +172,45 @@
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
 		
+		<div class="modal fade" id="addNewNews">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">Добавить новость</h4>
+					</div>
+					<form name="addNewsForm" method="POST">
+						<div class="modal-body">
+							<div class="form-group">
+								<label>Заголовок</label>
+								<input type="text" name="caption" class="form-control">
+							</div>
+							<div class="form-group">
+								<label>Контент</label>
+								<textarea name="content" rows="10" class="form-control"></textarea>
+							</div>
+							<div class="form-group">
+								<label>Автор</label>
+								<p class="form-control-static">{$user->getFn()} {$user->getSn()}</p>
+								<input type="hidden" name="teacherEmail" value="{$user->getEmail()}">
+							</div>
+							<div class="form-group">
+								<label>Дата публикации</label>
+								<input type="date" name="dp" class="form-control">
+							</div>
+						</div>
+						<div class="modal-footer">
+							<input type="submit" name="addNewsButton" class="btn btn-primary pull-right" value="Опубликовать">
+						</div>
+					</form>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+		
 		<div class="modal fade" id="addTestDialog">
 			<div class="modal-dialog">
 				<div class="modal-content">
-					<form name="addTest" method="POST">
+					<form name="addTestForm" method="POST">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 							<h4 class="modal-title">Добавление нового теста</h4>
@@ -219,9 +233,26 @@
 								<p class="form-control-static">{$user->getFn()} {$user->getSn()}</p>
 								<input type="hidden" name="author_email" value="{$user->getEmail()}">
 							</div>
+							<div class="form-group">
+								<label>Группы</label>
+								<table class="table table-bordered">
+									<tr>
+										<th>Группа</th>
+										<th>Специальность</th>
+										<th>Выбрать</th>
+									</tr>
+									{foreach from=$groups item=group}
+										<tr>
+											<td>{$group->getNumberGroup()}</td>
+											<td>{$group->getCodeSpec()}</td>
+											<td><input type="checkbox" name="select_group[]" value="{$group->getID()}" class="form-control"></td>
+										</tr>
+									{/foreach}
+								</table>
+							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-primary">Добавить</button>
+							<input type="button" name="addTestButton" value="Добавить"  class="btn btn-primary">
 						</div>
 					</form>
 				</div><!-- /.modal-content -->
