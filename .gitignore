@@ -18,6 +18,10 @@ templates/tpl_c
 # Windows shortcuts
 *.lnk
 
+#Templates 
+templates/tpl_c/*
+admin/templates/tpl_c/*
+
 # =========================
 # Operating System Files
 # =========================

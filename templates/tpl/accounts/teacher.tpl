@@ -231,7 +231,7 @@
 							<div class="form-group">
 								<label>Автор</label>
 								<p class="form-control-static">{$user->getFn()} {$user->getSn()}</p>
-								<input type="hidden" name="author_email" value="{$user->getEmail()}">
+								<input type="hidden" name="teacherEmail" value="{$user->getEmail()}">
 							</div>
 							<div class="form-group">
 								<label>Группы</label>
@@ -252,7 +252,7 @@
 							</div>
 						</div>
 						<div class="modal-footer">
-							<input type="button" name="addTestButton" value="Добавить"  class="btn btn-primary">
+							<input type="submit" name="addTestButton" value="Добавить" class="btn btn-primary">
 						</div>
 					</form>
 				</div><!-- /.modal-content -->

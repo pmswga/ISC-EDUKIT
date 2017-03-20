@@ -2,6 +2,7 @@
   require_once "start.php";
 	
 	use IEP\Structures\OneNews;
+	use IEP\Structures\Test;
 	
 	if(isset($_SESSION['user']))
 	{
@@ -87,6 +88,24 @@
 					
 					if ($result) {
 						CTools::Message("Предметы убраны");
+					} else {
+						CTools::Message("Произошла ошибка");
+					}
+					
+					CTools::Redirect("user.php");
+				}
+				
+				if (!empty($_POST['addTestButton'])) {
+					$caption = htmlspecialchars($_POST['caption']);
+					$subject = $_POST['subject'];
+					$teacherEmail = $_POST['teacherEmail'];
+					$select_group = $_POST['select_group'];
+					
+					$new_test = new Test($caption, $teacherEmail, $select_group);
+					$new_test->setSubjectID($subject);
+					
+					if ($TM->add($new_test)) {
+						CTools::Message("Тест успешно создан");
 					} else {
 						CTools::Message("Произошла ошибка");
 					}
