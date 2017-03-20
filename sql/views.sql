@@ -61,8 +61,8 @@ CREATE VIEW v_Specialtyes (code_spec, descp, pdf) as
 	FROM `specialty`
 	ORDER BY `description`;
 
-CREATE VIEW v_Subjects (descp) as
-	SELECT `description`
+CREATE VIEW v_Subjects (id_subject, descp) as
+	SELECT `id_subject`, `description`
 	FROM `subjects`
 	ORDER BY `description`;
 	

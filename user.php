@@ -1,5 +1,5 @@
 <?php
-    require_once "start.php";
+  require_once "start.php";
 	
 	if(isset($_SESSION['user']))
 	{
@@ -21,22 +21,72 @@
 			} break;
 			case USER_TYPE_TEACHER:
 			{
+				
+				$teacher_subjects = $SM->getTeacherSubjects($user->getEmail());
+				$other_subjects = $SM->getSubjects();
+				
+				//< Удаляем предметы, которые преподаватель уже ведёт
+				foreach ($teacher_subjects as $teacher_subject) {
+					if (in_array($teacher_subject, $other_subjects)) {
+						unset($other_subjects[array_keys($other_subjects, $teacher_subject)[0]]);
+					}
+				}
+				
+				$user->setSubjects($teacher_subjects);
 				$CT->assign("user", $user);
+				$CT->assign("subjects", $other_subjects);
 				
 				$CT->Show("accounts/teacher.tpl");
 				
-				if(!empty($_POST['addNewsButton']))
-				{
-					$news_data = CForm::getData(array(
+				if (!empty($_POST['addNewsButton'])) {
+					$data = CForm::getData(array(
 						"caption",
 						"content",
-						"author_email",
-						"date_publication"
+						"teacherEmail",
+						"dp"
 					));
 					
-					$user_id = $UM->get("SELECT `id_user` FROM `users` WHERE `email`=:email", [":email" => $news_data['author_email']])[0][0];
+					if ($NM->add($new_news)) {
+						CTools::Message("Новость опубликована");
+					} else {
+						CTools::Message("Произошла ошибка");
+					}
 					
-					$NM->add(new OneNews($news_data['caption'], $news_data['content'], $user_id, $news_data['date_publication']));
+				}
+				
+				if (!empty($_POST['setSubjectButton'])) {
+					$select_subject = $_POST['select_subject'];
+					$email = htmlspecialchars($_POST['emailTeacher']);
+					
+					$result = true;
+					for ($i = 0; $i < count($select_subject); $i++) {
+						$result *= $SM->setSubject($email, $select_subject[$i]);
+					}
+					
+					if ($result) {
+						CTools::Message("Предметы успешно назначены");
+					} else {
+						CTools::Message("Произошла ошибка при назначении предметов");
+					}
+					
+					CTools::Redirect("user.php");
+				}
+				
+				if (!empty($_POST['deleteSubjectButton'])) {
+					$select_subject = $_POST['select_subject'];
+					
+					$result = true;
+					for ($i = 0; $i < count($select_subject); $i++) {
+						$result *= $SM->unsetSubject($user->getEmail(), $select_subject[$i]);
+					}
+					
+					if ($result) {
+						CTools::Message("Предметы убраны");
+					} else {
+						CTools::Message("Произошла ошибка");
+					}
+					
+					CTools::Redirect("user.php");
 				}
 				
 			} break;

@@ -13,6 +13,10 @@
 				text-align: center;
 			}
 			
+			th {
+				text-align: center;
+			}
+			
 		</style>
 	</head>
 	<body>
@@ -38,9 +42,9 @@
 						<div class="col-md-12">
 							<table class="table table-bordered">
 								<tr>
-									<td>Название</td>
-									<td>Тема</td>
-									<td>Для групп</td>
+									<th>Название</th>
+									<th>Тема</th>
+									<th>Для групп</th>
 								</tr>
 							</table>
 						</div>
@@ -75,11 +79,23 @@
 							</div>
 							<div id="u_teachers" class="panel-collapse collapse">
 								<div class="panel-body">
-									<table class="table table-bordered">
-										{foreach from=$user->getSubjects() item=subject}
-											<tr><td>{$subject}</td></tr>
-										{/foreach}
-									</table>
+									<form name="workWithSubjectForm" method="POST">
+										<a class="btn btn-primary btn-block" data-toggle="modal" data-target="#setSubjectDialog">Добавить</a>
+										<input type="submit" name="deleteSubjectButton" value="Удалить" class="btn btn-danger btn-block">
+										<br>
+										<table class="table table-bordered">
+											<tr>
+												<th>Название</th>
+												<th>Выбрать</th>
+											</tr>
+											{foreach from=$user->getSubjects() item=subject}
+												<tr>
+													<td>{$subject->getDescription()}</td>
+													<td><input type="checkbox" name="select_subject[]" value="{$subject->getID()}" class="form-control"></td>
+												</tr>
+											{/foreach}
+										</table>
+									</form>
 								</div>
 							</div>
 						</div>
@@ -98,7 +114,7 @@
 			<div class="row" style="padding: 15px;">
 				<div class="col-md-8">
 					<h2>Добавить новость</h2>
-					<form name="add_news" method="POST">
+					<form name="addNewsForm" method="POST">
 						<div class="form-group">
 							<label>Заголовок</label>
 							<input type="text" name="caption" class="form-control">
@@ -110,11 +126,11 @@
 						<div class="form-group">
 							<label>Автор</label>
 							<p class="form-control-static">{$user->getFn()} {$user->getSn()}</p>
-							<input type="hidden" name="author_email" value="{$user->getEmail()}">
+							<input type="hidden" name="teacherEmail" value="{$user->getEmail()}">
 						</div>
 						<div class="form-group">
 							<label>Дата публикации</label>
-							<input type="date" name="date_publication" class="form-control">
+							<input type="date" name="dp" class="form-control">
 						</div>
 						<div class="form-group">
 							<input type="submit" name="addNewsButton" class="btn btn-primary pull-right" value="Опубликовать">
@@ -146,6 +162,37 @@
 		
 		<!-- Modals Dialog -->
 		
+		<div class="modal fade" id="setSubjectDialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title">Выбрать предмет</h4>
+					</div>
+					<form name="setSubjectForm" method="POST">
+						<div class="modal-body">
+								<table class="table table-hover">
+									<tr>
+										<th>Название</th>
+										<th>Выбрать</th>
+									</tr>
+									{foreach from=$subjects item=subject}
+										<tr>
+											<td>{$subject->getDescription()}</td>
+											<td><input type="checkbox" name="select_subject[]" value="{$subject->getID()}" class="form-control"></td>
+										<tr>
+									{/foreach}
+								</table>
+						</div>
+						<div class="modal-footer">
+							<input type="hidden" name="emailTeacher" value="{$user->getEmail()}">
+							<input type="submit" name="setSubjectButton" value="Назначить" class="btn btn-primary">
+						</div>
+					</form>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+		
 		<div class="modal fade" id="addTestDialog">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -162,8 +209,8 @@
 							<div class="form-group">
 								<label>Предмет</label>
 								<select name="subject" class="form-control">
-									{foreach from=$subjects item=subject}
-										<option value="{$subject['id_subject']}">{$subject['description']}</option>
+									{foreach from=$user->getSubjects() item=subject}
+										<option value="{$subject->getID()}">{$subject->getDescription()}</option>
 									{/foreach}
 								</select>
 							</div>

@@ -6,24 +6,24 @@
         <h3 align="center" class="modal-title">Вход</h3>
       </div>
       <div class="modal-body">
-		<div class="row">
-			<form name="authorizate" action="php/login.php" method="POST">
-				<div class="col-md-6">
-					<div class="form-group">
-						<label>Email:</label>
-						<input name="email" type="email" maxlength="50" class="form-control">
-					</div>
-					<div class="form-group">
-						<label>Пароль:</label>
-						<input name="password" type="password" class="form-control">
-					</div>
-					<div id="authorizateButtonDiv" class="form-group">
-						<a href="#МолодецБл*ть">Забыл пароль?</a>
-						<input name="authorizateButton" type="submit" class="btn btn-primary" value="Войти">
-					</div>
+				<div class="row">
+					<form name="authorizate" action="php/login.php" method="POST">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Email:</label>
+								<input name="email" type="email" maxlength="50" class="form-control">
+							</div>
+							<div class="form-group">
+								<label>Пароль:</label>
+								<input name="password" type="password" class="form-control">
+							</div>
+							<div id="authorizateButtonDiv" class="form-group">
+								<a href="#Молодец">Забыл пароль?</a>
+								<input name="authorizateButton" type="submit" class="btn btn-primary" value="Войти">
+							</div>
+						</div>
+					</form>
 				</div>
-			</form>
-		</div>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

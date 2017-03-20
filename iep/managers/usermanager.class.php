@@ -22,7 +22,7 @@
 	class UserManager extends IEP
 	{
 		
-		public function authorizate($email, $password) : User
+		public function authorizate($email, $password)
 		{
 			$user_data = $this->get("call authentification(:email, :password)", [":email" => $email, ":password" => $password]);
       

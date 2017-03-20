@@ -547,22 +547,22 @@ END;
 
 /* Работа с предметами для преподавателя */
 
-CREATE PROCEDURE setSubject(emailTeacher char(30), t_subject char(255))
+CREATE PROCEDURE setSubject(emailTeacher char(30), subject_id int)
 BEGIN
-  INSERT INTO `teacher_subjects` (`id_teacher`, `id_subject`) VALUES (getTID(emailTeacher), getSID(t_subject));
+  INSERT INTO `teacher_subjects` (`id_teacher`, `id_subject`) VALUES (getTID(emailTeacher), subject_id);
 END;
 
-CREATE PROCEDURE unsetSubject(emailTeacher char(30), t_subject char(255))
+CREATE PROCEDURE unsetSubject(emailTeacher char(30), subject_id int)
 BEGIN
-	DELETE FROM `teacher_subjects` WHERE `id_teacher`=getTeacherID(emailTeacher) AND `id_subject`=getSubjectID(t_subject);
+	DELETE FROM `teacher_subjects` WHERE `id_teacher`=getTID(emailTeacher) AND `id_subject`=subject_id;
 END;
 
-CREATE PROCEDURE getSubjects(s_teacher_email char(30)) /* Для отображения предметов в его аккаунте  */
+CREATE PROCEDURE getSubjects(emailTeacher char(30)) /* Для отображения предметов в его аккаунте  */
 BEGIN
-  SELECT DISTINCT `description` 
+  SELECT s.description, s.id_subject
 	FROM `subjects` s 
 		INNER JOIN `teacher_subjects` ts ON s.id_subject=ts.id_subject
-	WHERE ts.id_teacher=getTID(s_teacher_email)
+	WHERE ts.id_teacher=getTID(emailTeacher)
 	ORDER BY `description`;
 END;
 
