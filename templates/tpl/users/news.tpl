@@ -18,21 +18,24 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div id="content" class="container">
-						{foreach from=$news item=one}
-						<div id="news" class="col-md-9">
-							<aside class="date">
-								<aside class="oneNews">
-									<header>
-										<h1>{$one['caption']}</h1>
-									</header>
-									<article>
-										<p>{$one['content']}</p>
-									</article>
-									<hr>
-									<time>{$one['date_publication']|date_format:"%d/%m/%Y"}</time>
+						{foreach from=$newsByDate key=date item=news}
+							<div id="news" class="col-md-9">
+								<aside class="date">
+									<h3><datetime>{$date|date_format:"%d.%m.%Y"}</datetime></h3>
+									{foreach from=$news item=one_news}
+										<aside class="oneNews">
+											<header>
+												<h1>{$one_news->getCaption()}</h1>
+											</header>
+											<article>
+												<p>{$one_news->getContent()}</p>
+											</article>
+											<hr>
+											<p>Автор: {$one_news->getAuthor()}</p>
+										</aside>
+									{/foreach}
 								</aside>
-							</aside>
-						</div>
+							</div>
 						{/foreach}
 					</div>
 				</div>

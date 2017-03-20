@@ -1,6 +1,8 @@
 <?php
   require_once "start.php";
 	
+	use IEP\Structures\OneNews;
+	
 	if(isset($_SESSION['user']))
 	{
 		$user = $_SESSION['user'];
@@ -45,6 +47,8 @@
 						"teacherEmail",
 						"dp"
 					));
+					
+					$new_news = new OneNews($data['caption'], $data['content'], $data['teacherEmail'], $data['dp']);
 					
 					if ($NM->add($new_news)) {
 						CTools::Message("Новость опубликована");

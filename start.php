@@ -34,7 +34,6 @@
 	$GM = new GroupManager($DB);
 	
 	$CT->assign("groups", $GM->getGroups());
-	$CT->assign("news", $NM->getNews());
 	
 	session_start();
 ?>
