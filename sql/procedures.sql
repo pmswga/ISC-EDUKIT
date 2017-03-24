@@ -92,6 +92,7 @@ DROP PROCEDURE IF EXISTS setGroup;
 DROP PROCEDURE IF EXISTS unsetGroup;
 DROP PROCEDURE IF EXISTS getTestGroups;
 DROP PROCEDURE IF EXISTS getTests;
+DROP PROCEDURE IF EXISTS getTest;
 DROP PROCEDURE IF EXISTS getAllTests;
 DROP PROCEDURE IF EXISTS clearTest;
 DROP PROCEDURE IF EXISTS addQuestion;
@@ -608,6 +609,11 @@ BEGIN
     INNER JOIN `specialty` s ON g.code_spec=s.id_spec
   WHERE g_t.id_test=test_id
   ORDER BY g.grp;
+END;
+
+CREATE PROCEDURE getTest(test_id int)
+BEGIN
+  SELECT * FROM `v_Tests` WHERE `id_test`=test_id;
 END;
 
 CREATE PROCEDURE getTests(emailTeacher char(30))

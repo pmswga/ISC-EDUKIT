@@ -14,7 +14,7 @@
 		
 		private $questions;
 		
-		private $author_email;
+		private $author;
 		private $author_name;
 		
 		private $for_groups;

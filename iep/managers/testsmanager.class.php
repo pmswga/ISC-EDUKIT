@@ -161,6 +161,41 @@
 			return $tests;
 		}
 		
+		public function getTest(int $test_id)
+		{
+			$db_test = $this->get("call getTest(:test_id)", [":test_id" => $test_id])[0];
+			
+			$for_groups = $this->get("call getTestGroups(:test_id)", [":test_id" => $test_id]);
+			
+			$groups = array();
+			for($i = 0; $i < count($for_groups); $i++) {
+				$new_group = new Group($for_groups[$i]['grp'], $for_groups[$i]['spec'], (bool)$for_groups[$i]['is_budget']);
+				
+				$groups[] = $new_group;
+			}
+			
+			$db_questions = $this->get("call getQuestions(:test_id)", ["test_id" => $test_id]);
+			
+			$questions = array();
+			foreach($db_questions as $db_question) {
+				
+				$db_answers = $this->get("call getAnswers(:test_id, :question_id)", [":test_id" => $test_id, ":question_id" => $db_question['id_question']]);
+				
+				$new_question = new OneQuestion($db_question['question'], $db_question['r_answer'], $db_answers);
+				$new_question->setID((int)$db_question['id_question']);
+				
+				$questions[] = $new_question;
+			}
+			
+			
+			$test = new Test($db_test['test_name'], $db_test['email'], $groups);
+			$test->setTestID((int)$db_test['id_test']);
+			$test->setSubject($db_test['subject']);
+			$test->addQuestion($questions);
+			
+			return $test;
+		}
+		
 		public function getTests() : array
 		{
 			$db_tests = $this->get("SELECT * FROM `tests`");

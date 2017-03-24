@@ -31,28 +31,29 @@
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<table class="table table-bordered">
-								<tr>
-									<th>Название</th>
-									<th>Предмет</th>
-									<th>Для групп</th>
-									<th>Выбрать</th>
-								</tr>
-								{foreach from=$teachersTests item=teacherTest}
-									<tr>
-										<td>{$teacherTest->getCaption()}</td>
-										<td>{$teacherTest->getSubject()}</td>
-										<td>
-											<ul>
-											{foreach from=$teacherTest->getGroups() item=group}
-												<li>{$group->getNumberGroup()}</li>
-											{/foreach}
-											</ul>
-										</td>
-										<td><input type="checkbox" value="{$teacherTest->getTestID()}" class="form-control"></td>
-									</tr>
-								{/foreach}
-							</table>
+							<div class="row">
+								<div class="col-md-12">
+									<table class="table table-bordered">
+										<tr>
+											<th>Название</th>
+											<th>Предмет</th>
+											<th>Действие</th>
+										</tr>
+										{foreach from=$teachersTests item=teacherTest}
+											<tr>
+												<td>{$teacherTest->getCaption()}</td>
+												<td>{$teacherTest->getSubject()}</td>
+												<td style="display: flex; justify-content: space-around;">
+													<!--<input type="checkbox" value="{$teacherTest->getTestID()}" class="form-control">-->
+													<a class="btn btn-success btn-sm" data-toggle="modal" data-target="#aboutTestDialog" onclick="aboutTest({$teacherTest->getTestID()})">Подробнее</a>
+													<a class="btn btn-warning btn-sm">Изменить</a>
+													<a class="btn btn-danger btn-sm">Удалить</a>
+												</td>
+											</tr>
+										{/foreach}
+									</table>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -86,8 +87,6 @@
 							<div id="teachers_tests" class="panel-collapse collapse">
 								<div class="panel-body">
 									<a class="btn btn-primary btn-block" data-toggle="modal" data-target="#addTestDialog">Добавить</a>
-									<a class="btn btn-primary btn-block">Удалить выбранный тест</a>
-									<a class="btn btn-primary btn-block">Изменить</a>
 								</div>
 							</div>
 						</div>
@@ -270,10 +269,60 @@
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
+		
+		<div class="modal fade" id="addQuestionsDialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">Добавление вопросов</h4>
+					</div>
+					<div class="modal-body">
+					
+					</div>
+					<div class="modal-footer">
+					
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+		
+		<div class="modal fade" id="aboutTestDialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">Подробная информация</h4>
+					</div>
+					<div class="modal-body" id="infoTestContent">
+						
+					</div>
+					<div class="modal-footer">
+						
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
 	
 		<script type="text/javascript">
 			
 			CKEDITOR.replace("news");
+			
+			function aboutTest(test_id) {
+				
+				$.ajax({
+					url: "php/getInfoTest.php",
+					type: "POST",
+					data: "test_id=" + test_id,
+					success: function(replay) {
+						
+						$("#infoTestContent").html("");
+						$("#infoTestContent").html(replay);
+						
+					}
+				});
+				
+			}			
 			
 		</script>
 		

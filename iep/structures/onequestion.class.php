@@ -4,6 +4,7 @@
 	
 	class OneQuestion
 	{
+		private $id_question;
 		private $question;
 		private $answers;
 		private $r_answer;
@@ -13,6 +14,16 @@
 			$this->question = $question;
 			$this->answers = $answers;
 			$this->r_answer = $r_answer;
+		}
+		
+		public function setID(int $id_question)
+		{
+			$this->id_question = $id_question;
+		}
+		
+		public function getID() : int
+		{
+			return $this->id_question;
 		}
 		
 		public function getQuestion() : string
