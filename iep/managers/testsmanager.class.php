@@ -18,7 +18,7 @@
 			{
 				$this->dbc()->beginTransaction();
 				
-				$for_groups = $test->getgetGroups();
+				$for_groups = $test->getGroups();
 				
 				$test_add_query = $this->dbc()->prepare("call addTest(:emailTeacher, :subject, :caption)");
 				
@@ -30,7 +30,12 @@
 					
 					if (!empty($for_groups)) {
 						
+						$last_id = $this->get("SELECT LAST_INSERT_ID() as last_id FROM `tests`");
+						$last_id = $last_id[0]['last_id'];
 						
+						$set_group_query = $this->dbc()->preapre("");
+						for ($i = 0; $i < count($for_groups); $i++) {
+						}
 						
 					} else {
 						return $this->dbc()->commit();

@@ -15,6 +15,7 @@
   use IEP\Managers\SubjectsManager;
   use IEP\Managers\NewsManager;
   use IEP\Managers\GroupManager;
+	use IEP\Managers\TestsManager;
 	
 	$CT = new CTemplater("templates/tpl", "templates/tpl_c", "templates/configs", "templates/cache");
 	
@@ -32,6 +33,8 @@
 	$NM = new NewsManager($DB);
 	
 	$GM = new GroupManager($DB);
+	
+	$TM = new TestsManager($DB);
 	
 	$CT->assign("groups", $GM->getGroups());
 	

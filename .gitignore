@@ -19,8 +19,8 @@ templates/tpl_c
 *.lnk
 
 #Templates 
-templates/tpl_c/*.php
-admin/templates/tpl_c/*.php
+templates/tpl_c/
+admin/templates/tpl_c/
 
 # =========================
 # Operating System Files
