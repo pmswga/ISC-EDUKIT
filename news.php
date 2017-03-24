@@ -7,7 +7,7 @@
 		$newsByDate[$one_news->getDatePublication()][] = $one_news;
 	}
 	
-	$CT->assign("newsByDate", $newsByDate);
+	$CT->assign("newsByDate", array_reverse($newsByDate));
 	
 	if(isset($_SESSION['user']))
 	{

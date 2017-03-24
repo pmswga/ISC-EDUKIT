@@ -10,7 +10,7 @@
 		private $author;
 		private $date_publication;
 		
-		function __construct(string $caption, string $content, string $author, string $date_publication)
+		function __construct(string $caption, $content, string $author, string $date_publication)
 		{
 			$this->caption = $caption;
 			$this->content = $content;
@@ -33,9 +33,9 @@
 			return $this->caption;
 		}
 		
-		public function getContent() : string
+		public function getContent()
 		{
-			return $this->content;
+			return html_entity_decode($this->content, ENT_HTML5);
 		}
 		
 		public function getAuthor() : string

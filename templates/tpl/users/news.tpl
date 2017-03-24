@@ -14,8 +14,10 @@
 											<header>
 												<h1>{$one_news->getCaption()}</h1>
 											</header>
-											<article>
-												<p>{$one_news->getContent()}</p>
+											<article style="padding: 25px;">
+												{nocache}
+													{$one_news->getContent()|truncate:500}
+												{/nocache}
 											</article>
 											<hr>
 											<p>Автор: {$one_news->getAuthor()}</p>
@@ -28,7 +30,5 @@
 				</div>
 			</div>
 		</div>
-		
-		<!-- Scripts -->
 		
 {include file='html/end.tpl'}

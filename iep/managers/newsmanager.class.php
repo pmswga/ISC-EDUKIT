@@ -54,10 +54,10 @@
 			return $news;
 		}
 		
-		public function remove($id_news) : bool
+		public function remove($new_id) : bool
 		{
 			$remove_news_query = $this->dbc()->prepare("call removeNews(:id_news)");
-			$remove_news_query->bindValue(":id_news", $news_caption);
+			$remove_news_query->bindValue(":id_news", $new_id);
 			
 			return $remove_news_query->execute();
 		}

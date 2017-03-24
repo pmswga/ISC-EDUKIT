@@ -17,6 +17,7 @@
 	padding: 10px;
 	margin: 15px;
 	border: 1px solid black;
+	word-wrap: break-word;
 }
 
 .oneNews pre{

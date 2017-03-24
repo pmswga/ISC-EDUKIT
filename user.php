@@ -63,6 +63,24 @@
 						CTools::Message("Произошла ошибка");
 					}
 					
+					CTools::Redirect("user.php");
+				}
+				
+				if (!empty($_POST['removeNewsButton'])) {
+					$select_news = $_POST['select_news'];
+					
+					$result = true;
+					for ($i = 0; $i < count($select_news); $i++) {
+						$result *= $NM->remove($select_news[$i]);
+					}
+					
+					if ($result) {
+						CTools::Message("Новости были удалены");
+					} else {
+						CTools::Message("Произошла ошибка");
+					}
+					
+					CTools::Redirect("user.php");
 				}
 				
 				if (!empty($_POST['setSubjectButton'])) {
@@ -76,7 +94,7 @@
 					if ($result) {
 						CTools::Message("Предметы успешно назначены");
 					} else {
-						CTools::Message("Произошла ошибка при назначении предметов");
+						CTools::Message("Произошла ошибка");
 					}
 					
 					CTools::Redirect("user.php");

@@ -6,6 +6,7 @@
 		<link rel="stylesheet" type="text/css" href="css/boostrap/bootstrap.css">
 		<script type="text/javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" src="js/bootstrap.js"></script>
+		<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
 		<style>
 			
 			h1, h2{
@@ -122,20 +123,25 @@
 							</div>
 							<div id="teachers_news" class="panel-collapse collapse">
 								<div class="panel-body">
-									<a class="btn btn-primary btn-block" data-toggle="modal" data-target="#addNewNews">Добавить</a>
-									<h4>Опубликованные</h4>
-									<table class="table table-bordered">
-										<tr>
-											<th>Заголовок</th>
-											<th>Дата публикации</th>
-										</tr>
-										{foreach from=$teachersNews item=teacherNews}
+									<form name="removeNewsForm" method="POST">
+										<a data-toggle="modal" data-target="#addNewNews" class="btn btn-primary btn-block">Добавить</a>
+										<input type="submit" name="removeNewsButton" value="Удалить" class="btn btn-danger btn-block">
+										<h4>Опубликованные</h4>
+										<table class="table table-bordered">
 											<tr>
-												<td>{$teacherNews->getCaption()}</td>
-												<td>{$teacherNews->getDatePublication()|date_format: "%d.%m.%Y"}</td>
+												<th>Заголовок</th>
+												<th>Дата публикации</th>
+												<th>Выбрать</th>
 											</tr>
-										{/foreach}
-									</table>
+											{foreach from=$teachersNews item=teacherNews}
+												<tr>
+													<td>{$teacherNews->getCaption()}</td>
+													<td>{$teacherNews->getDatePublication()|date_format: "%d.%m.%Y"}</td>
+													<td><input type="checkbox" name="select_news[]" value="{$teacherNews->getNewsID()}" class="form-control"></td>
+												</tr>
+											{/foreach}
+										</table>
+									</form>
 								</div>
 							</div>
 						</div>
@@ -191,9 +197,9 @@
 								<label>Заголовок</label>
 								<input type="text" name="caption" class="form-control">
 							</div>
-							<div class="form-group">
+							<div class="">
 								<label>Контент</label>
-								<textarea name="content" rows="10" class="form-control"></textarea>
+								<textarea name="content" id="news" class="form-control"></textarea>
 							</div>
 							<div class="form-group">
 								<label>Автор</label>
@@ -264,6 +270,12 @@
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
+	
+		<script type="text/javascript">
+			
+			CKEDITOR.replace("news");
+			
+		</script>
 		
 	</body>
 </html>
