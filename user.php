@@ -26,6 +26,8 @@
 			{
 				
 				$teacher_subjects = $SM->getTeacherSubjects($user->getEmail());
+				$teacher_news = $NM->getTeacherNews($user->getEmail());
+				$teacher_tests = $TM->getTeacherTests($user->getEmail());
 				$other_subjects = $SM->getSubjects();
 				
 				//< Удаляем предметы, которые преподаватель уже ведёт
@@ -36,9 +38,11 @@
 				}
 				
 				$user->setSubjects($teacher_subjects);
+				
 				$CT->assign("user", $user);
 				$CT->assign("subjects", $other_subjects);
-				$CT->assign("teachersNews", $NM->getTeachersNews($user->getEmail()));
+				$CT->assign("teachersNews", $teacher_news);
+				$CT->assign("teachersTests", $teacher_tests);
 				$CT->assign("groups", $GM->getGroups());
 				
 				$CT->Show("accounts/teacher.tpl");
@@ -99,7 +103,7 @@
 					$caption = htmlspecialchars($_POST['caption']);
 					$subject = $_POST['subject'];
 					$teacherEmail = $_POST['teacherEmail'];
-					$select_group = $_POST['select_group'];
+					$select_group = $_POST['select_group'] ?? array();
 					
 					$new_test = new Test($caption, $teacherEmail, $select_group);
 					$new_test->setSubjectID($subject);

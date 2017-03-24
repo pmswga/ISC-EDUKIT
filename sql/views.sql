@@ -85,8 +85,8 @@ CREATE VIEW v_Traffic (fn, sn, pt, email, date_visit, count_passed_hours, count_
 	WHERE u.id_type_user=4
 	ORDER BY u.second_name, u.first_name, u.patronymic;
 	
-CREATE VIEW v_Tests (id_test, snp, email, test_name, subject, count_questions) as
-  SELECT t.id_test, CONCAT(u.second_name, ' ', LEFT(u.first_name, 1), '. ', LEFT(u.patronymic, 1), '.'), u.email, t.caption, s.description as subject, 1
+CREATE VIEW v_Tests (id_test, snp, email, test_name, subject) as
+  SELECT t.id_test, CONCAT(u.second_name, ' ', LEFT(u.first_name, 1), '. ', LEFT(u.patronymic, 1), '.'), u.email, t.caption, s.description as subject
   FROM `tests` t
     INNER JOIN `users` u ON t.id_teacher=u.id_user
     INNER JOIN `subjects` s ON t.id_subject=s.id_subject

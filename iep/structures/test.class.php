@@ -4,11 +4,19 @@
 	
 	class Test
 	{
+		
+		private $test_id;
+		
 		private $caption;
+		
 		private $subject;
 		private $subject_id;
+		
 		private $questions;
-		private $author;
+		
+		private $author_email;
+		private $author_name;
+		
 		private $for_groups;
 		
 		function __construct(string $caption, string $author, array $for_groups, array $questions = array())
@@ -18,6 +26,16 @@
 			$this->author = $author;
       $this->for_groups = $for_groups;
 			$this->questions = $questions;
+		}
+		
+		public function setTestID(int $test_id)
+		{
+			$this->test_id = $test_id;
+		}
+		
+		public function getTestID() : int
+		{
+			return $this->test_id;
 		}
 		
 		public function setSubjectID(int $subject_id)
@@ -50,12 +68,22 @@
 			return $this->questions;
 		}
 		
-		public function getAuthor() : string
+		public function getAuthorEmail() : string
 		{
 			return $this->author;
 		}
 		
-		public function getGroups() : string
+		public function setAuthorName(string $author_name)
+		{
+			$this->author_name = $author_name;
+		}
+		
+		public function getAuthorName() : string
+		{
+			return $this->author_name;
+		}
+		
+		public function getGroups() : array
 		{
 				return $this->for_groups;
 		}

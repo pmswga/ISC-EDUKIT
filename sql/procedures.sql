@@ -602,7 +602,7 @@ END;
 
 CREATE PROCEDURE getTestGroups(test_id int)
 BEGIN
-  SELECT g.grp as id_group, g.description as grp, s.description as spec
+  SELECT g.grp as id_group, g.description as grp, s.description as spec, g.is_budget
   FROM `groups_tests` g_t
     INNER JOIN `groups` g ON g.grp=g_t.id_group
     INNER JOIN `specialty` s ON g.code_spec=s.id_spec

@@ -33,16 +33,22 @@
 							<table class="table table-bordered">
 								<tr>
 									<th>Название</th>
-									<th>Тема</th>
+									<th>Предмет</th>
 									<th>Для групп</th>
 									<th>Выбрать</th>
 								</tr>
 								{foreach from=$teachersTests item=teacherTest}
 									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
+										<td>{$teacherTest->getCaption()}</td>
+										<td>{$teacherTest->getSubject()}</td>
+										<td>
+											<ul>
+											{foreach from=$teacherTest->getGroups() item=group}
+												<li>{$group->getNumberGroup()}</li>
+											{/foreach}
+											</ul>
+										</td>
+										<td><input type="checkbox" value="{$teacherTest->getTestID()}" class="form-control"></td>
 									</tr>
 								{/foreach}
 							</table>

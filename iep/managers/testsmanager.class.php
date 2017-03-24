@@ -5,9 +5,11 @@
 	require_once "iep.class.php";
 	require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/test.class.php";
 	require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/onequestion.class.php";
+	require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/group.class.php";
     
-    use IEP\Structures\Test;
-    use IEP\Structures\OneQuestion;
+	use IEP\Structures\Test;
+	use IEP\Structures\OneQuestion;
+	use IEP\Structures\Group;
 	
 	class TestsManager extends IEP
     {
@@ -22,8 +24,8 @@
 				
 				$test_add_query = $this->dbc()->prepare("call addTest(:emailTeacher, :subject, :caption)");
 				
-				$test_add_query->bindValue(":subject", $test->getSubject());
-				$test_add_query->bindValue(":emailTeacher", $test->getAuthor());
+				$test_add_query->bindValue(":subject", $test->getSubjectID());
+				$test_add_query->bindValue(":emailTeacher", $test->getAuthorEmail());
 				$test_add_query->bindValue(":caption", $test->getCaption());
 				
 				if ($test_add_query->execute()) {
@@ -33,7 +35,7 @@
 						$last_id = $this->get("SELECT LAST_INSERT_ID() as last_id FROM `tests`");
 						$last_id = $last_id[0]['last_id'];
 						
-						$set_group_query = $this->dbc()->preapre("call setGroup(:test_id, :grp_id)");
+						$set_group_query = $this->dbc()->prepare("call setGroup(:test_id, :grp_id)");
 						$set_group_query->bindValue(":test_id", $last_id);
 						
 						$result = true;
@@ -132,6 +134,31 @@
 			$remove_question_query->bindValue(":question", $question);
 			
 			return $remove_question_query->execute();
+		}
+		
+		public function getTeacherTests(string $emailTeacher) : array
+		{
+			$db_tests = $this->get("call getTests(:emailTeacher)", [":emailTeacher" => $emailTeacher]);
+			
+			$tests = array();
+			foreach ($db_tests as $db_test) {
+				$for_groups = $this->get("call getTestGroups(:test_id)", [":test_id" => $db_test['id_test']]);
+				
+				$groups = array();
+				for($i = 0; $i < count($for_groups); $i++) {
+					$new_group = new Group($for_groups[$i]['grp'], $for_groups[$i]['spec'], (bool)$for_groups[$i]['is_budget']);
+					
+					$groups[] = $new_group;
+				}
+				
+				$new_test = new Test($db_test['test_name'], $db_test['email'], $groups);
+				$new_test->setTestID((int)$db_test['id_test']);
+				$new_test->setSubject($db_test['subject']);
+				
+				$tests[] = $new_test;
+			}
+			
+			return $tests;
 		}
 		
 		public function getTests() : array

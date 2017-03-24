@@ -22,7 +22,7 @@
 			return $add_news_query->execute();
 		}
 		
-		public function getTeachersNews(string $emailTeacher) : array
+		public function getTeacherNews(string $emailTeacher) : array
 		{
 			$db_news = $this->get("call getNews(:email)", [":email" => $emailTeacher]);
 			
