@@ -9,6 +9,7 @@
 	require_once "iep/managers/subjectsmanager.class.php";
 	require_once "iep/managers/newsmanager.class.php";
 	require_once "iep/managers/groupmanager.class.php";
+	require_once "iep/managers/testsmanager.class.php";
 	require_once "iep/typesUser.php";
 	
   use IEP\Managers\UserManager;

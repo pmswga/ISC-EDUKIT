@@ -33,8 +33,21 @@
 						$last_id = $this->get("SELECT LAST_INSERT_ID() as last_id FROM `tests`");
 						$last_id = $last_id[0]['last_id'];
 						
-						$set_group_query = $this->dbc()->preapre("");
+						$set_group_query = $this->dbc()->preapre("call setGroup(:test_id, :grp_id)");
+						$set_group_query->bindValue(":test_id", $last_id);
+						
+						$result = true;
 						for ($i = 0; $i < count($for_groups); $i++) {
+							$set_group_query->bindValue(":grp_id", $for_groups[$i]);
+							$resutl *= $set_group_query->execute();
+						}
+						
+						if ($result) {
+							return $this->dbc()->commit();
+						}
+						else {
+							$this->dbc()->rollBack();
+							return false;
 						}
 						
 					} else {
