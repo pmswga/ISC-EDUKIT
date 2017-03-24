@@ -33,25 +33,27 @@
 						<div class="col-md-12">
 							<div class="row">
 								<div class="col-md-12">
-									<table class="table table-bordered">
-										<tr>
-											<th>Название</th>
-											<th>Предмет</th>
-											<th>Действие</th>
-										</tr>
-										{foreach from=$teachersTests item=teacherTest}
+									<form name="workWithTestsForm">
+										<table class="table table-bordered">
 											<tr>
-												<td>{$teacherTest->getCaption()}</td>
-												<td>{$teacherTest->getSubject()}</td>
-												<td style="display: flex; justify-content: space-around;">
-													<!--<input type="checkbox" value="{$teacherTest->getTestID()}" class="form-control">-->
-													<a class="btn btn-success btn-sm" data-toggle="modal" data-target="#aboutTestDialog" onclick="aboutTest({$teacherTest->getTestID()})">Подробнее</a>
-													<a class="btn btn-warning btn-sm">Изменить</a>
-													<a class="btn btn-danger btn-sm">Удалить</a>
-												</td>
+												<th>Название</th>
+												<th>Предмет</th>
+												<th>Действие</th>
 											</tr>
-										{/foreach}
-									</table>
+											{foreach from=$teachersTests item=teacherTest}
+												<tr>
+													<td>{$teacherTest->getCaption()}</td>
+													<td>{$teacherTest->getSubject()}</td>
+													<td style="display: flex; justify-content: space-around;">
+														<!--<input type="checkbox" value="{$teacherTest->getTestID()}" class="form-control">-->
+														<a class="btn btn-success btn-sm" data-toggle="modal" data-target="#aboutTestDialog" onclick="aboutTest({$teacherTest->getTestID()})">Подробнее</a>
+														<a class="btn btn-warning btn-sm">Изменить</a>
+														<a class="btn btn-danger btn-sm">Удалить</a>
+													</td>
+												</tr>
+											{/foreach}
+										</table>
+									</form>
 								</div>
 							</div>
 						</div>
@@ -295,9 +297,6 @@
 						<h4 class="modal-title">Подробная информация</h4>
 					</div>
 					<div class="modal-body" id="infoTestContent">
-						
-					</div>
-					<div class="modal-footer">
 						
 					</div>
 				</div><!-- /.modal-content -->

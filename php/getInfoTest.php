@@ -7,6 +7,8 @@
 		$test = $TM->getTest((int)$_POST['test_id']);
 		
 		include "../templates/tpl/tests/info.tpl";
+	} else {
+		echo "Произошла ошибка";
 	}
 	
 ?>
