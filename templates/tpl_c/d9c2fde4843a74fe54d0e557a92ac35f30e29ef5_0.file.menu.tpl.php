@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-03-24 10:44:40
+/* Smarty version 3.1.29, created on 2017-04-02 15:41:00
   from "C:\OpenServer\domains\iep.mgkit\templates\tpl\users\menu.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_58d4ce68272201_12868253',
+  'unifunc' => 'content_58e0f15c33ce17_98256510',
   'file_dependency' => 
   array (
     'd9c2fde4843a74fe54d0e557a92ac35f30e29ef5' => 
     array (
       0 => 'C:\\OpenServer\\domains\\iep.mgkit\\templates\\tpl\\users\\menu.tpl',
-      1 => 1490035313,
+      1 => 1491136859,
       2 => 'file',
     ),
   ),
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_58d4ce68272201_12868253 ($_smarty_tpl) {
+function content_58e0f15c33ce17_98256510 ($_smarty_tpl) {
 ?>
 <div class="row">
 	<div class="col-md-12">
@@ -31,7 +31,7 @@ function content_58d4ce68272201_12868253 ($_smarty_tpl) {
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand"><img src="img/ukit.png" width="50px" alt=""></a>
+				<a href="index.php" class="navbar-brand">УКИТ<!--<img src="img/ukit.png" width="50px" alt="">--></a>
 			</div>
 			<div class="collapse navbar-collapse" id="menu">
 				<ul class="nav navbar-nav pull-right">

@@ -26,84 +26,94 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<div class="row">
-						<div class="col-md-10">
+						<div class="col-md-12">
 							<h4 class="panel-title"><a data-toggle="collapse" data-parent="#testInfo" href="#questions">Вопросы</a></h4>
-						</div>
-						<div class="col-md-2">
-							<a class="btn btn-danger btn-sm ">-</a>
-							<a class="btn btn-success btn-sm">+</a>
 						</div>
 					</div>
 				</div>
 				<div id="questions" class="panel-collapse collapse">
 					<div class="panel-body">
-						<table class="table table-hover">
-							<tr>
-								<th>Вопрос</th>
-								<th>Правильный ответ</th>
-								<th>Варианты ответа</th>
-							</tr>
-							<?php
-								
-								foreach ($test->getQuestions() as $q) {
-									echo "<tr>";
+						<form name="removeQuestionForm" method="POST">
+							<input type="submit" name="removeQuestionButton" value="Удалить" class="btn btn-danger btn-sm">
+							<br>
+							<br>
+							<table class="table table-hover">
+								<tr>
+									<th>Вопрос</th>
+									<th>Правильный ответ</th>
+									<th>Варианты ответа</th>
+									<th>Выбрать</th>
+								</tr>
+								<?php
 									
-									echo "<td>".$q->getQuestion()."</td>";
-									echo "<td>".$q->getRAnswer()."</td>";
-									echo "<td>";
-									
-									$answers = $q->getAnswers();
-									
-									echo "<ul>";
-									for ($i = 0; $i < count($answers); $i++) {
-										echo "<li>".$answers[$i]['answer']."</li>";
+									foreach ($test->getQuestions() as $q) {
+										echo "<tr>";
+										
+										echo "<td>".$q->getQuestion()."</td>";
+										echo "<td>".$q->getRAnswer()."</td>";
+										echo "<td>";
+										
+										$answers = $q->getAnswers();
+										
+										echo "<ul>";
+										for ($i = 0; $i < count($answers); $i++) {
+											echo "<li>".$answers[$i]['answer']."</li>";
+										}
+										echo "</ul>";
+										
+										echo "</td>";
+										
+										echo "<td><input type='checkbox' name='select_question_test[]' value='".$q->getID()."' class='form-control'></td>";
+										
+										echo "</tr>";
 									}
-									echo "</ul>";
 									
-									echo "</td>";
-									
-									echo "</tr>";
-								}
-								
-							?>
-						</table>
+								?>
+							</table>
+						</form>
 					</div>
 				</div>
 			</div>
 			<div class="panel panel-default">
-				<div class="panel-heading">
-					<div class="row">
-						<div class="col-md-10">
-							<h4 class="panel-title"><a data-toggle="collapse" data-parent="#testInfo" href="#for_groups">Для групп</a></h4>
-						</div>
-						<div class="col-md-2">
-							<a class="btn btn-danger btn-sm ">-</a>
-							<a class="btn btn-success btn-sm">+</a>
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-md-11">
+								<h4 class="panel-title"><a data-toggle="collapse" data-parent="#testInfo" href="#for_groups">Для групп</a></h4>
+							</div>
+							<div class="col-md-1">
+							</div>
 						</div>
 					</div>
-				</div>
-				<div id="for_groups" class="panel-collapse collapse">
-					<div class="panel-body">
-						<table class="table table-hover">
-							<tr>
-								<th>Группа</th>
-								<th>Специальность</th>
-							</tr>
-							<?php
-								
-								foreach ($test->getGroups() as $g) {
-									echo "<tr>";
-									
-									echo "<td>".$g->getNumberGroup()."</td>";
-									echo "<td>".$g->getCodeSpec()."</td>";
-									
-									echo "</tr>";
-								}
-								
-							?>
-						</table>
+					<div id="for_groups" class="panel-collapse collapse">
+						<div class="panel-body">
+							<form name="removeGroupFromTestForm" method="POST">
+								<input type="hidden" name="test_id" value="<?= $test->getTestID(); ?>"> 
+								<input type="submit" name="removeGroupFromTestButton" value="Удалить" class="btn btn-danger btn-sm">
+								<br>
+								<br>
+								<table class="table table-hover">
+									<tr>
+										<th>Группа</th>
+										<th>Специальность</th>
+										<th>Выбрать</th>
+									</tr>
+									<?php
+										
+										foreach ($test->getGroups() as $g) {
+											echo "<tr>";
+											
+											echo "<td>".$g->getNumberGroup()."</td>";
+											echo "<td>".$g->getCodeSpec()."</td>";
+											echo "<td><input type='checkbox' name='select_group_test[]' value='".$g->getID()."' class='form-control'></td>";
+											
+											echo "</tr>";
+										}
+										
+									?>
+								</table>
+							</form>
+						</div>
 					</div>
-				</div>
 			</div>
 		</div>
 	</div>

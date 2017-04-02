@@ -12,7 +12,7 @@
 	use IEP\Structures\Group;
 	
 	class TestsManager extends IEP
-    {
+	{
 		
 		public function add($test) : bool
 		{
@@ -70,68 +70,67 @@
 			}
 		}
         
-		public function addQuestion(string $caption_test, OneQuestion $question)
+		public function addQuestion(int $test_id, OneQuestion $question)
 		{
 			try
 			{
 				$this->dbc()->beginTransaction();
 				
-				$id_test = $this->get("SELECT `id_test` FROM `tests` WHERE `caption`=:caption", [":caption" => $caption_test])[0]['id_test'];
-		
-				$add_question_query = $this->dbc()->prepare("INSERT INTO `questions`
-						(`id_test`, `question`, `r_answer`)
-						VALUES
-						(:id_test, :question, :r_answer)
-				");
+				$add_question_query = $this->dbc()->prepare("call addQuestion(:test_id, :question, :r_answer)");
 				
-				$add_question_query->bindValue(":id_test", $id_test);
+				$add_question_query->bindValue(":test_id", $test_id);
 				$add_question_query->bindValue(":question", $question->getQuestion());
 				$add_question_query->bindValue(":r_answer", $question->getRAnswer());
 				
-				if ($add_question_query->execute()) {
+				if (!empty($question->getAnswers())) {					
+					if ($add_question_query->execute()) {
 						
-						$id_question = $this->get("SELECT `id_question` FROM `questions` WHERE `question`=:question", [":question" => $question->getQuestion()])[0]['id_question'];
+						$last_id = $this->get("SELECT LAST_INSERT_ID() as last_id FROM `tests` WHERE `id_test`=:test_id", [":test_id" => $test_id]);
+						$last_id = $last_id[0]['last_id'];
 						
-						foreach ($question->getAnswers() as $ans) {
-								
-								$add_answ_query = $this->dbc()->prepare("INSERT INTO `answers` (`id_question`, `answer`) VALUES (:id_q, :ans)");
-								
-								$add_answ_query->bindValue(":id_q", $id_question);
-								$add_answ_query->bindValue(":ans", $ans);
-								
-								if (!$add_answ_query->execute()) {
-										$this->dbc()->rollBack();
-										return false;
-								}
-								
+						$add_answer_query = $this->dbc()->prepare("call addAnswer(:question_id, :answ)");
+						$add_answer_query->bindValue(":question_id", $last_id);
+						
+						$result = true;
+						foreach ($question->getAnswers() as $answer) {
+							$add_answer_query->bindValue(":answ", $answer);
+							
+							$result *= $add_answer_query->execute();
 						}
 						
-						return $this->dbc()->commit();
-				}
-				else {
+						if ($result) {
+							return $this->dbc()->commit();
+						} else {							
+							$this->dbc()->rollBack();
+							return false;
+						}
+						
+					} else {
 						$this->dbc()->rollBack();
 						return false;
+					}
 				}
+				
 			}
 			catch(PDOException $e)
 			{
-					$this->dbc()->rollBack();
-					return false;
+				$this->dbc()->rollBack();
+				return false;
 			}
 		}
 		
-		public function remove($caption) : bool
+		public function remove($test_id) : bool
 		{
-			$remove_test_query = $this->dbc()->prepare("DELETE FROM `tests` WHERE `caption`=:caption");
-			$remove_test_query->bindValue(":caption", $caption);
+			$remove_test_query = $this->dbc()->prepare("call removeTest(:test_id)");
+			$remove_test_query->bindValue(":test_id", $test_id);
 			
 			return $remove_test_query->execute();
 		}
         
-		public function removeQuestion(string $question)
+		public function removeQuestion(int $question_id)
 		{
-			$remove_question_query = $this->dbc()->prepare("DELETE FROM `questions` WHERE `question`=:question");
-			$remove_question_query->bindValue(":question", $question);
+			$remove_question_query = $this->dbc()->prepare("call removeQuestion(:question_id)");
+			$remove_question_query->bindValue(":question_id", $question_id);
 			
 			return $remove_question_query->execute();
 		}
@@ -147,6 +146,7 @@
 				$groups = array();
 				for($i = 0; $i < count($for_groups); $i++) {
 					$new_group = new Group($for_groups[$i]['grp'], $for_groups[$i]['spec'], (bool)$for_groups[$i]['is_budget']);
+					$new_group->setID((int)$for_groups[$i]['id_group']);
 					
 					$groups[] = $new_group;
 				}
@@ -170,6 +170,7 @@
 			$groups = array();
 			for($i = 0; $i < count($for_groups); $i++) {
 				$new_group = new Group($for_groups[$i]['grp'], $for_groups[$i]['spec'], (bool)$for_groups[$i]['is_budget']);
+				$new_group->setID((int)$for_groups[$i]['id_group']);
 				
 				$groups[] = $new_group;
 			}
@@ -223,6 +224,26 @@
 			}
 			
 			return $tests;
+		}
+		
+		public function setGroup(int $test_id, int $test_grp) : bool
+		{
+			$set_group_query = $this->dbc()->prepare("call setGroup(:test_id, :test_grp)");
+			
+			$set_group_query->bindValue(":test_id", $test_id);
+			$set_group_query->bindValue(":test_grp", $test_grp);
+			
+			$set_group_query->execute();
+		}
+		
+		public function unsetGroup(int $test_id, int $test_grp)
+		{
+			$set_group_query = $this->dbc()->prepare("call unsetGroup(:test_id, :test_grp)");
+			
+			$set_group_query->bindValue(":test_id", $test_id);
+			$set_group_query->bindValue(":test_grp", $test_grp);
+			
+			$set_group_query->execute();
 		}
 		
 		public function change($oldTest, $newTest)

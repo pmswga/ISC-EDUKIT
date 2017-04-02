@@ -33,27 +33,27 @@
 						<div class="col-md-12">
 							<div class="row">
 								<div class="col-md-12">
-									<form name="workWithTestsForm">
-										<table class="table table-bordered">
+									<table class="table table-bordered">
+										<tr>
+											<th>Название</th>
+											<th>Предмет</th>
+											<th>Действие</th>
+										</tr>
+										{foreach from=$teachersTests item=teacherTest}
 											<tr>
-												<th>Название</th>
-												<th>Предмет</th>
-												<th>Действие</th>
+												<td>{$teacherTest->getCaption()}</td>
+												<td>{$teacherTest->getSubject()}</td>
+												<td style="display: flex; justify-content: space-around;">
+													<!--<input type="checkbox" value="{$teacherTest->getTestID()}" class="form-control">-->
+													<a class="btn btn-success btn-sm" data-toggle="modal" data-target="#aboutTestDialog" onclick="aboutTest({$teacherTest->getTestID()})">Подробнее</a>
+													<form name="workWithTestsForm" method="POST">
+														<input type="hidden" name="test_id" value="{$teacherTest->getTestID()}">
+														<input type="submit" name="removeTestButton" value="Удалить" class="btn btn-danger btn-sm">
+													</form>
+												</td>
 											</tr>
-											{foreach from=$teachersTests item=teacherTest}
-												<tr>
-													<td>{$teacherTest->getCaption()}</td>
-													<td>{$teacherTest->getSubject()}</td>
-													<td style="display: flex; justify-content: space-around;">
-														<!--<input type="checkbox" value="{$teacherTest->getTestID()}" class="form-control">-->
-														<a class="btn btn-success btn-sm" data-toggle="modal" data-target="#aboutTestDialog" onclick="aboutTest({$teacherTest->getTestID()})">Подробнее</a>
-														<a class="btn btn-warning btn-sm">Изменить</a>
-														<a class="btn btn-danger btn-sm">Удалить</a>
-													</td>
-												</tr>
-											{/foreach}
-										</table>
-									</form>
+										{/foreach}
+									</table>
 								</div>
 							</div>
 						</div>
@@ -89,6 +89,7 @@
 							<div id="teachers_tests" class="panel-collapse collapse">
 								<div class="panel-body">
 									<a class="btn btn-primary btn-block" data-toggle="modal" data-target="#addTestDialog">Добавить</a>
+									<a class="btn btn-primary btn-block" data-toggle="modal" data-target="#addQuestionsDialog">Добавить вопросы</a>
 								</div>
 							</div>
 						</div>
@@ -277,10 +278,41 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title">Добавление вопросов</h4>
+						<h4 class="modal-title">Добавление вопроса</h4>
 					</div>
 					<div class="modal-body">
-					
+						<form name="addQuestionForm" method="POST">
+							<div class="form-group">
+								<label>Тест</label>
+								<select name="question_test" class="form-control">
+									{foreach from=$teachersTests item=teacherTest}
+										<option value="{$teacherTest->getTestID()}">{$teacherTest->getCaption()}</option>
+									{/foreach}
+								</select>
+							</div>
+							<div class="form-group">
+								<label>Вопрос</label>
+								<input type="text" name="question_caption" class="form-control">
+							</div>
+							<div class="form-group">
+								<label>Правильный ответ</label>
+								<input type="text" name="question_r_answer" class="form-control">
+							</div>
+							<div class="form-group">
+								<fieldset>
+									<legend>Ответы <button type="button" name="addAnswer" class="btn btn-xs btn-primary">+</button></legend>
+									<table id="question_answers" class="table table-border">
+										<tr>
+											<th>Ответ</th>
+											<th>Выбрать</th>
+										</tr>
+									</table>
+								</fieldset>
+							</div>
+							<div class="form-group">
+								<input type="submit" name="addQuestionButton" value="Добавить вопрос" class="btn btn-primary">
+							</div>
+						</form>
 					</div>
 					<div class="modal-footer">
 					
@@ -321,7 +353,22 @@
 					}
 				});
 				
-			}			
+			}
+			
+			var count_answers = 0;
+			var min_count_answers = 4;
+			var max_count_answers = 10;
+			
+			$("[name='addAnswer']").click(function(){
+				
+				if (count_answers < max_count_answers) {					
+					$("#question_answers").append("<tr><td><input type='text' name='answer_text[]' class='form-control'></td><td><input type='checkbox' name='select_answers[]' value='' checked class='form-control'></td></tr>");
+					count_answers++;
+				} else {
+					alert("Достигнуто максимальное кол-во ответов");
+				}
+				
+			})
 			
 		</script>
 		

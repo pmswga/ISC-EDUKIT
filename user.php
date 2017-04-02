@@ -3,6 +3,7 @@
 	
 	use IEP\Structures\OneNews;
 	use IEP\Structures\Test;
+	use IEP\Structures\OneQuestion;
 	
 	if(isset($_SESSION['user']))
 	{
@@ -128,6 +129,77 @@
 					
 					if ($TM->add($new_test)) {
 						CTools::Message("Тест успешно создан");
+					} else {
+						CTools::Message("Произошла ошибка");
+					}
+					
+					CTools::Redirect("user.php");
+				}
+				
+				if (!empty($_POST['removeTestButton'])) {
+					$test_id = $_POST['test_id'];
+					
+					if ($TM->remove($test_id)) {
+						CTools::Message("Тест удалён");
+					} else {
+						CTools::Message("Произошла ошибка");
+					}
+					
+					CTools::Redirect("user.php");
+				}
+				
+				if (!empty($_POST['removeGroupFromTestButton'])) {
+					$for_groups = $_POST['select_group_test'];
+					$test_id = $_POST['test_id'];
+					
+					$result = true;
+					for ($i = 0; $i < count($for_groups); $i++) {
+						$result *= $TM->unsetGroup($test_id, $for_groups[$i]);
+					}
+					
+					if ($result == true) {
+						CTools::Message("Группы убраны");
+					} else {
+						CTools::Message("Произошла ошибка");
+					}
+					
+					CTools::Redirect("user.php");
+				}
+				
+				if (!empty($_POST['addQuestionButton'])) {
+					$question_test = htmlspecialchars($_POST['question_test']);
+					$question_caption = htmlspecialchars($_POST['question_caption']);
+					$question_r_answer = htmlspecialchars($_POST['question_r_answer']);
+					
+					$answer_text = $_POST['answer_text'];
+					$select_answers = $_POST['select_answers'];
+					
+					$answers = array();
+					for ($i = 0; $i < count($select_answers); $i++) {
+						$answers[] = $answer_text[$i];
+					}
+					
+					$new_question = new OneQuestion($question_caption, $question_r_answer, $answers);
+					
+					if ($TM->addQuestion($question_test, $new_question)) {
+						CTools::Message("Вопрос добавлен");
+					} else {
+						CTools::Message("Произошла ошибка");
+					}
+					
+					CTools::Redirect("user.php");
+				}
+				
+				if (!empty($_POST['removeQuestionButton'])) {
+					$select_question_test = $_POST['select_question_test'];
+					
+					$result = true;
+					for ($i = 0; $i < count($select_question_test); $i++) {
+						$result *= $TM->removeQuestion($select_question_test[$i]);
+					}
+					
+					if ($result) {
+						CTools::Message("Вопросы удалены");
 					} else {
 						CTools::Message("Произошла ошибка");
 					}
