@@ -1,9 +1,10 @@
 <?php
-    declare(strict_types = 1);
+	declare(strict_types = 1);
 	namespace IEP\Structures;
     
 	class Specialty
 	{
+		private $id;
 		private $code;
 		private $description;
 		private $file;
@@ -13,6 +14,17 @@
 			$this->code = $code;
 			$this->description = $description;
 			$this->file = $file;
+			$this->id = 0;
+		}
+		
+		public function setID(int $id)
+		{
+			$this->id = $id;
+		}
+		
+		public function getID() : int
+		{
+			return $this->id;
 		}
 		
 		public function getCode() : string

@@ -236,14 +236,14 @@
 			$set_group_query->execute();
 		}
 		
-		public function unsetGroup(int $test_id, int $test_grp)
+		public function unsetGroup(int $test_id, int $test_grp) : bool
 		{
 			$set_group_query = $this->dbc()->prepare("call unsetGroup(:test_id, :test_grp)");
 			
 			$set_group_query->bindValue(":test_id", $test_id);
 			$set_group_query->bindValue(":test_grp", $test_grp);
 			
-			$set_group_query->execute();
+			return $set_group_query->execute();
 		}
 		
 		public function change($oldTest, $newTest)

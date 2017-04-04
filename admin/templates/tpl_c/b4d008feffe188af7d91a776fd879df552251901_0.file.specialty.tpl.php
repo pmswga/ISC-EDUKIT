@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-03-16 18:49:50
+/* Smarty version 3.1.29, created on 2017-04-04 22:24:20
   from "C:\OpenServer\domains\iep.mgkit\admin\templates\tpl\specialty.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_58cab41ef05d23_00283696',
+  'unifunc' => 'content_58e3f2e4af6df8_98560600',
   'file_dependency' => 
   array (
     'b4d008feffe188af7d91a776fd879df552251901' => 
     array (
       0 => 'C:\\OpenServer\\domains\\iep.mgkit\\admin\\templates\\tpl\\specialty.tpl',
-      1 => 1489679390,
+      1 => 1491333844,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
     'file:html/end.tpl' => 1,
   ),
 ),false)) {
-function content_58cab41ef05d23_00283696 ($_smarty_tpl) {
+function content_58e3f2e4af6df8_98560600 ($_smarty_tpl) {
 $_smarty_tpl->tpl_vars["title"] = new Smarty_Variable("EDUKIT | Специальности", null);
 $_smarty_tpl->ext->_updateScope->updateScope($_smarty_tpl, "title", 0);
 $_smarty_tpl->smarty->ext->_var->createLocalArrayVariable($_smarty_tpl, 'css_links', null);
@@ -70,7 +70,7 @@ $__foreach_specialty_0_saved_local_item = $_smarty_tpl->tpl_vars['specialty'];
                       <td><a href="<?php echo $_smarty_tpl->tpl_vars['specialty']->value->getFile();?>
 " target="__blank" download><?php echo $_smarty_tpl->tpl_vars['specialty']->value->getFilename();?>
 </a></td>
-                      <td><input type="checkbox" name="select_spec[]" value="<?php echo $_smarty_tpl->tpl_vars['specialty']->value->getCode();?>
+                      <td><input type="checkbox" name="select_spec[]" value="<?php echo $_smarty_tpl->tpl_vars['specialty']->value->getID();?>
 " class="form-control"></td>
                     </tr>
                   <?php

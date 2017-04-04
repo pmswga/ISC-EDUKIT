@@ -45,7 +45,7 @@
 												<td>{$teacherTest->getSubject()}</td>
 												<td style="display: flex; justify-content: space-around;">
 													<!--<input type="checkbox" value="{$teacherTest->getTestID()}" class="form-control">-->
-													<a class="btn btn-success btn-sm" data-toggle="modal" data-target="#aboutTestDialog" onclick="aboutTest({$teacherTest->getTestID()})">Подробнее</a>
+													<a href="teacher/aboutTest.php?test={$teacherTest->getTestID()}" class="btn btn-success btn-sm" >Подробнее</a>
 													<form name="workWithTestsForm" method="POST">
 														<input type="hidden" name="test_id" value="{$teacherTest->getTestID()}">
 														<input type="submit" name="removeTestButton" value="Удалить" class="btn btn-danger btn-sm">
@@ -90,6 +90,7 @@
 								<div class="panel-body">
 									<a class="btn btn-primary btn-block" data-toggle="modal" data-target="#addTestDialog">Добавить</a>
 									<a class="btn btn-primary btn-block" data-toggle="modal" data-target="#addQuestionsDialog">Добавить вопросы</a>
+									<a class="btn btn-primary btn-block" data-toggle="modal" data-target="#setGroupsDialog">Назначить группы на тест</a>
 								</div>
 							</div>
 						</div>
@@ -276,84 +277,124 @@
 		<div class="modal fade" id="addQuestionsDialog">
 			<div class="modal-dialog">
 				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title">Добавление вопроса</h4>
-					</div>
-					<div class="modal-body">
-						<form name="addQuestionForm" method="POST">
-							<div class="form-group">
-								<label>Тест</label>
-								<select name="question_test" class="form-control">
-									{foreach from=$teachersTests item=teacherTest}
-										<option value="{$teacherTest->getTestID()}">{$teacherTest->getCaption()}</option>
-									{/foreach}
-								</select>
-							</div>
-							<div class="form-group">
-								<label>Вопрос</label>
-								<input type="text" name="question_caption" class="form-control">
-							</div>
-							<div class="form-group">
-								<label>Правильный ответ</label>
-								<input type="text" name="question_r_answer" class="form-control">
-							</div>
-							<div class="form-group">
-								<fieldset>
-									<legend>Ответы <button type="button" name="addAnswer" class="btn btn-xs btn-primary">+</button></legend>
-									<table id="question_answers" class="table table-border">
-										<tr>
-											<th>Ответ</th>
-											<th>Выбрать</th>
-										</tr>
-									</table>
-								</fieldset>
-							</div>
-							<div class="form-group">
-								<input type="submit" name="addQuestionButton" value="Добавить вопрос" class="btn btn-primary">
-							</div>
-						</form>
-					</div>
-					<div class="modal-footer">
-					
-					</div>
-				</div><!-- /.modal-content -->
-			</div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
-		
-		<div class="modal fade" id="aboutTestDialog">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title">Подробная информация</h4>
-					</div>
-					<div class="modal-body" id="infoTestContent">
-						
-					</div>
+					<form name="addQuestionForm" method="POST">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title">Добавление вопроса</h4>
+						</div>
+						<div class="modal-body">
+								<div class="form-group">
+									<label>Тест</label>
+									<select name="question_test" class="form-control">
+										{foreach from=$teachersTests item=teacherTest}
+											<option value="{$teacherTest->getTestID()}">{$teacherTest->getCaption()}</option>
+										{/foreach}
+									</select>
+								</div>
+								<div class="form-group">
+									<label>Вопрос</label>
+									<input type="text" name="question_caption" class="form-control">
+								</div>
+								<div class="form-group">
+									<label>Правильный ответ</label>
+									<input type="text" name="question_r_answer" class="form-control">
+								</div>
+								<div class="form-group">
+									<fieldset>
+										<legend>Ответы <button type="button" name="addAnswer" class="btn btn-xs btn-primary">+</button></legend>
+										<table id="question_answers" class="table table-border">
+											<tr>
+												<th>Ответ</th>
+												<th>Выбрать</th>
+											</tr>
+										</table>
+									</fieldset>
+								</div>
+								<div class="form-group">
+								</div>
+						</div>
+						<div class="modal-footer">
+							<input type="submit" name="addQuestionButton" value="Добавить вопрос" class="btn btn-primary">
+						</div>
+					</form>
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
 	
+		
+		<div class="modal fade" id="setGroupsDialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<form name="setGroupsForm" method="POST">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title">Назначить группы на тест</h4>
+						</div>
+						<div class="modal-body">
+								<div class="form-group">
+									<label>Тест</label>
+									<select name="question_test" class="form-control">
+										{foreach from=$teachersTests item=teacherTest}
+											<option value="{$teacherTest->getTestID()}">{$teacherTest->getCaption()}</option>
+										{/foreach}
+									</select>
+								</div>
+								<div class="form-group">
+									<label>Группы</label>
+									<table class="table table-bordered">
+										<tr>
+											<th>Группа</th>
+											<th>Специальность</th>
+											<th>Выбрать</th>
+										</tr>
+										{foreach from=$groups item=group}
+											<tr>
+												<td>{$group->getNumberGroup()}</td>
+												<td>{$group->getCodeSpec()}</td>
+												<td><input type="checkbox" name="select_group[]" value="{$group->getID()}" class="form-control"></td>
+											</tr>
+										{/foreach}
+									</table>
+								</div>
+						</div>
+						<div class="modal-footer">
+							<input type="submit" name="setGroupsButton" value="Назначить группы" class="btn btn-primary">
+						</div>
+					</form>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+		
+	
+		<!-- <div class="modal fade" id="setGroupsDialog"> -->
+			<!-- <div class="modal-dialog"> -->
+				<!-- <div class="modal-content"> -->
+					<!-- <form name="setGroupsForm" method="POST"> -->
+						<!-- <div class="modal-header"> -->
+							<!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
+							<!-- <h4 class="modal-title">Подробная информация</h4> -->
+						<!-- </div> -->
+						<!-- <div class="mdoal-body"> -->
+										<!-- <div class="form-group"> -->
+										
+										<!-- </div> -->
+										<!-- <div class="form-group"> -->
+											
+										<!-- </div> -->
+										<!-- <div class="form-group"> -->
+											<!-- <input type="submit" name="setGroupsButton" value="Назначить группы на тест" class="btn btn-primary"> -->
+										<!-- </div> -->
+						<!-- </div> -->
+				<!-- </div> -->
+						<!-- </div> -->
+					<!-- </form> -->
+			<!-- </div> -->
+			<!-- </div> -->
+		<!-- </div> -->
+	
 		<script type="text/javascript">
 			
 			CKEDITOR.replace("news");
-			
-			function aboutTest(test_id) {
-				
-				$.ajax({
-					url: "php/getInfoTest.php",
-					type: "POST",
-					data: "test_id=" + test_id,
-					success: function(replay) {
-						
-						$("#infoTestContent").html("");
-						$("#infoTestContent").html(replay);
-						
-					}
-				});
-				
-			}
 			
 			var count_answers = 0;
 			var min_count_answers = 4;

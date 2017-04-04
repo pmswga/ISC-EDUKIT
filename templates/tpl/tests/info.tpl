@@ -1,120 +1,141 @@
-<div class="row">
-	<div class="col-md-12">
-		<table class="table table-striped">
-			<tr>
-				<td>Название теста</td>
-				<td><?= $test->getCaption(); ?></td>
-			</tr>
-			<tr>
-				<td>Предмет</td>
-				<td><?= $test->getSubject(); ?></td>
-			</tr>
-			<tr>
-				<td>Автор</td>
-				<td><?= $test->getAuthorEmail(); ?></td>
-			</tr>
-			<tr>
-				<td>Кол-во вопросов</td>
-				<td><?= count($test->getQuestions()); ?></td>
-			</tr>
-		</table>
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-12">
-		<div class="panel-group" id="testInfo">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<div class="row">
-						<div class="col-md-12">
-							<h4 class="panel-title"><a data-toggle="collapse" data-parent="#testInfo" href="#questions">Вопросы</a></h4>
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Подробнее о тесте</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="../css/boostrap/bootstrap.css">
+		<script type="text/javascript" src="../js/jquery.js"></script>
+		<script type="text/javascript" src="../js/bootstrap.js"></script>
+	</head>
+	<body>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<nav class="navbar navbar-default" role="navigation">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+							<a href="index.php" class="navbar-brand">УКИТ<!--<img src="img/ukit.png" width="50px" alt="">--></a>
 						</div>
-					</div>
-				</div>
-				<div id="questions" class="panel-collapse collapse">
-					<div class="panel-body">
-						<form name="removeQuestionForm" method="POST">
-							<input type="submit" name="removeQuestionButton" value="Удалить" class="btn btn-danger btn-sm">
-							<br>
-							<br>
-							<table class="table table-hover">
-								<tr>
-									<th>Вопрос</th>
-									<th>Правильный ответ</th>
-									<th>Варианты ответа</th>
-									<th>Выбрать</th>
-								</tr>
-								<?php
-									
-									foreach ($test->getQuestions() as $q) {
-										echo "<tr>";
-										
-										echo "<td>".$q->getQuestion()."</td>";
-										echo "<td>".$q->getRAnswer()."</td>";
-										echo "<td>";
-										
-										$answers = $q->getAnswers();
-										
-										echo "<ul>";
-										for ($i = 0; $i < count($answers); $i++) {
-											echo "<li>".$answers[$i]['answer']."</li>";
-										}
-										echo "</ul>";
-										
-										echo "</td>";
-										
-										echo "<td><input type='checkbox' name='select_question_test[]' value='".$q->getID()."' class='form-control'></td>";
-										
-										echo "</tr>";
-									}
-									
-								?>
-							</table>
-						</form>
-					</div>
+						<div class="collapse navbar-collapse" id="menu">
+							<ul class="nav navbar-nav pull-right">
+								<li><a href="../user.php">Профиль</a></li>
+							</ul>
+						</div>
+					</nav>
 				</div>
 			</div>
-			<div class="panel panel-default">
-					<div class="panel-heading">
-						<div class="row">
-							<div class="col-md-11">
-								<h4 class="panel-title"><a data-toggle="collapse" data-parent="#testInfo" href="#for_groups">Для групп</a></h4>
+			<div class="row">
+				<div class="col-md-4">
+					<fieldset>
+						<legend>Общая информация</legend>
+						<table class="table table-striped">
+							<tr>
+								<td>Название теста</td>
+								<td>{$test->getCaption()}</td>
+							</tr>
+							<tr>
+								<td>Предмет</td>
+								<td>{$test->getSubject()}</td>
+							</tr>
+							<tr>
+								<td>Автор</td>
+								<td>{$test->getAuthorEmail()}</td>
+							</tr>
+							<tr>
+								<td>Кол-во вопросов</td>
+								<td>{$test->getCountQuestions()}</td>
+							</tr>
+						</table>
+					</fieldset>
+					<fieldset>
+						<legend>Статистика</legend>
+					</fieldset>
+				</div>
+				<div class="col-md-8">						
+					<div class="panel-group" id="testInfo">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<div class="row">
+									<div class="col-md-12">
+										<h4 class="panel-title"><a data-toggle="collapse" data-parent="#testInfo" href="#questions">Вопросы</a></h4>
+									</div>
+								</div>
 							</div>
-							<div class="col-md-1">
+							<div id="questions" class="panel-collapse collapse">
+								<div class="panel-body">
+									<form name="removeQuestionForm" method="POST">
+										<input type="submit" name="removeQuestionButton" value="Удалить" class="btn btn-danger btn-sm">
+										<br>
+										<br>
+										<table class="table table-hover">
+											<tr>
+												<th>Вопрос</th>
+												<th>Правильный ответ</th>
+												<th>Варианты ответа</th>
+												<th>Выбрать</th>
+											</tr>
+											{foreach from=$test->getQuestions() item=question}
+												<tr>
+													<td>{$question->getQuestion()}</td>
+													<td>{$question->getRAnswer()}</td>
+													<td>
+														<ul>
+														{foreach from=$question->getAnswers() item=answer}
+															<li>{$answer['answer']}</li>
+														{/foreach}
+														</ul>
+													</td>
+													<td><input type="checkbox" name="select_question_test[]" value="{$question->getID()}" class="form-control"></td>
+												</tr>
+											{/foreach}
+										</table>
+									</form>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div id="for_groups" class="panel-collapse collapse">
-						<div class="panel-body">
-							<form name="removeGroupFromTestForm" method="POST">
-								<input type="hidden" name="test_id" value="<?= $test->getTestID(); ?>"> 
-								<input type="submit" name="removeGroupFromTestButton" value="Удалить" class="btn btn-danger btn-sm">
-								<br>
-								<br>
-								<table class="table table-hover">
-									<tr>
-										<th>Группа</th>
-										<th>Специальность</th>
-										<th>Выбрать</th>
-									</tr>
-									<?php
-										
-										foreach ($test->getGroups() as $g) {
-											echo "<tr>";
-											
-											echo "<td>".$g->getNumberGroup()."</td>";
-											echo "<td>".$g->getCodeSpec()."</td>";
-											echo "<td><input type='checkbox' name='select_group_test[]' value='".$g->getID()."' class='form-control'></td>";
-											
-											echo "</tr>";
-										}
-										
-									?>
-								</table>
-							</form>
+						<div class="panel panel-default">
+								<div class="panel-heading">
+									<div class="row">
+										<div class="col-md-11">
+											<h4 class="panel-title"><a data-toggle="collapse" data-parent="#testInfo" href="#for_groups">Для групп</a></h4>
+										</div>
+										<div class="col-md-1">
+										</div>
+									</div>
+								</div>
+								<div id="for_groups" class="panel-collapse collapse">
+									<div class="panel-body">
+										<form name="removeGroupFromTestForm" method="POST">
+											<input type="hidden" name="test_id" value="{$test->getTestID()}"> 
+											<input type="submit" name="removeGroupFromTestButton" value="Удалить" class="btn btn-danger btn-sm">
+											<br>
+											<br>
+											<table class="table table-hover">
+												<tr>
+													<th>Группа</th>
+													<th>Специальность</th>
+													<th>Выбрать</th>
+												</tr>
+												{foreach from=$test->getGroups() item=group}
+													<tr>
+														<td>{$group->getNumberGroup()}</td>
+														<td>{$group->getCodeSpec()}</td>
+														<td><input type="checkbox" name="select_group_test[]" value="{$group->getID()}" class="form-control"></td>
+													</tr>
+												{/foreach}
+											</table>
+										</form>
+									</div>
+								</div>
 						</div>
-					</div>
+					</div>	
+				</div>
 			</div>
 		</div>
-	</div>
-</div>
+	</body>
+</html>

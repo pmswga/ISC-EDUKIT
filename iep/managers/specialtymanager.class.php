@@ -33,6 +33,8 @@
       foreach($db_specs as $spec)
       {
           $new_spec = new Specialty($spec['code_spec'], $spec['descp'], $spec['pdf']);
+					$new_spec->setID((int)$spec['id_spec']);
+					
           $specialtys[] = $new_spec;
       }
       

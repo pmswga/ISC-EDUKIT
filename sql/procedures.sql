@@ -14,6 +14,7 @@ DROP FUNCTION IF EXISTS getParentId;
 
 DROP FUNCTION IF EXISTS getTID;
 DROP FUNCTION IF EXISTS getSID;
+DROP FUNCTION IF EXISTS getSpecialtyID;
 
 
 /* ----- */
@@ -200,6 +201,16 @@ BEGIN
 END;
 
 
+CREATE FUNCTION getSpecialtyID(spec CHAR(10))
+	RETURNS int
+BEGIN
+	DECLARE sid int;
+	
+	SELECT DISTINCT `id_spec` INTO sid FROM `specialty` WHERE `code_spec`=code_spec;
+	
+	RETURN sid;
+END;
+
 /* 
 
 	[UML Диаграмма - "Общее"]
@@ -374,9 +385,9 @@ BEGIN
 	INSERT INTO `specialty` (`code_spec`, `description`, `pdf_file`) VALUES (code_spec, descp, pdf_file);
 END;
 
-CREATE PROCEDURE removeSpecialty(s_code_spec CHAR(255))
+CREATE PROCEDURE removeSpecialty(spec_id int)
 BEGIN
-	DELETE FROM `specialty` WHERE `code_spec`=s_code_spec;
+	DELETE FROM `specialty` WHERE `id_spec`=spec_id;
 END;
 
 CREATE PROCEDURE changeCodeSpecialty(old_code_spec CHAR(255), new_code_spec CHAR(255))
@@ -438,9 +449,9 @@ END;
 
 /* Для получение специальностей, нужно использовать представление `v_Groups`  */
 
-CREATE PROCEDURE addGroup(descp CHAR(255), code_spec CHAR(10), is_budget BOOL)
+CREATE PROCEDURE addGroup(descp CHAR(255), id_spec int, is_budget BOOL)
 BEGIN
-	INSERT INTO `groups` (`code_spec`, `description`, `is_budget`) VALUES ((SELECT `id_spec` FROM `specialty` WHERE `code_spec`=code_spec), descp, is_budget);
+	INSERT INTO `groups` (`code_spec`, `description`, `is_budget`) VALUES (id_spec, descp, is_budget);
 END;
 
 CREATE PROCEDURE removeGroup(id_grp INT)

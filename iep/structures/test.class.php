@@ -68,6 +68,11 @@
 			return $this->questions;
 		}
 		
+		public function getCountQuestions() : int
+		{
+			return count($this->questions);
+		}
+		
 		public function getAuthorEmail() : string
 		{
 			return $this->author;

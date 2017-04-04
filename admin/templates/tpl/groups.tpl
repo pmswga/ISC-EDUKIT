@@ -54,7 +54,7 @@
                       <label>Специальность</label>
                       <select name="spec" class="form-control">
                         {foreach from=$specialtyes item=specialty}
-                          <option value="{$specialty->getCode()}">{$specialty->getCode()} -> {$specialty->getDescription()}</option>
+                          <option value="{$specialty->getID()}">{$specialty->getCode()} -> {$specialty->getDescription()}</option>
                         {/foreach}
                       </select>
                     </div>

@@ -23,7 +23,7 @@
                       <td>{$specialty->getCode()}</td>
                       <td>{$specialty->getDescription()}</td>
                       <td><a href="{$specialty->getFile()}" target="__blank" download>{$specialty->getFilename()}</a></td>
-                      <td><input type="checkbox" name="select_spec[]" value="{$specialty->getCode()}" class="form-control"></td>
+                      <td><input type="checkbox" name="select_spec[]" value="{$specialty->getID()}" class="form-control"></td>
                     </tr>
                   {/foreach}
                 </table>

@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-03-18 18:20:59
+/* Smarty version 3.1.29, created on 2017-04-04 22:25:47
   from "C:\OpenServer\domains\iep.mgkit\admin\templates\tpl\groups.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_58cd505b419e01_05883509',
+  'unifunc' => 'content_58e3f33baf2df4_76557861',
   'file_dependency' => 
   array (
     'df82c2706500726a85601349e3342364d55f9e28' => 
     array (
       0 => 'C:\\OpenServer\\domains\\iep.mgkit\\admin\\templates\\tpl\\groups.tpl',
-      1 => 1489850458,
+      1 => 1491333946,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
     'file:html/end.tpl' => 1,
   ),
 ),false)) {
-function content_58cd505b419e01_05883509 ($_smarty_tpl) {
+function content_58e3f33baf2df4_76557861 ($_smarty_tpl) {
 $_smarty_tpl->tpl_vars["title"] = new Smarty_Variable("EDUKIT | Группы", null);
 $_smarty_tpl->ext->_updateScope->updateScope($_smarty_tpl, "title", 0);
 $_smarty_tpl->smarty->ext->_var->createLocalArrayVariable($_smarty_tpl, 'css_links', null);
@@ -118,7 +118,7 @@ foreach ($_from as $_smarty_tpl->tpl_vars['specialty']->value) {
 $_smarty_tpl->tpl_vars['specialty']->_loop = true;
 $__foreach_specialty_1_saved_local_item = $_smarty_tpl->tpl_vars['specialty'];
 ?>
-                          <option value="<?php echo $_smarty_tpl->tpl_vars['specialty']->value->getCode();?>
+                          <option value="<?php echo $_smarty_tpl->tpl_vars['specialty']->value->getID();?>
 "><?php echo $_smarty_tpl->tpl_vars['specialty']->value->getCode();?>
  -> <?php echo $_smarty_tpl->tpl_vars['specialty']->value->getDescription();?>
 </option>
