@@ -56,8 +56,8 @@ CREATE VIEW v_Groups (id_grp, grp, spec, budget) as
 		INNER JOIN `specialty` s ON g.code_spec=s.id_spec
 	ORDER BY g.description;
 
-CREATE VIEW v_Specialtyes (code_spec, descp, pdf) as
-	SELECT `code_spec`, `description`, `pdf_file`
+CREATE VIEW v_Specialtyes (id_spec, code_spec, descp, pdf) as
+	SELECT `id_spec`, `code_spec`, `description`, `pdf_file`
 	FROM `specialty`
 	ORDER BY `description`;
 
