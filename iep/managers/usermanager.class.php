@@ -118,7 +118,6 @@
             if ($add_user_query->execute()) {
               return $this->dbc()->commit();
             } else {
-							echo $add_user_query->errorInfo();
               $this->dbc()->rollBack();
               return false;
 						}

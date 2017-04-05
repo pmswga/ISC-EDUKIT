@@ -1,5 +1,5 @@
 <?php
-    declare(strict_types = 1);
+	declare(strict_types = 1);
 	namespace IEP\Structures;
     
 	require_once "user.class.php";
@@ -15,13 +15,13 @@
         private $childs;
 		
 		function __construct(User $user, 
-            int $age,
-            string $education, 
-            string $work_place, 
-            string $post, 
-            string $home_phone, 
-            string $cell_phone
-        ) {
+				int $age,
+				string $education, 
+				string $work_place, 
+				string $post, 
+				string $home_phone, 
+				string $cell_phone
+		) {
 			parent::__construct($user->sn, $user->fn, $user->pt, $user->email, $user->password, $user->typeUser);
 			$this->age = $age;
 			$this->education = $education;
@@ -61,15 +61,15 @@
 			return $this->cell_phone;
 		}
         
-        public function getChilds() : array
-        {
-            return $this->childs;
-        }
-        
-        public function setChilds(array $childs)
-        {
-            $this->childs = $childs;
-        }
-        
+		public function getChilds() : array
+		{
+			return !empty($this->childs) ? $this->childs : array();
+		}
+		
+		public function setChilds(array $childs)
+		{
+			$this->childs = $childs;
+		}
+		
 	}
 ?>
