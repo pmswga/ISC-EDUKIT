@@ -29,7 +29,7 @@
                         <td>{$one_news->getCaption()}</td>
                         <td>{$one_news->getContent()}</td>
                         <td>{$one_news->getDatePublication()}</td>
-                        <td><input type="checkbox" name="select_grp[]" value="{$one_news->getNewsID()}" class="form-control"></td>
+                        <td><input type="checkbox" name="select_news[]" value="{$one_news->getNewsID()}" class="form-control"></td>
                       </tr>
                     {/foreach}
                   </table>

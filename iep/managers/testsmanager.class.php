@@ -233,7 +233,7 @@
 			$set_group_query->bindValue(":test_id", $test_id);
 			$set_group_query->bindValue(":test_grp", $test_grp);
 			
-			$set_group_query->execute();
+			return $set_group_query->execute();
 		}
 		
 		public function unsetGroup(int $test_id, int $test_grp) : bool

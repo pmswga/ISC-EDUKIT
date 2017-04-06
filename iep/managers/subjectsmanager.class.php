@@ -65,6 +65,7 @@
 			$unset_subject_query->bindValue(":email", $emailTeacher);
 			$unset_subject_query->bindValue(":subj", $subject_id);
 			
+			
 			return $unset_subject_query->execute();
 		}
 		

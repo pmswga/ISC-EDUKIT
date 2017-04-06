@@ -13,7 +13,7 @@
 		{
 			case USER_TYPE_STUDENT:
 			{
-				$sogroups = $UM->get("SELECT * FROM `users` u INNER JOIN `students` s ON u.id_user=s.id_student WHERE `grp`=:grp AND `email`!=:email",
+				$sogroups = $UM->get("SELECT * FROM `v_Students` WHERE `grp`=:grp AND `email`!=:email",
 					[":grp" => $user->getGroup(), ":email" => $user->getEmail()]
 				);
 				
@@ -165,6 +165,24 @@
 					
 					if ($TM->addQuestion($question_test, $new_question)) {
 						CTools::Message("Вопрос добавлен");
+					} else {
+						CTools::Message("Произошла ошибка");
+					}
+					
+					CTools::Redirect("user.php");
+				}
+				
+				if (!empty($_POST['setGroupsButton'])) {
+					$select_group = $_POST['select_group'];
+					$test_id = $_POST['test_id'];
+					
+					$result = true;
+					for ($i = 0; $i < count($select_group); $i++) {
+						$result *= $TM->setGroup($test_id, $select_group[$i]);
+					}
+					
+					if ($result) {
+						CTools::Message("Группы назначены");
 					} else {
 						CTools::Message("Произошла ошибка");
 					}

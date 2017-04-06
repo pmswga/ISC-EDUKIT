@@ -70,7 +70,7 @@
 								<div class="panel-body">
 									<table class="table table-bordered">
 										{foreach from=$sogroups item=it}
-											<tr><td><a href=account.php?id={$it['id_user']}>{$it['second_name']}</a></td></tr>
+											<tr><td><a href=account.php?email={$it['email']}>{$it['sn']} {$it['fn']}</a></td></tr>
 										{/foreach}
 									</table>
 								</div>

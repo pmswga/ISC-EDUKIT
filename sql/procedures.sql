@@ -566,7 +566,7 @@ END;
 
 CREATE PROCEDURE unsetSubject(emailTeacher char(30), subject_id int)
 BEGIN
-	DELETE FROM `teacher_subjects` WHERE `id_teacher`=getTeacherID(emailTeacher) AND `id_subject`=subject_id;
+	DELETE FROM `teacher_subjects` WHERE `id_teacher`=getTID(emailTeacher) AND `id_subject`=subject_id;
 END;
 
 CREATE PROCEDURE getSubjects(emailTeacher char(30)) /* Для отображения предметов в его аккаунте  */

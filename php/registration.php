@@ -8,7 +8,7 @@
   
 	if (!empty($_POST['registrationStudent'])) {
 		$data = CForm::getData(["second_name", "first_name", "patronymic", "email", "password", "home_address", "cell_phone_child", "grp"]);
-		$data['paswd'] = md5($data['paswd']);
+		$data['password'] = md5($data['password']);
 		
 		$new_student = new Student(
 			new User(
