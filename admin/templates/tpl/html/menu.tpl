@@ -19,7 +19,7 @@
           <li><a href="news.php">Новости</a></li>
           <li><a href="subjects.php">Предметы</a></li>
           <li><a href="notifications.php">Оповещения</a></li>
-          <li><a href="#">Посещаемость</a></li>
+          <li><a href="traffic.php">Посещаемость</a></li>
           <li><a href="php/logout.php">Выход</a></li>
         </ul>
       </div>

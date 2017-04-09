@@ -12,8 +12,6 @@
 	require_once $_SERVER['DOCUMENT_ROOT']."/iep/managers/specialtymanager.class.php";
 	require_once $_SERVER['DOCUMENT_ROOT']."/iep/managers/newsmanager.class.php";
 	
-  use IEP\Managers\NewsManager;
-    
 	$CT = new CTemplater("templates/tpl", "templates/tpl_c", "templates/configs", "templates/cache");
   
 	$DB = new PDO("mysql:dbname=".DATA_BASE_NAME.";host=127.0.0.1", USER_NAME, USER_PASSWORD);

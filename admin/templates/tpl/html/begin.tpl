@@ -10,5 +10,8 @@
     {/foreach}
 	  <script src="js/jquery.js"></script>
 	  <script src="js/bootstrap.js"></script>
+		{foreach from=$js_links item=js_link}		
+			<script type="text/javascript" src="{$js_link}"></script>
+    {/foreach}
   </head>
   <body>
