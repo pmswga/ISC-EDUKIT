@@ -275,6 +275,25 @@
 			), (int)$user_data['grp'], $user_data['home_address'], $user_data["cell_phone"]);
 		}
 		
+		public function getAdmins()
+		{
+			$db_admins = $this->get("call getAllAdmins()");
+      
+      $admins = array();
+      foreach ($db_admins as $db_admin) {
+        $admins[] = new User(
+					$db_admin['sn'], 
+					$db_admin['fn'], 
+					$db_admin['pt'], 
+					$db_admin['email'], 
+					$db_admin['paswd'], 
+					(int)$db_admin['type_user']
+        );
+      }
+      
+      return $admins;
+		}
+		
 		public function getUsers() 
 		{
 			$db_users = $this->get("call getAllUsers()");
