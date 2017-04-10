@@ -1,34 +1,36 @@
 <!DOCTYPE html>
 <html>
 	<head>
-    	<title>Вход в панель управления</title>
-        <meta charset="utf-8">
-        <link rel="stylesheet" type="text/css" href="css/main.css">
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-    	<script src="js/jquery.js"></script>
-    	<script src="js/bootstrap.js"></script>
+		<title>EDUKIT | Аутентификация</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+		<script src="js/jquery.js"></script>
+		<script src="js/bootstrap.js"></script>
 	</head>
-    <body>
+	<body>
 		<div class="container">
 			<div class="col-md-4"></div>
 			<div id="loginDiv" class="col-md-4">
-				<h3>Вход в панель администратора</h3>
-				<form id="loginForm" name="login" method="POST">
+				<br><br><br><br><br>
+				<h3 align="center">Вход в панель управления</h3>
+				<form id="loginForm" name="loginCPForm" method="POST">
 					<div class="form-group">
 						<label>E-mail:</label>
-						<input name="email" type="email" class="form-control" value="admin@admin.ru" required>
+						<input name="login" type="email" class="form-control" required>
 					</div>
 					<div class="form-group">
 						<label>Пароль:</label>
-						<input name="password" type="password" class="form-control" value="admin" required>
+						<input name="paswd" type="password" class="form-control" required>
 					</div>
 					<div class="form-group">
 						<a href="../index.php" class="btn btn-warning">Назад</a>
-						<input name="loginButton" type="submit" value="Войти" class="btn btn-primary">
+						<input name="loginCPButton" type="submit" value="Войти" class="btn btn-primary pull-right">
 					</div>
 				</form>
 			</div>
 			<div class="col-md-4"></div>
 		</div>
-    </body>
+		<script src="js/loginToCP.js"></script>
+	</body>
 </html>

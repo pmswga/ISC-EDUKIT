@@ -32,6 +32,7 @@
 		$CT->assign("elders", $UM->getElders());
 		$CT->assign("parents", $UM->getParents());
 		$CT->assign("allUsers", $UM->getUsers());
+		$CT->assign("typeUsers", $UM->getTypeUsers());
 		$CT->assign("studentsByGroup", $studentsByGroup);
 		
 		$CT->Show("users.tpl");
@@ -139,6 +140,16 @@
 			$user = $_POST['user'];
 			
 			if ($UM->remove($user)) {
+				CTools::Redirect("users.php");
+			}
+			
+		}
+		
+		if (!empty($_POST['changeTypeUserButton'])) {
+			$user = $_POST['user'];
+			$type = $_POST['type'];
+			
+			if ($UM->setUserType($user, $type)) {
 				CTools::Redirect("users.php");
 			}
 			

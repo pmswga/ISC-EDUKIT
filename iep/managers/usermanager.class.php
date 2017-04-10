@@ -88,7 +88,16 @@
 				} break;
 				case USER_TYPE_ADMIN:
 				{
-					echo "Add USER_TYPE_ADMIN";
+					$u = new User(
+						$user_data[0]['second_name'],
+						$user_data[0]['first_name'],
+						$user_data[0]['patronymic'],
+						$user_data[0]['email'],
+						$user_data[0]['password'],
+						(int)$user_data[0]['id_type_user']
+					);
+					
+					return $u;
 				} break;
 				default: return false; break;
 			}
@@ -424,6 +433,51 @@
       return $students;
 		}
 		
+		public function setUserType(string $u_email, int $type) : bool
+		{
+			// !!!!!!!!!!!! Удалять запись с текущим типом аккаунта !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			$set_user_type = $this->dbc()->prepare("call setUserType(:email, :type)");
+			
+			$set_user_type->bindValue(":email", $u_email);
+			$set_user_type->bindValue(":type", $type);
+			
+			return $set_user_type->execute();
+		}
+		
+		public function getTypeUsers() : array
+		{
+			$db_typeUsers = $this->get("call getTypeUsers()");
+			
+			$typeUser = array();
+			foreach ($db_typeUsers as $db_typeUser) {
+				$typeUser[] = new class((int)$db_typeUser['id_type_user'], $db_typeUser['description']) {
+					
+					private $id;
+					private $descp;
+					
+					function __construct(int $id, string $descp)
+					{
+						$this->id = $id;
+						$this->descp = $descp;
+					}
+					
+					public function getID() : int
+					{
+						return $this->id;
+					}
+					
+					public function getDescp() : string
+					{
+						return $this->descp;
+					}
+					
+				};
+			}
+			
+			
+			return $typeUser;
+		}
+		
 		public function grantElder($emailStudent) : bool
 		{
 			$grant_elder_query = $this->dbc()->prepare("call grantElder(:email)");
@@ -441,6 +495,7 @@
 			
 			return $revoke_elder_query->execute();
 		}
+		
 		
 		public function remove($email) : bool
 		{

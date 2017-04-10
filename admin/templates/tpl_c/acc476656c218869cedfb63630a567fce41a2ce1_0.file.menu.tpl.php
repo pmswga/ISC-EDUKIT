@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-04-09 23:17:43
+/* Smarty version 3.1.29, created on 2017-04-11 00:04:45
   from "C:\OpenServer\domains\iep.mgkit\admin\templates\tpl\html\menu.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_58ea96e754e304_69420936',
+  'unifunc' => 'content_58ebf36d3527c5_78781950',
   'file_dependency' => 
   array (
     'acc476656c218869cedfb63630a567fce41a2ce1' => 
     array (
       0 => 'C:\\OpenServer\\domains\\iep.mgkit\\admin\\templates\\tpl\\html\\menu.tpl',
-      1 => 1491769062,
+      1 => 1491858284,
       2 => 'file',
     ),
   ),
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_58ea96e754e304_69420936 ($_smarty_tpl) {
+function content_58ebf36d3527c5_78781950 ($_smarty_tpl) {
 ?>
 <div class="row">
   <div class="col-md-12">
@@ -43,6 +43,7 @@ function content_58ea96e754e304_69420936 ($_smarty_tpl) {
           <li><a href="subjects.php">Предметы</a></li>
           <li><a href="notifications.php">Оповещения</a></li>
           <li><a href="traffic.php">Посещаемость</a></li>
+          <li><a href="settings.php">Настройки</a></li>
           <li><a href="php/logout.php">Выход</a></li>
         </ul>
       </div>

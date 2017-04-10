@@ -180,22 +180,6 @@
           </div>
           <div class="tab-pane" id="viewUsers">
 						<div class="row">
-							<form name="removeUserForm" method="POST" class="form-horizontal">
-								<div class="col-md-8">
-									<label>Пользователь</label>
-									<select name="user" class="form-control">
-										{foreach from=$allUsers item=user}
-											<option value="{$user->getEmail()}">{$user->getSn()} {$user->getFn()} {$user->getPt()}</option>
-										{/foreach}
-									</select>
-								</div>
-								<div class="col-md-4">
-									<input type="submit" name="removeUserButton" value="Удалить пользователя" class="btn btn-danger">
-								</div>
-							</form>
-						</div>
-						<hr>
-						<div class="row">
 							<div class="col-md-12">
 								<div class="panel-group" id="views_users">
 									<div class="panel panel-primary">
@@ -354,6 +338,51 @@
 								</div>
 							</div>
 						</div>
+						<fieldset>
+							<legend>Удалить пользователя</legend>
+							<div class="row">
+								<form name="removeUserForm" method="POST" class="form-horizontal">
+									<div class="col-md-8">
+										<label>Пользователь</label>
+										<select name="user" class="form-control">
+											{foreach from=$allUsers item=user}
+												<option value="{$user->getEmail()}">{$user->getSn()} {$user->getFn()} {$user->getPt()}</option>
+											{/foreach}
+										</select>
+									</div>
+									<div class="col-md-4">
+										<input type="submit" name="removeUserButton" value="Удалить пользователя" class="btn btn-danger">
+									</div>
+								</form>
+							</div>
+						</fieldset>
+						<br>
+						<fieldset>
+							<legend>Изменить тип пользователя</legend>
+							<div class="row">
+								<form name="changeTypeUserForm" method="POST" class="form-horizontal">
+									<div class="col-md-4">
+										<label>Пользователь</label>
+										<select name="user" class="form-control">
+											{foreach from=$allUsers item=user}
+												<option value="{$user->getEmail()}">{$user->getSn()} {$user->getFn()} {$user->getPt()}</option>
+											{/foreach}
+										</select>
+									</div>
+									<div class="col-md-4">
+										<label>Тип</label>
+										<select name="type" class="form-control">
+											{foreach from=$typeUsers item=typeUser}
+												<option value="{$typeUser->getID()}">{$typeUser->getDescp()}</option>
+											{/foreach}
+										</select>
+									</div>
+									<div class="col-md-4">
+										<input type="submit" name="changeTypeUserButton" value="Изменить тип пользователя" class="btn btn-warning">
+									</div>
+								</form>
+							</div>
+						</fieldset>
           </div>
           <div class="tab-pane" id="grant">
             <div class="row">

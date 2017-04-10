@@ -19,6 +19,7 @@ DROP FUNCTION IF EXISTS getSpecialtyID;
 
 /* ----- */
 
+DROP PROCEDURE IF EXISTS addAdmin;
 DROP PROCEDURE IF EXISTS addStudent;
 DROP PROCEDURE IF EXISTS addParent;
 DROP PROCEDURE IF EXISTS addTeacher;
@@ -30,6 +31,8 @@ DROP PROCEDURE IF EXISTS grantElder;
 DROP PROCEDURE IF EXISTS revokeElder;
 DROP PROCEDURE IF EXISTS changeUserPassword;
 DROP PROCEDURE IF EXISTS authentification;
+DROP PROCEDURE IF EXISTS setUserType;
+DROP PROCEDURE IF EXISTS getTypeUsers;
 
 DROP PROCEDURE IF EXISTS getTeacherInfo;
 DROP PROCEDURE IF EXISTS getStudentInfo;
@@ -218,6 +221,11 @@ END;
 
 */
 
+CREATE PROCEDURE addAdmin(sn char(30), fn char(30), pt char(30), a_email char(30), paswd char(32))
+BEGIN
+	INSERT INTO `users` (`second_name`, `first_name`, `patronymic`, `email`, `password`, `id_type_user`) VALUES (sn, fn, pt, a_email, paswd, 1);
+END;
+
 CREATE PROCEDURE addStudent(sn char(30), fn char(30), pt char(30), s_email char(30), paswd char(32), ha char(255), cp char(30), s_grp int)
 BEGIN
 	START TRANSACTION;
@@ -284,6 +292,18 @@ CREATE PROCEDURE authentification(u_email char(30), u_paswd char(32))
 BEGIN
 	SELECT * FROM `users` WHERE `email`=u_email AND `password`=u_paswd;
 END;
+
+
+CREATE PROCEDURE setUserType(u_email char(30), u_type int)
+BEGIN
+	UPDATE `users` SET `id_type_user`=u_type WHERE `email`=u_email;
+END;
+
+CREATE PROCEDURE getTypeUsers()
+BEGIN
+	SELECT * FROM `typeUser` ORDER BY `id_type_user`, `description`;
+END;
+
 
 CREATE PROCEDURE getTeacherInfo(emailUser char(30))
 BEGIN
