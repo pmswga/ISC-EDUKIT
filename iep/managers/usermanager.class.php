@@ -268,17 +268,17 @@
 		
 		public function getUsers() 
 		{
-			$db_users =  $this->get("SELECT * FROM `users`");
+			$db_users = $this->get("call getAllUsers()");
       
       $users = array();
       foreach ($db_users as $db_user) {
         $users[] = new User(
-            $db_user['second_name'], 
-            $db_user['first_name'], 
-            $db_user['patronymic'], 
-            $db_user['email'], 
-            $db_user['password'], 
-            (int)$db_user['id_type_user']
+					$db_user['sn'], 
+					$db_user['fn'], 
+					$db_user['pt'], 
+					$db_user['email'], 
+					$db_user['paswd'], 
+					(int)$db_user['type_user']
         );
       }
       
@@ -293,12 +293,12 @@
       foreach ($db_students as $db_student) {
         $new_student = new Student(
           new User(
-              $db_student['sn'],
-              $db_student['fn'],
-              $db_student['pt'],
-              $db_student['email'],
-              $db_student['paswd'],
-              (int)$db_student['id_type_user']
+						$db_student['sn'],
+						$db_student['fn'],
+						$db_student['pt'],
+						$db_student['email'],
+						$db_student['paswd'],
+						(int)$db_student['type_user']
           ),
           $db_student['home_address'],
           $db_student['cell_phone'],
@@ -351,6 +351,8 @@
             
       $parents = array();
       foreach ($db_parents as $db_parent) {
+				
+				// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ОЖИДАЕТ РЕАЛИЗАЦИИ !!!!!!!!!!!!!!!!!!!!!!!
         // $db_childs = $this->get("call getChilds(:emailParent)", [":emailParent" => $db_parent['email']]);
         
         // $childs = array();
@@ -442,7 +444,7 @@
 		
 		public function remove($email) : bool
 		{
-      $remove_user_query = $this->dbc()->prepare("DELETE FROM `users` WHERE `email`=:email");
+      $remove_user_query = $this->dbc()->prepare("call removeUser(:email)");
       $remove_user_query->bindValue(":email", $email);
       
       return $remove_user_query->execute();

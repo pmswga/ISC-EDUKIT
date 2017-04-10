@@ -31,6 +31,7 @@
 		$CT->assign("students", $UM->getStudents());
 		$CT->assign("elders", $UM->getElders());
 		$CT->assign("parents", $UM->getParents());
+		$CT->assign("allUsers", $UM->getUsers());
 		$CT->assign("studentsByGroup", $studentsByGroup);
 		
 		$CT->Show("users.tpl");
@@ -134,7 +135,18 @@
 			
 		}
 		
+		if (!empty($_POST['removeUserButton'])) {
+			$user = $_POST['user'];
+			
+			if ($UM->remove($user)) {
+				CTools::Redirect("users.php");
+			}
+			
+		}
+		
 	}
 	else CTools::Redirect("login.php");
   
+	// !!!!!!!!!! ВЫВОД СООБЩЕНИЙ !!!!!!!!!!!!!!
+	
 ?>

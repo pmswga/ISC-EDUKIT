@@ -22,6 +22,7 @@ DROP FUNCTION IF EXISTS getSpecialtyID;
 DROP PROCEDURE IF EXISTS addStudent;
 DROP PROCEDURE IF EXISTS addParent;
 DROP PROCEDURE IF EXISTS addTeacher;
+DROP PROCEDURE IF EXISTS removeUser;
 DROP PROCEDURE IF EXISTS removeStudent;
 DROP PROCEDURE IF EXISTS removeParent;
 DROP PROCEDURE IF EXISTS removeTeacher;
@@ -239,6 +240,11 @@ BEGIN
 	INSERT INTO `users` (`first_name`, `second_name`, `patronymic`, `email`, `password`, `id_type_user`) VALUES (fn, sn, pt, t_email, paswd, 2);
 	INSERT INTO `teachers` (`id_teacher`, `info`) VALUES (getTID(t_email), info);
 	COMMIT;
+END;
+
+CREATE PROCEDURE removeUser(u_email char(30))
+BEGIN
+	DELETE FROM `users` WHERE `email`=u_email;
 END;
 
 CREATE PROCEDURE removeStudent(s_email char(30))

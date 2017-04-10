@@ -14,7 +14,7 @@ DROP VIEW IF EXISTS v_Relations;
 DROP VIEW IF EXISTS v_Tests;
 
 CREATE VIEW v_Users (sn, fn, pt, email, paswd, type_user) as
-	SELECT `second_name`, `first_name`, `patronymic`, `password`, `email`, `id_type_user` 
+	SELECT `second_name`, `first_name`, `patronymic`, `email`, `password`, `id_type_user` 
 	FROM `users` 
 	ORDER BY `second_name`, `first_name`, `patronymic`;
 	
