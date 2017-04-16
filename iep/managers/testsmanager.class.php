@@ -246,6 +246,11 @@
 			return $set_group_query->execute();
 		}
 		
+		public function cahngeCaptionQuestion(int $question_id, string $new_caption)
+		{
+			$change_question_query = $this->dbc()->prepare("call ");
+		}
+		
 		public function change($oldTest, $newTest)
 		{
 			

@@ -33,24 +33,33 @@
 				<div class="col-md-4">
 					<fieldset>
 						<legend>Общая информация</legend>
-						<table class="table table-striped">
-							<tr>
-								<td>Название теста</td>
-								<td>{$test->getCaption()}</td>
-							</tr>
-							<tr>
-								<td>Предмет</td>
-								<td>{$test->getSubject()}</td>
-							</tr>
-							<tr>
-								<td>Автор</td>
-								<td>{$test->getAuthorEmail()}</td>
-							</tr>
-							<tr>
-								<td>Кол-во вопросов</td>
-								<td>{$test->getCountQuestions()}</td>
-							</tr>
-						</table>
+						<form name="editQuestionForm" method="POST">
+							<table class="table table-striped">
+								<tr>
+									<td>Название теста</td>
+									<td><input type="text" name="testName" value="{$test->getCaption()}" class="form-control"></td>
+								</tr>
+								<tr>
+									<td>Предмет</td>
+									<td>
+										<select name="subject" class="form-control">
+											<option>{$test->getSubject()}</option>
+											{foreach from=$subjects item=subject}
+											<option>{$subject->getDescription()}</option>
+											{/foreach}
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td>Автор</td>
+									<td>{$test->getAuthorEmail()}</td>
+								</tr>
+								<tr>
+									<td>Кол-во вопросов</td>
+									<td>{$test->getCountQuestions()}</td>
+								</tr>
+							</table>
+						</form>
 					</fieldset>
 					<fieldset>
 						<legend>Статистика</legend>
@@ -68,8 +77,9 @@
 							</div>
 							<div id="questions" class="panel-collapse collapse">
 								<div class="panel-body">
-									<form name="removeQuestionForm" method="POST">
+									<form name="workWithQuestionsForm" method="POST">
 										<input type="submit" name="removeQuestionButton" value="Удалить" class="btn btn-danger btn-sm">
+										<input type="submit" name="editQuestionButton" value="Изменить" class="btn btn-warning btn-sm">
 										<br>
 										<br>
 										<table class="table table-hover">
@@ -81,8 +91,8 @@
 											</tr>
 											{foreach from=$test->getQuestions() item=question}
 												<tr>
-													<td>{$question->getQuestion()}</td>
-													<td>{$question->getRAnswer()}</td>
+													<td><input type="text" name="question[]" value="{$question->getQuestion()}" class="form-control"></td>
+													<td><input type="text" name="questionRAnswer[]" value="{$question->getRAnswer()}" class="form-control"></td>
 													<td>
 														<ul>
 														{foreach from=$question->getAnswers() item=answer}

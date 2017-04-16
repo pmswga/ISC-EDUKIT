@@ -6,9 +6,21 @@
 	
 	if (!empty($test_id) && ($test_id > 0)) {
 		
+		$user = $_SESSION['user'];
+		
 		$test = $TM->getTest($test_id);
 		
+		$teacher_subjects = array();
+		
+		array_walk_recursive($user->getSubjects(), function ($value, $key, $test_subject) {
+			global $teacher_subjects;
+			if ($value->getDescription() != $test_subject) {
+				$teacher_subjects[] = $value;
+			}
+		}, $test->getSubject());
+		
 		$CT->assign("test", $test);
+		$CT->assign("subjects", $teacher_subjects);
 		$CT->Show("tests/info.tpl");
 		
 		if (!empty($_POST['removeQuestionButton'])) {
@@ -32,6 +44,18 @@
 			} else {
 				CTools::Message("Вы не выбрали вопрос/вопросы");
 			}
+			
+		}
+		
+		if (!empty($_POST['editQuestionButton'])) {
+			$select_question_test = $_POST['select_question_test'];
+			$question = $_POST['question'];
+			$questionRAnswer = $_POST['questionRAnswer'];
+			
+			for ($i = 0; $i < count($select_question_test); $i++) {
+				echo "Question: [".$question[$i]."] have [".$questionRAnswer[$i]."] is ".$select_question_test[$i]."<br>";
+			}
+			
 			
 		}
 		
