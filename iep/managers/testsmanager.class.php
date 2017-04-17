@@ -1,5 +1,5 @@
 <?php
-    declare(strict_types = 1);
+  declare(strict_types = 1);
 	namespace IEP\Managers;
 	
 	require_once "iep.class.php";
@@ -135,6 +135,15 @@
 			return $remove_question_query->execute();
 		}
 		
+		public function removeAnswer(int $answer_id) : bool
+		{
+			$remove_answer_query = $this->dbc()->prepare("call removeAnswer(:answer_id)");
+			
+			$remove_answer_query->bindValue(":answer_id", $answer_id);
+			
+			return $remove_answer_query->execute();
+		}
+		
 		public function getTeacherTests(string $emailTeacher) : array
 		{
 			$db_tests = $this->get("call getTests(:emailTeacher)", [":emailTeacher" => $emailTeacher]);
@@ -246,10 +255,47 @@
 			return $set_group_query->execute();
 		}
 		
-		public function cahngeCaptionQuestion(int $question_id, string $new_caption)
+		public function cahngeCaptionQuestion(int $question_id, string $new_caption) : bool
 		{
-			$change_question_query = $this->dbc()->prepare("call ");
+			$change_question_query = $this->dbc()->prepare("call cahngeCaptionQuestion(:question_id, :new_caption)");
+			
+			$change_question_query->bindValue(":question_id", $question_id);
+			$change_question_query->bindValue(":new_caption", $new_caption);
+			
+			return $change_question_query->execute();
 		}
+		
+		public function changeRAnswerQuestion(int $question_id, string $new_RAnswer) : bool
+		{
+			$change_question_query = $this->dbc()->prepare("call changeRAnswerQuestion(:question_id, :new_RAnswer)");
+			
+			$change_question_query->bindValue(":question_id", $question_id);
+			$change_question_query->bindValue(":new_RAnswer", $new_RAnswer);
+			
+			return $change_question_query->execute();
+		}
+		
+		public function changeCaptionAnswer(int $answer_id, string $new_answer) : bool
+		{
+			$change_answer_query = $this->dbc()->prepare("call changeCaptionAnswer(:answer_id, :new_answer)");
+			
+			$change_answer_query->bindValue(":answer_id", $answer_id);
+			$change_answer_query->bindValue(":new_answer", $new_answer);
+			
+			return $change_answer_query->execute();
+		}
+		
+		public function getAnswers(int $test_id, int $question_id)
+		{
+			$answers_query = $this->dbc()->prepare("call getAnswers(:test_id, :question_id)");
+			
+			$answers_query->bindValue(":test_id", $test_id);
+			$answers_query->bindValue(":question_id", $question_id);
+			
+			return $answers_query->execute();
+		}
+		
+		
 		
 		public function change($oldTest, $newTest)
 		{
