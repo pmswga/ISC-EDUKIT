@@ -14,7 +14,7 @@
 	
 	$CT = new CTemplater("templates/tpl", "templates/tpl_c", "templates/configs", "templates/cache");
   
-	$DB = new PDO("mysql:dbname=".DATA_BASE_NAME.";host=127.0.0.1", USER_NAME, USER_PASSWORD);
+	$DB = new PDO("mysql:dbname=".DATA_BASE_NAME.";host=127.0.0.1:".PORT, USER_NAME, USER_PASSWORD);
 	$DB->exec("SET NAMES utf8");
 	
   function RusToEng($string, $gost = false)
