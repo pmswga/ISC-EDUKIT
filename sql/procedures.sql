@@ -297,6 +297,13 @@ END;
 
 CREATE PROCEDURE setUserType(u_email char(30), u_type int)
 BEGIN
+	/*
+	DECLARE last_u_type int;
+	
+	SELECT `id_type_user` INTO last_u_type FROM `users`; 
+	*/
+	
+
 	UPDATE `users` SET `id_type_user`=u_type WHERE `email`=u_email;
 END;
 
@@ -480,7 +487,7 @@ END;
 
 /* Для получение специальностей, нужно использовать представление `v_Groups`  */
 
-CREATE PROCEDURE addGroup(descp CHAR(255), id_spec int, is_budget BOOL)
+CREATE PROCEDURE addGroup(descp CHAR(255), id_spec int, is_budget int)
 BEGIN
 	INSERT INTO `groups` (`code_spec`, `description`, `is_budget`) VALUES (id_spec, descp, is_budget);
 END;

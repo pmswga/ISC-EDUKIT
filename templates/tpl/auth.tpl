@@ -8,6 +8,8 @@
       <div class="modal-body">
 				<div class="row">
 					<form name="authorizate" action="php/login.php" method="POST">
+						<div class="col-md-3">
+						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Email:</label>
@@ -21,6 +23,8 @@
 								<a href="#Молодец">Забыл пароль?</a>
 								<input name="authorizateButton" type="submit" class="btn btn-primary" value="Войти">
 							</div>
+						</div>
+						<div class="col-md-3">
 						</div>
 					</form>
 				</div>

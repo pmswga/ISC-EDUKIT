@@ -1,16 +1,28 @@
 <?php
-    declare(strict_types = 1);
+	declare(strict_types = 1);
 	namespace IEP\Managers;
-    
+  
 	abstract class IEP
 	{
 		private $DBC;
-        
-        function __construct(\PDO $dbc)
-        {
-            $this->DBC = $dbc;
-        }
-        
+		protected $log_file_name;
+		protected $log_file_path;
+		
+		function __construct(\PDO $dbc)
+		{
+			$this->DBC = $dbc;
+		}
+    
+		protected function writeLog($msg)
+		{
+			$header = "\r\n--[Date: ".date("d.m.Y")." Time: ".date("G:i:s")."]--\r\n";
+			$header .= "Class: ".basename(__CLASS__)."    Line: ".__LINE__."\r\n";
+			$content = $msg;
+			$footer = "\r\n".str_repeat("-", strlen($msg));
+			
+			file_put_contents($this->log_file_path, $header.$content.$footer, FILE_APPEND);
+		}
+		
 		public function setDBC($dbc)
 		{
 			$this->DBC = $dbc;
@@ -31,11 +43,11 @@
 			}
 			else return $this->dbc()->query($what)->fetchAll(\PDO::FETCH_ASSOC);
 		}
-        
+		
 		abstract public function add($data);
 		abstract public function remove($what);
 		abstract public function change($old, $new);
-        
+		
 	}
 	
 ?>

@@ -10,7 +10,7 @@
 		private $is_budget;
 		private $count_students;
     
-		function __construct(string $number, string $code_spec, bool $is_budget)
+		function __construct(string $number, string $code_spec, int $is_budget)
 		{
       $this->id = 0;
 			$this->grp = $number;
@@ -38,7 +38,7 @@
 			return $this->code_spec;
 		}
 		
-		public function getStatus() : bool
+		public function getStatus() : int
 		{
 			return $this->is_budget;
 		}

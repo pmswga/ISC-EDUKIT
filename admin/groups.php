@@ -20,7 +20,7 @@
 		if (!empty($_POST['addGroupButton'])) {
 			$data = CForm::getData(["group", "spec", "payment"]);
 			
-			$new_grp = new Group($data['group'], $data['spec'], (booL)$data['payment']);
+			$new_grp = new Group($data['group'], $data['spec'], $data['payment']);
 			
 			if ($GM->add($new_grp)) {
 				CTools::Redirect("groups.php");

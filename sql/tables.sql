@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `groups` (
 	grp int AUTO_INCREMENT PRIMARY KEY,
 	description char(10) NOT NULL,
 	code_spec int NOT NULL,
-	is_budget boolean NOT NULL,
+	is_budget int NOT NULL,
 	INDEX (code_spec),
 	CONSTRAINT gc_desc CHECK(description <> '')
 ) ENGINE = InnoDB CHARACTER SET = UTF8;

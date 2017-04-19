@@ -1,6 +1,6 @@
 <?php
-    declare(strict_types = 1);
-    namespace IEP\Managers;
+	declare(strict_types = 1);
+	namespace IEP\Managers;
     
 	require_once "iep.class.php";
 	require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/group.class.php";
@@ -9,7 +9,20 @@
     
 	class GroupManager extends IEP
 	{
-        
+    
+		function __construct(\PDO $dbc)
+		{
+			parent::__construct($dbc);
+			$this->log_file_name = __CLASS__.".log";
+			$this->log_file_path = $_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."iep".DIRECTORY_SEPARATOR."logs".DIRECTORY_SEPARATOR.basename($this->log_file_name);
+			
+			if (!file_exists($this->log_file_path)) {
+				if (!touch ($this->log_file_path)) {
+					die("Ошибка при создании лог файла для менеджера");
+				}
+			}
+		}
+		
 		public function add($grp) : bool
 		{
 			$add_group_query = $this->dbc()->prepare("call addGroup(:grp, :code_spec, :payment)");
@@ -18,7 +31,16 @@
 			$add_group_query->bindValue(":code_spec", $grp->getCodeSpec());
 			$add_group_query->bindValue(":payment", $grp->getStatus());
 			
-			return $add_group_query->execute();
+			$result = $add_group_query->execute();
+		
+			if (!$result) {
+				$this->writeLog($add_group_query->errorInfo()[2]);
+				
+				return false;
+			} else {			
+				return $result;
+			}
+		
 		}
 		
 		public function getGroups() : array
@@ -29,7 +51,7 @@
       foreach($grps as $grp)
       {
 				$countStudents = $this->get("SELECT COUNT(`id_student`) as cs FROM `students` WHERE `grp`=:grp", [":grp" => $grp['id_grp']]);
-				$group = new Group($grp['grp'], $grp['spec'], (bool)$grp['budget']);
+				$group = new Group($grp['grp'], $grp['spec'], (int)$grp['budget']);
 				$group->setID((int)$grp['id_grp']);
 				$group->setCountStudents((int)$countStudents[0]['cs']);
 				

@@ -154,7 +154,7 @@
 				
 				$groups = array();
 				for($i = 0; $i < count($for_groups); $i++) {
-					$new_group = new Group($for_groups[$i]['grp'], $for_groups[$i]['spec'], (bool)$for_groups[$i]['is_budget']);
+					$new_group = new Group($for_groups[$i]['grp'], $for_groups[$i]['spec'], (int)$for_groups[$i]['is_budget']);
 					$new_group->setID((int)$for_groups[$i]['id_group']);
 					
 					$groups[] = $new_group;
@@ -178,7 +178,7 @@
 			
 			$groups = array();
 			for($i = 0; $i < count($for_groups); $i++) {
-				$new_group = new Group($for_groups[$i]['grp'], $for_groups[$i]['spec'], (bool)$for_groups[$i]['is_budget']);
+				$new_group = new Group($for_groups[$i]['grp'], $for_groups[$i]['spec'], (int)$for_groups[$i]['is_budget']);
 				$new_group->setID((int)$for_groups[$i]['id_group']);
 				
 				$groups[] = $new_group;
