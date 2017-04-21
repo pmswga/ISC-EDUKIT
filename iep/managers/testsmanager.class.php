@@ -235,6 +235,26 @@
 			return $tests;
 		}
 		
+		public function changeCaptionTest(int $test_id, string $test_caption) : bool
+		{
+			$test_change = $this->dbc()->prepare("call changeCaptionTest(:test_id, :test_caption)");
+			
+			$test_change->bindValue(":test_id", $test_id);
+			$test_change->bindValue(":test_caption", $test_caption);
+			
+			return $test_change->execute();
+		}
+		
+		public function changeSubjectTest(int $test_id, string $subject) : bool
+		{
+			$test_change = $this->dbc()->prepare("call changeSubjectTest(:test_id, :subject)");
+			
+			$test_change->bindValue(":test_id", $test_id);
+			$test_change->bindValue(":subject", $subject);
+			
+			return $test_change->execute();
+		}
+		
 		public function setGroup(int $test_id, int $test_grp) : bool
 		{
 			$set_group_query = $this->dbc()->prepare("call setGroup(:test_id, :test_grp)");

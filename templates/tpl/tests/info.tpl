@@ -33,32 +33,37 @@
 				<div class="col-md-4">
 					<fieldset>
 						<legend>Общая информация</legend>
-						<form name="editQuestionForm" method="POST">
-							<table class="table table-striped">
-								<tr>
-									<td>Название теста</td>
-									<td><input type="text" name="testName" value="{$test->getCaption()}" class="form-control"></td>
-								</tr>
-								<tr>
-									<td>Предмет</td>
-									<td>
-										<select name="subject" class="form-control">
-											<option>{$test->getSubject()}</option>
-											{foreach from=$subjects item=subject}
-											<option>{$subject->getDescription()}</option>
-											{/foreach}
-										</select>
-									</td>
-								</tr>
-								<tr>
-									<td>Автор</td>
-									<td>{$test->getAuthorEmail()}</td>
-								</tr>
-								<tr>
-									<td>Кол-во вопросов</td>
-									<td>{$test->getCountQuestions()}</td>
-								</tr>
-							</table>
+						<form name="editTestForm" method="POST">
+							<div class="form-group">
+								<table class="table table-striped">
+									<tr>
+										<td>Название теста</td>
+										<td><input type="text" name="testName" value="{$test->getCaption()}" class="form-control"></td>
+									</tr>
+									<tr>
+										<td>Предмет</td>
+										<td>
+											<select name="subject" class="form-control">
+												<option>{$test->getSubject()}</option>
+												{foreach from=$subjects item=subject}
+												<option>{$subject->getDescription()}</option>
+												{/foreach}
+											</select>
+										</td>
+									</tr>
+									<tr>
+										<td>Автор</td>
+										<td>{$test->getAuthorEmail()}</td>
+									</tr>
+									<tr>
+										<td>Кол-во вопросов</td>
+										<td>{$test->getCountQuestions()}</td>
+									</tr>
+								</table>
+							</div>
+							<div class="form-group">
+								<input type="submit" name="saveTestInfoButton" value="Сохранить изменения" class="btn btn-primary">
+							</div>
 						</form>
 					</fieldset>
 					<fieldset>

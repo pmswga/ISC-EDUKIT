@@ -82,6 +82,16 @@
 				CTools::Message("Вы не выбрали группу/группы");
 			}
 		}
+						
+		if (!empty($_POST['saveTestInfoButton'])) {
+			$test_caption = htmlspecialchars($_POST['testName']);
+			$subject = $_POST['subject'];
+			
+			$result = true;
+			$result *= $TM->changeCaptionTest($test_id, $test_caption);
+			$result *= $TM->changeSubjectTest($test_id, $subject;
+			
+		}
 		
 	} else {
 		CTools::Message("404 Not Found");
