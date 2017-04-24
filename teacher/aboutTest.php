@@ -7,7 +7,7 @@
 			
 			$test_id = (int)$_GET['test'];
 			
-			if (!empty($test_id) && ($test_id > 0)) {
+			if ($test_id > 0) {
 				
 				$user = $_SESSION['user'];
 				$test = $TM->getTest($test_id);

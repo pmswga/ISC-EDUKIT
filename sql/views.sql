@@ -18,8 +18,8 @@ CREATE VIEW v_Users (sn, fn, pt, email, paswd, type_user) as
 	FROM `users` 
 	ORDER BY `second_name`, `first_name`, `patronymic`;
 	
-CREATE VIEW v_Students (sn, fn, pt, email, paswd, home_address, cell_phone, grp, type_user) as
-	SELECT u.second_name, u.first_name, u.patronymic, u.email, u.password, s.home_address, s.cell_phone, g.description, u.id_type_user
+CREATE VIEW v_Students (sn, fn, pt, email, paswd, home_address, cell_phone, grp, grp_id, type_user) as
+	SELECT u.second_name, u.first_name, u.patronymic, u.email, u.password, s.home_address, s.cell_phone, g.description, g.grp, u.id_type_user
 	FROM `users` u 
 		INNER JOIN `students` s ON u.id_user=s.id_student
 		INNER JOIN `groups` g ON s.grp=g.grp

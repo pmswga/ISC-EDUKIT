@@ -216,6 +216,7 @@
 			$test = new Test($db_test['test_name'], $db_test['email'], $groups);
 			$test->setTestID((int)$db_test['id_test']);
 			$test->setSubject(new Subject($db_test['subject'], (int)$db_test['subject_id']));
+			$test->setAuthorName($db_test['snp']);
 			$test->addQuestion($questions);
 			
 			return $test;
@@ -240,31 +241,31 @@
 		
 		public function getTests() : array
 		{
-			$db_tests = $this->get("SELECT * FROM `tests`");
+			// $db_tests = $this->get("SELECT * FROM `tests`");
 			
-			$tests = array();
-			foreach ($db_tests as $db_test) {
+			// $tests = array();
+			// foreach ($db_tests as $db_test) {
 				
-				$subject = $this->get("SELECT `description` FROM `subjects` WHERE `id_subject`=:id_subject", [":id_subject" => $db_test['id_subject']])[0]['description'];
-				$author = $this->get("SELECT CONCAT(`second_name`, ' ', LEFT(`first_name`, 1), '.', LEFT(`patronymic`, 1), '.') as author FROM `users` WHERE `id_user`=:id_user", [":id_user" => $db_test['id_teacher']])[0]['author'];
-				$db_questions = $this->get("SELECT * FROM `questions` WHERE `id_test`=:id_test", [":id_test" => $db_test['id_test']]);
+				// $subject = $this->get("SELECT `description` FROM `subjects` WHERE `id_subject`=:id_subject", [":id_subject" => $db_test['id_subject']])[0]['description'];
+				// $author = $this->get("SELECT CONCAT(`second_name`, ' ', LEFT(`first_name`, 1), '.', LEFT(`patronymic`, 1), '.') as author FROM `users` WHERE `id_user`=:id_user", [":id_user" => $db_test['id_teacher']])[0]['author'];
+				// $db_questions = $this->get("SELECT * FROM `questions` WHERE `id_test`=:id_test", [":id_test" => $db_test['id_test']]);
 				
-				$questions = array();
-				foreach ($db_questions as $db_question) {
-					$db_answers = $this->get("SELECT * FROM `answers` WHERE `id_question`=:id_question", [":id_question" => $db_question['id_question']]);
+				// $questions = array();
+				// foreach ($db_questions as $db_question) {
+					// $db_answers = $this->get("SELECT * FROM `answers` WHERE `id_question`=:id_question", [":id_question" => $db_question['id_question']]);
 					
-					$answers = array();
-					foreach ($db_answers as $db_answer) {
-							$answers[] = $db_answer['answer'];
-					}
+					// $answers = array();
+					// foreach ($db_answers as $db_answer) {
+							// $answers[] = $db_answer['answer'];
+					// }
 					
-					$questions[] = new OneQuestion($db_question['question'], $answers, $db_question['r_answer']);
-				}
+					// $questions[] = new OneQuestion($db_question['question'], $answers, $db_question['r_answer']);
+				// }
 					
-				$tests[] = new Test($db_test['caption'], $subject, $author, $db_test['for_group'], $questions);
-			}
+				// $tests[] = new Test($db_test['caption'], $subject, $author, $db_test['for_group'], $questions);
+			// }
 			
-			return $tests;
+			// return $tests;
 		}
 		
 		public function changeCaptionTest(int $test_id, string $test_caption) : bool

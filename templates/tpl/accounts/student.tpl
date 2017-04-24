@@ -9,7 +9,7 @@
 		<script type="text/javascript" src="js/bootstrap.js"></script>
 		<style>
 			
-			h1, h2{
+			h1, h2, h3, h4, h5, h6{
 				text-align: center;
 			}
 			
@@ -18,11 +18,6 @@
 	<body>
 		<div class="container-fluid">
 			{include file="users/menu.tpl"}
-			<div class="row">
-				<div class="col-md-12">
-					<h1>{$fio}</h1>
-				</div>
-			</div>
 			<div class="row" style="padding: 15px;">
 				<div class="col-md-8">
 					<h2>Моё расписание</h2>
@@ -42,6 +37,10 @@
 							<tr>
 								<td>Отчество</td>
 								<td>{$user->getPt()}</td>
+							</tr>
+							<tr>
+								<td>Email</td>
+								<td>{$user->getEmail()}</td>
 							</tr>
 							<tr>
 								<td>Группа</td>
@@ -64,11 +63,15 @@
 							</div>
 							<div id="u_teachers" class="panel-collapse collapse">
 								<div class="panel-body">
-									<table class="table table-bordered">
-										{foreach from=$sogroups item=it}
-											<tr><td><a href=account.php?email={$it['email']}>{$it['sn']} {$it['fn']}</a></td></tr>
-										{/foreach}
-									</table>
+									{if $sogroups != NULL}
+										<table class="table table-bordered">
+											{foreach from=$sogroups item=it}
+												<tr><td><a href=account.php?email={$it['email']}>{$it['sn']} {$it['fn']}</a></td></tr>
+											{/foreach}
+										</table>
+									{else}
+										<h4>Ваши одногруппники ещё не зарегистрированны</h4>
+									{/if}
 								</div>
 							</div>
 						</div>
@@ -98,7 +101,7 @@
 											</thead>
 											<tbody>
 												{foreach from=$tests item=test}
-													<td><a href="#">{$test->getCaption()}</a></td>
+													<td><a href="student/complete.php?test_id={$test->getTestID()}">{$test->getCaption()}</a></td>
 													<td>{$test->getSubject()->getDescription()}</td>
 													<td>{$test->getAuthorEmail()}</td>
 												{/foreach}
@@ -127,14 +130,14 @@
 											</thead>
 											<tbody>
 												{foreach from=$completedTests item=test}
-													<td><a href="#">{$test->getCaption()}</a></td>
+													<td>{$test->getCaption()}</td>
 													<td>{$test->getSubject()->getDescription()}</td>
 													<td>{$test->getAuthorEmail()}</td>
 												{/foreach}
 											</tbody>
 										</table>
 									{else}
-										<h2>Нету пройденных тестов</h2>
+										<h4>Вы ещё не прошли ни одного теста</h4>
 									{/if}
 								</div>
 							</div>
