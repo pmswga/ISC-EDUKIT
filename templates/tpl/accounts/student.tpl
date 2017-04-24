@@ -16,15 +16,11 @@
 		</style>
 	</head>
 	<body>
-		<div class="container">
+		<div class="container-fluid">
+			{include file="users/menu.tpl"}
 			<div class="row">
 				<div class="col-md-12">
 					<h1>{$fio}</h1>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					{include file='users/menu.tpl'}
 				</div>
 			</div>
 			<div class="row" style="padding: 15px;">
@@ -93,9 +89,24 @@
 							</div>
 							<div id="s_tests" class="panel-collapse collapse">
 								<div class="panel-body">
-									<table class="table table-bordered">
-                  
-									</table>
+									{if $tests != NULL}
+										<table class="table table-bordered">
+											<thead>
+												<th>Название</th>
+												<th>Предмет</th>
+												<th>Автор</th>
+											</thead>
+											<tbody>
+												{foreach from=$tests item=test}
+													<td><a href="#">{$test->getCaption()}</a></td>
+													<td>{$test->getSubject()->getDescription()}</td>
+													<td>{$test->getAuthorEmail()}</td>
+												{/foreach}
+											</tbody>
+										</table>
+									{else}
+										<h2>Нету доступных тестов</h2>
+									{/if}
 								</div>
 							</div>
 						</div>
@@ -107,9 +118,24 @@
 							</div>
 							<div id="c_tests" class="panel-collapse collapse">
 								<div class="panel-body">
-									<table class="table table-bordered">
-									
-									</table>
+									{if $completedTests != NULL}
+										<table class="table table-bordered">
+											<thead>
+												<th>Название</th>
+												<th>Предмет</th>
+												<th>Автор</th>
+											</thead>
+											<tbody>
+												{foreach from=$completedTests item=test}
+													<td><a href="#">{$test->getCaption()}</a></td>
+													<td>{$test->getSubject()->getDescription()}</td>
+													<td>{$test->getAuthorEmail()}</td>
+												{/foreach}
+											</tbody>
+										</table>
+									{else}
+										<h2>Нету пройденных тестов</h2>
+									{/if}
 								</div>
 							</div>
 						</div>

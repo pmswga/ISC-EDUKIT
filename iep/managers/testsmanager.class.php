@@ -221,6 +221,23 @@
 			return $test;
 		}
 		
+		public function getTestForGroup(int $group_id)
+		{
+			$db_tests = $this->get("call getTestForGroup(:grp)", [":grp" => $group_id]);
+			
+			$tests = array();
+			foreach ($db_tests as $db_test) {
+				
+				$new_test = new Test($db_test['caption'], $db_test['email']);
+				$new_test->setTestID((int)$db_test['id_test']);
+				$new_test->setSubject(new Subject($db_test['description'], (int)$db_test['id_subject']));
+				
+				$tests[] = $new_test;
+			}
+			
+			return $tests;
+		}
+		
 		public function getTests() : array
 		{
 			$db_tests = $this->get("SELECT * FROM `tests`");

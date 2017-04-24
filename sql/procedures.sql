@@ -655,6 +655,9 @@ CREATE PROCEDURE getTestForGroup(id_grp int)
 BEGIN
 	SELECT * FROM `tests` t
 		INNER JOIN `groups_tests` gt ON gt.id_test=t.id_test
+		INNER JOIN `users` u ON t.id_teacher=u.id_user
+    INNER JOIN `subjects` sb ON sb.id_subject=t.id_subject
+		
 	WHERE gt.id_group=id_grp;
 END;
 

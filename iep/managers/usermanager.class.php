@@ -44,6 +44,8 @@
 						$student_data[0]['cell_phone'],
 						$student_data[0]['grp']
 					);
+					
+					$s->setGroupID((int)$student_data[0]['grp_id']);
           
 					return $s;
 				} break;

@@ -20,7 +20,7 @@
 		
 		private $for_groups;
 		
-		function __construct(string $caption, string $author, array $for_groups, array $questions = array())
+		function __construct(string $caption, string $author, array $for_groups = array(), array $questions = array())
 		{
 			$this->caption = $caption;
 			$this->author = $author;
