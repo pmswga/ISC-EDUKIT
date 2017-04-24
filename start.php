@@ -27,11 +27,7 @@
 		$ROOT_PATH."/templates/cache"
 	);
 	
-	$opt = array(
-		"PDO::ATTR_ERRMODE" => PDO::ERRMODE_EXCEPTION,
-		"PDO::ATTR_DEFAULT_FETCH_MODE" => PDO::FETCH_ASSOC
-	);
-	$DB = new PDO("mysql:dbname=".DATA_BASE_NAME.";host=127.0.0.1:".PORT, USER_NAME, USER_PASSWORD, $opt);
+	$DB = new PDO("mysql:dbname=".DATA_BASE_NAME.";host=127.0.0.1:".PORT, USER_NAME, USER_PASSWORD);
 	$DB->exec("SET NAMES utf8");
 	
 	$UM = new UserManager($DB);

@@ -10,9 +10,23 @@
 	use IEP\Structures\Test;
 	use IEP\Structures\OneQuestion;
 	use IEP\Structures\Group;
+	use IEP\Structures\Subject;
 	
 	class TestsManager extends IEP
 	{
+		
+		function __construct(\PDO $dbc)
+		{
+			parent::__construct($dbc);
+			$this->log_file_name = __CLASS__.".log";
+			$this->log_file_path = $_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."iep".DIRECTORY_SEPARATOR."logs".DIRECTORY_SEPARATOR.basename($this->log_file_name);
+			
+			if (!file_exists($this->log_file_path)) {
+				if (!touch ($this->log_file_path)) {
+					die("Ошибка при создании лог файла для менеджера");
+				}
+			}
+		}
 		
 		public function add($test) : bool
 		{
@@ -24,7 +38,7 @@
 				
 				$test_add_query = $this->dbc()->prepare("call addTest(:emailTeacher, :subject, :caption)");
 				
-				$test_add_query->bindValue(":subject", $test->getSubjectID());
+				$test_add_query->bindValue(":subject", $test->getSubject()->getID());
 				$test_add_query->bindValue(":emailTeacher", $test->getAuthorEmail());
 				$test_add_query->bindValue(":caption", $test->getCaption());
 				
@@ -162,7 +176,7 @@
 				
 				$new_test = new Test($db_test['test_name'], $db_test['email'], $groups);
 				$new_test->setTestID((int)$db_test['id_test']);
-				$new_test->setSubject($db_test['subject']);
+				$new_test->setSubject(new Subject($db_test['subject'], (int)$db_test['subject_id']));
 				
 				$tests[] = $new_test;
 			}
@@ -175,17 +189,18 @@
 			$db_test = $this->get("call getTest(:test_id)", [":test_id" => $test_id])[0];
 			
 			$for_groups = $this->get("call getTestGroups(:test_id)", [":test_id" => $test_id]);
-			
 			$groups = array();
 			for($i = 0; $i < count($for_groups); $i++) {
+				
+				$countStudents = $this->get("SELECT COUNT(`id_student`) as cs FROM `students` WHERE `grp`=:grp", [":grp" => $for_groups[$i]['id_group']]);
 				$new_group = new Group($for_groups[$i]['grp'], $for_groups[$i]['spec'], (int)$for_groups[$i]['is_budget']);
 				$new_group->setID((int)$for_groups[$i]['id_group']);
+				$new_group->setCountStudents((int)$countStudents[0]['cs']);
 				
 				$groups[] = $new_group;
 			}
 			
 			$db_questions = $this->get("call getQuestions(:test_id)", ["test_id" => $test_id]);
-			
 			$questions = array();
 			foreach($db_questions as $db_question) {
 				
@@ -200,7 +215,7 @@
 			
 			$test = new Test($db_test['test_name'], $db_test['email'], $groups);
 			$test->setTestID((int)$db_test['id_test']);
-			$test->setSubject($db_test['subject']);
+			$test->setSubject(new Subject($db_test['subject'], (int)$db_test['subject_id']));
 			$test->addQuestion($questions);
 			
 			return $test;
@@ -212,24 +227,24 @@
 			
 			$tests = array();
 			foreach ($db_tests as $db_test) {
+				
+				$subject = $this->get("SELECT `description` FROM `subjects` WHERE `id_subject`=:id_subject", [":id_subject" => $db_test['id_subject']])[0]['description'];
+				$author = $this->get("SELECT CONCAT(`second_name`, ' ', LEFT(`first_name`, 1), '.', LEFT(`patronymic`, 1), '.') as author FROM `users` WHERE `id_user`=:id_user", [":id_user" => $db_test['id_teacher']])[0]['author'];
+				$db_questions = $this->get("SELECT * FROM `questions` WHERE `id_test`=:id_test", [":id_test" => $db_test['id_test']]);
+				
+				$questions = array();
+				foreach ($db_questions as $db_question) {
+					$db_answers = $this->get("SELECT * FROM `answers` WHERE `id_question`=:id_question", [":id_question" => $db_question['id_question']]);
 					
-					$subject = $this->get("SELECT `description` FROM `subjects` WHERE `id_subject`=:id_subject", [":id_subject" => $db_test['id_subject']])[0]['description'];
-					$author = $this->get("SELECT CONCAT(`second_name`, ' ', LEFT(`first_name`, 1), '.', LEFT(`patronymic`, 1), '.') as author FROM `users` WHERE `id_user`=:id_user", [":id_user" => $db_test['id_teacher']])[0]['author'];
-					$db_questions = $this->get("SELECT * FROM `questions` WHERE `id_test`=:id_test", [":id_test" => $db_test['id_test']]);
-					
-					$questions = array();
-					foreach ($db_questions as $db_question) {
-							$db_answers = $this->get("SELECT * FROM `answers` WHERE `id_question`=:id_question", [":id_question" => $db_question['id_question']]);
-							
-							$answers = array();
-							foreach ($db_answers as $db_answer) {
-									$answers[] = $db_answer['answer'];
-							}
-							
-							$questions[] = new OneQuestion($db_question['question'], $answers, $db_question['r_answer']);
+					$answers = array();
+					foreach ($db_answers as $db_answer) {
+							$answers[] = $db_answer['answer'];
 					}
 					
-					$tests[] = new Test($db_test['caption'], $subject, $author, $db_test['for_group'], $questions);
+					$questions[] = new OneQuestion($db_question['question'], $answers, $db_question['r_answer']);
+				}
+					
+				$tests[] = new Test($db_test['caption'], $subject, $author, $db_test['for_group'], $questions);
 			}
 			
 			return $tests;
@@ -245,12 +260,12 @@
 			return $test_change->execute();
 		}
 		
-		public function changeSubjectTest(int $test_id, string $subject) : bool
+		public function changeSubjectTest(int $test_id, int $subject_id) : bool
 		{
-			$test_change = $this->dbc()->prepare("call changeSubjectTest(:test_id, :subject)");
+			$test_change = $this->dbc()->prepare("call changeSubjectTest(:test_id, :subject_id)");
 			
 			$test_change->bindValue(":test_id", $test_id);
-			$test_change->bindValue(":subject", $subject);
+			$test_change->bindValue(":subject_id", $subject_id);
 			
 			return $test_change->execute();
 		}
@@ -275,14 +290,21 @@
 			return $set_group_query->execute();
 		}
 		
-		public function cahngeCaptionQuestion(int $question_id, string $new_caption) : bool
+		public function changeCaptionQuestion(int $question_id, string $new_caption) : bool
 		{
-			$change_question_query = $this->dbc()->prepare("call cahngeCaptionQuestion(:question_id, :new_caption)");
+			$change_question_query = $this->dbc()->prepare("call changeCaptionQuestion(:question_id, :new_caption)");
 			
 			$change_question_query->bindValue(":question_id", $question_id);
 			$change_question_query->bindValue(":new_caption", $new_caption);
 			
-			return $change_question_query->execute();
+			$result = $change_question_query->execute();
+			
+			if (!$result) {
+				$this->writeLog($change_question_query->errorInfo()[2]);
+				return false;
+			} else {			
+				return $result;
+			}
 		}
 		
 		public function changeRAnswerQuestion(int $question_id, string $new_RAnswer) : bool
@@ -292,7 +314,14 @@
 			$change_question_query->bindValue(":question_id", $question_id);
 			$change_question_query->bindValue(":new_RAnswer", $new_RAnswer);
 			
-			return $change_question_query->execute();
+			$result = $change_question_query->execute();
+			
+			if (!$result) {
+				$this->writeLog($change_question_query->errorInfo()[2]);
+				return false;
+			} else {			
+				return $result;
+			}
 		}
 		
 		public function changeCaptionAnswer(int $answer_id, string $new_answer) : bool

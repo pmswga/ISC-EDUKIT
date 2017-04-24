@@ -4,6 +4,7 @@
 	use IEP\Structures\OneNews;
 	use IEP\Structures\Test;
 	use IEP\Structures\OneQuestion;
+	use IEP\Structures\Subject;
 	
 	if(isset($_SESSION['user']))
 	{
@@ -20,6 +21,10 @@
 				$CT->assign("fio", $user->getSn()." ".$user->getFn()." ".$user->getPt());
 				$CT->assign("sogroups", $sogroups);
 				$CT->assign("user", $user);
+				
+				
+				
+				
 				
 				$CT->Show("accounts/student.tpl");
 			} break;
@@ -125,7 +130,7 @@
 					$select_group = $_POST['select_group'] ?? array();
 					
 					$new_test = new Test($caption, $teacherEmail, $select_group);
-					$new_test->setSubjectID($subject);
+					$new_test->setSubject(new Subject("", $subject));
 					
 					if ($TM->add($new_test)) {
 						CTools::Message("Тест успешно создан");
@@ -160,29 +165,12 @@
 					for ($i = 0; $i < count($select_answers); $i++) {
 						$answers[] = $answer_text[$i];
 					}
+					$answers[] = $question_r_answer;
 					
 					$new_question = new OneQuestion($question_caption, $question_r_answer, $answers);
 					
 					if ($TM->addQuestion($question_test, $new_question)) {
 						CTools::Message("Вопрос добавлен");
-					} else {
-						CTools::Message("Произошла ошибка");
-					}
-					
-					CTools::Redirect("user.php");
-				}
-				
-				if (!empty($_POST['setGroupsButton'])) {
-					$select_group = $_POST['select_group'];
-					$test_id = $_POST['test_id'];
-					
-					$result = true;
-					for ($i = 0; $i < count($select_group); $i++) {
-						$result *= $TM->setGroup($test_id, $select_group[$i]);
-					}
-					
-					if ($result) {
-						CTools::Message("Группы назначены");
 					} else {
 						CTools::Message("Произошла ошибка");
 					}

@@ -19,7 +19,7 @@
 								<span class="icon-bar"></span>
 								<span class="icon-bar"></span>
 							</button>
-							<a href="index.php" class="navbar-brand">УКИТ<!--<img src="img/ukit.png" width="50px" alt="">--></a>
+							<a href="../user.php" class="navbar-brand">УКИТ</a>
 						</div>
 						<div class="collapse navbar-collapse" id="menu">
 							<ul class="nav navbar-nav pull-right">
@@ -44,9 +44,9 @@
 										<td>Предмет</td>
 										<td>
 											<select name="subject" class="form-control">
-												<option>{$test->getSubject()}</option>
+												<option value="{$test->getSubject()->getID()}">{$test->getSubject()->getDescription()}</option>
 												{foreach from=$subjects item=subject}
-												<option>{$subject->getDescription()}</option>
+												<option value="{$subject->getID()}">{$subject->getDescription()}</option>
 												{/foreach}
 											</select>
 										</td>
@@ -128,6 +128,7 @@
 										<form name="removeGroupFromTestForm" method="POST">
 											<input type="hidden" name="test_id" value="{$test->getTestID()}"> 
 											<input type="submit" name="removeGroupFromTestButton" value="Удалить" class="btn btn-danger btn-sm">
+											<a data-toggle="modal" data-target="#setGroupsDialog" class="btn btn-primary btn-sm">Назначить группы на тест</a>
 											<br>
 											<br>
 											<table class="table table-hover">
@@ -140,7 +141,9 @@
 													<tr>
 														<td>{$group->getNumberGroup()}</td>
 														<td>{$group->getCodeSpec()}</td>
-														<td><input type="checkbox" name="select_group_test[]" value="{$group->getID()}" class="form-control"></td>
+														<td>
+															<input type="checkbox" name="select_group_test[]" value="{$group->getID()}" class="form-control">
+														</td>
 													</tr>
 												{/foreach}
 											</table>
@@ -152,5 +155,49 @@
 				</div>
 			</div>
 		</div>
+		
+		<!-- Modals -->
+		
+		<div class="modal fade" id="setGroupsDialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<form name="setGroupsForm" method="POST">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title">Назначить группы на тест</h4>
+						</div>
+						<div class="modal-body">
+								<div class="form-group">
+									<label>Тест</label>
+									<p class="static">{$test->getCaption()}</p>
+									<input type="hidden" name="test_id" value="{$test->getTestID()}">
+								</div>
+								<div class="form-group">
+									<label>Группы</label>
+									<table class="table table-bordered">
+										<tr>
+											<th>Группа</th>
+											<th>Специальность</th>
+											<th>Выбрать</th>
+										</tr>
+										{foreach from=$other_groups item=group}
+											<tr>
+												<td>{$group->getNumberGroup()}</td>
+												<td>{$group->getCodeSpec()}</td>
+												<td><input type="checkbox" name="select_group[]" value="{$group->getID()}" class="form-control"></td>
+											</tr>
+										{/foreach}
+									</table>
+								</div>
+						</div>
+						<div class="modal-footer">
+							<input type="submit" name="setGroupsButton" value="Назначить группы" class="btn btn-primary">
+						</div>
+					</form>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+		
+		
 	</body>
 </html>

@@ -42,7 +42,7 @@
 										{foreach from=$teachersTests item=teacherTest}
 											<tr>
 												<td>{$teacherTest->getCaption()}</td>
-												<td>{$teacherTest->getSubject()}</td>
+												<td>{$teacherTest->getSubject()->getDescription()}</td>
 												<td style="display: flex; justify-content: space-around;">
 													<!--<input type="checkbox" value="{$teacherTest->getTestID()}" class="form-control">-->
 													<a href="teacher/aboutTest.php?test={$teacherTest->getTestID()}" class="btn btn-success btn-sm" >Подробнее</a>
@@ -89,8 +89,7 @@
 							<div id="teachers_tests" class="panel-collapse collapse">
 								<div class="panel-body">
 									<a class="btn btn-primary btn-block" data-toggle="modal" data-target="#addTestDialog">Добавить</a>
-									<a class="btn btn-primary btn-block" data-toggle="modal" data-target="#addQuestionsDialog">Добавить вопросы</a>
-									<a class="btn btn-primary btn-block" data-toggle="modal" data-target="#setGroupsDialog">Назначить группы на тест</a>
+									<a class="btn btn-primary btn-block" data-toggle="modal" data-target="#addQuestionsDialog">Добавить вопрос</a>
 								</div>
 							</div>
 						</div>
@@ -321,50 +320,6 @@
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
 	
-		
-		<div class="modal fade" id="setGroupsDialog">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<form name="setGroupsForm" method="POST">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-							<h4 class="modal-title">Назначить группы на тест</h4>
-						</div>
-						<div class="modal-body">
-								<div class="form-group">
-									<label>Тест</label>
-									<select name="test_id" class="form-control">
-										{foreach from=$teachersTests item=teacherTest}
-											<option value="{$teacherTest->getTestID()}">{$teacherTest->getCaption()}</option>
-										{/foreach}
-									</select>
-								</div>
-								<div class="form-group">
-									<label>Группы</label>
-									<table class="table table-bordered">
-										<tr>
-											<th>Группа</th>
-											<th>Специальность</th>
-											<th>Выбрать</th>
-										</tr>
-										{foreach from=$groups item=group}
-											<tr>
-												<td>{$group->getNumberGroup()}</td>
-												<td>{$group->getCodeSpec()}</td>
-												<td><input type="checkbox" name="select_group[]" value="{$group->getID()}" class="form-control"></td>
-											</tr>
-										{/foreach}
-									</table>
-								</div>
-						</div>
-						<div class="modal-footer">
-							<input type="submit" name="setGroupsButton" value="Назначить группы" class="btn btn-primary">
-						</div>
-					</form>
-				</div><!-- /.modal-content -->
-			</div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
-	
 		<script type="text/javascript">
 			
 			CKEDITOR.replace("news");
@@ -375,14 +330,14 @@
 			
 			$("[name='addAnswer']").click(function(){
 				
-				if (count_answers < max_count_answers) {					
+				if (count_answers < max_count_answers) {
 					$("#question_answers").append("<tr><td><input type='text' name='answer_text[]' class='form-control'></td><td><input type='checkbox' name='select_answers[]' value='' checked class='form-control'></td></tr>");
 					count_answers++;
 				} else {
 					alert("Достигнуто максимальное кол-во ответов");
 				}
 				
-			})
+			});
 			
 		</script>
 		

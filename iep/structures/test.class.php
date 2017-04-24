@@ -1,6 +1,10 @@
 <?php
-    declare(strict_types = 1);
+  declare(strict_types = 1);
 	namespace IEP\Structures;
+	
+	require_once "subject.class.php";
+	
+	use IEP\Structures\Subject;
 	
 	class Test
 	{
@@ -8,9 +12,6 @@
 		private $test_id;
 		
 		private $caption;
-		
-		private $subject;
-		private $subject_id;
 		
 		private $questions;
 		
@@ -22,10 +23,11 @@
 		function __construct(string $caption, string $author, array $for_groups, array $questions = array())
 		{
 			$this->caption = $caption;
-			$this->subject = $subject;
 			$this->author = $author;
       $this->for_groups = $for_groups;
 			$this->questions = $questions;
+			
+			$this->subject = new Subject("none");
 		}
 		
 		public function setTestID(int $test_id)
@@ -38,29 +40,19 @@
 			return $this->test_id;
 		}
 		
-		public function setSubjectID(int $subject_id)
+		public function setSubject(Subject $subject)
 		{
-			$this->subject_id = $subject_id;
+			$this->subject = $subject;
 		}
 		
-		public function getSubjectID() : int
+		public function getSubject() : Subject
 		{
-			return $this->subject_id;
+			return $this->subject;
 		}
 		
 		public function getCaption() : string
 		{
 			return $this->caption;
-		}
-		
-		public function setSubject(string $subject)
-		{
-			$this->subject = $subject;
-		}
-		
-		public function getSubject() : string
-		{
-			return $this->subject;
 		}
 		
 		public function getQuestions() : array

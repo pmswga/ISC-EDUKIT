@@ -96,6 +96,7 @@ DROP PROCEDURE IF EXISTS changeCaptionTest;
 DROP PROCEDURE IF EXISTS changeSubjectTest;
 DROP PROCEDURE IF EXISTS setGroup;
 DROP PROCEDURE IF EXISTS unsetGroup;
+DROP PROCEDURE IF EXISTS getTestForGroup;
 DROP PROCEDURE IF EXISTS getTestGroups;
 DROP PROCEDURE IF EXISTS getTests;
 DROP PROCEDURE IF EXISTS getTest;
@@ -635,9 +636,9 @@ BEGIN
   WHERE `id_test`=test_id;
 END;
 
-CREATE PROCEDURE changeSubjectTest(test_id int, subject char(255))
+CREATE PROCEDURE changeSubjectTest(test_id int, subject_id int)
 BEGIN
-  UPDATE `tests` SET `id_subject`=getSubjectID(subject);
+  UPDATE `tests` SET `id_subject`=subject_id;
 END;
 
 CREATE PROCEDURE setGroup(test_id int, test_grp int)
@@ -650,6 +651,13 @@ BEGIN
   DELETE FROM `groups_tests` WHERE `id_test`=test_id AND `id_group`=test_grp;
 END;
 
+CREATE PROCEDURE getTestForGroup(id_grp int)
+BEGIN
+	SELECT * FROM `tests` t
+		INNER JOIN `groups_tests` gt ON gt.id_test=t.id_test
+	WHERE gt.id_group=id_grp;
+END;
+
 CREATE PROCEDURE getTestGroups(test_id int)
 BEGIN
   SELECT g.grp as id_group, g.description as grp, s.description as spec, g.is_budget
@@ -657,7 +665,7 @@ BEGIN
     INNER JOIN `groups` g ON g.grp=g_t.id_group
     INNER JOIN `specialty` s ON g.code_spec=s.id_spec
   WHERE g_t.id_test=test_id
-  ORDER BY g.grp;
+  ORDER BY g.description;
 END;
 
 CREATE PROCEDURE getTest(test_id int)
@@ -702,7 +710,7 @@ END;
 
 CREATE PROCEDURE changeCaptionQuestion(question_id int, new_quest char(255))
 BEGIN
-  UPDATE `questions` SET `question`=new_quest;
+  UPDATE `questions` SET `question`=new_quest WHERE `id_question`=question_id;
 END;
 
 CREATE PROCEDURE changeRAnswerQuestion(question_id int, new_r_answer char(255))
