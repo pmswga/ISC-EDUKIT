@@ -101,9 +101,11 @@
 											</thead>
 											<tbody>
 												{foreach from=$tests item=test}
+													<tr>
 													<td><a href="student/complete.php?test_id={$test->getTestID()}">{$test->getCaption()}</a></td>
 													<td>{$test->getSubject()->getDescription()}</td>
 													<td>{$test->getAuthorEmail()}</td>
+													</tr>
 												{/foreach}
 											</tbody>
 										</table>
