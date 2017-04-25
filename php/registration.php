@@ -22,7 +22,7 @@
 			$data['cell_phone_child']
 		);
 		$new_student->setGroupID((int)$data['grp']);
-			
+				
 		if($UM->add($new_student)) CTools::Message("Регистрация прошла успешно");
 		else CTools::Message("При регистрации произошла ошибка");
 		

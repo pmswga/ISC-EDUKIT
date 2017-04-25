@@ -22,6 +22,19 @@
 	class UserManager extends IEP
 	{
 		
+		function __construct(\PDO $dbc)
+		{
+			parent::__construct($dbc);
+			$this->log_file_name = __CLASS__.".log";
+			$this->log_file_path = $_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."iep".DIRECTORY_SEPARATOR."logs".DIRECTORY_SEPARATOR.basename($this->log_file_name);
+			
+			if (!file_exists($this->log_file_path)) {
+				if (!touch ($this->log_file_path)) {
+					die("Ошибка при создании лог файла для менеджера");
+				}
+			}
+		}
+		
 		public function authorizate($email, $password)
 		{
 			$user_data = $this->get("call authentification(:email, :password)", [":email" => $email, ":password" => $password]);
@@ -126,13 +139,17 @@
             $add_user_query->bindValue(":cp", $user->getCellPhone());
             $add_user_query->bindValue(":grp", $user->getGroupID());
             
-            if ($add_user_query->execute()) {
-              return $this->dbc()->commit();
-            } else {
+						$result = $add_user_query->execute();
+						
+						if (!$result) {
+							$this->writeLog($add_user_query->errorInfo()[2]);
+							
               $this->dbc()->rollBack();
               return false;
+						} else {			
+              return $this->dbc()->commit();
 						}
-            
+						
           }
           catch(PDOException $e)
           {

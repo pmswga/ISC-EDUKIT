@@ -33,7 +33,11 @@
 		
 		public function getAnswers() : array
 		{
-			return $this->answers;
+			if (shuffle($this->answers)) {
+				return $this->answers;
+			} else {				
+				return array();
+			}
 		}
 		
 		public function getRAnswer() : string

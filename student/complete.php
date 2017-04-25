@@ -17,6 +17,27 @@
 				
 				$CT->show("tests/complete.tpl");
 				
+				if (!empty($_POST['completeTestButton'])) {
+					
+					$questions = $test->getQuestions();
+					$mark = 0;
+					$student_answers = array();
+					for ($i = 0; $i < count($questions); $i++) {
+						$student_answers[] = $_POST['question_'.($i+1)];
+						$student_answer = $_POST['question_'.($i+1)];
+						
+						if ($student_answer == $questions[$i]->getRAnswer()) {
+							$mark += 1;
+						}
+					}
+					
+					
+					
+					echo ($mark/0.4)."<br>";
+					CTools::var_dump($student_answers);
+					
+				}
+				
 			} else {
 				CTools::Message("404 Not Found");
 				CTools::Redirect("../user.php");

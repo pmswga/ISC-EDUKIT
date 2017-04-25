@@ -43,7 +43,7 @@
 															<tbody>
 																{foreach from=$question->getAnswers() item=answer}
 																	<tr>
-																		<td><input type="radio" name="question_{$question_n}" value="{$answer['id_answer']}" class="form-control"></td>
+																		<td><input type="radio" name="question_{$question_n}" value="{$answer['answer']}" class="form-control"></td>
 																		<td>{$answer['answer']}</td>
 																	</tr>
 																	{/foreach}
