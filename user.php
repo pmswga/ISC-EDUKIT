@@ -15,13 +15,13 @@
 			case USER_TYPE_STUDENT:
 			{
 				$sogroups = $UM->get("SELECT * FROM `v_Students` WHERE `grp`=:grp AND `email`!=:email",
-					[":grp" => $user->getGroup(), ":email" => $user->getEmail()]
+					[":grp" => $user->getGroup()->getNumberGroup(), ":email" => $user->getEmail()]
 				);
 				
 				$CT->assign("fio", $user->getSn()." ".$user->getFn()." ".$user->getPt());
 				$CT->assign("sogroups", $sogroups);
 				$CT->assign("user", $user);
-				$CT->assign("tests", $TM->getTestForGroup($user->getGroupID()));
+				$CT->assign("tests", $TM->getTestForGroup($user->getGroup()->getID()));
 				
 				$CT->Show("accounts/student.tpl");
 			} break;

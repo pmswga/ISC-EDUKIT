@@ -18,6 +18,7 @@
   use IEP\Structures\Subject;
   use IEP\Structures\Test;
   use IEP\Structures\OneQuestion;
+  use IEP\Structures\Group;
 	
 	class UserManager extends IEP
 	{
@@ -45,22 +46,25 @@
 				{
 					$student_data = $this->get("call getStudentInfo(:email)", [":email" => $email]);
 					
-					$s = new Student(new User(
-						$user_data[0]['second_name'],
-						$user_data[0]['first_name'],
-						$user_data[0]['patronymic'],
-						$user_data[0]['email'],
-						$user_data[0]['password'],
-						(int)$user_data[0]['id_type_user']
-					),
-						$student_data[0]['home_address'],
-						$student_data[0]['cell_phone'],
-						$student_data[0]['grp']
-					);
-					
-					$s->setGroupID((int)$student_data[0]['grp_id']);
-          
-					return $s;
+					if (!empty($student_data)) {
+						$s_grp = new Group($student_data[0]['grp'], $student_data[0]['code_spec'], (int)$student_data[0]['is_budget']);
+						$s_grp->setID((int)$student_data[0]['grp_id']);
+						
+						$s = new Student(new User(
+							$user_data[0]['second_name'],
+							$user_data[0]['first_name'],
+							$user_data[0]['patronymic'],
+							$user_data[0]['email'],
+							$user_data[0]['password'],
+							(int)$user_data[0]['id_type_user']
+						),
+							$student_data[0]['home_address'],
+							$student_data[0]['cell_phone'],
+							$s_grp
+						);
+						
+						return $s;
+					} else return false;
 				} break;
 				case USER_TYPE_TEACHER:
 				{
@@ -338,6 +342,10 @@
             
       $students = array();
       foreach ($db_students as $db_student) {
+				
+				$s_grp = new Group($db_student['grp'], $db_student['code_spec'], (int)$db_student['is_budget']);
+				$s_grp->setID((int)$db_student['grp_id']);
+				
         $new_student = new Student(
           new User(
 						$db_student['sn'],
@@ -349,7 +357,7 @@
           ),
           $db_student['home_address'],
           $db_student['cell_phone'],
-					$db_student['grp']
+					$s_grp
         );
 				
 				$students[] = $new_student;

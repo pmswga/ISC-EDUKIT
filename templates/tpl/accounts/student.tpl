@@ -44,7 +44,7 @@
 							</tr>
 							<tr>
 								<td>Группа</td>
-								<td>{$user->getGroup()}</td>
+								<td>{$user->getGroup()->getNumberGroup()}</td>
 							</tr>
 							<tr>
 								<td>Сотовый телефон</td>

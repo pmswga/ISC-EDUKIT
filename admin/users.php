@@ -18,11 +18,9 @@
 		$SM = new SubjectsManager($DB);
 		
 		$all_students = $UM->getStudents();
-		
 		$studentsByGroup = array();
-		
 		for ($i = 0; $i < count($all_students); $i++) {
-			$studentsByGroup[$all_students[$i]->getGroup()][] = $all_students[$i];
+			$studentsByGroup[$all_students[$i]->getGroup()->getNumberGroup()][] = $all_students[$i];
 		}
 		
 		$CT->assign("groups", $GM->getGroups());
