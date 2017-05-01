@@ -25,11 +25,10 @@ CREATE TABLE IF NOT EXISTS `users` (
 	Создание таблицы `typeUser`
 	
 	И добавление следующих типов пользователей:
-		1 - ADMIN
-		2 - TEACHER
-		3 - ELDER
-		4 - STUDNET
-		5 - PARENT
+		1 - TEACHER
+		2 - ELDER
+		3 - STUDNET
+		4 - PARENT
 	
 */
 CREATE TABLE IF NOT EXISTS `typeUser` (
@@ -38,11 +37,23 @@ CREATE TABLE IF NOT EXISTS `typeUser` (
 	CONSTRAINT tuc_desc CHECK(description <> '')
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
-INSERT INTO `typeUser` (`description`) VALUES ('ADMIN');
 INSERT INTO `typeUser` (`description`) VALUES ('TEACHER');
 INSERT INTO `typeUser` (`description`) VALUES ('ELDER');
 INSERT INTO `typeUser` (`description`) VALUES ('STUDENT');
 INSERT INTO `typeUser` (`description`) VALUES ('PARENT');
+
+/* Создание таблицы "Администраторы" */
+CREATE TABLE IF NOT EXISTS `admins` (
+	id_admin int AUTO_INCREMENT PRIMARY KEY,
+	sn char(30) NOT NULL,
+	fn char(30) NOT NULL,
+	pt char(30) NOT NULL,
+	email char(255) UNIQUE,
+	passwd char(32) NOT NULL,
+	CONSTRAINT ac_sn CHECK (sn <> ''),
+	CONSTRAINT ac_fn CHECK (fn <> ''),
+	CONSTRAINT ac_pt CHECK (pt <> '')
+) ENGINE = InnoDB CHARACTER SET = UTF8;
 
 /* Создание таблицы "Студенты" */
 CREATE TABLE IF NOT EXISTS `students` (

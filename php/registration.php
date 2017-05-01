@@ -5,11 +5,15 @@
 	
   use IEP\Structures\User;
   use IEP\Structures\Student;
+  use IEP\Structures\Group;
   
 	if (!empty($_POST['registrationStudent'])) {
 		$data = CForm::getData(["second_name", "first_name", "patronymic", "email", "password", "home_address", "cell_phone_child", "grp"]);
 		$data['password'] = md5($data['password']);
 		
+    $grp = new Group("tmp", "tmp");
+    $grp->setID((int)$data['grp']);
+    
 		$new_student = new Student(
 			new User(
 				$data['second_name'], 
@@ -19,10 +23,10 @@
 				$data['password'], 
 				USER_TYPE_STUDENT), 
 			$data['home_address'], 
-			$data['cell_phone_child']
+			$data['cell_phone_child'],
+      $grp
 		);
-		$new_student->setGroupID((int)$data['grp']);
-				
+    
 		if($UM->add($new_student)) CTools::Message("Регистрация прошла успешно");
 		else CTools::Message("При регистрации произошла ошибка");
 		

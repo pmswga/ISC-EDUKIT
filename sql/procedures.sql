@@ -19,20 +19,29 @@ DROP FUNCTION IF EXISTS getSpecialtyID;
 
 /* ----- */
 
+/* Работа с пользователями */
+
 DROP PROCEDURE IF EXISTS addAdmin;
+DROP PROCEDURE IF EXISTS addTeacher;
 DROP PROCEDURE IF EXISTS addStudent;
 DROP PROCEDURE IF EXISTS addParent;
-DROP PROCEDURE IF EXISTS addTeacher;
 DROP PROCEDURE IF EXISTS removeUser;
 DROP PROCEDURE IF EXISTS removeStudent;
 DROP PROCEDURE IF EXISTS removeParent;
 DROP PROCEDURE IF EXISTS removeTeacher;
+
 DROP PROCEDURE IF EXISTS grantElder;
 DROP PROCEDURE IF EXISTS revokeElder;
+
 DROP PROCEDURE IF EXISTS changeUserPassword;
-DROP PROCEDURE IF EXISTS authentification;
 DROP PROCEDURE IF EXISTS setUserType;
-DROP PROCEDURE IF EXISTS getTypeUsers;
+DROP PROCEDURE IF EXISTS getUserType;
+
+DROP PROCEDURE IF EXISTS authentification;
+DROP PROCEDURE IF EXISTS authentificationAdmin;
+
+/* ================================= */
+
 
 DROP PROCEDURE IF EXISTS getTeacherInfo;
 DROP PROCEDURE IF EXISTS getStudentInfo;
@@ -126,11 +135,10 @@ DELIMITER //
 
 /*
 	
-		1 - ADMIN
-		2 - TEACHER
-		3 - ELDER
-		4 - STUDNET
-		5 - PARENT
+		1 - TEACHER
+		2 - ELDER
+		3 - STUDNET
+		4 - PARENT
 	
 */
 
@@ -223,15 +231,25 @@ END;
 
 */
 
-CREATE PROCEDURE addAdmin(sn char(30), fn char(30), pt char(30), a_email char(30), paswd char(32))
+CREATE PROCEDURE addAdmin(sn char(30), fn char(30), pt char(30), email char(30), passwd char(32))
 BEGIN
-	INSERT INTO `users` (`second_name`, `first_name`, `patronymic`, `email`, `password`, `id_type_user`) VALUES (sn, fn, pt, a_email, paswd, 1);
+	INSERT INTO `admins` (`sn`, `fn`, `pt`, `email`, `passwd`) VALUES (sn, fn, pt, email, passwd);
 END;
+
+CREATE PROCEDURE addTeacher(sn char(30), fn char(30), pt char(32), t_email char(30), paswd char(32), info text)
+BEGIN
+	START TRANSACTION;
+	INSERT INTO `users` (`first_name`, `second_name`, `patronymic`, `email`, `password`, `id_type_user`) VALUES (fn, sn, pt, t_email, paswd, 1);
+	INSERT INTO `teachers` (`id_teacher`, `info`) VALUES (getTID(t_email), info);
+	COMMIT;
+END;
+
+
 
 CREATE PROCEDURE addStudent(sn char(30), fn char(30), pt char(30), s_email char(30), paswd char(32), ha char(255), cp char(30), s_grp int)
 BEGIN
 	START TRANSACTION;
-	INSERT INTO `users` (`second_name`, `first_name`, `patronymic`, `email`, `password`, `id_type_user`) VALUES (sn, fn, pt, s_email, paswd, 4);
+	INSERT INTO `users` (`second_name`, `first_name`, `patronymic`, `email`, `password`, `id_type_user`) VALUES (sn, fn, pt, s_email, paswd, 3);
 	INSERT INTO `students` (`id_student`, `home_address`, `cell_phone`, `grp`) VALUES (getStudentID(s_email), ha, cp, s_grp);
 	COMMIT;
 END;
@@ -239,16 +257,8 @@ END;
 CREATE PROCEDURE addParent(sn char(30), fn char(30), pt char(30), p_email char(30), paswd char(32), p_age int(11), p_education char(50), p_wp char(255), p_post char(255), hp char(30), cp char(30))
 BEGIN
 	START TRANSACTION;
-	INSERT INTO `users` (`first_name`, `second_name`, `patronymic`, `email`, `password`, `id_type_user`) VALUES (fn, sn, pt, p_email, paswd, 5);
+	INSERT INTO `users` (`first_name`, `second_name`, `patronymic`, `email`, `password`, `id_type_user`) VALUES (fn, sn, pt, p_email, paswd, 4);
 	INSERT INTO `parents` (`id_parent`, `age`, `education`, `work_place`, `post`, `home_phone`, `cell_phone`) VALUES ((SELECT `id_user` FROM `users` WHERE `email`=p_email), p_age, p_education, p_wp, p_post, hp, cp);
-	COMMIT;
-END;
-
-CREATE PROCEDURE addTeacher(sn char(30), fn char(30), pt char(32), t_email char(30), paswd char(32), info text)
-BEGIN
-	START TRANSACTION;
-	INSERT INTO `users` (`first_name`, `second_name`, `patronymic`, `email`, `password`, `id_type_user`) VALUES (fn, sn, pt, t_email, paswd, 2);
-	INSERT INTO `teachers` (`id_teacher`, `info`) VALUES (getTID(t_email), info);
 	COMMIT;
 END;
 
@@ -295,11 +305,17 @@ BEGIN
 	SELECT * FROM `users` WHERE `email`=u_email AND `password`=u_paswd;
 END;
 
+CREATE PROCEDURE authentificationAdmin(u_email char(30), u_paswd char(32))
+BEGIN
+	SELECT * FROM `admins` WHERE `email`=u_email AND `passwd`=u_paswd;
+END;
 
 CREATE PROCEDURE setUserType(u_email char(30), u_type int)
 BEGIN
 	/*
 	DECLARE last_u_type int;
+	
+	Удалять данные предыдущего пользователя
 	
 	SELECT `id_type_user` INTO last_u_type FROM `users`; 
 	*/
@@ -308,7 +324,7 @@ BEGIN
 	UPDATE `users` SET `id_type_user`=u_type WHERE `email`=u_email;
 END;
 
-CREATE PROCEDURE getTypeUsers()
+CREATE PROCEDURE getUserType()
 BEGIN
 	SELECT * FROM `typeUser` ORDER BY `id_type_user`, `description`;
 END;
@@ -331,7 +347,7 @@ END;
 
 CREATE PROCEDURE getAllAdmins()
 BEGIN
-	SELECT * FROM `v_Users` WHERE `type_user`=1;
+	SELECT * FROM `admins` ORDER BY `sn`, `fn`, `pt`;
 END;
 
 CREATE PROCEDURE getAllUsers()

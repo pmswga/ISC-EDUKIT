@@ -4,11 +4,10 @@
 	
 	$childrens = $UM->getStudents();
 	
-	$CT->assign("childrens", $childrens);
+	// $CT->assign("childrens", $childrens);
 	$CT->Show("guest/registration.tpl");
 	
-	if(!empty($_POST['regParent']))
-	{
+	if (!empty($_POST['regParent'])) {
 		$reg_parent_data = CForm::GetData(array(
 			"second_name",
 			"first_name",

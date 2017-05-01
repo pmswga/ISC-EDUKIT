@@ -5,6 +5,10 @@ USE `iep`;
 /* Связка таблицы "Users" с таблицей "typeUsers" */
 ALTER TABLE `users` ADD CONSTRAINT typeUser_to_users FOREIGN KEY (id_type_user) REFERENCES `typeUser` (id_type_user) ON UPDATE CASCADE ON DELETE CASCADE; 
 
+/* Связка таблицы "Admins" с таблицей "news" */
+ALTER TABLE `news` ADD CONSTRAINT news_by_admin FOREIGN KEY (id_author) REFERENCES `admins` (id_admin) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
 /* Связка таблицы "students" с таблицей "users" */
 ALTER TABLE `students` ADD CONSTRAINT student_to_user FOREIGN KEY (id_student) REFERENCES `users` (id_user) ON UPDATE CASCADE ON DELETE CASCADE; 
 

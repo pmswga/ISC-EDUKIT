@@ -27,13 +27,13 @@
 			} break;
 			case USER_TYPE_TEACHER:
 			{
-				
+        
 				$teacher_subjects = $SM->getTeacherSubjects($user->getEmail());
 				$teacher_news = $NM->getTeacherNews($user->getEmail());
 				$teacher_tests = $TM->getTeacherTests($user->getEmail());
 				$other_subjects = $SM->getSubjects();
 				
-				//< Удаляем предметы, которые преподаватель уже ведёт
+				// < Удаляем предметы, которые преподаватель уже ведёт
 				foreach ($teacher_subjects as $teacher_subject) {
 					if (in_array($teacher_subject, $other_subjects)) {
 						unset($other_subjects[array_keys($other_subjects, $teacher_subject)[0]]);
@@ -183,6 +183,11 @@
         
 				$CT->Show("accounts/parent.tpl");
 			} break;
+      default:
+      {
+        unset($_SESSION['user']);
+        CTools::Redirect("index.php");
+      } break;
 		}
 	}
 	else CTools::Redirect("index.php");

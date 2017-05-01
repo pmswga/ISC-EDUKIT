@@ -10,7 +10,7 @@
 		private $is_budget;
 		private $count_students;
     
-		function __construct(string $number, string $code_spec, int $is_budget)
+		function __construct(string $number, string $code_spec, int $is_budget = 1)
 		{
       $this->id = 0;
 			$this->grp = $number;

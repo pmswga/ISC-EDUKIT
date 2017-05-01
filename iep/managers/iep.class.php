@@ -38,8 +38,14 @@
 			if(!empty($params))
 			{
 				$get_query = $this->dbc()->prepare($what);
-				$get_query->execute($params);
-				return $get_query->fetchAll(\PDO::FETCH_ASSOC);
+				$result = $get_query->execute($params);
+        
+        if ($result) {          
+          return $get_query->fetchAll(\PDO::FETCH_ASSOC);
+        } else {
+          $this->writeLog($get_query->errorInfo()[3]);
+          return false;
+        }
 			}
 			else return $this->dbc()->query($what)->fetchAll(\PDO::FETCH_ASSOC);
 		}

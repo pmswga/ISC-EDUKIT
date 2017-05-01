@@ -20,6 +20,15 @@
   use IEP\Structures\OneQuestion;
   use IEP\Structures\Group;
 	
+  
+  
+  /*!
+    Файл реализации класса UserManager. Менеджер управления пользователями
+    
+    @package Managers
+    @version 1.0
+  */
+  
 	class UserManager extends IEP
 	{
 		
@@ -30,96 +39,135 @@
 			$this->log_file_path = $_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."iep".DIRECTORY_SEPARATOR."logs".DIRECTORY_SEPARATOR.basename($this->log_file_name);
 			
 			if (!file_exists($this->log_file_path)) {
-				if (!touch ($this->log_file_path)) {
+				if (!touch($this->log_file_path)) {
 					die("Ошибка при создании лог файла для менеджера");
 				}
 			}
 		}
+    
+    /*!
+      
+      Функция авторизациия пользователя. Возвращает объект класса User для дальнейшего использования
+      
+      @param $email    - почта
+      @param $password - пароль
+      @return Дочерний класс User или false в случае ошибки
+      
+    */
 		
 		public function authorizate($email, $password)
 		{
 			$user_data = $this->get("call authentification(:email, :password)", [":email" => $email, ":password" => $password]);
       
-			switch($user_data[0]['id_type_user'])
-			{
-				case USER_TYPE_STUDENT:
-				{
-					$student_data = $this->get("call getStudentInfo(:email)", [":email" => $email]);
-					
-					if (!empty($student_data)) {
-						$s_grp = new Group($student_data[0]['grp'], $student_data[0]['code_spec'], (int)$student_data[0]['is_budget']);
-						$s_grp->setID((int)$student_data[0]['grp_id']);
-						
-						$s = new Student(new User(
-							$user_data[0]['second_name'],
-							$user_data[0]['first_name'],
-							$user_data[0]['patronymic'],
-							$user_data[0]['email'],
-							$user_data[0]['password'],
-							(int)$user_data[0]['id_type_user']
-						),
-							$student_data[0]['home_address'],
-							$student_data[0]['cell_phone'],
-							$s_grp
-						);
-						
-						return $s;
-					} else return false;
-				} break;
-				case USER_TYPE_TEACHER:
-				{
-					$teacaher_data = $this->get("call getTeacherInfo(:email)", [":email" => $email]);
+      if (!empty($user_data)) {
+        switch($user_data[0]['id_type_user'])
+        {
+          case USER_TYPE_STUDENT:
+          {
+            $student_data = $this->get("call getStudentInfo(:email)", [":email" => $email]);
+            
+            if (!empty($student_data)) {
+              
+              $s_grp = new Group($student_data[0]['grp'], $student_data[0]['code_spec'], (int)$student_data[0]['is_budget']);
+              $s_grp->setID((int)$student_data[0]['grp_id']);
+              
+              $s = new Student(new User(
+                $user_data[0]['second_name'],
+                $user_data[0]['first_name'],
+                $user_data[0]['patronymic'],
+                $user_data[0]['email'],
+                $user_data[0]['password'],
+                (int)$user_data[0]['id_type_user']
+              ),
+                $student_data[0]['home_address'],
+                $student_data[0]['cell_phone'],
+                $s_grp
+              );
+              
+              return $s;
+              
+            } else {
+              return false;
+            }
+            
+          } break;
+          case USER_TYPE_TEACHER:
+          {
+            $teacaher_data = $this->get("call getTeacherInfo(:email)", [":email" => $email]);
+            
+            if (!empty($teacaher_data)) {
+              
+              $t = new Teacher(new User(
+                $user_data[0]['second_name'],
+                $user_data[0]['first_name'],
+                $user_data[0]['patronymic'],
+                $user_data[0]['email'],
+                $user_data[0]['password'],
+                (int)$user_data[0]['id_type_user']
+              ),
+                $teacaher_data[0]['info']
+              );
+              
+              return $t;
+              
+            } else {
+              return false;
+            }
+            
+          } break;
+          case USER_TYPE_PARENT:
+          {
+            $parent_data = $this->get("call getParentInfo(:email)", [":email" => $email]);
+            
+            if (!empty($parent_data)) {
+              
+              $p = new Parent_(new User(
+                $user_data[0]['second_name'],
+                $user_data[0]['first_name'],
+                $user_data[0]['patronymic'],
+                $user_data[0]['email'],
+                $user_data[0]['password'],
+                (int)$user_data[0]['id_type_user']
+              ),
+                (int)$parent_data[0]['age'],
+                $parent_data[0]['education'],
+                $parent_data[0]['work_place'],
+                $parent_data[0]['post'],
+                $parent_data[0]['home_phone'],
+                $parent_data[0]['cell_phone']
+              );
+              
+              return $p;
+            
+            } else {
+              return false;
+            }
+            
+          } break;
+          default: return false; break;
+        }
+      } else {
+        
+        $admin_data = $this->get("call authentificationAdmin(:email, :passwd)", [":email" => $email, ":passwd" => $password]);
+        
+        if (!empty($admin_data)) {
           
-					$t = new Teacher(new User(
-						$user_data[0]['second_name'],
-						$user_data[0]['first_name'],
-						$user_data[0]['patronymic'],
-						$user_data[0]['email'],
-						$user_data[0]['password'],
-						(int)$user_data[0]['id_type_user']
-					),
-						$teacaher_data[0]['info']
-					);
+          $a = new User(
+            $admin_data[0]['sn'],
+            $admin_data[0]['fn'],
+            $admin_data[0]['pt'],
+            $admin_data[0]['email'],
+            $admin_data[0]['passwd'],
+            1
+          );
           
-					return $t;
-				} break;
-				case USER_TYPE_PARENT:
-				{
-					$parent_data = $this->get("call getParentInfo(:email)", [":email" => $email]);
-					
-					$p = new Parent_(new User(
-						$user_data[0]['second_name'],
-						$user_data[0]['first_name'],
-						$user_data[0]['patronymic'],
-						$user_data[0]['email'],
-						$user_data[0]['password'],
-						(int)$user_data[0]['id_type_user']
-					),
-						(int)$parent_data[0]['age'],
-						$parent_data[0]['education'],
-						$parent_data[0]['work_place'],
-						$parent_data[0]['post'],
-						$parent_data[0]['home_phone'],
-						$parent_data[0]['cell_phone']
-					);
-					
-					return $p;
-				} break;
-				case USER_TYPE_ADMIN:
-				{
-					$u = new User(
-						$user_data[0]['second_name'],
-						$user_data[0]['first_name'],
-						$user_data[0]['patronymic'],
-						$user_data[0]['email'],
-						$user_data[0]['password'],
-						(int)$user_data[0]['id_type_user']
-					);
-					
-					return $u;
-				} break;
-				default: return false; break;
-			}
+          return $a;
+          
+        } else {
+          return false;
+        }
+        
+      }
 		}
 		
 		public function add($user) : bool
@@ -141,7 +189,7 @@
             $add_user_query->bindValue(":paswd", $user->getPassword());
             $add_user_query->bindValue(":ha", $user->getHomeAddress());
             $add_user_query->bindValue(":cp", $user->getCellPhone());
-            $add_user_query->bindValue(":grp", $user->getGroupID());
+            $add_user_query->bindValue(":grp", $user->getGroup()->getID());
             
 						$result = $add_user_query->execute();
 						
@@ -195,6 +243,8 @@
                 if ($result) {
                   return $this->dbc()->commit();
                 } else {
+                  $this->writeLog($set_subject_query->errorInfo()[3]);
+                  
                   $this->dbc()->rollBack();
                   return false;
                 }
@@ -251,51 +301,26 @@
 				} break;
 				case USER_TYPE_ADMIN:
 				{
-          try
-          {
-              $this->dbc()->beginTransaction();
-              
-              $add_user_query = $this->dbc()->prepare("INSERT INTO `users`
-                  (`second_name`, `first_name`, `patronymic`, `email`, `password`, `id_type_user`)
-                  VALUES
-                  (:second_name, :first_name, :patronymic, :email, :password, :id_type_user);
-              ");
-              
-              $add_user_query->bindValue(":second_name", $user->getSn());
-              $add_user_query->bindValue(":first_name", $user->getFn());
-              $add_user_query->bindValue(":patronymic", $user->getPt());
-              $add_user_query->bindValue(":email", $user->getEmail());
-              $add_user_query->bindValue(":password", $user->getPassword());
-              $add_user_query->bindValue(":id_type_user", $user->getTypeUser());
-              
-              if (!$add_user_query->execute()) {
-                  $this->dbc()->rollBack();
-                  return false;
-              }
-              else return $this->dbc()->commit();
+          $add_admin_query = $this->dbc()->prepare("call addAdmin(:sn, :fn, :pt, :email, :passwd)");
+          
+          $add_admin_query->bindValue(":sn", $user->getSn());
+          $add_admin_query->bindValue(":fn", $user->getFn());
+          $add_admin_query->bindValue(":pt", $user->getPt());
+          $add_admin_query->bindValue(":email", $user->getEmail());
+          $add_admin_query->bindValue(":passwd", $user->getPassword());
+          
+          $result = $add_admin_query->execute();
+          
+          if ($result) {
+            return $result;
+          } else {
+            $this->writeLog($add_admin_query->errorInfo()[3]);
+            return false;
           }
-          catch(PDOException $e)
-          {
-              $this->dbc()->rollBack();
-              return false;
-          }
+          
 				} break;
 				default: return false; break;
 			}
-		}
-		
-		public function getUserByID($id)
-		{
-			$user_data = $this->get("SELECT * FROM `users` u INNER JOIN `students` s ON s.id_student=u.id_user WHERE `id_user`=:id", [":id" => $id])[0];
-			
-			return new Student( new User(
-        $user_data["second_name"], 
-        $user_data["first_name"], 
-        $user_data["patronymic"],
-        $user_data["email"],
-        $user_data["password"],
-        (int)$user_data["id_type_user"]
-			), (int)$user_data['grp'], $user_data['home_address'], $user_data["cell_phone"]);
 		}
 		
 		public function getAdmins()
@@ -309,8 +334,8 @@
 					$db_admin['fn'], 
 					$db_admin['pt'], 
 					$db_admin['email'], 
-					$db_admin['paswd'], 
-					(int)$db_admin['type_user']
+					$db_admin['passwd'],
+          1
         );
       }
       

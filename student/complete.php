@@ -31,9 +31,18 @@
 						}
 					}
 					
+					$result = (($mark*100)/count($questions));
 					
+					if ($result == 100) {
+						echo "5";
+					} elseif ($result > 50) {
+						echo "4";
+					} elseif ($result <= 50) {
+						echo "3";
+					} elseif ($result < 25) {
+						echo "2";
+					}
 					
-					echo ($mark/0.4)."<br>";
 					CTools::var_dump($student_answers);
 					
 				}
