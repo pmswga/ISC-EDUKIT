@@ -39,13 +39,7 @@
 			{
 				$get_query = $this->dbc()->prepare($what);
 				$result = $get_query->execute($params);
-        
-        if ($result) {          
-          return $get_query->fetchAll(\PDO::FETCH_ASSOC);
-        } else {
-          $this->writeLog($get_query->errorInfo()[3]);
-          return false;
-        }
+        return $get_query->fetchAll(\PDO::FETCH_ASSOC);
 			}
 			else return $this->dbc()->query($what)->fetchAll(\PDO::FETCH_ASSOC);
 		}
