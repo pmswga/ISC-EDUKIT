@@ -67,11 +67,11 @@ CREATE VIEW v_Elders (sn, fn, pt, email, paswd, home_address, cell_phone, grp, t
 
 
 
-CREATE VIEW v_Groups (id_grp, grp, spec, budget) as
-	SELECT g.grp, g.description, s.description, g.is_budget 
+CREATE VIEW v_Groups (id_grp, number, edu_year, budget, spec_id, spec_code, spec_descp, spec_file) as
+	SELECT g.grp, g.description, g.edu_year, g.is_budget, g.spec_id, s.code_spec, s.description, s.pdf_file 
 	FROM `groups` g 
 		INNER JOIN `specialty` s ON g.spec_id=s.id_spec
-	ORDER BY g.description;
+	ORDER BY g.grp;
 
 CREATE VIEW v_Specialtyes (id_spec, code, descp, file) as
 	SELECT `id_spec`, `code_spec`, `description`, `pdf_file`

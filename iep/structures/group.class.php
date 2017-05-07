@@ -11,13 +11,15 @@
     private $id;
 		private $number;
 		private $spec;
+    private $year_education;
 		private $is_budget;
     
-		function __construct(string $number, Specialty $spec, int $is_budget = 1)
+		function __construct(string $number, $spec, string $year_education, int $is_budget = 1)
 		{
       $this->id = 0;
 			$this->number = $number;
 			$this->spec = $spec;
+      $this->year_education = $year_education;
 			$this->is_budget = $is_budget;
 		}
     
@@ -36,11 +38,16 @@
 			return $this->number;
 		}
 		
-		public function getSpec() : Specialty
+		public function getSpec()
 		{
-			return $this->Specialty;
+			return $this->spec;
 		}
 		
+    public function getYearEducation() : string
+    {
+      return $this->year_education;
+    }
+    
 		public function getStatus() : int
 		{
 			return $this->is_budget;

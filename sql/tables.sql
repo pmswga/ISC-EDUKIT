@@ -70,11 +70,12 @@ CREATE TABLE IF NOT EXISTS `students` (
 CREATE TABLE IF NOT EXISTS `groups` (
 	grp int AUTO_INCREMENT PRIMARY KEY,
 	description char(10) NOT NULL,
-	edu_year date NOT NULL,
+	edu_year char(10) NOT NULL,
 	spec_id int NOT NULL,
 	is_budget int NOT NULL,
 	INDEX (spec_id),
-	CONSTRAINT gc_desc CHECK(description <> '')
+	CONSTRAINT gc_desc CHECK(description <> ''),
+	CONSTRAINT gc_year CHECK(edu_year <> '')
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
 /* Создание таблицы "Специальности" */
