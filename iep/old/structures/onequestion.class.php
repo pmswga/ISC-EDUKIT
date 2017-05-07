@@ -33,25 +33,14 @@
 		
 		public function getAnswers() : array
 		{
-			if (shuffle($this->answers)) {
-				return $this->answers;
-			} else {				
-				return array();
-			}
+      return $this->answers;
 		}
 		
 		public function getRAnswer() : string
 		{
 			return $this->r_answer;
 		}
-		
-        public function addAnswer(array $answers)
-        {
-            foreach ($answers as $a) {
-                $this->answers[] = $a;
-            }
-        }
-        
+    
 	}
 	
 ?>

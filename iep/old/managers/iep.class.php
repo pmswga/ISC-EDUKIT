@@ -21,7 +21,7 @@
 			return $this->DBC;
 		}
 		
-		public function query(string $what, array $params = array())
+		public function get(string $what, array $params = array())
 		{
 			if(!empty($params))
 			{
@@ -34,6 +34,7 @@
 		
 		abstract public function add($data);
 		abstract public function remove($what);
+		abstract public function change($old, $new);
 		
 	}
 	

@@ -70,9 +70,10 @@ CREATE TABLE IF NOT EXISTS `students` (
 CREATE TABLE IF NOT EXISTS `groups` (
 	grp int AUTO_INCREMENT PRIMARY KEY,
 	description char(10) NOT NULL,
-	code_spec int NOT NULL,
+	edu_year date NOT NULL,
+	spec_id int NOT NULL,
 	is_budget int NOT NULL,
-	INDEX (code_spec),
+	INDEX (spec_id),
 	CONSTRAINT gc_desc CHECK(description <> '')
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
@@ -196,12 +197,14 @@ CREATE TABLE IF NOT EXISTS `answers` (
 
 /* Создание таблицы "Ответов студентов на тесты" */
 CREATE TABLE IF NOT EXISTS `student_test` (
-  id_student_test int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  id_student int NOT NULL,
-  id_test int NOT NULL,
-  date_passage date NOT NULL,
-  INDEX(id_student),
-  INDEX(id_test)
+	id_student_test int AUTO_INCREMENT PRIMARY KEY,
+	id_student int NOT NULL,
+	subject char(255) NOT NULL,
+	date_pass date NOT NULL,
+	mark int,
+	INDEX(id_student),
+	CONSTRAINT stc_subject CHECK(subject <> ''),
+	CONSTRAINT stc_mark CHECK((mark >= 2) AND (mark <= 5))
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
 /* Создание таблицы "Ответы студентов" */
@@ -218,7 +221,7 @@ CREATE TABLE IF NOT EXISTS `student_answer` (
 
 /* Создание таблицы "Посещаемости" */
 CREATE TABLE IF NOT EXISTS `student_traffic` (
-  id_traffic int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id_traffic int AUTO_INCREMENT PRIMARY KEY,
   id_student int NOT NULL,
   date_visit date NOT NULL,
   count_passed_hours int NOT NULL,

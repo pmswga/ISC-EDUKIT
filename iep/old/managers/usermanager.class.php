@@ -19,8 +19,6 @@
   use IEP\Structures\Test;
   use IEP\Structures\OneQuestion;
   use IEP\Structures\Group;
-	
-  
   
   /*!
     Файл реализации класса UserManager. Менеджер управления пользователями
@@ -32,19 +30,6 @@
 	class UserManager extends IEP
 	{
 		
-		function __construct(\PDO $dbc)
-		{
-			parent::__construct($dbc);
-			$this->log_file_name = __CLASS__.".log";
-			$this->log_file_path = $_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."iep".DIRECTORY_SEPARATOR."logs".DIRECTORY_SEPARATOR.basename($this->log_file_name);
-			
-			if (!file_exists($this->log_file_path)) {
-				if (!touch($this->log_file_path)) {
-					die("Ошибка при создании лог файла для менеджера");
-				}
-			}
-		}
-    
     /*!
       
       Функция авторизациия пользователя. Возвращает объект класса User для дальнейшего использования
@@ -194,8 +179,6 @@
 						$result = $add_user_query->execute();
 						
 						if (!$result) {
-							$this->writeLog($add_user_query->errorInfo()[2]);
-							
               $this->dbc()->rollBack();
               return false;
 						} else {			
@@ -483,23 +466,23 @@
 			$db_students = $this->get("call getAllElders()");
             
       $students = array();
-      foreach ($db_students as $db_student) {
-        $new_student = new Student(
-          new User(
-              $db_student['sn'],
-              $db_student['fn'],
-              $db_student['pt'],
-              $db_student['email'],
-              $db_student['paswd'],
-              (int)$db_student['type_user']
-          ),
-          $db_student['home_address'],
-          $db_student['cell_phone'],
-					$db_student['grp']
-        );
+      // foreach ($db_students as $db_student) {
+        // $new_student = new Student(
+          // new User(
+              // $db_student['sn'],
+              // $db_student['fn'],
+              // $db_student['pt'],
+              // $db_student['email'],
+              // $db_student['paswd'],
+              // (int)$db_student['type_user']
+          // ),
+          // $db_student['home_address'],
+          // $db_student['cell_phone'],
+					// $db_student['grp']
+        // );
 				
-				$students[] = $new_student;
-      }
+				// $students[] = $new_student;
+      // }
 			
       return $students;
 		}

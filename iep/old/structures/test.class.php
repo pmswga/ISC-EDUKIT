@@ -3,8 +3,10 @@
 	namespace IEP\Structures;
 	
 	require_once "subject.class.php";
+  require_once "teacher.class.php";
 	
 	use IEP\Structures\Subject;
+  use IEP\Structures\Teacher;
 	
 	class Test
 	{
@@ -12,15 +14,14 @@
 		private $test_id;
 		
 		private $caption;
-		
+		private $subject;
 		private $questions;
 		
 		private $author;
-		private $author_name;
-		
+    
 		private $for_groups;
 		
-		function __construct(string $caption, string $author, array $for_groups = array(), array $questions = array())
+		function __construct(string $caption, Teacher $author, array $for_groups = array(), array $questions = array())
 		{
 			$this->caption = $caption;
 			$this->author = $author;

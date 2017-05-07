@@ -9,6 +9,7 @@
   use IEP\Structures\Parent_;
   use IEP\Structures\Teacher;
   use IEP\Structures\User;
+  use IEP\Structures\Group;
 	
 	if(isset($_SESSION['admin']))
 	{		
@@ -38,7 +39,10 @@
 		if (!empty($_POST['addStudentButton'])) {
 			$data = CForm::getData(["sn", "fn", "pt", "email", "paswd", "ha", "cp", "grp"]);
 			$data['paswd'] = md5($data['paswd']);
-			
+      
+			$grp = new Group("", "");
+      $grp->setID((int)$data['grp']);
+      
 			$new_student = new Student(
 				new User(
 					$data['sn'], 
@@ -48,9 +52,9 @@
 					$data['paswd'], 
 					4), 
 				$data['ha'], 
-				$data['cp']
+				$data['cp'],
+        $grp
 			);
-			$new_student->setGroupID((int)$data['grp']);
 			
 			CTools::var_dump($new_student);
 			

@@ -10,7 +10,7 @@
 		private $author;
 		private $date_publication;
 		
-		function __construct(string $caption, $content, string $author, string $date_publication)
+		function __construct(string $caption, string $content, string $author, string $date_publication)
 		{
 			$this->caption = $caption;
 			$this->content = $content;
