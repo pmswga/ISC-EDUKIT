@@ -17,12 +17,12 @@
 			$this->id = 0;
 		}
 		
-		public function setID(int $id)
+		public function setSpecialtyID(int $id)
 		{
 			$this->id = $id;
 		}
 		
-		public function getID() : int
+		public function getSpecialtyID() : int
 		{
 			return $this->id;
 		}
@@ -37,7 +37,7 @@
 			return $this->description;
 		}
 		
-		public function getFile() : string
+		public function getFilepath() : string
 		{
 			return str_replace("/", "\\", $this->file);
 		}

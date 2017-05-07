@@ -32,7 +32,7 @@ CREATE VIEW v_Students (sn, fn, pt, email, paswd, type_user, home_address, cell_
 	FROM `users` u 
 		INNER JOIN `students` s ON u.id_user=s.id_student
 		INNER JOIN `groups` g ON s.grp=g.grp
-		INNER JOIN `specialty` sp ON sp.id_spec=g.code_spec
+		INNER JOIN `specialty` sp ON sp.id_spec=g.spec_id
 	WHERE u.id_type_user=3
 	ORDER BY u.second_name, u.first_name, u.patronymic;
 
@@ -70,13 +70,13 @@ CREATE VIEW v_Elders (sn, fn, pt, email, paswd, home_address, cell_phone, grp, t
 CREATE VIEW v_Groups (id_grp, grp, spec, budget) as
 	SELECT g.grp, g.description, s.description, g.is_budget 
 	FROM `groups` g 
-		INNER JOIN `specialty` s ON g.code_spec=s.id_spec
+		INNER JOIN `specialty` s ON g.spec_id=s.id_spec
 	ORDER BY g.description;
 
-CREATE VIEW v_Specialtyes (id_spec, code_spec, descp, pdf) as
+CREATE VIEW v_Specialtyes (id_spec, code, descp, file) as
 	SELECT `id_spec`, `code_spec`, `description`, `pdf_file`
 	FROM `specialty`
-	ORDER BY `description`;
+	ORDER BY `id_spec`;
 
 CREATE VIEW v_Subjects (id_subject, descp) as
 	SELECT `id_subject`, `description`

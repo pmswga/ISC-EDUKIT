@@ -27,7 +27,7 @@
 			{
 				$get_query = $this->dbc()->prepare($what);
 				$result = $get_query->execute($params);
-        return $get_query->fetchAll(\PDO::FETCH_ASSOC);
+        return ($result) ? $get_query->fetchAll(\PDO::FETCH_ASSOC) : false;
 			}
 			else return $this->dbc()->query($what)->fetchAll(\PDO::FETCH_ASSOC);
 		}

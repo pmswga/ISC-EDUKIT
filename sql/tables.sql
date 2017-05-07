@@ -196,7 +196,7 @@ CREATE TABLE IF NOT EXISTS `answers` (
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
 /* Создание таблицы "Ответов студентов на тесты" */
-CREATE TABLE IF NOT EXISTS `student_test` (
+CREATE TABLE IF NOT EXISTS `student_tests` (
 	id_student_test int AUTO_INCREMENT PRIMARY KEY,
 	id_student int NOT NULL,
 	subject char(255) NOT NULL,
@@ -207,16 +207,16 @@ CREATE TABLE IF NOT EXISTS `student_test` (
 	CONSTRAINT stc_mark CHECK((mark >= 2) AND (mark <= 5))
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
+
 /* Создание таблицы "Ответы студентов" */
-CREATE TABLE IF NOT EXISTS `student_answer` (
-  id_student int NOT NULL,
-  id_student_test int NOT NULL,
-  id_question int NOT NULL,
-  answer char(255) NOT NULL,
-  INDEX(id_question),
-  INDEX(id_student),
-  PRIMARY KEY (id_student_test, id_question),
-  CONSTRAINT sac_answer CHECK(answer <> '')
+CREATE TABLE IF NOT EXISTS `student_answers` (
+	id_student_answer int AUTO_INCREMENT PRIMARY KEY,
+	id_student_test int NOT NULL,
+	question char(255),
+	answer char(255),
+	INDEX (id_student_test),
+	CONSTRAINT sac_question CHECK(question <> ''),
+	CONSTRAINT sac_question CHECK(answer <> '')
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
 /* Создание таблицы "Посещаемости" */

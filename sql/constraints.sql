@@ -54,12 +54,14 @@ ALTER TABLE `questions` ADD CONSTRAINT R16 FOREIGN KEY(`id_test`) REFERENCES `te
 /* Связка таблицы "questions" с таблицей "answers" */
 ALTER TABLE `answers` ADD CONSTRAINT R17 FOREIGN KEY(`id_question`) REFERENCES `questions` (`id_question`) ON UPDATE CASCADE ON DELETE CASCADE; 
 
+
+
+
 /* Связка таблицы "student_test" с таблицей "students" */
-ALTER TABLE `student_test` ADD CONSTRAINT R18 FOREIGN KEY (`id_student`) REFERENCES `students` (`id_student`) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE `student_tests` ADD CONSTRAINT R18 FOREIGN KEY (`id_student`) REFERENCES `students` (`id_student`) ON UPDATE CASCADE ON DELETE CASCADE;
 
-
-/* Связка таблицы "student_questions" с таблицей "student-test" */
-ALTER TABLE `student_questions` ADD CONSTRAINT R19 FOREIGN KEY (`id_student_test`) REFERENCES `student_test` (`id_student_test`) ON UPDATE CASCADE ON DELETE CASCADE;
+/* Связка таблицы "student_questions" с таблицей "student-tests" */
+ALTER TABLE `student_answers` ADD CONSTRAINT R19 FOREIGN KEY (`id_student_test`) REFERENCES `student_tests` (`id_student_test`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 
