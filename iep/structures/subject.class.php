@@ -4,21 +4,22 @@
 
 	class Subject
 	{
+    
     private $id;
 		private $description;
 		
-		function __construct(string $description, int $subject_id = 0)
+		function __construct(string $description)
 		{
+			$this->id = 0;
 			$this->description = $description;
-			$this->id = $subject_id;
 		}
     
-    public function setID(int $id)
+    public function setSubjectID(int $id)
     {
       $this->id = $id;
     }
 		
-    public function getID() : int
+    public function getSubjectID() : int
     {
       return $this->id;
     }
@@ -29,6 +30,5 @@
 		}
 		
 	}
-	
 	
 ?>

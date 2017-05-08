@@ -10,19 +10,19 @@ DELIMITER //
 
 /* Работа с предметами */
 
-CREATE PROCEDURE addSubject(descp CHAR(255))
+CREATE PROCEDURE addSubject(descp char(255))
 BEGIN
 	INSERT INTO `subjects` (`description`) VALUES (descp);
 END;
 
-CREATE PROCEDURE removeSubject(descp CHAR(255))
+CREATE PROCEDURE removeSubject(subject_id int)
 BEGIN
-	DELETE FROM `subjects` WHERE `description`=descp;
+	DELETE FROM `subjects` WHERE `id_subject`=subject_id;
 END;
 
-CREATE PROCEDURE changeDescriptionSubject(old_descp CHAR(255), new_descp CHAR(255))
+CREATE PROCEDURE changeDescriptionSubject(subject_id int, new_descp char(255))
 BEGIN
-	UPDATE `subjects` SET `description`=new_descp WHERE `description`=old_descp;
+	UPDATE `subjects` SET `description`=new_descp WHERE `id_subject`=subject_id;
 END;
 
 CREATE PROCEDURE getAllSubjects()
