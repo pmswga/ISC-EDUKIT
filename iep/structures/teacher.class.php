@@ -15,6 +15,7 @@
 			parent::__construct($user->sn, $user->fn, $user->pt, $user->email, $user->password, $user->typeUser);
 			$this->info = $info;
 			$this->subjects = array();
+      $this->tests = array();
 		}
 	
 		public function setSubjects(array $subjects)

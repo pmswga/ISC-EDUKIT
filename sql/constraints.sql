@@ -8,7 +8,6 @@ ALTER TABLE `users` ADD CONSTRAINT R1 FOREIGN KEY (id_type_user) REFERENCES `typ
 /* Связка таблицы "Admins" с таблицей "news" */
 ALTER TABLE `news` ADD CONSTRAINT R2 FOREIGN KEY (id_author) REFERENCES `admins` (id_admin) ON UPDATE CASCADE ON DELETE CASCADE;
 
-
 /* Связка таблицы "students" с таблицей "users" */
 ALTER TABLE `students` ADD CONSTRAINT R3 FOREIGN KEY (id_student) REFERENCES `users` (id_user) ON UPDATE CASCADE ON DELETE CASCADE; 
 

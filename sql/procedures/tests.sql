@@ -89,7 +89,7 @@ END;
 
 CREATE PROCEDURE getTests(emailTeacher char(30))
 BEGIN
-  SELECT * FROM `v_Tests` WHERE `email`=emailTeacher;
+  SELECT * FROM `v_Tests` WHERE `author_email`=emailTeacher;
 END;
 
 CREATE PROCEDURE getAllTests()

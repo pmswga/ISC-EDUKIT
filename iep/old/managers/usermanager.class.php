@@ -161,126 +161,13 @@
 			{
 				case USER_TYPE_STUDENT:
 				{
-          try
-          {
-            $this->dbc()->beginTransaction();
-            
-            $add_user_query = $this->dbc()->prepare("call addStudent(:sn, :fn, :pt, :email, :paswd, :ha, :cp, :grp)");
-            
-            $add_user_query->bindValue(":sn", $user->getSn());
-            $add_user_query->bindValue(":fn", $user->getFn());
-            $add_user_query->bindValue(":pt", $user->getPt());
-            $add_user_query->bindValue(":email", $user->getEmail());
-            $add_user_query->bindValue(":paswd", $user->getPassword());
-            $add_user_query->bindValue(":ha", $user->getHomeAddress());
-            $add_user_query->bindValue(":cp", $user->getCellPhone());
-            $add_user_query->bindValue(":grp", $user->getGroup()->getID());
-            
-						$result = $add_user_query->execute();
-						
-						if (!$result) {
-              $this->dbc()->rollBack();
-              return false;
-						} else {			
-              return $this->dbc()->commit();
-						}
-						
-          }
-          catch(PDOException $e)
-          {
-              $this->dbc()->rollBack();
-              return false;
-          }
 				} break;
 				case USER_TYPE_TEACHER:
 				{
-          try
-          {
-            $this->dbc()->beginTransaction();
-            
-            $add_user_query = $this->dbc()->prepare("call addTeacher(:sn, :fn, :pt, :email, :paswd, :info)");
-            
-            $add_user_query->bindValue(":sn", $user->getSn());
-            $add_user_query->bindValue(":fn", $user->getFn());
-            $add_user_query->bindValue(":pt", $user->getPt());
-            $add_user_query->bindValue(":email", $user->getEmail());
-            $add_user_query->bindValue(":paswd", $user->getPassword());
-            $add_user_query->bindValue(":info", $user->getInfo());
-            
-            if ($add_user_query->execute()) {
-              
-              $subjects = $user->getSubjects();
-              
-              if (!empty($subjects)) {
-                
-                $set_subject_query = $this->dbc()->prepare("call setSubject(:email, :subject)");
-                $set_subject_query->bindValue(":email", $user->getEmail());
-                
-                $result = true;
-                for ($i = 0; $i < count($subjects); $i++) {
-                  $set_subject_query->bindValue(":subject", $subjects[$i]);
-                  
-                  $result *= $set_subject_query->execute();
-                }
-                
-                if ($result) {
-                  return $this->dbc()->commit();
-                } else {
-                  $this->writeLog($set_subject_query->errorInfo()[3]);
-                  
-                  $this->dbc()->rollBack();
-                  return false;
-                }
-                
-              } 
-              else return $this->dbc()->commit();
-              
-            } else {
-              $this->dbc()->rollBack();
-              return false;
-            }
-            
-          }
-          catch(PDOException $e)
-          {
-            $this->dbc()->rollBack();
-            return false;
-          }
 				} break;
 				case USER_TYPE_PARENT:
 				{
-          try
-          {
-              $this->dbc()->beginTransaction();
-              
-              $add_user_query = $this->dbc()->prepare("call addParent(:sn, :fn, :pt, :email, :paswd, :age, :education, :wp, :post, :hp, :cp)");
-              
-              $add_user_query->bindValue(":sn", $user->getSn());
-              $add_user_query->bindValue(":fn", $user->getFn());
-              $add_user_query->bindValue(":pt", $user->getPt());
-              $add_user_query->bindValue(":email", $user->getEmail());
-              $add_user_query->bindValue(":paswd", $user->getPassword());
-              $add_user_query->bindValue(":age", $user->getAge());
-              $add_user_query->bindValue(":education", $user->getEducation());
-              $add_user_query->bindValue(":wp", $user->getWorkPlace());
-              $add_user_query->bindValue(":post", $user->getPost());
-              $add_user_query->bindValue(":hp", $user->getHomePhone());
-              $add_user_query->bindValue(":cp", $user->getCellPhone());
-							
-							if ($add_user_query->execute()) {
-								return $this->dbc()->commit();
-							} else {
-								$this->dbc()->rollBack();
-								print_r($add_user_query->errorInfo());
-								return false;
-							}
-							
-          }
-          catch(PDOException $e)
-          {
-              $this->dbc()->rollBack();
-              return false;
-          }
+          
 				} break;
 				case USER_TYPE_ADMIN:
 				{

@@ -13,21 +13,6 @@ DROP PROCEDURE IF EXISTS getSubjectID;
 
 DELIMITER //
 
-/* 
-	
-	[Служебные]
-	
-*/
-
-/*
-	
-		1 - TEACHER
-		2 - ELDER
-		3 - STUDNET
-		4 - PARENT
-	
-*/
-
 CREATE PROCEDURE getParentID(emailUser CHAR(30))
 BEGIN
 	SELECT `id_user` FROM `users` WHERE `email`=emailUser AND `id_type_user`=4;

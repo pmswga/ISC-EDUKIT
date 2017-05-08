@@ -5,9 +5,6 @@ DROP PROCEDURE IF EXISTS addTeacher;
 DROP PROCEDURE IF EXISTS addStudent;
 DROP PROCEDURE IF EXISTS addParent;
 DROP PROCEDURE IF EXISTS removeUser;
-DROP PROCEDURE IF EXISTS removeStudent;
-DROP PROCEDURE IF EXISTS removeParent;
-DROP PROCEDURE IF EXISTS removeTeacher;
 
 DROP PROCEDURE IF EXISTS grantElder;
 DROP PROCEDURE IF EXISTS revokeElder;
@@ -51,7 +48,6 @@ DROP PROCEDURE IF EXISTS getSubjects;
 
 DELIMITER //
 
-
 CREATE PROCEDURE addAdmin(sn char(30), fn char(30), pt char(30), email char(30), passwd char(32))
 BEGIN
 	INSERT INTO `admins` (`sn`, `fn`, `pt`, `email`, `passwd`) VALUES (sn, fn, pt, email, passwd);
@@ -61,7 +57,7 @@ CREATE PROCEDURE addTeacher(sn char(30), fn char(30), pt char(32), t_email char(
 BEGIN
 	START TRANSACTION;
 	INSERT INTO `users` (`first_name`, `second_name`, `patronymic`, `email`, `password`, `id_type_user`) VALUES (fn, sn, pt, t_email, paswd, 1);
-	INSERT INTO `teachers` (`id_teacher`, `info`) VALUES (getTID(t_email), info);
+	INSERT INTO `teachers` (`id_teacher`, `info`) VALUES (getTeacherId(t_email), info);
 	COMMIT;
 END;
 
@@ -69,7 +65,7 @@ CREATE PROCEDURE addStudent(sn char(30), fn char(30), pt char(30), s_email char(
 BEGIN
 	START TRANSACTION;
 	INSERT INTO `users` (`second_name`, `first_name`, `patronymic`, `email`, `password`, `id_type_user`) VALUES (sn, fn, pt, s_email, paswd, 3);
-	INSERT INTO `students` (`id_student`, `home_address`, `cell_phone`, `grp`) VALUES (getStudentID(s_email), ha, cp, s_grp);
+	INSERT INTO `students` (`id_student`, `home_address`, `cell_phone`, `grp`) VALUES (getStudentId(s_email), ha, cp, s_grp);
 	COMMIT;
 END;
 
@@ -84,21 +80,6 @@ END;
 CREATE PROCEDURE removeUser(u_email char(30))
 BEGIN
 	DELETE FROM `users` WHERE `email`=u_email;
-END;
-
-CREATE PROCEDURE removeStudent(s_email char(30))
-BEGIN
-	DELETE FROM `users` WHERE `email`=s_email AND `id_type_user`=3;
-END;
-
-CREATE PROCEDURE removeTeacher(t_email char(30))
-BEGIN
-	DELETE FROM `users` WHERE `email`=t_email AND `id_type_user`=1;
-END;
-
-CREATE PROCEDURE removeParent(p_email char(30))
-BEGIN
-	DELETE FROM `users` WHERE `email`=p_email AND `id_type_user`=4;
 END;
 
 CREATE PROCEDURE grantElder(s_email char(30))
@@ -118,10 +99,9 @@ BEGIN
 	WHERE u.email=s_email AND u.id_type_user=2;
 END;
 
-CREATE PROCEDURE changeUserPassword(u_email char(30), old_paswd char(32), new_paswd char(32))
+CREATE PROCEDURE changeUserPassword(u_email char(30), old_passwd char(32), new_passwd char(32))
 BEGIN
-	UPDATE `users` SET `password`=new_paswd
-	WHERE `email`=u_email AND `password`=old_paswd;
+	UPDATE `users` SET `password`=new_passwd WHERE `email`=u_email AND `password`=old_passwd;
 END;
 
 CREATE PROCEDURE authentification(u_email char(30), u_paswd char(32))
@@ -189,33 +169,33 @@ END;
 
 /* Работа с детьми */
 
-CREATE PROCEDURE setChild(emailParent CHAR(30), emailStudent CHAR(30), type_relation INT)
+CREATE PROCEDURE setChild(p_email char(30), s_email char(30), type_relation int)
 BEGIN
-  INSERT INTO `parent_child` (`id_parent`, `id_children`, `id_type_relation`) VALUES (getParentID(emailParent), getStudentID(emailStudent), type_relation);
+  INSERT INTO `parent_child` (`id_parent`, `id_children`, `id_type_relation`) VALUES (getParentId(p_email), getStudentId(s_email), type_relation);
 END;
 
-CREATE PROCEDURE unsetChild(emailParent CHAR(30), emailStudent CHAR(30))
+CREATE PROCEDURE unsetChild(emailParent char(30), emailStudent char(30))
 BEGIN
-	DELETE FROM `parent_child` WHERE `id_parent`=getParentID(emailParent) AND `id_children`=getStudentID(emailStudent);
+	DELETE FROM `parent_child` WHERE `id_parent`=getParentId(emailParent) AND `id_children`=getStudentId(emailStudent);
 END;
 
-CREATE PROCEDURE changeRelation(emailParent CHAR(30), emailStudent CHAR(30), new_id_relation INT)
+CREATE PROCEDURE changeRelation(emailParent char(30), emailStudent char(30), new_id_relation int)
 BEGIN
 	UPDATE `parent_child`
 	SET `id_type_relation`=new_id_relation
-	WHERE `id_parent`=getParentID(emailParent) AND `id_children`=getStudentID(emailStudent);
+	WHERE `id_parent`=getParentId(emailParent) AND `id_children`=getStudentId(emailStudent);
 END;
 
 CREATE PROCEDURE getChilds(emailParent char(30))
 BEGIN
-	SELECT u.second_name, u.first_name, u.patronymic, u.email, s.home_address, s.cell_phone, g.description as 'group', sp.description as 'specialty', r.description as 'relation'
+SELECT u.second_name, u.first_name, u.patronymic, u.email, u.password, s.home_address, s.cell_phone, g.description as 'group', sp.description as 'specialty', r.description as 'relation'
 	FROM `parent_child` pc
-		INNER JOIN `users` u ON pc.id_children=u.id_user
-		INNER JOIN `students` s ON u.id_user=s.id_student
-		INNER JOIN `groups` g ON s.grp=g.grp
-		INNER JOIN `specialty` sp ON g.code_spec=sp.id_spec
-		INNER JOIN `relations` r ON pc.id_type_relation=r.id_relation
-	WHERE pc.id_parent=getParentID(emailParent)
+		INNER JOIN `users`     u  ON pc.id_children      = u.id_user
+		INNER JOIN `students`  s  ON u.id_user           = s.id_student
+		INNER JOIN `groups`    g  ON s.grp               = g.grp
+		INNER JOIN `specialty` sp ON g.spec_id           = sp.id_spec
+		INNER JOIN `relations` r  ON pc.id_type_relation = r.id_relation
+	WHERE pc.id_parent=getParentId(emailParent)
 	ORDER BY u.first_name, u.second_name, u.patronymic;
 END;
 
@@ -237,7 +217,7 @@ BEGIN
   SELECT s.description, s.id_subject
 	FROM `subjects` s 
 		INNER JOIN `teacher_subjects` ts ON s.id_subject=ts.id_subject
-	WHERE ts.id_teacher=getTID(emailTeacher)
+	WHERE ts.id_teacher=getTeacherId(emailTeacher)
 	ORDER BY `description`;
 END;
 

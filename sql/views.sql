@@ -27,8 +27,8 @@ CREATE VIEW v_Users (sn, fn, pt, email, paswd, type_user) as
 	FROM `users` 
 	ORDER BY `second_name`, `first_name`, `patronymic`;
 	
-CREATE VIEW v_Students (sn, fn, pt, email, paswd, type_user, home_address, cell_phone, grp, grp_id, is_budget, code_spec) as
-	SELECT u.second_name, u.first_name, u.patronymic, u.email, u.password, u.id_type_user, s.home_address, s.cell_phone, g.description, g.grp, g.is_budget, sp.code_spec
+CREATE VIEW v_Students (sn, fn, pt, email, paswd, type_user, home_address, cell_phone, grp, grp_id, edu_year, is_budget, spec_id, spec_code, spec_descp) as
+	SELECT u.second_name, u.first_name, u.patronymic, u.email, u.password, u.id_type_user, s.home_address, s.cell_phone, g.description, g.grp, g.edu_year, g.is_budget, sp.id_spec, sp.code_spec, sp.description
 	FROM `users` u 
 		INNER JOIN `students` s ON u.id_user=s.id_student
 		INNER JOIN `groups` g ON s.grp=g.grp
@@ -109,7 +109,10 @@ CREATE VIEW v_Traffic (fn, sn, pt, email, date_visit, count_passed_hours, count_
 	WHERE u.id_type_user=4
 	ORDER BY u.second_name, u.first_name, u.patronymic;
 	
-CREATE VIEW v_Tests (id_test, author, test_caption, subject_id) as
-  SELECT id_test, id_teacher, caption, id_subject FROM `tests`
+CREATE VIEW v_Tests (id_test, author_email, test_caption, subject_id, subject_caption) as
+  SELECT t.id_test, u.email, t.caption, s.id_subject, s.description
+  FROM `tests` t
+  	INNER JOIN `users` u ON t.id_teacher=u.id_user
+  	INNER JOIN `subjects` s ON t.id_subject=s.id_subject
   ORDER BY id_test
   

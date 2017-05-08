@@ -14,38 +14,38 @@ DELIMITER //
 
 /* Функции для пользователей */
 
-CREATE FUNCTION getStudentId (emailUser CHAR(30)) 
+CREATE FUNCTION IF NOT EXISTS getStudentId (emailUser CHAR(30)) 
 	RETURNS INT
 BEGIN
   DECLARE sid int;
   
-  SELECT `id_user` INTO sid FROM `users` WHERE `email`=emailUser AND `id_type_user`=4;
+  SELECT `id_user` INTO sid FROM `users` WHERE `email`=emailUser AND `id_type_user`=3;
   
   RETURN sid;
 END;
 
-CREATE FUNCTION getParentId (emailUser CHAR(30)) 
+CREATE FUNCTION IF NOT EXISTS getParentId (emailUser CHAR(30)) 
 	RETURNS INT
 BEGIN
   DECLARE pid int;
   
-  SELECT `id_user` INTO pid FROM `users` WHERE `email`=emailUser AND `id_type_user`=5;
+  SELECT `id_user` INTO pid FROM `users` WHERE `email`=emailUser AND `id_type_user`=4;
   
   RETURN pid;
 END;
 
-CREATE FUNCTION getElderId (emailUser CHAR(30)) 
+CREATE FUNCTION IF NOT EXISTS getElderId (emailUser CHAR(30)) 
 	RETURNS INT
 BEGIN
   DECLARE eid int;
   
-  SELECT `id_user` INTO eid FROM `users` WHERE `email`=emailUser AND `id_type_user`=3;
+  SELECT `id_user` INTO eid FROM `users` WHERE `email`=emailUser AND `id_type_user`=2;
   
   RETURN eid;
 END;
 
 
-CREATE FUNCTION getTeacherId(emailTeacher char(30)) 
+CREATE FUNCTION IF NOT EXISTS getTeacherId(emailTeacher char(30)) 
   RETURNS int
 BEGIN
   DECLARE tid int;
@@ -54,8 +54,6 @@ BEGIN
   
   RETURN tid;
 END;
-
-
 
 CREATE FUNCTION IF NOT EXISTS isGroupHaveElder(_grp int) RETURNS bool
 BEGIN

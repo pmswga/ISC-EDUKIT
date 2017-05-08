@@ -17,10 +17,10 @@
 		function __construct(
         User $user,
 				int $age,
-				string $education, 
-				string $work_place, 
+				string $education,
+				string $work_place,
 				string $post, 
-				string $home_phone, 
+				string $home_phone,
 				string $cell_phone
 		) {
 			parent::__construct($user->sn, $user->fn, $user->pt, $user->email, $user->password, $user->typeUser);
