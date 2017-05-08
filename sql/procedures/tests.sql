@@ -27,9 +27,7 @@ DROP PROCEDURE IF EXISTS getAnswers; /* Для конкретного вопро
 DROP PROCEDURE IF EXISTS putStudentAnswer;
 DROP PROCEDURE IF EXISTS getStudentAnswers;
 
-
 DELIMITER //
-
 
 /* Работа с тестами */
 
@@ -52,7 +50,7 @@ END;
 CREATE PROCEDURE changeSubjectTest(test_id int, subject_id int)
 BEGIN
   UPDATE `tests` SET `id_subject`=subject_id
-  WHERE `id_subject`=subject_id;
+  WHERE `id_test`=test_id;
 END;
 
 CREATE PROCEDURE setGroup(test_id int, test_grp int)
@@ -74,10 +72,10 @@ END;
 
 CREATE PROCEDURE getTestGroups(test_id int)
 BEGIN
-  SELECT g.grp as id_group, g.description as grp, s.description as spec, g.is_budget
+  SELECT g.grp as id_group, g.description as grp, g.edu_year, g.is_budget, s.id_spec, s.code_spec, s.description as spec_descp
   FROM `groups_tests` g_t
     INNER JOIN `groups` g ON g.grp=g_t.id_group
-    INNER JOIN `specialty` s ON g.code_spec=s.id_spec
+    INNER JOIN `specialty` s ON g.spec_id=s.id_spec
   WHERE g_t.id_test=test_id
   ORDER BY g.description;
 END;
@@ -101,9 +99,6 @@ CREATE PROCEDURE clearTest(test_id int)
 BEGIN
   DELETE FROM `questions` WHERE `id_test`=test_id;
 END;
-
-
-
 
 CREATE PROCEDURE addQuestion(test_id int, test_question char(255), test_r_answer char(255))
 BEGIN
@@ -145,12 +140,12 @@ BEGIN
   SELECT `id_question`, `question`, `r_answer` FROM `questions` WHERE `id_test`=test_id ORDER BY `id_question`;
 END;
 
-CREATE PROCEDURE getAnswers(test_id int, question_id int)
+CREATE PROCEDURE getAnswers(question_id int)
 BEGIN
   SELECT a.id_answer, a.answer
   FROM `answers` a
     INNER JOIN `questions` q ON q.id_question=a.id_question
-  WHERE q.id_test=test_id AND a.id_question=question_id
+  WHERE a.id_question=question_id
   ORDER BY a.id_answer;
 END;
 
@@ -168,8 +163,6 @@ BEGIN
     INNER JOIN `questions` q ON s_t.id_question=q.id_question
   WHERE s_t.id_student=student_id;
 END;
-
-
 
 //
 

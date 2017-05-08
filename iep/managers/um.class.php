@@ -349,10 +349,15 @@
       $teachers = array();
       foreach ($db_teachers as $db_teacher) {
         
-        $db_news = $this->query("call getNews(:email)", [":email" => $teacher['email']]);
+        $db_news = $this->query("call getNews(:email)", [":email" => $db_teacher['email']]);
         
         $news = array();
-        //< Создание массива объектов с новостями
+        foreach ($db_news as $db_new) {
+          $new = new News($db_new['caption'], $db_new['content'], $db_new['author'], $db_new['dp']);
+          $new->setNewsID((int)$db_new['id_news']);
+          
+          $news[] = $new;
+        }
         
         $db_tests = $this->query("call getTests(:email)", [":email" => $db_teacher['email']]);
         
@@ -381,6 +386,7 @@
           $db_teacher['info']
         );
         
+        $teacher->setNews($news);
         $teacher->setTests($tests);
         $teacher->setSubjects($subjects);
         

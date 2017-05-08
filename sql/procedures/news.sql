@@ -34,12 +34,12 @@ END;
 
 CREATE PROCEDURE getNews(n_author_email CHAR(30)) /* Для вывода новостей в его аккаунте */
 BEGIN
-	SELECT * FROM `v_news` WHERE `email`=n_author_email;
+	SELECT * FROM `v_News` WHERE `email`=n_author_email;
 END;
 
 CREATE PROCEDURE getAllNews() /* Для вывода в панели администратора */
 BEGIN
-	SELECT * FROM `v_news`;
+	SELECT * FROM `v_News`;
 END;
 
 CREATE PROCEDURE clearAllNews()

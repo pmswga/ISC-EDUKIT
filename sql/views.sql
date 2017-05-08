@@ -109,7 +109,7 @@ CREATE VIEW v_Traffic (fn, sn, pt, email, date_visit, count_passed_hours, count_
 	WHERE u.id_type_user=4
 	ORDER BY u.second_name, u.first_name, u.patronymic;
 	
-CREATE VIEW v_Tests (id_test, author_email, test_caption, subject_id, subject_caption) as
+CREATE VIEW v_Tests (id_test, author, caption, subject_id, subject_caption) as
   SELECT t.id_test, u.email, t.caption, s.id_subject, s.description
   FROM `tests` t
   	INNER JOIN `users` u ON t.id_teacher=u.id_user

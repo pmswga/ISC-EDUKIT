@@ -2,9 +2,9 @@
     declare(strict_types = 1);
 	namespace IEP\Structures;
 	
-	class OneQuestion
+	class TestQuestion
 	{
-		private $id_question;
+		private $id;
 		private $question;
 		private $answers;
 		private $r_answer;
@@ -12,24 +12,29 @@
 		function __construct(string $question, string $r_answer, array $answers = array())
 		{
 			$this->question = $question;
-			$this->answers = $answers;
 			$this->r_answer = $r_answer;
+			$this->answers = $answers;
 		}
 		
-		public function setID(int $id_question)
+		public function setQuestionID(int $id)
 		{
-			$this->id_question = $id_question;
+			$this->id = $id;
 		}
 		
-		public function getID() : int
+		public function getQuestionID() : int
 		{
-			return $this->id_question;
+			return $this->id;
 		}
 		
 		public function getQuestion() : string
 		{
 			return $this->question;
 		}
+    
+    public function setAnswers(array $answers)
+    {
+      $this->answers = $answers;
+    }
 		
 		public function getAnswers() : array
 		{
