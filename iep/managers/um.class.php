@@ -17,6 +17,8 @@
   use IEP\Structures\Parent_;
   use IEP\Structures\Group;
   use IEP\Structures\Specialty;
+  use IEP\Structures\Subject;
+  use IEP\Structures\News;
   
   class UserManager extends IEP
   {
@@ -185,6 +187,16 @@
           
           if (!empty($teacher)) {
             
+            $db_news = $this->query("call getNews(:email)", [":email" => $teacher['email']]);
+            
+            $news = array();
+            foreach ($db_news as $db_new) {
+              $new = new News($db_new['caption'], $db_new['content'], $db_new['author'], $db_new['dp']);
+              $new->setNewsID((int)$db_new['id_news']);
+              
+              $news[] = $new;
+            }
+            
             $db_tests = $this->query("call getTests(:email)", [":email" => $teacher['email']]);
             
             $tests = array();
@@ -193,7 +205,12 @@
             $db_subjects = $this->query("call getSubjects(:email)", [":email" => $teacher['email']]);
             
             $subjects = array();
-            //< Создание массива объектов с предметами
+            foreach ($db_subjects as $db_subject) {
+              $subject = new Subject($db_subject['description']);
+              $subject->setSubjectID((int)$db_subject['id_subject']);
+              
+              $subjects[] = $subject;
+            }
             
             $teacher = new Teacher(
               new User(
@@ -207,6 +224,7 @@
               $teacher['info']
             );
             
+            $teacher->setNews($news);
             $teacher->setTests($tests);
             $teacher->setSubjects($subjects);
             
@@ -255,10 +273,12 @@
           
           if (!empty($parent)) {
             
-            $db_childs = $this->query("call getChilds(:email)", [":email", $parent['email']]);
+            $db_childs = $this->query("call getChilds(:email)", [":email" => $parent['email']]);
             
             $childs = array();
-            //< Создание массива с детьми
+            foreach ($db_childs as $db_child) {
+              $childs[] = $this->authentification($db_child["email"], $db_child["password"]);
+            }
             
             $p = new Parent_(
               new User(
@@ -269,11 +289,11 @@
                 $parent['paswd'],
                 (int)$parent['type_user']
               ),
-              $parent['age'],
+              (int)$parent['age'],
               $parent['education'],
               $parent['work_place'],
               $parent['post'],
-              $parent['home_address'],
+              $parent['home_phone'],
               $parent['cell_phone']
             );
             
@@ -329,6 +349,11 @@
       $teachers = array();
       foreach ($db_teachers as $db_teacher) {
         
+        $db_news = $this->query("call getNews(:email)", [":email" => $teacher['email']]);
+        
+        $news = array();
+        //< Создание массива объектов с новостями
+        
         $db_tests = $this->query("call getTests(:email)", [":email" => $db_teacher['email']]);
         
         $tests = array();
@@ -337,7 +362,12 @@
         $db_subjects = $this->query("call getSubjects(:email)", [":email" => $db_teacher['email']]);
         
         $subjects = array();
-        //< Создание массива объектов с предметами
+        foreach ($db_subjects as $db_subject) {
+          $subject = new Subject($db_subject['description']);
+          $subject->setSubjectID((int)$db_subject['id_subject']);
+          
+          $subjects[] = $subject;
+        }
         
         $teacher = new Teacher(
           new User(

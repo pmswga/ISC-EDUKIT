@@ -1,10 +1,10 @@
 <?php
-    declare(strict_types = 1);
+  declare(strict_types = 1);
 	namespace IEP\Structures;
 
-	class OneNews
+	class News
 	{
-		private $id_news;
+		private $id;
 		private $caption;
 		private $content;
 		private $author;
@@ -16,16 +16,17 @@
 			$this->content = $content;
 			$this->author = $author;
 			$this->date_publication = $date_publication;
+      $this->id = 0;
 		}
 		
-		public function setNewsID(int $id_news)
+		public function setNewsID(int $id)
 		{
-			$this->id_news = $id_news;
+			$this->id = $id;
 		}
 		
 		public function getNewsID() : int
 		{
-			return $this->id_news;
+			return $this->id;
 		}
 		
 		public function getCaption() : string

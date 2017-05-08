@@ -7,6 +7,7 @@
 	class Teacher extends User
 	{
 		private $info;
+    private $news;
 		private $subjects;
 		private $tests;
 		
@@ -18,6 +19,11 @@
       $this->tests = array();
 		}
 	
+    public function setNews(array $news)
+    {
+      $this->news = $news;
+    }
+  
 		public function setSubjects(array $subjects)
 		{
 			$this->subjects = $subjects;
@@ -32,6 +38,11 @@
 		{
 			return $this->info;
 		}
+    
+    public function getNews()
+    {
+      return $this->news;
+    }
 		
 		public function getSubjects() : array
 		{

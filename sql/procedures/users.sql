@@ -188,7 +188,7 @@ END;
 
 CREATE PROCEDURE getChilds(emailParent char(30))
 BEGIN
-SELECT u.second_name, u.first_name, u.patronymic, u.email, u.password, s.home_address, s.cell_phone, g.description as 'group', sp.description as 'specialty', r.description as 'relation'
+	SELECT u.second_name, u.first_name, u.patronymic, u.email, u.password, s.home_address, s.cell_phone, g.description as 'group', sp.description as 'specialty', r.description as 'relation'
 	FROM `parent_child` pc
 		INNER JOIN `users`     u  ON pc.id_children      = u.id_user
 		INNER JOIN `students`  s  ON u.id_user           = s.id_student
@@ -204,12 +204,12 @@ END;
 
 CREATE PROCEDURE setSubject(emailTeacher char(30), subject_id int)
 BEGIN
-  INSERT INTO `teacher_subjects` (`id_teacher`, `id_subject`) VALUES (getTID(emailTeacher), subject_id);
+  INSERT INTO `teacher_subjects` (`id_teacher`, `id_subject`) VALUES (getTeacherId(emailTeacher), subject_id);
 END;
 
 CREATE PROCEDURE unsetSubject(emailTeacher char(30), subject_id int)
 BEGIN
-	DELETE FROM `teacher_subjects` WHERE `id_teacher`=getTID(emailTeacher) AND `id_subject`=subject_id;
+	DELETE FROM `teacher_subjects` WHERE `id_teacher`=getTeacherId(emailTeacher) AND `id_subject`=subject_id;
 END;
 
 CREATE PROCEDURE getSubjects(emailTeacher char(30)) /* Для отображения предметов в его аккаунте  */
