@@ -10,7 +10,7 @@
 	{
 		$user = $_SESSION['user'];
 		
-		switch($user->getTypeUser())
+		switch($user->getUserType())
 		{
 			case USER_TYPE_STUDENT:
 			{
@@ -178,8 +178,8 @@
 			} break;
 			case USER_TYPE_PARENT:
 			{
-				$CT->assign("fio", $user->getSn()." ".$user->getFn()." ".$user->getPt());
 				$CT->assign("user", $user);
+				$CT->assign("childs", $user->getChilds());
         
 				$CT->Show("accounts/parent.tpl");
 			} break;

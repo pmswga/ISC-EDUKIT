@@ -6,7 +6,7 @@
 		$email = htmlspecialchars($_POST['email']);
 		$password = md5(htmlspecialchars($_POST['password']));
 		
-		$user = $UM->authorizate($email, $password);
+		$user = $UM->authentification($email, $password);
 		if(!empty($user)) $_SESSION['user'] = $user;
 		else CTools::Message("Такого пользователя не существует");
 		

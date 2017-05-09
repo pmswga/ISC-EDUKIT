@@ -30,18 +30,12 @@
 	align-items: center;
 }
 
-@keyframes rotate{
-	to{
-		transform: rotate3D(1, 1, 1, 360deg);
-	}
+#childs{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
-.circle{
-	width: 250px;
-	height: 250px;
-	background-color: purple;
-	border-radius: 50px;
-	animation-name: rotate;
-	animation-iteration-count:infinite; 
-	animation-duration: 5s;
+#childs ruby {
+  text-align: center;
 }

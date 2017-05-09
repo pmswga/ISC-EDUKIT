@@ -7,14 +7,24 @@ DROP FUNCTION IF EXISTS getTeacherId;
 DROP FUNCTION IF EXISTS getSubjectId;
 DROP FUNCTION IF EXISTS getSpecialtyId;
 DROP FUNCTION IF EXISTS isGroupHaveElder;
+DROP FUNCTION IF EXISTS isEmailExists;
 
 
 DELIMITER //
 
+CREATE FUNCTION IF NOT EXISTS isEmailExists(email char(30))
+	RETURNS BOOL
+BEGIN
+	IF EXISTS (SELECT `email` FROM `users` WHERE `email`=email) THEN
+		RETURN TRUE;
+	ELSE
+		RETURN FALSE;
+	END IF; 
+END;
 
 /* Функции для пользователей */
 
-CREATE FUNCTION IF NOT EXISTS getStudentId (emailUser CHAR(30)) 
+CREATE FUNCTION IF NOT EXISTS getStudentId (emailUser char(30)) 
 	RETURNS INT
 BEGIN
   DECLARE sid int;
@@ -24,7 +34,7 @@ BEGIN
   RETURN sid;
 END;
 
-CREATE FUNCTION IF NOT EXISTS getParentId (emailUser CHAR(30)) 
+CREATE FUNCTION IF NOT EXISTS getParentId (emailUser char(30)) 
 	RETURNS INT
 BEGIN
   DECLARE pid int;
@@ -34,7 +44,7 @@ BEGIN
   RETURN pid;
 END;
 
-CREATE FUNCTION IF NOT EXISTS getElderId (emailUser CHAR(30)) 
+CREATE FUNCTION IF NOT EXISTS getElderId (emailUser char(30)) 
 	RETURNS INT
 BEGIN
   DECLARE eid int;
@@ -85,7 +95,7 @@ BEGIN
 END;
 
 
-CREATE FUNCTION getSpecialtyId(spec CHAR(10))
+CREATE FUNCTION getSpecialtyId(spec char(10))
 	RETURNS int
 BEGIN
 	DECLARE sid int;

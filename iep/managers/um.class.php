@@ -141,6 +141,18 @@
                 
                 if (!empty($childs)) {
                   
+                  $result = true;
+                  for ($i = 0; $i < count($childs); $i++) {
+                    $result *= $this->setChild($user->getEmail(), $childs[$i], 6);                    
+                  }
+                  
+                  if ($result) {
+                    return $this->dbc()->commit();
+                  } else {
+                    $this->dbc()->rollBack();
+                    return false;
+                  }
+                  
                 } else {                  
                   return $this->dbc()->commit();
                 }
@@ -153,8 +165,8 @@
           }
           catch(PDOException $e)
           {
-              $this->dbc()->rollBack();
-              return false;
+            $this->dbc()->rollBack();
+            return false;
           }
         } break;
         default:
