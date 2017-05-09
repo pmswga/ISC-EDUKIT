@@ -17,8 +17,6 @@
   use IEP\Structures\Parent_;
   use IEP\Structures\Group;
   use IEP\Structures\Specialty;
-  use IEP\Structures\Subject;
-  use IEP\Structures\News;
   
   class UserManager extends IEP
   {
@@ -187,31 +185,6 @@
           
           if (!empty($teacher)) {
             
-            $db_news = $this->query("call getNews(:email)", [":email" => $teacher['email']]);
-            
-            $news = array();
-            foreach ($db_news as $db_new) {
-              $new = new News($db_new['caption'], $db_new['content'], $db_new['author'], $db_new['dp']);
-              $new->setNewsID((int)$db_new['id_news']);
-              
-              $news[] = $new;
-            }
-            
-            $db_tests = $this->query("call getTests(:email)", [":email" => $teacher['email']]);
-            
-            $tests = array();
-            //< Создание массива объектов с тестами
-            
-            $db_subjects = $this->query("call getSubjects(:email)", [":email" => $teacher['email']]);
-            
-            $subjects = array();
-            foreach ($db_subjects as $db_subject) {
-              $subject = new Subject($db_subject['description']);
-              $subject->setSubjectID((int)$db_subject['id_subject']);
-              
-              $subjects[] = $subject;
-            }
-            
             $teacher = new Teacher(
               new User(
                 $teacher['sn'],
@@ -223,10 +196,6 @@
               ),
               $teacher['info']
             );
-            
-            $teacher->setNews($news);
-            $teacher->setTests($tests);
-            $teacher->setSubjects($subjects);
             
             return $teacher;
             
@@ -348,31 +317,6 @@
       
       $teachers = array();
       foreach ($db_teachers as $db_teacher) {
-        
-        $db_news = $this->query("call getNews(:email)", [":email" => $db_teacher['email']]);
-        
-        $news = array();
-        foreach ($db_news as $db_new) {
-          $new = new News($db_new['caption'], $db_new['content'], $db_new['author'], $db_new['dp']);
-          $new->setNewsID((int)$db_new['id_news']);
-          
-          $news[] = $new;
-        }
-        
-        $db_tests = $this->query("call getTests(:email)", [":email" => $db_teacher['email']]);
-        
-        $tests = array();
-        //< Создание массива объектов с тестами
-        
-        $db_subjects = $this->query("call getSubjects(:email)", [":email" => $db_teacher['email']]);
-        
-        $subjects = array();
-        foreach ($db_subjects as $db_subject) {
-          $subject = new Subject($db_subject['description']);
-          $subject->setSubjectID((int)$db_subject['id_subject']);
-          
-          $subjects[] = $subject;
-        }
         
         $teacher = new Teacher(
           new User(

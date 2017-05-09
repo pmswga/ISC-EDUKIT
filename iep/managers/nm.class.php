@@ -23,6 +23,21 @@
       return $add_news_query->execute();
     }
     
+    public function getNews(string $teacher_email)
+    {
+      $db_news = $this->query("call getNews(:t_email)", [":t_email" => $teacher_email]);
+      
+      $news = array();
+      foreach ($db_news as $db_new) {
+        $new = new News($db_new['caption'], $db_new['content'], $db_new['author'], $db_new['dp']);
+        $new->setNewsID((int)$db_new['id_news']);
+        
+        $news[] = $new;
+      }
+      
+      return $news;
+    }
+    
     public function getAllNews()
     {
       $db_news = $this->query("call getAllNews()");

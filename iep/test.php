@@ -30,6 +30,8 @@
   
   
   $TM = new TestManager($DB);
+  $NM = new NewsManager($DB);
+  $SBM = new SubjectManager($DB);
   
   // $TM->add(new Test("CaptTestr", 1, "jackxp@gmail.com", [2]));
   
@@ -42,7 +44,7 @@
   // ));
   
   
-  echo "<pre>";  print_r($TM->getTests("jackxp@gmail.com"));  echo "</pre>";
+  // echo "<pre>";  // print_r($TM->getTests("jackxp@gmail.com"));  // echo "</pre>";
   
   
   
@@ -52,9 +54,16 @@
   
   
   
-  // $UM = new UserManager($DB);
+  $UM = new UserManager($DB);
   
-  // echo "<pre>";  // print_r($UM->authentification("jackxp@gmail.com", md5("password")));  // echo "</pre>";
+  // $user = $UM->authentification("jackxp@gmail.com", md5("password"));
+  // $user->setTests($TM->getTests("jackxp@gmail.com"));
+  // $user->setNews($NM->getNews("jackxp@gmail.com"));
+  // $user->setSubjects($SBM->getSubjects("jackxp@gmail.com"));
+  
+  // echo "<pre>";  // print_r($user);  // echo "</pre>";
+  
+  echo "<pre>";  print_r($UM->authentification("lion.80@mail.ru", md5("password")));  echo "</pre>";
   
   // echo "<pre>";  // print_r($UM->getAllTeachers());  // echo "</pre>";
   

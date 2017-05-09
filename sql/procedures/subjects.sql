@@ -3,6 +3,7 @@ use `iep`;
 DROP PROCEDURE IF EXISTS addSubject;
 DROP PROCEDURE IF EXISTS removeSubject;
 DROP PROCEDURE IF EXISTS changeDescriptionSubject;
+DROP PROCEDURE IF EXISTS getSubjects;
 DROP PROCEDURE IF EXISTS getAllSubjects;
 
 DELIMITER //
@@ -23,6 +24,14 @@ END;
 CREATE PROCEDURE changeDescriptionSubject(subject_id int, new_descp char(255))
 BEGIN
 	UPDATE `subjects` SET `description`=new_descp WHERE `id_subject`=subject_id;
+END;
+
+CREATE PROCEDURE getSubjects(emailTeacher char(30))
+BEGIN
+	SELECT s.id_subject, s.description 
+	FROM `teacher_subjects` ts
+		INNER JOIN `subjects` s ON ts.id_subject=s.id_subject
+	WHERE ts.`id_teacher`=getTeacherId(emailTeacher);
 END;
 
 CREATE PROCEDURE getAllSubjects()

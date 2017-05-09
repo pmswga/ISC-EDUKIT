@@ -20,6 +20,21 @@
       return $add_subject_query->execute();
     }
     
+    public function getSubjects(string $teacher_email)
+    {
+      $db_subjects = $this->query("call getSubjects(:t_email)", [":t_email" => $teacher_email]);
+      
+      $subjects = array();
+      foreach ($db_subjects as $db_subject) {
+        $subject = new Subject($db_subject['description']);
+        $subject->setSubjectID((int)$db_subject['id_subject']);
+        
+        $subjects[] = $subject;
+      }
+      
+      return $subjects;
+    }
+    
     public function getAllSubjects() : array
     {
       $db_subjects = $this->query("call getAllSubjects()");
