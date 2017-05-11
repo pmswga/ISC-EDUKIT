@@ -14,7 +14,7 @@
 		{
 			case USER_TYPE_STUDENT:
 			{
-				$sogroups = $UM->get("SELECT * FROM `v_Students` WHERE `grp`=:grp AND `email`!=:email",
+				$sogroups = $UM->query("SELECT * FROM `v_Students` WHERE `grp`=:grp AND `email`!=:email",
 					[":grp" => $user->getGroup()->getNumberGroup(), ":email" => $user->getEmail()]
 				);
 				
@@ -183,6 +183,17 @@
         
 				$CT->Show("accounts/parent.tpl");
 			} break;
+      case USER_TYPE_ELDER:
+      {
+				$sogroups = $UM->query("SELECT * FROM `v_Students` WHERE `grp`=:grp AND `email`!=:email",
+					[":grp" => $user->getGroup()->getNumberGroup(), ":email" => $user->getEmail()]
+				);
+				
+        $CT->assign("user", $user);
+				$CT->assign("sogroups", $sogroups);
+        
+        $CT->Show("accounts/elder.tpl");
+      } break;
       default:
       {
         unset($_SESSION['user']);

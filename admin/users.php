@@ -4,7 +4,7 @@
   
   use IEP\Managers\UserManager;
   use IEP\Managers\GroupManager;
-  use IEP\Managers\SubjectsManager;
+  use IEP\Managers\SubjectManager;
   use IEP\Structures\Student;
   use IEP\Structures\Parent_;
   use IEP\Structures\Teacher;
@@ -16,22 +16,22 @@
 		
 		$UM = new UserManager($DB);
 		$GM = new GroupManager($DB);
-		$SM = new SubjectsManager($DB);
+		$SM = new SubjectManager($DB);
 		
-		$all_students = $UM->getStudents();
+		$all_students = $UM->getAllStudents();
 		$studentsByGroup = array();
 		for ($i = 0; $i < count($all_students); $i++) {
 			$studentsByGroup[$all_students[$i]->getGroup()->getNumberGroup()][] = $all_students[$i];
 		}
 		
-		$CT->assign("groups", $GM->getGroups());
-		$CT->assign("subjects", $SM->getSubjects());
-		$CT->assign("teachers", $UM->getTeachers());
-		$CT->assign("students", $UM->getStudents());
-		$CT->assign("elders", $UM->getElders());
-		$CT->assign("parents", $UM->getParents());
-		$CT->assign("allUsers", $UM->getUsers());
-		$CT->assign("typeUsers", $UM->getTypeUsers());
+		$CT->assign("groups", $GM->getAllGroups());
+		$CT->assign("subjects", $SM->getAllSubjects());
+		$CT->assign("teachers", $UM->getAllTeachers());
+		$CT->assign("students", $UM->getAllStudents());
+		// $CT->assign("elders", $UM->getElders());
+		$CT->assign("parents", $UM->getAllParents());
+		// $CT->assign("allUsers", $UM->getAllUsers());
+		// $CT->assign("typeUsers", $UM->getTypeUsers());
 		$CT->assign("studentsByGroup", $studentsByGroup);
 		
 		$CT->Show("users.tpl");

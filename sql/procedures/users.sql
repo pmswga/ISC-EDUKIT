@@ -19,6 +19,7 @@ DROP PROCEDURE IF EXISTS authentificationAdmin;
 
 DROP PROCEDURE IF EXISTS getTeacherInfo;
 DROP PROCEDURE IF EXISTS getStudentInfo;
+DROP PROCEDURE IF EXISTS getElderInfo;
 DROP PROCEDURE IF EXISTS getParentInfo;
 
 DROP PROCEDURE IF EXISTS getAllAdmins;
@@ -127,6 +128,11 @@ END;
 CREATE PROCEDURE getStudentInfo(emailUser char(30))
 BEGIN
 	SELECT * FROM `v_Students` WHERE `email`=emailUser;
+END;
+
+CREATE PROCEDURE getElderInfo(emailUser char(30))
+BEGIN
+	SELECT * FROM `v_Elders` WHERE `email`=emailUser;
 END;
 
 CREATE PROCEDURE getParentInfo(emailUser char(30))

@@ -286,6 +286,37 @@
           }
           
         } break;
+        case USER_TYPE_ELDER:
+        {
+          $elder = $this->query("call getElderInfo(:email)", [":email" => $user['email']])[0];
+
+          if (!empty($elder)) {
+            
+            $spec = new Specialty($elder['spec_code'], $elder['spec_descp'], "none");
+            $spec->setSpecialtyID((int)$elder['spec_id']);
+            
+            $group = new Group($elder['grp'], $spec, $elder['edu_year'], (int)$elder['is_budget']);
+            $group->setGroupID((int)$elder['grp_id']);
+            
+            $s = new Student(
+              new User(
+                $elder['sn'],
+                $elder['fn'],
+                $elder['pt'],
+                $elder['email'],
+                $elder['paswd'],
+                (int)$elder['type_user']
+              ),
+              $elder['home_address'],
+              $elder['cell_phone'],
+              $group
+            );
+            
+            return $s;
+          } else {
+            return false;
+          }
+        } break;
         default:
         {
 
@@ -341,10 +372,6 @@
           ),
           $db_teacher['info']
         );
-        
-        $teacher->setNews($news);
-        $teacher->setTests($tests);
-        $teacher->setSubjects($subjects);
         
         $teachers[] = $teacher;
       }

@@ -5,12 +5,12 @@
 	require_once "../engine/settings.php";
 	
 	require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/user.class.php";
-	require_once $_SERVER['DOCUMENT_ROOT']."/iep/typesUser.php";
-	require_once $_SERVER['DOCUMENT_ROOT']."/iep/managers/groupmanager.class.php";
-	require_once $_SERVER['DOCUMENT_ROOT']."/iep/managers/usermanager.class.php";
-	require_once $_SERVER['DOCUMENT_ROOT']."/iep/managers/subjectsmanager.class.php";
-	require_once $_SERVER['DOCUMENT_ROOT']."/iep/managers/specialtymanager.class.php";
-	require_once $_SERVER['DOCUMENT_ROOT']."/iep/managers/newsmanager.class.php";
+	require_once $_SERVER['DOCUMENT_ROOT']."/iep/consts/typeusers.consts.php";
+	require_once $_SERVER['DOCUMENT_ROOT']."/iep/managers/gm.class.php";
+	require_once $_SERVER['DOCUMENT_ROOT']."/iep/managers/um.class.php";
+	require_once $_SERVER['DOCUMENT_ROOT']."/iep/managers/sbm.class.php";
+	require_once $_SERVER['DOCUMENT_ROOT']."/iep/managers/sm.class.php";
+	require_once $_SERVER['DOCUMENT_ROOT']."/iep/managers/nm.class.php";
 	
 	$CT = new CTemplater("templates/tpl", "templates/tpl_c", "templates/configs", "templates/cache");
   
