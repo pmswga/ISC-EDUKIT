@@ -1,34 +1,49 @@
-*{
+* {
 	margin: 0px;
 	padding: 0px;
 }
 
-#rings{
+#rings {
 	text-align: center;
 }
 
-#content{
+#content {
 	display: flex;
 	flex-direction: column;
 	align-items:center;
 }
 
-.oneNews{
+.oneNews {
 	padding: 15px;
 	margin: 15px;
 	border: 1px solid black;
 	word-wrap: break-word;
 }
 
-.oneNews article{
+.oneNews article {
 	padding: 20px;
 }
 
-#authorizateButtonDiv{
+#authorizateButtonDiv {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
+
+#student_traffic {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.cube {
+  width: 25px;
+  height: 25px;
+  background-color: orange;
+  padding: 5px;
+  margin: 5px;
+}
+
 
 #childs{
   display: flex;

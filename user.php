@@ -190,28 +190,28 @@
 					[":grp" => $user->getGroup()->getNumberGroup()]
 				);
         
+        $traffic = $UM->query("call getTrafficStudent(:s_email)", [":s_email" => $user->getEmail()]);
 				
+        // CTools::var_dump($traffic);
+        
         $CT->assign("user", $user);
 				$CT->assign("sogroups", $sogroups);
+        $CT->assign("traffic", $traffic);
         
         if (!empty($_POST['commitTrafficButton'])) {
           $count_pairs = $_POST['count_pairs'];
           $traffic = $_POST['traffic'];
-          
-          echo "Count of pairs: ".$count_pairs." ";
-          
-          CTools::var_dump($traffic);
           
           $result = true;
           foreach ($traffic as $key => $value) {
             $result *= $TRM->add(new TrafficEntry($key, date("Y.m.d"), $value[0]*2, $count_pairs*2)); 
           }
           
-          if ($result) {
-            CTools::Message("Изменения зафиксированны");
-          } else {
-            CTools::Message("Ошибка при фиксации");
-          }
+          // if ($result) {
+            // CTools::Message("Изменения зафиксированны");
+          // } else {
+            // CTools::Message("Ошибка при фиксации");
+          // }
           
           CTools::Redirect("user.php");
           
