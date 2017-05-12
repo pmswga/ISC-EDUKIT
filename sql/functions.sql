@@ -1,5 +1,6 @@
 use `iep`;
 
+DROP FUNCTION IF EXISTS getUserId;
 DROP FUNCTION IF EXISTS getStudentId;
 DROP FUNCTION IF EXISTS getElderId;
 DROP FUNCTION IF EXISTS getParentId;
@@ -23,6 +24,16 @@ BEGIN
 END;
 
 /* Функции для пользователей */
+
+CREATE FUNCTION IF NOT EXISTS getUserId (emailUser char(30))
+	RETURNS BOOL
+BEGIN
+	DECLARE uid int;
+	
+	SELECT `id_user` INTO uid FROM `users` WHERE `email`=emailUser;
+	
+	RETURN uid;
+END;
 
 CREATE FUNCTION IF NOT EXISTS getStudentId (emailUser char(30)) 
 	RETURNS INT

@@ -5,6 +5,7 @@
 	use IEP\Structures\Test;
 	use IEP\Structures\OneQuestion;
 	use IEP\Structures\Subject;
+  use IEP\Structures\TrafficEntry;
 	
 	if(isset($_SESSION['user']))
 	{
@@ -185,12 +186,37 @@
 			} break;
       case USER_TYPE_ELDER:
       {
-				$sogroups = $UM->query("SELECT * FROM `v_Students` WHERE `grp`=:grp AND `email`!=:email",
-					[":grp" => $user->getGroup()->getNumberGroup(), ":email" => $user->getEmail()]
+				$sogroups = $UM->query("SELECT * FROM `v_Students` WHERE `grp`=:grp",
+					[":grp" => $user->getGroup()->getNumberGroup()]
 				);
+        
 				
         $CT->assign("user", $user);
 				$CT->assign("sogroups", $sogroups);
+        
+        if (!empty($_POST['commitTrafficButton'])) {
+          $count_pairs = $_POST['count_pairs'];
+          $traffic = $_POST['traffic'];
+          
+          echo "Count of pairs: ".$count_pairs." ";
+          
+          CTools::var_dump($traffic);
+          
+          $result = true;
+          foreach ($traffic as $key => $value) {
+            $result *= $TRM->add(new TrafficEntry($key, date("Y.m.d"), $value[0]*2, $count_pairs*2)); 
+          }
+          
+          if ($result) {
+            CTools::Message("Изменения зафиксированны");
+          } else {
+            CTools::Message("Ошибка при фиксации");
+          }
+          
+          CTools::Redirect("user.php");
+          
+        }
+        
         
         $CT->Show("accounts/elder.tpl");
       } break;

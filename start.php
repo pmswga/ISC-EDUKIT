@@ -10,6 +10,7 @@
 	require_once "iep/managers/nm.class.php";
 	require_once "iep/managers/gm.class.php";
 	require_once "iep/managers/tm.class.php";
+	require_once "iep/managers/trm.class.php";
 	require_once "iep/consts/typeusers.consts.php";
 	
   use IEP\Managers\UserManager;
@@ -17,6 +18,7 @@
   use IEP\Managers\NewsManager;
   use IEP\Managers\GroupManager;
 	use IEP\Managers\TestManager;
+	use IEP\Managers\TrafficManager;
 	
 	$ROOT_PATH = $_SERVER['DOCUMENT_ROOT'];
 	
@@ -40,6 +42,8 @@
 	$GM = new GroupManager($DB);
 	
 	$TM = new TestManager($DB);
+  
+  $TRM = new TrafficManager($DB);
 	
 	$CT->assign("groups", $GM->getAllGroups());
 	

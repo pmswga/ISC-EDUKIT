@@ -24,29 +24,35 @@
             <div class="col-md-12">
               <h2>Отметка посещаемости</h2>
               {if $sogroups != NULL}
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <td>Кол-во пар сегодня</td>
-                      <td><input type="number" min="1" max="5" value="1" class="form-control"></td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Студент</td>
-                      <td>Кол-во посещённых пар</td>
-                    </tr>
-                    {foreach from=$sogroups item=it}
+                <form name="commitTrafficForm" method="POST">
+                  <table class="table table-bordered">
+                    <thead>
                       <tr>
-                        <td><a href=account.php?email={$it['email']}>{$it['sn']} {$it['fn']}</a></td>
-                      <td><input type="number" min="1" max="5" value="1" class="form-control"></td>
+                        <td>Кол-во пар сегодня</td>
+                        <td><input type="number" name="count_pairs" min="1" max="5" value="1" class="form-control"></td>
                       </tr>
-                    {/foreach}
-                  </tbody>
-                  <tfoot>
-                    <tr><td colspan="2"><input type="submit" name="" value="Зафиксировать" class="btn btn-success"></td></tr>
-                  </tfoot>
-                </table>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Студент</td>
+                        <td>Кол-во посещённых пар</td>
+                      </tr>
+                      {foreach from=$sogroups item=it}
+                        <tr>
+                          <td><a href=account.php?email={$it['email']}>{$it['sn']} {$it['fn']}</a></td>
+                        <td><input type="number" name="traffic[{$it['email']}][]" min="1" value="1" max="1" class="traff form-control"></td>
+                        </tr>
+                      {/foreach}
+                        <tr>
+                          <td><b>{$user->getSn()} {$user->getFn()}</b></td>
+                        <td><input type="number" name="traffic[{$user->getEmail()}][]" min="1" value="1" max="1" class="traff form-control"></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr><td colspan="2"><input type="submit" name="commitTrafficButton" value="Зафиксировать" class="btn btn-success"></td></tr>
+                    </tfoot>
+                  </table>
+                </form>
               {else}
                 <h4>Ваши одногруппники ещё не зарегистрированны</h4>
               {/if}
@@ -98,7 +104,13 @@
 			<div class="row" style="padding: 15px;">
 				<div class="col-md-8">
 					<h2>Моя посещаемость</h2>
-          <img src="img/calendar.jpg">
+          {if $traffic != NULL}
+          
+          {else}
+            <h3>Похоже, что вы вообще не посещали колледж...</h3>
+          {/if}
+          
+          <!-- <img src="img/calendar.jpg"> -->
 				</div>
 				<div class="col-md-4">
 					<div class="panel-group" id="tests">
@@ -164,5 +176,20 @@
 				</div>
 			</div>
 		</div>
+    
+    <script type="text/javascript">
+    
+      $("[name='count_pairs']").change(function(){
+        
+        var count_pairs = $(this).val();
+        
+        $(".traff").each(function (index, value){          
+          $(value).attr("max", count_pairs);
+        });
+        
+      });
+    
+    </script>
+    
 	</body>
 </html>
