@@ -5,7 +5,6 @@ DROP PROCEDURE IF EXISTS clearTrafficStudent;
 DROP PROCEDURE IF EXISTS clearAllTraffic;
 DROP PROCEDURE IF EXISTS getTrafficStudent;
 DROP PROCEDURE IF EXISTS getAllTraffic;
-DROP PROCEDURE IF EXISTS ifTrafficNotCommited;
 
 DELIMITER //
 
@@ -34,11 +33,6 @@ END;
 CREATE PROCEDURE IF NOT EXISTS getAllTraffic()
 BEGIN
 	SELECT * FROM `v_Traffic`;
-END;
-
-CREATE PROCEDURE IF NOT EXISTS ifTrafficNotCommited(traffic_date date)
-BEGIN
-	
 END;
 
 //

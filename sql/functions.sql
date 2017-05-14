@@ -9,6 +9,7 @@ DROP FUNCTION IF EXISTS getSubjectId;
 DROP FUNCTION IF EXISTS getSpecialtyId;
 DROP FUNCTION IF EXISTS isGroupHaveElder;
 DROP FUNCTION IF EXISTS isEmailExists;
+DROP FUNCTION IF EXISTS ifTrafficFixed;
 
 
 DELIMITER //
@@ -98,11 +99,11 @@ END;
 CREATE FUNCTION getSubjectId(subject char(255)) 
   RETURNS int
 BEGIN
-  DECLARE sid int;
+	DECLARE sid int;
   
 	SELECT `id_subject` INTO sid FROM `subjects` WHERE `description`=subject;
   
-  RETURN sid;
+	RETURN sid;
 END;
 
 
@@ -117,6 +118,17 @@ BEGIN
 END;
 
 
+/* Функции для посещения */
+
+CREATE FUNCTION ifTrafficFixed(elder_email char(30))
+	RETURNS BOOL
+BEGIN
+	IF EXISTS(SELECT * FROM `student_traffic` WHERE `date_visit`=DATE(NOW()) AND `id_student`=getUserId(elder_email)) THEN
+		RETURN TRUE;
+	ELSE
+		RETURN FALSE;
+	END IF;
+END;
 
 
 //

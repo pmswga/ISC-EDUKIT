@@ -22,17 +22,21 @@
 				$CT->assign("fio", $user->getSn()." ".$user->getFn()." ".$user->getPt());
 				$CT->assign("sogroups", $sogroups);
 				$CT->assign("user", $user);
-				$CT->assign("tests", $TM->getTestForGroup($user->getGroup()->getID()));
+				// $CT->assign("tests", $TM->getTestForGroup($user->getGroup()->getID()));
+        
+        $traffic = $UM->query("call getTrafficStudent(:s_email)", [":s_email" => $user->getEmail()]);
+				
+        $CT->assign("traffic", $traffic);
 				
 				$CT->Show("accounts/student.tpl");
 			} break;
 			case USER_TYPE_TEACHER:
 			{
         
-				$teacher_subjects = $SM->getTeacherSubjects($user->getEmail());
-				$teacher_news = $NM->getTeacherNews($user->getEmail());
-				$teacher_tests = $TM->getTeacherTests($user->getEmail());
-				$other_subjects = $SM->getSubjects();
+				$teacher_subjects = $SM->getSubjects($user->getEmail());
+				$teacher_news = $NM->getNews($user->getEmail());
+				$teacher_tests = $TM->getTests($user->getEmail());
+				$other_subjects = $SM->getAllSubjects();
 				
 				// < Удаляем предметы, которые преподаватель уже ведёт
 				foreach ($teacher_subjects as $teacher_subject) {
@@ -47,7 +51,7 @@
 				$CT->assign("subjects", $other_subjects);
 				$CT->assign("teachersNews", $teacher_news);
 				$CT->assign("teachersTests", $teacher_tests);
-				$CT->assign("groups", $GM->getGroups());
+				$CT->assign("groups", $GM->getAllGroups());
 				
 				$CT->Show("accounts/teacher.tpl");
 				
@@ -186,16 +190,23 @@
 			} break;
       case USER_TYPE_ELDER:
       {
-				$sogroups = $UM->query("SELECT * FROM `v_Students` WHERE `grp`=:grp",
-					[":grp" => $user->getGroup()->getNumberGroup()]
-				);
+        
+        $ifTrafficFixed = $UM->query("SELECT ifTrafficFixed(:e_email) as result", 
+          [":e_email" => $user->getEmail()]
+        )[0]['result'];
+        
+        if ($ifTrafficFixed == 0) {
+          
+          $sogroups = $UM->query("SELECT * FROM `v_Students` WHERE `grp`=:grp",
+            [":grp" => $user->getGroup()->getNumberGroup()]
+          );
+          $CT->assign("sogroups", $sogroups);
+          
+        }
         
         $traffic = $UM->query("call getTrafficStudent(:s_email)", [":s_email" => $user->getEmail()]);
 				
-        // CTools::var_dump($traffic);
-        
         $CT->assign("user", $user);
-				$CT->assign("sogroups", $sogroups);
         $CT->assign("traffic", $traffic);
         
         if (!empty($_POST['commitTrafficButton'])) {

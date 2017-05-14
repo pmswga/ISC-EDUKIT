@@ -82,7 +82,33 @@
 			<div class="row" style="padding: 15px;">
 				<div class="col-md-8">
 					<h2>Моя посещаемость</h2>
-          <img src="img/calendar.jpg">
+          <div id="student_traffic">
+            {if $traffic != NULL}
+              {foreach from=$traffic item=traffic_entry}
+                <div class="cube" 
+                  data-toggle="popover" 
+                  data-placement="top"                  
+                  data-html="true"                  
+                  title="{$traffic_entry['date_visit']|date_format:'d.m.Y'}" 
+                  data-content="
+                    <table class='table table-border'>
+                      <tr>
+                        <td>Пар</td>
+                        <td>Посещено</td>
+                        <td>Пропущено</td>
+                      </tr>
+                      <tr>
+                        <td>{$traffic_entry['count_all_hours']/2}</td>
+                        <td>{$traffic_entry['count_passed_hours']/2}</td>
+                        <td>{($traffic_entry['count_all_hours']-$traffic_entry['count_passed_hours'])/2}</td>
+                      </tr>
+                    </table>">
+                </div>
+              {/foreach}
+            {else}
+              <h3>Похоже, что вы вообще не посещали колледж...</h3>
+            {/if}
+          </div>
 				</div>
 				<div class="col-md-4">
 					<div class="panel-group" id="tests">
@@ -148,5 +174,13 @@
 				</div>
 			</div>
 		</div>
+    
+    <script type="text/javascript">
+      
+      $("[data-toggle='tooltip']").tooltip();
+      $("[data-toggle='popover']").popover();
+    
+    </script>
+    
 	</body>
 </html>

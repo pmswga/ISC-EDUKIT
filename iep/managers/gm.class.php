@@ -24,6 +24,30 @@
       return $add_group_query->execute();
     }
     
+    public function getGroups(int $test_id) : array
+    {
+      $db_groups = $this->query("call getTestGroups(:test_id)", [":test_id" => $test_id]);
+      
+      $groups = array();
+      foreach ($db_groups as $db_group) {
+        
+        $spec = new Specialty($db_group['spec_code'], $db_group['spec_descp']);
+        $spec->setSpecialtyID((int)$db_group['spec_id']);
+        
+        $group = new Group(
+          $db_group['grp_descp'], 
+          $spec, 
+          $db_group['grp_edu_year'], 
+          (int)$db_group['grp_payment']
+        );
+        $group->setGroupID((int)$db_group['grp_id']);
+        
+        $groups[] = $group;
+      }
+      
+      return $groups;
+    }
+    
     public function getAllGroups() : array
     {
       $db_groups = $this->query("call getAllGroups()");

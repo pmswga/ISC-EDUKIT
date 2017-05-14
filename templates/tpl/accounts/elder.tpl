@@ -54,7 +54,7 @@
                   </table>
                 </form>
               {else}
-                <h4>Ваши одногруппники ещё не зарегистрированны</h4>
+                <h4>Вы уже отметили посещаемость</h4>
               {/if}
             </div>
           </div>
@@ -131,7 +131,6 @@
               <h3>Похоже, что вы вообще не посещали колледж...</h3>
             {/if}
           </div>
-          <!-- <img src="img/calendar.jpg"> -->
 				</div>
 				<div class="col-md-4">
 					<div class="panel-group" id="tests">

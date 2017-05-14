@@ -72,7 +72,13 @@ END;
 
 CREATE PROCEDURE getTestGroups(test_id int)
 BEGIN
-  SELECT g.grp as id_group, g.description as grp, g.edu_year, g.is_budget, s.id_spec, s.code_spec, s.description as spec_descp
+  SELECT g.grp         as grp_id, 
+  			g.description as grp_descp, 
+			g.edu_year    as grp_edu_year, 
+			g.is_budget	  as grp_payment, 
+			s.id_spec     as sped_id, 
+			s.code_spec   as spec_code, 
+			s.description as spec_descp
   FROM `groups_tests` g_t
     INNER JOIN `groups` g ON g.grp=g_t.id_group
     INNER JOIN `specialty` s ON g.spec_id=s.id_spec
@@ -87,7 +93,7 @@ END;
 
 CREATE PROCEDURE getTests(emailTeacher char(30))
 BEGIN
-  SELECT * FROM `v_Tests` WHERE `author_email`=emailTeacher;
+  SELECT * FROM `v_Tests` WHERE `author`=emailTeacher;
 END;
 
 CREATE PROCEDURE getAllTests()

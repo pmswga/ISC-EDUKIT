@@ -3,7 +3,7 @@
 	require_once "../start.php";
 	
 	if (!empty($_GET['test']) && !empty($_SESSION['user'])) {
-		if ($_SESSION['user']->getTypeUser() == USER_TYPE_TEACHER) {
+		if ($_SESSION['user']->getUserType() == USER_TYPE_TEACHER) {
 			
 			$test_id = (int)$_GET['test'];
 			
@@ -11,7 +11,9 @@
 				
 				$user = $_SESSION['user'];
 				$test = $TM->getTest($test_id);
+        $test->setGroups($GM->getGroups($test_id));
 				
+        // CTools::var_dump($test);
 				
 				// Выборка предметов для теста
 				$subjects = $user->getSubjects();
@@ -25,7 +27,7 @@
 				
 				// Выборка групп, которые не назначены на прохождение данного теста
 				$test_groups = $test->getGroups();
-				$groups = $GM->getGroups();
+				$groups = $GM->getAllGroups();
 				for ($i = 0; $i < count($test_groups); $i++) {
 					unset($groups[array_search($test_groups[$i], $groups)]);
 				}

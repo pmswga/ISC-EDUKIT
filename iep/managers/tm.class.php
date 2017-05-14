@@ -71,6 +71,18 @@
 			}
     }
     
+    public function getTest(int $test_id)
+    {
+      $db_test = $this->query("call getTest(:test_id)", [":test_id" => $test_id])[0];
+      
+      $subject = new Subject($db_test['subject_caption']);
+      $subject->setSubjectID((int)$db_test['subject_id']);
+      
+      $test = new Test($db_test['caption'], $subject, $db_test['author']);
+      
+      return $test;
+    }
+    
     public function getTests(string $teacher_email)
     {
       $db_tests = $this->query("call getTests(:t_email)", [":t_email" => $teacher_email]);
@@ -86,14 +98,14 @@
         $groups = array();
         foreach ($db_groups as $db_group) {
           
-          $spec = new Specialty($db_group['code_spec'], $db_group['spec_descp']);
-          $spec->setSpecialtyID((int)$db_group['id_spec']);
+          $spec = new Specialty($db_group['spec_code'], $db_group['spec_descp']);
+          $spec->setSpecialtyID((int)$db_group['spec_id']);
           
           $group = new Group(
-            $db_group['grp'],
+            $db_group['grp_descp'],
             $spec,
-            $db_group['edu_year'],
-            (int)$db_group['is_budget']
+            $db_group['grp_edu_year'],
+            (int)$db_group['grp_payment']
           );
           
           $groups[] = $group;
@@ -121,7 +133,7 @@
           $questions[] = $question;
         }
         
-        $test = new Test($db_test['test_caption'], $subject, $db_test['author_email'], $groups);
+        $test = new Test($db_test['caption'], $subject, $db_test['author'], $groups);
         $test->setTestID((int)$db_test['id_test']);
         $test->setQuestions($questions);
         
@@ -181,7 +193,7 @@
           $questions[] = $question;
         }
         
-        $test = new Test($db_test['test_caption'], $subject, $db_test['author_email'], $groups);
+        $test = new Test($db_test['caption'], $subject, $db_test['author'], $groups);
         $test->setTestID((int)$db_test['id_test']);
         $test->setQuestions($questions);
         

@@ -23,6 +23,13 @@
 			$this->is_budget = $is_budget;
 		}
     
+    public function __call($method, $args)
+    {
+      if ($method == "getCode") {
+        return $this->getSpec()->getCode();
+      }
+    }
+    
     public function setGroupID(int $id)
     {
       $this->id = $id;

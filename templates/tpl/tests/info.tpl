@@ -44,20 +44,20 @@
 										<td>Предмет</td>
 										<td>
 											<select name="subject" class="form-control">
-												<option value="{$test->getSubject()->getID()}">{$test->getSubject()->getDescription()}</option>
+												<option value="{$test->getSubject()->getSubjectID()}">{$test->getSubject()->getDescription()}</option>
 												{foreach from=$subjects item=subject}
-												<option value="{$subject->getID()}">{$subject->getDescription()}</option>
+                          <option value="{$subject->getSubjectID()}">{$subject->getDescription()}</option>
 												{/foreach}
 											</select>
 										</td>
 									</tr>
 									<tr>
 										<td>Автор</td>
-										<td>{$test->getAuthorEmail()}</td>
+										<td>{$test->getAuthor()}</td>
 									</tr>
 									<tr>
 										<td>Кол-во вопросов</td>
-										<td>{$test->getCountQuestions()}</td>
+										<td>{count($test->getQuestions())}</td>
 									</tr>
 								</table>
 							</div>
@@ -140,7 +140,7 @@
 												{foreach from=$test->getGroups() item=group}
 													<tr>
 														<td>{$group->getNumberGroup()}</td>
-														<td>{$group->getCodeSpec()}</td>
+														<td>{$group->getSpec()->getCode()}</td>
 														<td>
 															<input type="checkbox" name="select_group_test[]" value="{$group->getID()}" class="form-control">
 														</td>
@@ -183,7 +183,7 @@
 										{foreach from=$other_groups item=group}
 											<tr>
 												<td>{$group->getNumberGroup()}</td>
-												<td>{$group->getCodeSpec()}</td>
+												<td>{$group->getCode()}</td>
 												<td><input type="checkbox" name="select_group[]" value="{$group->getID()}" class="form-control"></td>
 											</tr>
 										{/foreach}
