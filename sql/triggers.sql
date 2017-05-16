@@ -1,2 +1,62 @@
+use `iep`;
+
+DROP TRIGGER IF EXISTS insUser;
+DROP TRIGGER IF EXISTS insStudent;
+DROP TRIGGER IF EXISTS insTeacher;
+DROP TRIGGER IF EXISTS insParent;
+DROP TRIGGER IF EXISTS insSubject;
+DROP TRIGGER IF EXISTS insTypeUser;
 
 
+DELIMITER //
+
+CREATE TRIGGER IF NOT EXISTS insUser BEFORE INSERT ON `users` FOR EACH ROW
+BEGIN
+	IF new.second_name = '' OR
+		new.first_name = ''  OR
+		new.patronymic = ''  OR
+		new.email  = ''      OR
+		new.password = ''
+	THEN
+		SIGNAL SQLSTATE '45000' SET 
+			MESSAGE_TEXT = 'Field is empty';
+	END IF;
+END;
+
+CREATE TRIGGER IF NOT EXISTS insStudent BEFORE INSERT ON `students` FOR EACH ROW
+BEGIN
+	IF  THEN
+		SIGNAL SQLSTATE '45000' SET
+			MESSAGE_TEXT = 'Field is empty';
+	END IF;
+END;
+
+CREATE TRIGGER IF NOT EXISTS insTeacher BEFORE INSERT ON `teachers` FOR EACH ROW
+BEGIN
+	
+END;
+
+CREATE TRIGGER IF NOT EXISTS insParent BEFORE INSERT ON `parents` FOR EACH ROW
+BEGIN
+	
+END;
+
+CREATE TRIGGER IF NOT EXISTS insSubject BEFORE INSERT ON `subjects` FOR EACH ROW
+BEGIN
+	IF new.description = '' THEN
+		SIGNAL SQLSTATE '45000' SET
+			MESSAGE_TEXT = 'Field is empty';
+	END IF;
+END;
+
+CREATE TRIGGER IF NOT EXISTS insTypeUser BEFORE INSERT ON `typeUser` FOR EACH ROW
+BEGIN
+	IF new.description = '' THEN
+		SIGNAL SQLSTATE '45000' SET
+			MESSAGE_TEXT = 'Field is empty';
+	END IF;
+END;
+
+//
+
+DELIMITER ;
