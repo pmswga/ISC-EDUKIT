@@ -102,6 +102,30 @@
 					CTools::Redirect("aboutTest.php?test=".$test_id);
 				}
 				
+				if (!empty($_POST['addQuestionButton'])) {
+					$question_test = htmlspecialchars($_POST['question_test']);
+					$question_caption = htmlspecialchars($_POST['question_caption']);
+					$question_r_answer = htmlspecialchars($_POST['question_r_answer']);
+					
+					$answer_text = $_POST['answer_text'];
+					$select_answers = $_POST['select_answers'];
+					
+					$answers = array();
+					for ($i = 0; $i < count($select_answers); $i++) {
+						$answers[] = $answer_text[$i];
+					}
+					$answers[] = $question_r_answer;
+					
+					$new_question = new OneQuestion($question_caption, $question_r_answer, $answers);
+					
+					if ($TM->addQuestion($question_test, $new_question)) {
+						CTools::Message("Вопрос добавлен");
+					} else {
+						CTools::Message("Произошла ошибка");
+					}
+					
+					CTools::Redirect("user.php");
+				}
 				
 				if (!empty($_POST['editQuestionButton'])) {
 					$select_question_tests = $_POST['select_question_test'];

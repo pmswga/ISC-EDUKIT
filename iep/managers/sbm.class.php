@@ -50,6 +50,41 @@
       return $subjects;
     }
     
+    public function setSubject(string $teacher_email, int $subject_id) : bool
+    {
+      $set_subject_query = $this->dbc()->prepare("call setSubject(:t_email, :subject_id)");
+      
+      $set_subject_query->bindValue(":t_email", $teacher_email);
+      $set_subject_query->bindValue(":subject_id", $subject_id);
+      
+      return $set_subject_query->execute();
+    }
+    
+    public function unsetSubject(string $teacher_email, int $subject_id) : bool
+    {
+      $unset_subject_query = $this->dbc()->prepare("call unsetSubject(:t_email, :subject_id)");
+      
+      $unset_subject_query->bindValue(":t_email", $teacher_email);
+      $unset_subject_query->bindValue(":subject_id", $subject_id);
+      
+      return $unset_subject_query->execute();
+    }
+    
+    public function getUnsetSubjects(string $teacher_email) : array
+    {
+      $db_unset_subjects = $this->query("call getUnsetSubjects(:t_email)", [":t_email" => $teacher_email]);
+      
+      $unset_subjects = array();
+      foreach ($db_unset_subjects as $db_unset_subject) {
+        $subject = new Subject($db_unset_subject['description']);
+        $subject->setSubjectID((int)$db_unset_subject['id_subject']);
+        
+        $unset_subjects[] = $subject;
+      }
+      
+      return $unset_subjects;
+    }
+    
     public function changeDescriptionSubject(int $subject_id, string $new_descp)
     {
       $change_subject_query = $this->dbc()->prepare("call changeDescriptionSubject(:subject_id, :new_descp)");

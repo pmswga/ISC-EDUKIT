@@ -8,18 +8,22 @@
         <div class="row">
           <form name="changeSpecialtyForm" method="POST">
             <div class="col-md-8">
+              {if $subjects != NULL}            
                 <table class="table table-bordered">
                   <tr>
                     <th>Название предмета</th>
                     <th>Выбрать</th>
-                  </tr>
+                  </tr>      
                   {foreach from=$subjects item=subject}
                     <tr>
                       <td>{$subject->getDescription()}</td>
-                      <td><input type="checkbox" name="select_subject[]" value="{$subject->getDescription()}" class="form-control"></td>
+                      <td><input type="checkbox" name="select_subject[]" value="{$subject->getSubjectID()}" class="form-control"></td>
                     </tr>
                   {/foreach}
                 </table>
+              {else}
+                <h2>Добавьте предметы</h2>
+              {/if}
             </div>
             <div class="col-md-4">
               <input type="submit" name="removeSubjectButton" value="Удалить" class="btn btn-danger btn-block">

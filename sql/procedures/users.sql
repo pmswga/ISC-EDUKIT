@@ -41,6 +41,7 @@ DROP PROCEDURE IF EXISTS getChilds;
 DROP PROCEDURE IF EXISTS setSubject;
 DROP PROCEDURE IF EXISTS unsetSubject;
 DROP PROCEDURE IF EXISTS getSubjects;
+DROP PROCEDURE IF EXISTS getUnsetSubjects;
 
 
 
@@ -225,6 +226,13 @@ BEGIN
 		INNER JOIN `teacher_subjects` ts ON s.id_subject=ts.id_subject
 	WHERE ts.id_teacher=getTeacherId(emailTeacher)
 	ORDER BY `description`;
+END;
+
+CREATE PROCEDURE getUnsetSubjects(emailTeacher char(30))
+BEGIN	
+	SELECT s.id_subject, s.description FROM `subjects` s
+		LEFT JOIN `teacher_subjects` ts ON s.id_subject=ts.id_subject AND ts.id_teacher=getTeacherId(emailTeacher)
+	WHERE ts.id_subject is null;
 END;
 
 

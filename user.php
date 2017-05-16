@@ -1,7 +1,7 @@
 <?php
   require_once "start.php";
 	
-	use IEP\Structures\OneNews;
+	use IEP\Structures\News;
 	use IEP\Structures\Test;
 	use IEP\Structures\OneQuestion;
 	use IEP\Structures\Subject;
@@ -32,38 +32,20 @@
 			} break;
 			case USER_TYPE_TEACHER:
 			{
-        
-				$teacher_subjects = $SM->getSubjects($user->getEmail());
-				$teacher_news = $NM->getNews($user->getEmail());
-				$teacher_tests = $TM->getTests($user->getEmail());
-				$other_subjects = $SM->getAllSubjects();
-				
-				// < Удаляем предметы, которые преподаватель уже ведёт
-				foreach ($teacher_subjects as $teacher_subject) {
-					if (in_array($teacher_subject, $other_subjects)) {
-						unset($other_subjects[array_keys($other_subjects, $teacher_subject)[0]]);
-					}
-				}
-				
-				$user->setSubjects($teacher_subjects);
+        $user->setTests($TM->getTests($user->getEmail()));
+        $user->setNews($NM->getNews($user->getEmail()));
+        $user->setSubjects($SM->getSubjects($user->getEmail()));
 				
 				$CT->assign("user", $user);
-				$CT->assign("subjects", $other_subjects);
-				$CT->assign("teachersNews", $teacher_news);
-				$CT->assign("teachersTests", $teacher_tests);
 				$CT->assign("groups", $GM->getAllGroups());
+        $CT->assign("unset_subjects", $SM->getUnsetSubjects($user->getEmail()));
 				
 				$CT->Show("accounts/teacher.tpl");
 				
 				if (!empty($_POST['addNewsButton'])) {
-					$data = CForm::getData(array(
-						"caption",
-						"content",
-						"teacherEmail",
-						"dp"
-					));
+					$data = CForm::getData(array("caption", "content", "dp"));
 					
-					$new_news = new OneNews($data['caption'], $data['content'], $data['teacherEmail'], $data['dp']);
+					$new_news = new News($data['caption'], $data['content'], $user->getEmail(), $data['dp']);
 					
 					if ($NM->add($new_news)) {
 						CTools::Message("Новость опубликована");
@@ -77,63 +59,70 @@
 				if (!empty($_POST['removeNewsButton'])) {
 					$select_news = $_POST['select_news'];
 					
-					$result = true;
-					for ($i = 0; $i < count($select_news); $i++) {
-						$result *= $NM->remove($select_news[$i]);
-					}
-					
-					if ($result) {
-						CTools::Message("Новости были удалены");
-					} else {
-						CTools::Message("Произошла ошибка");
-					}
-					
-					CTools::Redirect("user.php");
+          if (!empty($select_news)) {
+            $result = true;
+            for ($i = 0; $i < count($select_news); $i++) {
+              $result *= $NM->remove($select_news[$i]);
+            }
+            
+            if ($result) {
+              CTools::Message("Новости были удалены");
+            } else {
+              CTools::Message("Произошла ошибка");
+            }
+            
+            CTools::Redirect("user.php");
+          }
+          
 				}
-				
+        
 				if (!empty($_POST['setSubjectButton'])) {
 					$select_subject = $_POST['select_subject'];
-					
-					$result = true;
-					for ($i = 0; $i < count($select_subject); $i++) {
-						$result *= $SM->setSubject($user->getEmail(), $select_subject[$i]);
-					}
-					
-					if ($result) {
-						CTools::Message("Предметы успешно назначены");
-					} else {
-						CTools::Message("Произошла ошибка");
-					}
-					
-					CTools::Redirect("user.php");
+          
+          if (!empty($select_subject)) {            
+            $result = true;
+            for ($i = 0; $i < count($select_subject); $i++) {
+              $result *= $SM->setSubject($user->getEmail(), $select_subject[$i]);
+            }
+            
+            if ($result) {
+              CTools::Message("Предметы успешно назначены");
+            } else {
+              CTools::Message("Произошла ошибка");
+            }
+            
+            CTools::Redirect("user.php");
+          }
+          
 				}
 				
-				if (!empty($_POST['deleteSubjectButton'])) {
+				if (!empty($_POST['unsetSubjectButton'])) {
 					$select_subject = $_POST['select_subject'];
 					
-					$result = true;
-					for ($i = 0; $i < count($select_subject); $i++) {
-						$result *= $SM->unsetSubject($user->getEmail(), $select_subject[$i]);
-					}
-					
-					if ($result) {
-						CTools::Message("Предметы убраны");
-					} else {
-						CTools::Message("Произошла ошибка");
-					}
-					
-					CTools::Redirect("user.php");
+          if (!empty($select_subject)) {
+            $result = true;
+            for ($i = 0; $i < count($select_subject); $i++) {
+              $result *= $SM->unsetSubject($user->getEmail(), $select_subject[$i]);
+            }
+            
+            if ($result) {
+              CTools::Message("Предметы убраны");
+            } else {
+              CTools::Message("Произошла ошибка");
+            }
+            
+            CTools::Redirect("user.php");
+          }
+          
 				}
 				
 				if (!empty($_POST['addTestButton'])) {
 					$caption = htmlspecialchars($_POST['caption']);
 					$subject = $_POST['subject'];
-					$teacherEmail = $_POST['teacherEmail'];
 					$select_group = $_POST['select_group'] ?? array();
 					
-					$new_test = new Test($caption, $teacherEmail, $select_group);
-					$new_test->setSubject(new Subject("", $subject));
-					
+					$new_test = new Test($caption, $subject, $user->getEmail(), $select_group);
+          
 					if ($TM->add($new_test)) {
 						CTools::Message("Тест успешно создан");
 					} else {
@@ -144,40 +133,24 @@
 				}
 				
 				if (!empty($_POST['removeTestButton'])) {
-					$test_id = $_POST['test_id'];
-					
-					if ($TM->remove($test_id)) {
-						CTools::Message("Тест удалён");
-					} else {
-						CTools::Message("Произошла ошибка");
-					}
-					
-					CTools::Redirect("user.php");
-				}
-				
-				if (!empty($_POST['addQuestionButton'])) {
-					$question_test = htmlspecialchars($_POST['question_test']);
-					$question_caption = htmlspecialchars($_POST['question_caption']);
-					$question_r_answer = htmlspecialchars($_POST['question_r_answer']);
-					
-					$answer_text = $_POST['answer_text'];
-					$select_answers = $_POST['select_answers'];
-					
-					$answers = array();
-					for ($i = 0; $i < count($select_answers); $i++) {
-						$answers[] = $answer_text[$i];
-					}
-					$answers[] = $question_r_answer;
-					
-					$new_question = new OneQuestion($question_caption, $question_r_answer, $answers);
-					
-					if ($TM->addQuestion($question_test, $new_question)) {
-						CTools::Message("Вопрос добавлен");
-					} else {
-						CTools::Message("Произошла ошибка");
-					}
-					
-					CTools::Redirect("user.php");
+					$select_test = $_POST['select_test'];
+          
+          if (!empty($select_test)) {
+            
+            $result = true;
+            for ($i = 0; $i < count($select_test); $i++) {
+              $TM->remove($select_test[$i]);
+            }
+            
+            if ($result) {
+              CTools::Message("Тест удалён");
+            } else {
+              CTools::Message("Произошла ошибка");
+            }
+            
+            CTools::Redirect("user.php");
+          }
+          
 				}
 				
 			} break;

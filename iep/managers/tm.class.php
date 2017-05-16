@@ -42,7 +42,7 @@
 						
 						$result = true;
 						for ($i = 0; $i < count($for_groups); $i++) {
-              $result *= $this->setGroup((int)$last_id, $for_groups[$i]);
+              $result *= $this->setGroup((int)$last_id, (int)$for_groups[$i]);
 						}
 						
 						if ($result) {

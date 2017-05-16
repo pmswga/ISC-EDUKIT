@@ -56,7 +56,7 @@
 		
 		public function getTests() : array
 		{
-			return $this->tests();
+			return $this->tests;
 		}
 	}
 ?>

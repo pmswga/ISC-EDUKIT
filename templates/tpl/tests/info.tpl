@@ -84,7 +84,8 @@
 								<div class="panel-body">
 									<form name="workWithQuestionsForm" method="POST">
 										<input type="submit" name="removeQuestionButton" value="Удалить" class="btn btn-danger btn-sm">
-										<input type="submit" name="editQuestionButton" value="Изменить" class="btn btn-warning btn-sm">
+										<a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addQuestionsDialog">Добавить вопрос</a>
+                    <input type="submit" name="editQuestionButton" value="Изменить" class="btn btn-warning btn-sm">
 										<br>
 										<br>
 										<table class="table table-hover">
@@ -198,6 +199,72 @@
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
 		
+    
+		<div class="modal fade" id="addQuestionsDialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<form name="addQuestionForm" method="POST">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title">Добавление вопроса</h4>
+						</div>
+						<div class="modal-body">
+								<div class="form-group">
+									<label>Тест</label>
+									<select name="question_test" class="form-control">
+										{foreach from=$teachersTests item=teacherTest}
+											<option value="{$teacherTest->getTestID()}">{$teacherTest->getCaption()}</option>
+										{/foreach}
+									</select>
+								</div>
+								<div class="form-group">
+									<label>Вопрос</label>
+									<input type="text" name="question_caption" class="form-control">
+								</div>
+								<div class="form-group">
+									<label>Правильный ответ</label>
+									<input type="text" name="question_r_answer" class="form-control">
+								</div>
+								<div class="form-group">
+									<fieldset>
+										<legend>Ответы <button type="button" name="addAnswer" class="btn btn-xs btn-primary">+</button></legend>
+										<table id="question_answers" class="table table-border">
+											<tr>
+												<th>Ответ</th>
+												<th>Выбрать</th>
+											</tr>
+										</table>
+									</fieldset>
+								</div>
+								<div class="form-group">
+								</div>
+						</div>
+						<div class="modal-footer">
+							<input type="submit" name="addQuestionButton" value="Добавить вопрос" class="btn btn-primary">
+						</div>
+					</form>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
 		
+		<script type="text/javascript">
+			
+			var count_answers = 0;
+			var min_count_answers = 4;
+			var max_count_answers = 10;
+			
+			$("[name='addAnswer']").click(function(){
+				
+				if (count_answers < max_count_answers) {
+					$("#question_answers").append("<tr><td><input type='text' name='answer_text[]' class='form-control'></td><td><input type='checkbox' name='select_answers[]' value='' checked class='form-control'></td></tr>");
+					count_answers++;
+				} else {
+					alert("Достигнуто максимальное кол-во ответов");
+				}
+				
+			});
+			
+		</script>
+    
 	</body>
 </html>

@@ -24,40 +24,45 @@
 			{include file="users/menu.tpl"}
 			<div class="row" style="padding: 15px;">
 				<div class="col-md-8">
-					<div class="row">
-						<div class="col-md-12">
-							<h2>Мои тесты</h2>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<div class="row">
-								<div class="col-md-12">
-									<table class="table table-bordered">
-										<tr>
-											<th>Название</th>
-											<th>Предмет</th>
-											<th>Действие</th>
-										</tr>
-										{foreach from=$teachersTests item=teacherTest}
-											<tr>
-												<td>{$teacherTest->getCaption()}</td>
-												<td>{$teacherTest->getSubject()->getDescription()}</td>
-												<td style="display: flex; justify-content: space-around;">
-													<!--<input type="checkbox" value="{$teacherTest->getTestID()}" class="form-control">-->
-													<a href="teacher/aboutTest.php?test={$teacherTest->getTestID()}" class="btn btn-success btn-sm" >Подробнее</a>
-													<form name="workWithTestsForm" method="POST">
-														<input type="hidden" name="test_id" value="{$teacherTest->getTestID()}">
-														<input type="submit" name="removeTestButton" value="Удалить" class="btn btn-danger btn-sm">
-													</form>
-												</td>
-											</tr>
-										{/foreach}
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>
+          <form name="removeTestForm" method="POST">
+            <div class="row">
+              <div class="col-md-12">
+                <h2>
+                  Мои тесты
+                  <a class="btn btn-primary" data-toggle="modal" data-target="#addTestDialog">+</a>  
+                  <input type="submit" name="removeTestButton" value="-" class="btn btn-danger">
+                </h2>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-12">
+                    {if $user->getTests() != NULL}
+                      <table class="table table-bordered">
+                        <tr>
+                          <th>Название</th>
+                          <th>Предмет</th>
+                          <th>Действие</th>
+                        </tr>
+                        {foreach from=$user->getTests() item=test}
+                          <tr>
+                            <td><a href="teacher/aboutTest.php?test={$test->getTestID()}">{$test->getCaption()}</a></td>
+                            <td>{$test->getSubject()->getDescription()}</td>
+                            <td style="display: flex; justify-content: space-around;">
+                              <input type="checkbox" name="select_test[]" value="{$test->getTestID()}" class="form-control">
+                            </td>
+                          </tr>
+                        {/foreach}
+                      </table>
+                    {else}
+                      <h2>Добавьте тесты</h2>
+                    {/if}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
 				</div>
 				<div class="col-md-4">
 					<fieldset>
@@ -84,37 +89,31 @@
 					<div class="panel-group" id="controls">
 						<div class="panel panel-success">
 							<div class="panel-heading">
-								<h4 class="panel-title"><a data-toggle="collapse" data-parent="#controls" href="#teachers_tests">Тесты</a></h4>
-							</div>
-							<div id="teachers_tests" class="panel-collapse collapse">
-								<div class="panel-body">
-									<a class="btn btn-primary btn-block" data-toggle="modal" data-target="#addTestDialog">Добавить</a>
-									<a class="btn btn-primary btn-block" data-toggle="modal" data-target="#addQuestionsDialog">Добавить вопрос</a>
-								</div>
-							</div>
-						</div>
-						<div class="panel panel-success">
-							<div class="panel-heading">
 								<h4 class="panel-title"><a data-toggle="collapse" data-parent="#controls" href="#teacher_subjects">Предметы</a></h4>
 							</div>
 							<div id="teacher_subjects" class="panel-collapse collapse">
 								<div class="panel-body">
 									<form name="workWithSubjectForm" method="POST">
-										<a class="btn btn-primary btn-block" data-toggle="modal" data-target="#setSubjectDialog">Добавить</a>
-										<input type="submit" name="deleteSubjectButton" value="Удалить" class="btn btn-danger btn-block">
-										<br>
-										<table class="table table-bordered">
-											<tr>
-												<th>Название</th>
-												<th>Выбрать</th>
-											</tr>
-											{foreach from=$user->getSubjects() item=subject}
-												<tr>
-													<td>{$subject->getDescription()}</td>
-													<td><input type="checkbox" name="select_subject[]" value="{$subject->getID()}" class="form-control"></td>
-												</tr>
-											{/foreach}
-										</table>
+                    <a class="btn btn-primary btn-block" data-toggle="modal" data-target="#setSubjectDialog">Добавить</a>
+                    <input type="submit" name="unsetSubjectButton" value="Удалить" class="btn btn-danger btn-block">
+                    <br>
+                    {if $user->getSubjects() != NULL}
+                      <table class="table table-bordered">
+                        <tr>
+                          <th>Название</th>
+                          <th>Выбрать</th>
+                        </tr>
+                        {foreach from=$user->getSubjects() item=subject}
+                          <tr>
+                            <td>{$subject->getDescription()}</td>
+                            <td><input type="checkbox" name="select_subject[]" value="{$subject->getSubjectID()}" class="form-control"></td>
+                          </tr>
+                        {/foreach}
+                      </table>
+                    {else}
+                      <h2>Выберете предметы</h2>
+                    {/if}
+                    
 									</form>
 								</div>
 							</div>
@@ -128,21 +127,25 @@
 									<form name="removeNewsForm" method="POST">
 										<a data-toggle="modal" data-target="#addNewNews" class="btn btn-primary btn-block">Добавить</a>
 										<input type="submit" name="removeNewsButton" value="Удалить" class="btn btn-danger btn-block">
-										<h4>Опубликованные</h4>
-										<table class="table table-bordered">
-											<tr>
-												<th>Заголовок</th>
-												<th>Дата публикации</th>
-												<th>Выбрать</th>
-											</tr>
-											{foreach from=$teachersNews item=teacherNews}
-												<tr>
-													<td>{$teacherNews->getCaption()}</td>
-													<td>{$teacherNews->getDatePublication()|date_format: "%d.%m.%Y"}</td>
-													<td><input type="checkbox" name="select_news[]" value="{$teacherNews->getNewsID()}" class="form-control"></td>
-												</tr>
-											{/foreach}
-										</table>
+                    <br>
+										{if $user->getNews() != NULL}                      
+                      <table class="table table-bordered">
+                        <tr>
+                          <th>Заголовок</th>
+                          <th>Дата публикации</th>
+                          <th>Выбрать</th>
+                        </tr>
+                        {foreach from=$user->getNews() item=news}
+                          <tr>
+                            <td>{$news->getCaption()}</td>
+                            <td>{$news->getDatePublication()|date_format: "%d.%m.%Y"}</td>
+                            <td><input type="checkbox" name="select_news[]" value="{$news->getNewsID()}" class="form-control"></td>
+                          </tr>
+                        {/foreach}
+                      </table>
+                    {else}
+                      <h2>Вы пока не писали новости</h2>
+                    {/if}
 									</form>
 								</div>
 							</div>
@@ -159,26 +162,29 @@
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-							<h4 class="modal-title">Выбрать предмет</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Выбрать предмет</h4>
 					</div>
 					<form name="setSubjectForm" method="POST">
 						<div class="modal-body">
-								<table class="table table-hover">
-									<tr>
-										<th>Название</th>
-										<th>Выбрать</th>
-									</tr>
-									{foreach from=$subjects item=subject}
-										<tr>
-											<td>{$subject->getDescription()}</td>
-											<td><input type="checkbox" name="select_subject[]" value="{$subject->getID()}" class="form-control"></td>
-										<tr>
-									{/foreach}
-								</table>
+              {if $unset_subjects != NULL}              
+                <table class="table table-hover">
+                  <tr>
+                    <th>Название</th>
+                    <th>Выбрать</th>
+                  </tr>
+                  {foreach from=$unset_subjects item=subject}
+                    <tr>
+                      <td>{$subject->getDescription()}</td>
+                      <td><input type="checkbox" name="select_subject[]" value="{$subject->getSubjectID()}" class="form-control"></td>
+                    <tr>
+                  {/foreach}
+                </table>
+              {else}
+                <h2 align="center">Пока что нету предметов</h2>
+              {/if}
 						</div>
 						<div class="modal-footer">
-							<input type="hidden" name="emailTeacher" value="{$user->getEmail()}">
 							<input type="submit" name="setSubjectButton" value="Назначить" class="btn btn-primary">
 						</div>
 					</form>
@@ -206,7 +212,6 @@
 							<div class="form-group">
 								<label>Автор</label>
 								<p class="form-control-static">{$user->getFn()} {$user->getSn()}</p>
-								<input type="hidden" name="teacherEmail" value="{$user->getEmail()}">
 							</div>
 							<div class="form-group">
 								<label>Дата публикации</label>
@@ -236,16 +241,19 @@
 							</div>
 							<div class="form-group">
 								<label>Предмет</label>
-								<select name="subject" class="form-control">
-									{foreach from=$user->getSubjects() item=subject}
-										<option value="{$subject->getID()}">{$subject->getDescription()}</option>
-									{/foreach}
-								</select>
+                {if $user->getSubjects() != NULL}                
+                  <select name="subject" class="form-control">
+                    {foreach from=$user->getSubjects() item=subject}
+                      <option value="{$subject->getSubjectID()}">{$subject->getDescription()}</option>
+                    {/foreach}
+                  </select>
+                {else}
+                  <p>Предметы не были добавлены в БД</p>
+                {/if}
 							</div>
 							<div class="form-group">
 								<label>Автор</label>
 								<p class="form-control-static">{$user->getFn()} {$user->getSn()}</p>
-								<input type="hidden" name="teacherEmail" value="{$user->getEmail()}">
 							</div>
 							<div class="form-group">
 								<label>Группы</label>
@@ -258,8 +266,8 @@
 									{foreach from=$groups item=group}
 										<tr>
 											<td>{$group->getNumberGroup()}</td>
-											<td>{$group->getCodeSpec()}</td>
-											<td><input type="checkbox" name="select_group[]" value="{$group->getID()}" class="form-control"></td>
+											<td>{$group->getSpec()->getCode()}</td>
+											<td><input type="checkbox" name="select_group[]" value="{$group->getGroupID()}" class="form-control"></td>
 										</tr>
 									{/foreach}
 								</table>
@@ -272,73 +280,11 @@
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
-		
-		<div class="modal fade" id="addQuestionsDialog">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<form name="addQuestionForm" method="POST">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-							<h4 class="modal-title">Добавление вопроса</h4>
-						</div>
-						<div class="modal-body">
-								<div class="form-group">
-									<label>Тест</label>
-									<select name="question_test" class="form-control">
-										{foreach from=$teachersTests item=teacherTest}
-											<option value="{$teacherTest->getTestID()}">{$teacherTest->getCaption()}</option>
-										{/foreach}
-									</select>
-								</div>
-								<div class="form-group">
-									<label>Вопрос</label>
-									<input type="text" name="question_caption" class="form-control">
-								</div>
-								<div class="form-group">
-									<label>Правильный ответ</label>
-									<input type="text" name="question_r_answer" class="form-control">
-								</div>
-								<div class="form-group">
-									<fieldset>
-										<legend>Ответы <button type="button" name="addAnswer" class="btn btn-xs btn-primary">+</button></legend>
-										<table id="question_answers" class="table table-border">
-											<tr>
-												<th>Ответ</th>
-												<th>Выбрать</th>
-											</tr>
-										</table>
-									</fieldset>
-								</div>
-								<div class="form-group">
-								</div>
-						</div>
-						<div class="modal-footer">
-							<input type="submit" name="addQuestionButton" value="Добавить вопрос" class="btn btn-primary">
-						</div>
-					</form>
-				</div><!-- /.modal-content -->
-			</div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
 	
 		<script type="text/javascript">
 			
 			CKEDITOR.replace("news");
-			
-			var count_answers = 0;
-			var min_count_answers = 4;
-			var max_count_answers = 10;
-			
-			$("[name='addAnswer']").click(function(){
-				
-				if (count_answers < max_count_answers) {
-					$("#question_answers").append("<tr><td><input type='text' name='answer_text[]' class='form-control'></td><td><input type='checkbox' name='select_answers[]' value='' checked class='form-control'></td></tr>");
-					count_answers++;
-				} else {
-					alert("Достигнуто максимальное кол-во ответов");
-				}
-				
-			});
-			
+      
 		</script>
 		
 	</body>
