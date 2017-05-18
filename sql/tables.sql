@@ -52,7 +52,9 @@ CREATE TABLE IF NOT EXISTS `admins` (
 	passwd char(32) NOT NULL,
 	CONSTRAINT ac_sn CHECK (sn <> ''),
 	CONSTRAINT ac_fn CHECK (fn <> ''),
-	CONSTRAINT ac_pt CHECK (pt <> '')
+	CONSTRAINT ac_pt CHECK (pt <> ''),
+	CONSTRAINT ac_email CHECK (email <> ''),
+	CONSTRAINT ac_passwd CHECK (passwd <> '')
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
 /* Создание таблицы "Студенты" */
