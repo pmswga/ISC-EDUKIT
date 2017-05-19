@@ -12,7 +12,9 @@ DROP TRIGGER IF EXISTS insTeacher;
 DROP TRIGGER IF EXISTS insNews;
 DROP TRIGGER IF EXISTS insSubject;
 DROP TRIGGER IF EXISTS insTest;
-DROP TRIGGER IF EXISTS insQuestion
+DROP TRIGGER IF EXISTS insQuestion;
+DROP TRIGGER IF EXISTS insStudentTest;
+DROP TRIGGER IF EXISTS insStudentAnswer;
 
 DELIMITER //
 
@@ -145,6 +147,34 @@ CREATE TRIGGER IF NOT EXISTS insQuestion BEFORE INSERT ON `questions` FOR EACH R
 BEGIN
 	IF new.question = '' OR
 		new.r_answer = ''
+	THEN
+		SIGNAL SQLSTATE '45000' SET
+			MESSAGE_TEXT = 'Filed is empty';
+	END IF;
+END;
+
+CREATE TRIGGER IF NOT EXISTS insAnswer BEFORE INSERT ON `answers` FOR EACH ROW
+BEGIN
+	IF new.answer = ''
+	THEN
+		SIGNAL SQLSTATE '45000' SET
+			MESSAGE_TEXT = 'Filed is empty';
+	END IF;
+END;
+
+CREATE TRIGGER IF NOT EXISTS insStudentTest BEFORE INSERT ON `student_tests` FOR EACH ROW
+BEGIN
+	IF new.subject = ''
+	THEN
+		SIGNAL SQLSTATE '45000' SET
+			MESSAGE_TEXT = 'Filed is empty';
+	END IF;
+END;
+
+CREATE TRIGGER IF NOT EXISTS insStudentAnswer BEFORE INSERT ON `student_answers` FOR EACH ROW
+BEGIN
+	IF new.question = '' OR
+		new.answer = ''
 	THEN
 		SIGNAL SQLSTATE '45000' SET
 			MESSAGE_TEXT = 'Filed is empty';
