@@ -25,8 +25,12 @@
     
     public function __call($method, $args)
     {
-      if ($method == "getCode") {
-        return $this->getSpec()->getCode();
+      switch ($method)
+      {
+        case "getCode":
+        {          
+          return $this->getSpec()->getCode();
+        } break;
       }
     }
     

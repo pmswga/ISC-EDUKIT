@@ -83,9 +83,9 @@
 							<div id="questions" class="panel-collapse collapse">
 								<div class="panel-body">
 									<form name="workWithQuestionsForm" method="POST">
-										<input type="submit" name="removeQuestionButton" value="Удалить" class="btn btn-danger btn-sm">
-										<a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addQuestionsDialog">Добавить вопрос</a>
+										<a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addQuestionsDialog">Добавить</a>
                     <input type="submit" name="editQuestionButton" value="Изменить" class="btn btn-warning btn-sm">
+										<input type="submit" name="removeQuestionButton" value="Удалить" class="btn btn-danger btn-sm">
 										<br>
 										<br>
 										<table class="table table-hover">
@@ -106,7 +106,7 @@
 														{/foreach}
 														</ul>
 													</td>
-													<td><input type="checkbox" name="select_question_test[]" value="{$question->getID()}" class="form-control"></td>
+													<td><input type="checkbox" name="select_question[]" value="{$question->getQuestionID()}" class="form-control"></td>
 												</tr>
 											{/foreach}
 										</table>
@@ -126,10 +126,10 @@
 								</div>
 								<div id="for_groups" class="panel-collapse collapse">
 									<div class="panel-body">
-										<form name="removeGroupFromTestForm" method="POST">
+										<form name="unsetGroupFrom" method="POST">
 											<input type="hidden" name="test_id" value="{$test->getTestID()}"> 
-											<input type="submit" name="removeGroupFromTestButton" value="Удалить" class="btn btn-danger btn-sm">
-											<a data-toggle="modal" data-target="#setGroupsDialog" class="btn btn-primary btn-sm">Назначить группы на тест</a>
+											<a data-toggle="modal" data-target="#setGroupsDialog" class="btn btn-primary btn-sm">Добавить</a>
+											<input type="submit" name="unsetGroupButton" value="Удалить" class="btn btn-danger btn-sm">
 											<br>
 											<br>
 											<table class="table table-hover">
@@ -143,7 +143,7 @@
 														<td>{$group->getNumberGroup()}</td>
 														<td>{$group->getSpec()->getCode()}</td>
 														<td>
-															<input type="checkbox" name="select_group_test[]" value="{$group->getID()}" class="form-control">
+															<input type="checkbox" name="select_group[]" value="{$group->getGroupID()}" class="form-control">
 														</td>
 													</tr>
 												{/foreach}
@@ -185,7 +185,7 @@
 											<tr>
 												<td>{$group->getNumberGroup()}</td>
 												<td>{$group->getCode()}</td>
-												<td><input type="checkbox" name="select_group[]" value="{$group->getID()}" class="form-control"></td>
+												<td><input type="checkbox" name="select_group[]" value="{$group->getGroupID()}" class="form-control"></td>
 											</tr>
 										{/foreach}
 									</table>
@@ -212,9 +212,7 @@
 								<div class="form-group">
 									<label>Тест</label>
 									<select name="question_test" class="form-control">
-										{foreach from=$teachersTests item=teacherTest}
-											<option value="{$teacherTest->getTestID()}">{$teacherTest->getCaption()}</option>
-										{/foreach}
+                    <option value="{$test->getTestID()}">{$test->getCaption()}</option>
 									</select>
 								</div>
 								<div class="form-group">

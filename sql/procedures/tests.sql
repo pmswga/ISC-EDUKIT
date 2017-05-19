@@ -9,6 +9,7 @@ DROP PROCEDURE IF EXISTS unsetGroup;
 
 DROP PROCEDURE IF EXISTS getTestsForGroup;
 DROP PROCEDURE IF EXISTS getTestGroups;
+DROP PROCEDURE IF EXISTS getUnsetGroups;
 DROP PROCEDURE IF EXISTS getTests;
 DROP PROCEDURE IF EXISTS getTest;
 DROP PROCEDURE IF EXISTS getAllTests;
@@ -84,6 +85,27 @@ BEGIN
     INNER JOIN `specialty` s ON g.spec_id=s.id_spec
   WHERE g_t.id_test=test_id
   ORDER BY g.description;
+END;
+
+/*
+ 
+ Выбирает все не назначенные группы на тест
+ 
+*/
+
+CREATE PROCEDURE getUnsetGroups(test_id int)
+BEGIN
+	SELECT g.grp as grp_id,
+			g.description as grp_descp,
+            g.edu_year as grp_edu_year,
+            g.is_budget as grp_payment,
+            s.id_spec as spec_id,
+            s.code_spec as spec_code,
+            s.description as spec_descp
+    FROM `groups_tests` gt
+		RIGHT JOIN `groups` g ON gt.id_group=g.grp AND gt.id_test=32
+		RIGHT JOIN `specialty` s ON g.spec_id=s.id_spec
+	WHERE gt.id_test is null;
 END;
 
 CREATE PROCEDURE getTest(test_id int)

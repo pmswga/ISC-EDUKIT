@@ -228,6 +228,10 @@ BEGIN
 	ORDER BY `description`;
 END;
 
+/*
+	Выбирает все выбранные преподавателем предметы
+*/
+
 CREATE PROCEDURE getUnsetSubjects(emailTeacher char(30))
 BEGIN	
 	SELECT s.id_subject, s.description FROM `subjects` s

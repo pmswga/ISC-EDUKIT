@@ -1,7 +1,10 @@
 <?php
 	
 	require_once "../start.php";
-	
+	require_once "../iep/structures/testquestion.class.php";
+  
+  use IEP\Structures\TestQuestion;
+  
 	if (!empty($_GET['test']) && !empty($_SESSION['user'])) {
 		if ($_SESSION['user']->getUserType() == USER_TYPE_TEACHER) {
 			
@@ -12,28 +15,10 @@
 				$user = $_SESSION['user'];
 				$test = $TM->getTest($test_id);
         $test->setGroups($GM->getGroups($test_id));
-				
-        // CTools::var_dump($test);
-				
-				// Выборка предметов для теста
-				$subjects = $user->getSubjects();
-				$teacher_subjects = array();
-				for ($i = 0; $i < count($subjects); $i++) {
-					if ($subjects[$i]->getDescription() != $test->getSubject()->getDescription()) {
-						$teacher_subjects[] = $subjects[$i];
-					}
-				}
-				
-				
-				// Выборка групп, которые не назначены на прохождение данного теста
-				$test_groups = $test->getGroups();
-				$groups = $GM->getAllGroups();
-				for ($i = 0; $i < count($test_groups); $i++) {
-					unset($groups[array_search($test_groups[$i], $groups)]);
-				}
-				
+        $unset_groups = $GM->getUnsetGroups($test_id);
+        
 				$CT->assign("test", $test);
-				$CT->assign("other_groups", $groups);
+				$CT->assign("other_groups", $unset_groups);
 				$CT->assign("subjects", $teacher_subjects);
 				$CT->Show("tests/info.tpl");
 				
@@ -103,7 +88,6 @@
 				}
 				
 				if (!empty($_POST['addQuestionButton'])) {
-					$question_test = htmlspecialchars($_POST['question_test']);
 					$question_caption = htmlspecialchars($_POST['question_caption']);
 					$question_r_answer = htmlspecialchars($_POST['question_r_answer']);
 					
@@ -116,19 +100,19 @@
 					}
 					$answers[] = $question_r_answer;
 					
-					$new_question = new OneQuestion($question_caption, $question_r_answer, $answers);
+					$new_question = new TestQuestion($question_caption, $question_r_answer, $answers);
 					
-					if ($TM->addQuestion($question_test, $new_question)) {
+					if ($TM->addQuestion($test_id, $new_question)) {
 						CTools::Message("Вопрос добавлен");
 					} else {
 						CTools::Message("Произошла ошибка");
 					}
 					
-					CTools::Redirect("user.php");
+						CTools::Redirect("aboutTest.php?test=".$test_id);
 				}
 				
 				if (!empty($_POST['editQuestionButton'])) {
-					$select_question_tests = $_POST['select_question_test'];
+					$select_question_tests = $_POST['select_question'];
 					$question = $_POST['question'];
 					$questionRAnswer = $_POST['questionRAnswer'];
 					
@@ -153,7 +137,6 @@
 				
 				if (!empty($_POST['setGroupsButton'])) {
 					$select_group = $_POST['select_group'];
-					$test_id = $_POST['test_id'];
 					
 					$result = true;
 					for ($i = 0; $i < count($select_group); $i++) {
@@ -169,6 +152,23 @@
 					CTools::Redirect("aboutTest.php?test=".$test_id);
 				}
 				
+        
+				if (!empty($_POST['unsetGroupButton'])) {
+					$select_group = $_POST['select_group'];
+					
+					$result = true;
+					for ($i = 0; $i < count($select_group); $i++) {
+						$result *= $TM->unsetGroup($test_id, $select_group[$i]);
+					}
+					
+					if ($result) {
+						CTools::Message("Группы назначены");
+					} else {
+						CTools::Message("Произошла ошибка");
+					}
+					
+					CTools::Redirect("aboutTest.php?test=".$test_id);
+				}
 				
 			} else {
 				CTools::Message("404 Not Found");

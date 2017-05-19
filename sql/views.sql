@@ -76,7 +76,7 @@ CREATE VIEW v_Groups (id_grp, number, edu_year, budget, spec_id, spec_code, spec
 CREATE VIEW v_Specialtyes (id_spec, code, descp, file) as
 	SELECT `id_spec`, `code_spec`, `description`, `pdf_file`
 	FROM `specialty`
-	ORDER BY `id_spec`;
+	ORDER BY `code_spec`;
 
 CREATE VIEW v_Subjects (id_subject, descp) as
 	SELECT `id_subject`, `description`

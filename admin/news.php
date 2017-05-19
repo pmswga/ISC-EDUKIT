@@ -3,14 +3,14 @@
 	require_once "start.php";
 	
 	use IEP\Managers\NewsManager;
-	use IEP\Structures\OneNews;
+	use IEP\Structures\News;
 	
 	if(isset($_SESSION['admin']))
 	{		
 		
 		$NM = new NewsManager($DB);
 		
-		$CT->assign("news", $NM->getNews());
+		$CT->assign("news", $NM->getAllNews());
 		$CT->assign("user", $_SESSION['admin']);
 		
 		$CT->Show("news.tpl");
@@ -18,7 +18,7 @@
 		if (!empty($_POST['addNewsButton'])) {
 			$data = CForm::getData(["caption", "content", "email", "dp"]);
 			
-			$new_news = new OneNews($data['caption'], $data['content'], $data['email'], $data['dp']);
+			$new_news = new News($data['caption'], $data['content'], $data['email'], $data['dp']);
 			
 			CTools::var_dump($new_news);
 			

@@ -10,7 +10,7 @@
 		
 		$SPM = new SpecialtyManager($DB);
 		
-		$specialtyes = $SPM->getSpecialtyes();
+		$specialtyes = $SPM->getAllSpecialty();
 		
 		$CT->assign("specialtyes", $specialtyes);
 		

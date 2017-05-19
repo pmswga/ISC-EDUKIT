@@ -78,7 +78,30 @@
       $subject = new Subject($db_test['subject_caption']);
       $subject->setSubjectID((int)$db_test['subject_id']);
       
+      $db_questions = $this->query("call getQuestions(:test_id)", [":test_id" => $db_test['id_test']]);
+        
+      $questions = array();
+      foreach ($db_questions as $db_question) {
+        
+        $db_answers = $this->query("call getAnswers(:question_id)", [":question_id" => $db_question['id_question']]);
+        
+        $answers = array();
+        foreach ($db_answers as $db_answer) {
+          $answers[] = array(
+            "id" => $db_answer['id_answer'],
+            "answer" => $db_answer['answer']
+          );
+        }
+        
+        $question = new TestQuestion($db_question['question'], $db_question['r_answer']);
+        $question->setQuestionID((int)$db_question['id_question']);
+        $question->setAnswers($answers);
+        
+        $questions[] = $question;
+      }
+      
       $test = new Test($db_test['caption'], $subject, $db_test['author']);
+      $test->setQuestions($questions);
       
       return $test;
     }
@@ -298,14 +321,7 @@
 			$change_question_query->bindValue(":question_id", $question_id);
 			$change_question_query->bindValue(":new_caption", $new_caption);
 			
-			$result = $change_question_query->execute();
-			
-			if (!$result) {
-				$this->writeLog($change_question_query->errorInfo()[2]);
-				return false;
-			} else {			
-				return $result;
-			}
+			return $change_question_query->execute();
 		}
 		
 		public function changeRAnswerQuestion(int $question_id, string $new_RAnswer) : bool
@@ -315,14 +331,7 @@
 			$change_question_query->bindValue(":question_id", $question_id);
 			$change_question_query->bindValue(":new_RAnswer", $new_RAnswer);
 			
-			$result = $change_question_query->execute();
-			
-			if (!$result) {
-				$this->writeLog($change_question_query->errorInfo()[2]);
-				return false;
-			} else {			
-				return $result;
-			}
+			return $change_question_query->execute();
 		}
 		
 		public function changeCaptionAnswer(int $answer_id, string $new_answer) : bool

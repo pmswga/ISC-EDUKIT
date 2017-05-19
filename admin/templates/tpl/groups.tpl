@@ -27,7 +27,7 @@
                     {foreach from=$groups item=group}
                       <tr>
                         <td>{$group->getNumberGroup()}</td>
-                        <td>{$group->getCodeSpec()}</td>
+                        <td>{$group->getCode()}</td>
                         <td>{$group->getCountStudents()}</td>
                         <td><input type="checkbox" name="select_grp[]" value="{$group->getID()}" class="form-control"></td>
                       </tr>
@@ -54,7 +54,7 @@
                       <label>Специальность</label>
                       <select name="spec" class="form-control">
                         {foreach from=$specialtyes item=specialty}
-                          <option value="{$specialty->getID()}">{$specialty->getCode()} -> {$specialty->getDescription()}</option>
+                          <option value="{$specialty->getSpecialtyID()}">{$specialty->getCode()} -> {$specialty->getDescription()}</option>
                         {/foreach}
                       </select>
                     </div>

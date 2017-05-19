@@ -12,8 +12,8 @@
 		$GM = new GroupManager($DB);
 		$SPM = new SpecialtyManager($DB);
 		
-		$CT->assign("specialtyes", $SPM->getSpecialtyes());
-		$CT->assign("groups", $GM->getGroups());
+		$CT->assign("specialtyes", $SPM->getAllSpecialty());
+		$CT->assign("groups", $GM->getAllGroups());
 		
 		$CT->Show("groups.tpl");
 		
