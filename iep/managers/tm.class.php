@@ -71,6 +71,48 @@
 			}
     }
     
+    public function getTestsForGroup(int $grp)
+    {
+      $db_tests = $this->query("call getTestsForGroup(:grp)", [":grp" => $grp]);
+      
+      $tests = array();
+      foreach ($db_tests as $db_test) {
+        
+        $subject = new Subject($db_test['subject_caption']);
+        $subject->setSubjectID((int)$db_test['subject_id']);
+        
+        $db_questions = $this->query("call getQuestions(:test_id)", [":test_id" => $db_test['id_test']]);
+        
+        $questions = array();
+        foreach ($db_questions as $db_question) {
+          
+          $db_answers = $this->query("call getAnswers(:question_id)", [":question_id" => $db_question['id_question']]);
+          
+          $answers = array();
+          foreach ($db_answers as $db_answer) {
+            $answers[] = array(
+              "id" => $db_answer['id_answer'],
+              "answer" => $db_answer['answer']
+            );
+          }
+          
+          $question = new TestQuestion($db_question['question'], $db_question['r_answer']);
+          $question->setQuestionID((int)$db_question['id_question']);
+          $question->setAnswers($answers);
+          
+          $questions[] = $question;
+        }
+        
+        $test = new Test($db_test['caption'], $subject, $db_test['author']);
+        $test->setTestID((int)$db_test['id_test']);
+        $test->setQuestions($questions);
+        
+        $tests[] = $test;
+      }
+      
+      return $tests;
+    }
+    
     public function getTest(int $test_id)
     {
       $db_test = $this->query("call getTest(:test_id)", [":test_id" => $test_id])[0];

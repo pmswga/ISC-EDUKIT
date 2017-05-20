@@ -22,7 +22,7 @@
 				$CT->assign("fio", $user->getSn()." ".$user->getFn()." ".$user->getPt());
 				$CT->assign("sogroups", $sogroups);
 				$CT->assign("user", $user);
-				// $CT->assign("tests", $TM->getTestForGroup($user->getGroup()->getID()));
+				$CT->assign("tests", $TM->getTestsForGroup($user->getGroup()->getGroupID()));
         
         $traffic = $UM->query("call getTrafficStudent(:s_email)", [":s_email" => $user->getEmail()]);
 				

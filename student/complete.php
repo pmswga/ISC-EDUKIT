@@ -4,7 +4,7 @@
 	
 	if (!empty($_SESSION['user']) && !empty($_GET['test_id'])) {
 		
-		if ($_SESSION['user']->getTypeUser() == USER_TYPE_STUDENT) {
+		if ($_SESSION['user']->getUserType() == USER_TYPE_STUDENT) {
 			
 			$test_id = (int)$_GET['test_id'];
 			

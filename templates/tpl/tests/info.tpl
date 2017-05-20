@@ -97,8 +97,8 @@
 											</tr>
 											{foreach from=$test->getQuestions() item=question}
 												<tr>
-													<td><input type="text" name="question[]" value="{$question->getQuestion()}" class="form-control"></td>
-													<td><input type="text" name="questionRAnswer[]" value="{$question->getRAnswer()}" class="form-control"></td>
+													<td><input type="text" name="question_{$question->getQuestionID()}" value="{$question->getQuestion()}" class="form-control"></td>
+													<td><input type="text" name="questionRAnswer_{$question->getQuestionID()}" value="{$question->getRAnswer()}" class="form-control"></td>
 													<td>
 														<ul>
 														{foreach from=$question->getAnswers() item=answer}
@@ -198,7 +198,6 @@
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
-		
     
 		<div class="modal fade" id="addQuestionsDialog">
 			<div class="modal-dialog">
@@ -217,11 +216,11 @@
 								</div>
 								<div class="form-group">
 									<label>Вопрос</label>
-									<input type="text" name="question_caption" class="form-control">
+									<input type="text" name="question_caption" class="form-control" required>
 								</div>
 								<div class="form-group">
 									<label>Правильный ответ</label>
-									<input type="text" name="question_r_answer" class="form-control">
+									<input type="text" name="question_r_answer" class="form-control" required>
 								</div>
 								<div class="form-group">
 									<fieldset>
@@ -249,7 +248,7 @@
 			
 			var count_answers = 0;
 			var min_count_answers = 4;
-			var max_count_answers = 10;
+			var max_count_answers = 9;
 			
 			$("[name='addAnswer']").click(function(){
 				

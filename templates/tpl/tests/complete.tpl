@@ -28,8 +28,8 @@
 										</tr>
 										<tr>
 											<td>{$test->getSubject()->getDescription()}</td>
-											<td>{$test->getAuthorName()}</td>
-											<td>{$test->getCountQuestions()}</td>
+											<td>{$test->getAuthor()}</td>
+											<td>{count($test->getQuestions())}</td>
 										</tr>
 									</tbody>
 									<tfoot>

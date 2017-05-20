@@ -130,7 +130,7 @@
 													<tr>
 													<td><a href="student/complete.php?test_id={$test->getTestID()}">{$test->getCaption()}</a></td>
 													<td>{$test->getSubject()->getDescription()}</td>
-													<td>{$test->getAuthorEmail()}</td>
+													<td>{$test->getAuthor()}</td>
 													</tr>
 												{/foreach}
 											</tbody>

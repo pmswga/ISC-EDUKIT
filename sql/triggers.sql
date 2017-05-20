@@ -1,5 +1,7 @@
 use `iep`;
 
+/* Триггеры для вставки значений */
+
 DROP TRIGGER IF EXISTS insUser;
 DROP TRIGGER IF EXISTS insTypeUser;
 DROP TRIGGER IF EXISTS insAdmin;
@@ -15,6 +17,11 @@ DROP TRIGGER IF EXISTS insTest;
 DROP TRIGGER IF EXISTS insQuestion;
 DROP TRIGGER IF EXISTS insStudentTest;
 DROP TRIGGER IF EXISTS insStudentAnswer;
+
+
+/* Триггеры для обновления */
+
+DROP TRIGGER IF EXISTS uptRAnswer;
 
 DELIMITER //
 
@@ -179,6 +186,15 @@ BEGIN
 		SIGNAL SQLSTATE '45000' SET
 			MESSAGE_TEXT = 'Filed is empty';
 	END IF;
+END;
+
+
+
+
+
+CREATE TRIGGER IF NOT EXISTS uptRAnswer AFTER UPDATE ON `questions` FOR EACH ROW
+BEGIN
+	UPDATE `answers` SET `answer`=new.r_answer WHERE `id_question`=new.id_question AND `answer`=old.r_answer;
 END;
 
 //

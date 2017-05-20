@@ -66,8 +66,14 @@ END;
 
 CREATE PROCEDURE getTestsForGroup(grp int)
 BEGIN
-	SELECT id_test, id_teacher, caption, id_subject FROM `tests` t
+	SELECT t.id_test,
+			t.caption, 
+            t.id_teacher  as author,
+            s.description as subject_caption,
+            s.id_subject  as subject_id
+    FROM `tests` t
 		INNER JOIN `groups_tests` gt ON t.id_test=gt.id_test
+		INNER JOIN `subjects` s ON s.id_subject=t.id_subject
 	WHERE `id_group`=grp;
 END;
 
