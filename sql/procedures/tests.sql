@@ -25,6 +25,7 @@ DROP PROCEDURE IF EXISTS changeCaptionAnswer;
 DROP PROCEDURE IF EXISTS getQuestions; /* Для конкретного теста */
 DROP PROCEDURE IF EXISTS getAnswers; /* Для конкретного вопроса */
 
+DROP PROCEDURE IF EXISTS createStudentAnswer;
 DROP PROCEDURE IF EXISTS putStudentAnswer;
 DROP PROCEDURE IF EXISTS getStudentAnswers;
 
@@ -183,19 +184,22 @@ BEGIN
   ORDER BY a.id_answer;
 END;
 
-CREATE PROCEDURE putStudentAnswer(student_id int, subject char(255), date_pass date, mark int)
+CREATE PROCEDURE createStudentAnswer(student_email char(30), subject char(255), pass_date date, mark int)
 BEGIN
-  INSERT INTO `student_answer` (`id_student`, `id_student_test`, `id_question`, `answer`) VALUES (student_id, test_id, question_id, answ);
+	INSERT INTO `student_tests` (`id_student`, `subject`, `date_pass`, `mark`) VALUES (getStudentId(student_email), subject, date_pass, mark);
 END;
 
-CREATE PROCEDURE getStudentAnswers(student_id int)
+CREATE PROCEDURE putStudentAnswer(student_test int, question char(255), answer char(255))
 BEGIN
-  SELECT CONCAT(u.second_name, ' ', LEFT(u.first_name, 1), '. ', LEFT(u.patronymic, 1), '.'), t.caption, q.question
-  FROM `student_tests` s_t
-    INNER JOIN `users` u ON s_t.id_student=u.id_user
-    INNER JOIN `tests` t ON s_t.id_student_test=t.id_test
-    INNER JOIN `questions` q ON s_t.id_question=q.id_question
-  WHERE s_t.id_student=student_id;
+	INSERT INTO `student_answers` (`id_student_test`, `question`, `answer`) VALUES (student_test, question, answer);
+END;
+
+CREATE PROCEDURE getStudentAnswers(student_email char(255))
+BEGIN
+  SELECT *
+  FROM `student_tests` st
+	INNER JOIN `student_answers` sa ON st.id_student_test=sa.id_student_test
+  WHERE st.id_student=getStudentId(student_email);
 END;
 
 //

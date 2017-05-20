@@ -1,6 +1,9 @@
 <?php
 	
-	require_once "../start.php";
+	require_once "../start.php";  
+  require_once "../iep/structures/studentanswer.class.php";
+  
+  use IEP\Structures\StudentAnswer;
 	
 	if (!empty($_SESSION['user']) && !empty($_GET['test_id'])) {
 		
@@ -20,31 +23,49 @@
 				if (!empty($_POST['completeTestButton'])) {
 					
 					$questions = $test->getQuestions();
+          $student_questions = $_POST['questions'];
+          
 					$mark = 0;
-					$student_answers = array();
-					for ($i = 0; $i < count($questions); $i++) {
-						$student_answers[] = $_POST['question_'.($i+1)];
-						$student_answer = $_POST['question_'.($i+1)];
-						
-						if ($student_answer == $questions[$i]->getRAnswer()) {
-							$mark += 1;
-						}
-					}
+          $student_results = array();
+          for ($j = 0; $j < count($student_questions); $j++) {
+            
+            $student_result["question"] = $student_questions[$j];
+            
+            $student_result["answer"] = $_POST['answer_'.($j+1)];
+            $student_answer = $_POST['answer_'.($j+1)];
+              
+            if ($student_answer == $questions[$j]->getRAnswer()) {
+              $mark += 1;
+            }
+            
+            $student_results[] = $student_result;
+          }
 					
 					$result = (($mark*100)/count($questions));
-					
-					if ($result == 100) {
-						echo "5";
-					} elseif ($result > 50) {
-						echo "4";
-					} elseif ($result <= 50) {
-						echo "3";
-					} elseif ($result < 25) {
-						echo "2";
+					if (($result <= 100) && ($result >= 75)) {
+						$mark = 5;
+					} elseif (($result < 75) && ($result >= 50) ) {
+						$mark = 4;
+					} elseif (($result < 50) && ($result > 25)) {
+						$mark = 3;
+					} elseif ($result <= 25) {
+						$mark = 2;
 					}
 					
-					CTools::var_dump($student_answers);
+          $new_student_answer = new StudentAnswer(
+            $user, 
+            $test->getSubject()->getDescription(),
+            $student_results,
+            date("Y:m:d", time()), 
+            $mark
+          );
 					
+          if ($TM->putStudentAnswer($new_student_answer)) {
+            CTools::Message("Результаты записаны");
+          } else {
+            CTools::Message("Ошибка");
+          }
+          
 				}
 				
 			} else {

@@ -15,6 +15,7 @@
   use IEP\Structures\Group;
   use IEP\Structures\Test;
   use IEP\Structures\TestQuestion;
+  use IEP\Structures\StudentAnswer;
   
   class TestManager extends IEP
   {
@@ -280,7 +281,8 @@
 				$add_question_query->bindValue(":question", $question->getQuestion());
 				$add_question_query->bindValue(":r_answer", $question->getRAnswer());
 				
-				if (!empty($question->getAnswers())) {					
+				if (!empty($question->getAnswers())) {			
+        
 					if ($add_question_query->execute()) {
 						
 						$last_id = $this->query("SELECT LAST_INSERT_ID() as last_id FROM `tests` WHERE `id_test`=:test_id", [":test_id" => $test_id]);
@@ -423,6 +425,65 @@
 			return $remove_answer_query->execute();
 		}
     
+    public function putStudentAnswer(StudentAnswer $student_answer) : bool
+    {
+      try
+      {
+        $this->dbc()->beginTransaction();
+        
+        $add_student_answer_query = $this->dbc()->prepare("call createStudentAnswer(:student_email, :subject, :date, :mark)");
+        
+        $add_student_answer_query->bindValue(":student_email", $student_answer->getStudent()->getEmail());
+        $add_student_answer_query->bindValue(":subject", $student_answer->getSubject());
+        $add_student_answer_query->bindValue(":date", $student_answer->getPassDate());
+        $add_student_answer_query->bindValue(":mark", $student_answer->getMark());
+        
+        if ($add_student_answer_query->execute()) {
+          
+          $answers = $student_answer->getAnswers();
+          
+          if (!empty($answers)) {
+            
+						$last_id = $this->query("SELECT LAST_INSERT_ID() as last_id FROM `student_tests`");
+						$last_id = $last_id[0]['last_id'];
+            
+            $result = true;
+            for ($i = 0; $i < count($answers); $i++) {
+              
+              $add_answer_query = $this->dbc()->prepare("call putStudentAnswer(:student_test, :question, :answer)");
+              
+              $add_answer_query->bindValue(":student_test", $last_id);
+              $add_answer_query->bindValue(":question", $answers[$i]['question']);
+              $add_answer_query->bindValue(":answer", $answers[$i]['answer']);
+              
+              $result *= $add_answer_query->execute();
+            }
+            
+            if ($result) {
+              return $this->dbc()->commit();
+            } else {
+              $this->dbc()->rollBack();
+              return false;
+            }
+            
+          } else {
+            $this->dbc()->rollBack();
+            return false;
+          }
+          
+        } else {
+          $this->dbc()->rollBack();
+          return false;
+        }
+        
+      }
+			catch(PDOException $e)
+			{
+				$this->dbc()->rollBack();
+				return false;
+			}
+    }
+    
     public function remove($test_id) : bool
     {
       $remove_test_query = $this->dbc()->prepare("call removeTest(:test_id)");
@@ -433,6 +494,5 @@
     }
     
   }
-  
   
 ?>
