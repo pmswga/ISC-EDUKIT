@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `admins` (
 	sn char(30) NOT NULL,
 	fn char(30) NOT NULL,
 	pt char(30) NOT NULL,
-	email char(255) UNIQUE,
+	email char(30) UNIQUE,
 	passwd char(32) NOT NULL,
 	CONSTRAINT ac_sn CHECK (sn <> ''),
 	CONSTRAINT ac_fn CHECK (fn <> ''),
