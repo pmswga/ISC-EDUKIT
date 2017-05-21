@@ -319,7 +319,18 @@
         } break;
         default:
         {
-
+          $admin = $this->query("call authentificationAdmin(:email, :passwd)", [":email" => $email, ":passwd" => $passwd])[0];
+          
+          $a = new User(
+            $admin['sn'],
+            $admin['fn'],
+            $admin['pt'],
+            $admin['email'],
+            $admin['passwd'],
+            (int)$admin['type_user']
+          );
+          
+          return $a;
         } break;
       }
     }

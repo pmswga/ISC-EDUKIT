@@ -15,7 +15,7 @@
 			$login = htmlspecialchars($_POST['login']);
 			$password = md5(htmlspecialchars($_POST['paswd']));
 			
-			$admin = $UM->authorizate($login, $password);
+			$admin = $UM->authentification($login, $password);
 			
 			if (!empty($admin) && ($admin instanceof User)) {
 				$_SESSION['admin'] = $admin;

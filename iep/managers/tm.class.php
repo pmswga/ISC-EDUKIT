@@ -269,6 +269,13 @@
       return $tests;
     }
     
+    public function isGroupForTest(int $test_id, int $grp_id)
+    {
+      return $this->query("select isGroupForTest(:test_id, :grp) as result", 
+        [":test_id" => $test_id, ":grp" => $grp_id]
+      )[0]['result'];
+    }
+    
     public function addQuestion(int $test_id, TestQuestion $question)
     {
 			try

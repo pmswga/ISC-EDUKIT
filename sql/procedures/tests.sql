@@ -29,6 +29,8 @@ DROP PROCEDURE IF EXISTS createStudentAnswer;
 DROP PROCEDURE IF EXISTS putStudentAnswer;
 DROP PROCEDURE IF EXISTS getStudentAnswers;
 
+DROP FUNCTION IF EXISTS isGroupForTest;
+
 DELIMITER //
 
 /* Работа с тестами */
@@ -92,6 +94,16 @@ BEGIN
     INNER JOIN `specialty` s ON g.spec_id=s.id_spec
   WHERE g_t.id_test=test_id
   ORDER BY g.description;
+END;
+
+CREATE FUNCTION IF NOT EXISTS isGroupForTest(test_id int, grp int)
+	RETURNS BOOL
+BEGIN
+	IF EXISTS (SELECT `id_group` FROM `groups_tests` WHERE `id_test`=test_id AND `id_group`=grp) THEN
+        RETURN TRUE;
+    ELSE
+		RETURN false;
+    END IF;
 END;
 
 /*

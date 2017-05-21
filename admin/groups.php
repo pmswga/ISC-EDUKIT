@@ -18,9 +18,9 @@
 		$CT->Show("groups.tpl");
 		
 		if (!empty($_POST['addGroupButton'])) {
-			$data = CForm::getData(["group", "spec", "payment"]);
+			$data = CForm::getData(["group", "edu_year", "spec", "payment"]);
 			
-			$new_grp = new Group($data['group'], $data['spec'], $data['payment']);
+			$new_grp = new Group($data['group'], $data['spec'], $data["edu_year"], $data['payment']);
 			
 			if ($GM->add($new_grp)) {
 				CTools::Redirect("groups.php");

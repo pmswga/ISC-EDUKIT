@@ -10,64 +10,72 @@
 		if ($_SESSION['user']->getUserType() == USER_TYPE_STUDENT) {
 			
 			$test_id = (int)$_GET['test_id'];
+      $user = $_SESSION['user'];
 			
 			if ($test_id > 0) {
-				
-				$user = $_SESSION['user'];
-				$test = $TM->getTest($test_id);
-				
-				$CT->assign("test", $test);
-				
-				$CT->show("tests/complete.tpl");
-				
-				if (!empty($_POST['completeTestButton'])) {
-					
-					$questions = $test->getQuestions();
-          $student_questions = $_POST['questions'];
+        
+        if ($TM->isGroupForTest($test_id, $user->getGroup()->getGroupID())) {
           
-					$mark = 0;
-          $student_results = array();
-          for ($j = 0; $j < count($student_questions); $j++) {
+          $user = $_SESSION['user'];
+          $test = $TM->getTest($test_id);
+          
+          $CT->assign("test", $test);
+          
+          $CT->show("tests/complete.tpl");
+          
+          if (!empty($_POST['completeTestButton'])) {
             
-            $student_result["question"] = $student_questions[$j];
+            $questions = $test->getQuestions();
+            $student_questions = $_POST['questions'];
             
-            $student_result["answer"] = $_POST['answer_'.($j+1)];
-            $student_answer = $_POST['answer_'.($j+1)];
+            $mark = 0;
+            $student_results = array();
+            for ($j = 0; $j < count($student_questions); $j++) {
               
-            if ($student_answer == $questions[$j]->getRAnswer()) {
-              $mark += 1;
+              $student_result["question"] = $student_questions[$j];
+              
+              $student_result["answer"] = $_POST['answer_'.($j+1)];
+              $student_answer = $_POST['answer_'.($j+1)];
+                
+              if ($student_answer == $questions[$j]->getRAnswer()) {
+                $mark += 1;
+              }
+              
+              $student_results[] = $student_result;
             }
             
-            $student_results[] = $student_result;
-          }
-					
-					$result = (($mark*100)/count($questions));
-					if (($result <= 100) && ($result >= 75)) {
-						$mark = 5;
-					} elseif (($result < 75) && ($result >= 50) ) {
-						$mark = 4;
-					} elseif (($result < 50) && ($result > 25)) {
-						$mark = 3;
-					} elseif ($result <= 25) {
-						$mark = 2;
-					}
-					
-          $new_student_answer = new StudentAnswer(
-            $user, 
-            $test->getSubject()->getDescription(),
-            $student_results,
-            date("Y:m:d", time()), 
-            $mark
-          );
-					
-          if ($TM->putStudentAnswer($new_student_answer)) {
-            CTools::Message("Результаты записаны");
-          } else {
-            CTools::Message("Ошибка");
+            $result = (($mark*100)/count($questions));
+            if (($result <= 100) && ($result >= 75)) {
+              $mark = 5;
+            } elseif (($result < 75) && ($result >= 50) ) {
+              $mark = 4;
+            } elseif (($result < 50) && ($result > 25)) {
+              $mark = 3;
+            } elseif ($result <= 25) {
+              $mark = 2;
+            }
+            
+            $new_student_answer = new StudentAnswer(
+              $user, 
+              $test->getSubject()->getDescription(),
+              $student_results,
+              date("Y:m:d", time()), 
+              $mark
+            );
+            
+            if ($TM->putStudentAnswer($new_student_answer)) {
+              CTools::Message("Результаты записаны");
+            } else {
+              CTools::Message("Ошибка");
+            }
+            
           }
           
-				}
-				
+        } else {
+          CTools::Message("404 Not Found");
+          CTools::Redirect("../user.php");
+        }
+        
 			} else {
 				CTools::Message("404 Not Found");
 				CTools::Redirect("../user.php");

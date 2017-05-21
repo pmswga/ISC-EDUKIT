@@ -16,162 +16,54 @@
         <div class="tab-content">
           <div class="tab-pane active" id="addUser">
             <div class="row">
-              <div class="col-md-4">
-                <fieldset>
-                  <legend>Студент</legend>
-                  <form name="addStudentForm" method="POST">
-                    <div class="form-group">
-                      <label>Фамилия</label>
-                      <input type="text" name="sn" maxlength="30" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>Имя</label>
-                      <input type="text" name="fn" maxlength="30" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>Отчество</label>
-                      <input type="text" name="pt" maxlength="30" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>E-mail</label>
-                      <input type="email" name="email" maxlength="30" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>Пароль</label>
-                      <input type="password" name="paswd" maxlength="32" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>Адрес</label>
-                      <input type="text" name="ha" maxlength="255" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>Телефон</label>
-                      <input type="telephone" name="cp" maxlength="30" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>Группа</label>
-                      <select name="grp" class="form-control">
-                        {foreach from=$groups item=group}
-                          <option value="{$group->getID()}">{$group->getNumberGroup()}</option>
-                        {/foreach}
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <input type="submit" name="addStudentButton" value="Добавить" class="btn btn-primary">
-                    </div>
-                  </form>
-                </fieldset>
-              </div>
-              <div class="col-md-4">
+              <div class="col-md-12">
                 <fieldset>
                   <legend>Преподаватель</legend>
                   <form name="addTeacherForm" method="POST">
-                    <div class="form-group">
-                      <label>Фамилия</label>
-                      <input type="text" name="sn" maxlength="30" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>Имя</label>
-                      <input type="text" name="fn" maxlength="30" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>Отчество</label>
-                      <input type="text" name="pt" maxlength="30" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>E-mail</label>
-                      <input type="email" name="email" maxlength="30" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>Пароль</label>
-                      <input type="password" name="paswd" maxlength="32" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>Информация</label>
-                      <textarea name="info" rows="5" class="form-control"></textarea>
-                    </div>
-                    <div class="form-group">
-                      <div class="panel-group" id="accordion">
-                        <div class="panel panel-default">
-                          <div class="panel-heading">
-                            <h4 class="panel-title">
-                              <a data-toggle="collapse" data-parent="#accordion" href="#subjects">Предметы</a>
-                            </h4>
-                          </div>
-                          <div id="subjects" class="panel-collapse collapse">
-                            <div class="panel-body">
-                              <table class="table table-bordered">
-                                <tr>
-                                  <th>Название</th>
-                                  <th>Выбрать</th>
-                                </tr>
-                                {foreach from=$subjects item=subject}
-                                  <tr>
-                                    <td>{$subject->getDescription()}</td>
-                                    <td><input type="checkbox" name="subjects[]" value="{$subject->getID()}" class="form-control"></td>
-                                  </tr>
-                                {/foreach}
-                              </table>
-                            </div>
-                          </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label>Фамилия</label>
+                          <input type="text" name="sn" maxlength="30" class="form-control">
+                        </div>
+                        <div class="form-group">
+                          <label>Имя</label>
+                          <input type="text" name="fn" maxlength="30" class="form-control">
+                        </div>
+                        <div class="form-group">
+                          <label>Отчество</label>
+                          <input type="text" name="pt" maxlength="30" class="form-control">
+                        </div>
+                        <div class="form-group">
+                          <label>E-mail</label>
+                          <input type="email" name="email" maxlength="30" class="form-control">
+                        </div>
+                        <div class="form-group">
+                          <label>Пароль</label>
+                          <input type="password" name="paswd" maxlength="32" class="form-control">
+                        </div>
+                        <div class="form-group">
+                          <label>Информация</label>
+                          <textarea name="info" rows="5" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group">
+                          <input type="submit" name="addTeacherButton" value="Добавить" class="btn btn-primary">
                         </div>
                       </div>
-                    <div class="form-group">
-                      <input type="submit" name="addTeacherButton" value="Добавить" class="btn btn-primary">
-                    </div>
-                  </form>
-                </fieldset>
-              </div>
-              <div class="col-md-4">
-                <fieldset>
-                  <legend>Родитель</legend>
-                  <form name="addParentForm" method="POST">
-                    <div class="form-group">
-                      <label>Фамилия</label>
-                      <input type="text" name="sn" maxlength="30" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>Имя</label>
-                      <input type="text" name="fn" maxlength="30" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>Отчество</label>
-                      <input type="text" name="pt" maxlength="30" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>E-mail</label>
-                      <input type="email" name="email" maxlength="30" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>Пароль</label>
-                      <input type="password" name="paswd" maxlength="32" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>Возраст</label>
-                      <input type="number" name="age" min="20" value="20" max="99" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>Образование</label>
-                      <input type="text" name="education" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>Место работы</label>
-                      <input type="text" name="wp" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>Должность</label>
-                      <input type="text" name="post" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>Домашний телефон</label>
-                      <input type="telephone" name="hp" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>Сотовый телефон</label>
-                      <input type="telephone" name="cp" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <input type="submit" name="addParentButton" value="Добавить" class="btn btn-primary">
+                      <div class="col-md-8">
+                        <table class="table table-bordered">
+                          <tr>
+                            <th>Предмет</th>
+                            <th>Выбрать</th>
+                          </tr>
+                          {foreach from=$subjects item=subject}
+                            <tr>
+                              <td>{$subject->getDescription()}</td>
+                              <td><input type="checkbox" name="subjects[]" value="{$subject->getSubjectID()}" class="form-control"></td>
+                            </tr>
+                          {/foreach}
+                        </table>
+                      </div>
                     </div>
                   </form>
                 </fieldset>
@@ -394,7 +286,7 @@
                       <label>Студент</label>
                       <select name="studentEmail" class="form-control">
 												{foreach from=$students item=student}
-													<option value="{$student->getEmail()}">{$student->getSn()} {$student->getFn()} {$student->getPt()} | <small>{$student->getGroup()}</small></option>
+													<option value="{$student->getEmail()}">{$student->getSn()} {$student->getFn()} {$student->getPt()} | <small>{$student->getGroup()->getNumberGroup()}</small></option>
 												{/foreach}
 											</select>
                     </div>

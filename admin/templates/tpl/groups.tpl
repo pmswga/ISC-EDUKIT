@@ -21,6 +21,7 @@
                     <tr>
                       <th>Группа</th>
                       <th>Специальность</th>
+                      <th>Года обучения</th>
                       <th>Кол-во студентов</th>
                       <th>Выбрать</th>
                     </tr>
@@ -28,6 +29,7 @@
                       <tr>
                         <td>{$group->getNumberGroup()}</td>
                         <td>{$group->getCode()}</td>
+                        <td>{$group->getYearEducation()}</td>
                         <td>{$group->getCountStudents()}</td>
                         <td><input type="checkbox" name="select_grp[]" value="{$group->getID()}" class="form-control"></td>
                       </tr>
@@ -49,6 +51,10 @@
                     <div class="form-group">
                       <label>Наименование</label>
                       <input type="text" name="group" class="form-control">
+                    </div>
+                    <div class="form-group">
+                      <label>Года обучения</label>
+                      <input type="text" name="edu_year" class="form-control">
                     </div>
                     <div class="form-group">
                       <label>Специальность</label>

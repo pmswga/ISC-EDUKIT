@@ -36,34 +36,6 @@
 		
 		$CT->Show("users.tpl");
 		
-		if (!empty($_POST['addStudentButton'])) {
-			$data = CForm::getData(["sn", "fn", "pt", "email", "paswd", "ha", "cp", "grp"]);
-			$data['paswd'] = md5($data['paswd']);
-      
-			$grp = new Group("", "");
-      $grp->setID((int)$data['grp']);
-      
-			$new_student = new Student(
-				new User(
-					$data['sn'], 
-					$data['fn'], 
-					$data['pt'], 
-					$data['email'], 
-					$data['paswd'], 
-					4), 
-				$data['ha'], 
-				$data['cp'],
-        $grp
-			);
-			
-			CTools::var_dump($new_student);
-			
-			if ($UM->add($new_student)) {
-				CTools::Redirect("users.php");
-			}
-			
-		}
-		
 		if (!empty($_POST['addTeacherButton'])) {
 			$data = CForm::getData(["sn", "fn", "pt", "email", "paswd", "info"]);
 			$data['paswd'] = md5($data['paswd']);
@@ -77,44 +49,16 @@
 					$data['pt'], 
 					$data['email'], 
 					$data['paswd'], 
-					2), 
+					1
+        ), 
 				$data['info']
 			);
-			
+      
 			if (!empty($subjects)) {
 				$new_teacher->setSubjects($subjects);
 			}
 			
 			if ($UM->add($new_teacher)) {
-				CTools::Redirect("users.php");
-			}
-			
-		}
-		
-		if (!empty($_POST['addParentButton'])) {
-			$data = CForm::getData(["sn", "fn", "pt", "email", "paswd", "age", "education", "wp", "post", "hp", "cp"]);
-			$data['paswd'] = md5($data['paswd']);
-			
-			$new_parent = new Parent_(
-				new User(
-					$data['sn'], 
-					$data['fn'], 
-					$data['pt'], 
-					$data['email'], 
-					$data['paswd'], 
-					5), 
-				$data['age'],
-				$data['education'],
-				$data['wp'],
-				$data['post'],
-				$data['hp'],
-				$data['cp']
-			);
-			
-			
-			CTools::var_dump($new_parent);
-			
-			if ($UM->add($new_parent)) {
 				CTools::Redirect("users.php");
 			}
 			

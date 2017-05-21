@@ -58,7 +58,8 @@
 						<div class="col-md-12">
 							<form name="completeTestForm" method="POST">
 								<div class="form-group">
-									<input type="submit" name="completeTestButton" value="Сдать тест" class="btn btn-success">
+                  <a href="../user.php" class="btn btn-warning">Назад</a>
+									<input type="submit" name="completeTestButton" value="Сдать!" class="btn btn-success pull-right">
 								</div>
                 {$question_n = 1}
                 {foreach from=$test->getQuestions() item=question}
