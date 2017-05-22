@@ -18,6 +18,11 @@
 				$sogroups = $UM->query("SELECT * FROM `v_Students` WHERE `grp`=:grp AND `email`!=:email",
 					[":grp" => $user->getGroup()->getNumberGroup(), ":email" => $user->getEmail()]
 				);
+        $elder = $UM->query("SELECT * FROM `v_Elders` WHERE `grp`=:grp",
+          [":grp" => $user->getGroup()->getNumberGroup()]
+        )[0];
+        
+        $sogroups[] = $elder;
 				
 				$CT->assign("fio", $user->getSn()." ".$user->getFn()." ".$user->getPt());
 				$CT->assign("sogroups", $sogroups);
@@ -180,6 +185,7 @@
         $traffic = $UM->query("call getTrafficStudent(:s_email)", [":s_email" => $user->getEmail()]);
 				
         $CT->assign("user", $user);
+				$CT->assign("tests", $TM->getTestsForGroup($user->getGroup()->getGroupID()));
         $CT->assign("traffic", $traffic);
         
         if (!empty($_POST['commitTrafficButton'])) {
@@ -191,11 +197,11 @@
             $result *= $TRM->add(new TrafficEntry($key, date("Y.m.d"), $value[0]*2, $count_pairs*2)); 
           }
           
-          // if ($result) {
-            // CTools::Message("Изменения зафиксированны");
-          // } else {
-            // CTools::Message("Ошибка при фиксации");
-          // }
+          if ($result) {
+            CTools::Message("Изменения зафиксированны");
+          } else {
+            CTools::Message("Ошибка при фиксации");
+          }
           
           CTools::Redirect("user.php");
           

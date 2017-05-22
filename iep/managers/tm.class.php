@@ -438,10 +438,11 @@
       {
         $this->dbc()->beginTransaction();
         
-        $add_student_answer_query = $this->dbc()->prepare("call createStudentAnswer(:student_email, :subject, :date, :mark)");
+        $add_student_answer_query = $this->dbc()->prepare("call createStudentAnswer(:student_email, :subject, :caption, :date, :mark)");
         
         $add_student_answer_query->bindValue(":student_email", $student_answer->getStudent()->getEmail());
         $add_student_answer_query->bindValue(":subject", $student_answer->getSubject());
+        $add_student_answer_query->bindValue(":caption", $student_answer->getCaption());
         $add_student_answer_query->bindValue(":date", $student_answer->getPassDate());
         $add_student_answer_query->bindValue(":mark", $student_answer->getMark());
         

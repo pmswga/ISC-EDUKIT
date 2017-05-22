@@ -319,20 +319,30 @@
         } break;
         default:
         {
-          $admin = $this->query("call authentificationAdmin(:email, :passwd)", [":email" => $email, ":passwd" => $passwd])[0];
-          
-          $a = new User(
-            $admin['sn'],
-            $admin['fn'],
-            $admin['pt'],
-            $admin['email'],
-            $admin['passwd'],
-            (int)$admin['type_user']
-          );
-          
-          return $a;
+          return false;
         } break;
       }
+    }
+    
+    public function authentificationAdmin(string $email, string $passwd)
+    {
+      $admin = $this->query("call authentificationAdmin(:email, :passwd)", [":email" => $email, ":passwd" => $passwd])[0];
+      
+      if (!empty($admin)) {
+        $a = new User(
+          $admin['sn'],
+          $admin['fn'],
+          $admin['pt'],
+          $admin['email'],
+          $admin['passwd'],
+          (int)$admin['type_user']
+        );
+        
+        return $a;
+      } else {
+        return false;
+      }
+      
     }
     
     public function getAllStudents() : array
@@ -428,6 +438,36 @@
       }
       
       return $parents;
+    }
+    
+    public function getAllElders()
+    {
+      $db_students = $this->query("call getAllElders()");
+      
+      $students = array();
+      foreach ($db_students as $db_student) {
+        $spec = new Specialty($db_student['spec_code'], $db_student['spec_descp'], "none");
+        $spec->setSpecialtyID((int)$db_student['spec_id']);
+        
+        $group = new Group($db_student['grp'], $spec, $db_student['edu_year'], (int)$db_student['is_budget']);
+        $group->setGroupID((int)$db_student['grp_id']);
+        
+        $students[] = new Student(
+          new User(
+            $db_student['sn'],
+            $db_student['fn'],
+            $db_student['pt'],
+            $db_student['email'],
+            $db_student['paswd'],
+            (int)$db_student['type_user']
+          ),
+          $db_student['home_address'],
+          $db_student['cell_phone'],
+          $group
+        );
+      }
+      
+      return $students;
     }
     
     public function grantElder(string $student_email) : bool

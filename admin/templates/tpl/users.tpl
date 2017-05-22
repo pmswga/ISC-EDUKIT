@@ -135,7 +135,6 @@
 																			<th>E-mail</th>
 																			<th>Адрес</th>
 																			<th>Телефон</th>
-																			<th></th>
 																		</tr>
 																		{foreach from=$student item=one_student}
 																			<tr>
@@ -213,7 +212,7 @@
 														<th>Имя</th>
 														<th>Отчество</th>
 														<th>E-mail</th>
-														<th>Предметы</th>
+                            <th>Группа</th>
 													</tr>
 													{foreach from=$elders item=elder}
 														<tr>
@@ -221,6 +220,7 @@
 															<td>{$elder->getFn()}</td>
 															<td>{$elder->getPt()}</td>
 															<td>{$elder->getEmail()}</td>
+                              <td>{$elder->getGroup()->getNumberGroup()}</td>
 														</tr>
 													{/foreach}
 												</table>
@@ -304,7 +304,7 @@
                       <label>Студент</label>
                       <select name="studentEmail" class="form-control">
 												{foreach from=$elders item=elder}
-													<option value="{$elder->getEmail()}">{$elder->getSn()} {$elder->getFn()} {$elder->getPt()} | <small>{$elder->getGroup()}</small></option>
+													<option value="{$elder->getEmail()}">{$elder->getSn()} {$elder->getFn()} {$elder->getPt()} | <small>{$elder->getGroup()->getNumberGroup()}</small></option>
 												{/foreach}
 											</select>
                     </div>

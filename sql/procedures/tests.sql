@@ -196,9 +196,9 @@ BEGIN
   ORDER BY a.id_answer;
 END;
 
-CREATE PROCEDURE createStudentAnswer(student_email char(30), subject char(255), pass_date date, mark int)
+CREATE PROCEDURE IF NOT EXISTS createStudentAnswer(student_email char(30), subject char(255), t_caption char(255), pass_date date, mark int)
 BEGIN
-	INSERT INTO `student_tests` (`id_student`, `subject`, `date_pass`, `mark`) VALUES (getStudentId(student_email), subject, date_pass, mark);
+	INSERT INTO `student_tests` (`id_student`, `subject`, `caption`, `date_pass`, `mark`) VALUES (getStudentId(student_email), subject, t_caption, date_pass, mark);
 END;
 
 CREATE PROCEDURE putStudentAnswer(student_test int, question char(255), answer char(255))

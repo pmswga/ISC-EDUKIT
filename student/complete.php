@@ -7,7 +7,8 @@
 	
 	if (!empty($_SESSION['user']) && !empty($_GET['test_id'])) {
 		
-		if ($_SESSION['user']->getUserType() == USER_TYPE_STUDENT) {
+		if (($_SESSION['user']->getUserType() == USER_TYPE_STUDENT) || 
+        ($_SESSION['user']->getUserType() == USER_TYPE_ELDER)) {
 			
 			$test_id = (int)$_GET['test_id'];
       $user = $_SESSION['user'];
@@ -58,6 +59,7 @@
             $new_student_answer = new StudentAnswer(
               $user, 
               $test->getSubject()->getDescription(),
+              $test->getCaption(),
               $student_results,
               date("Y:m:d", time()), 
               $mark

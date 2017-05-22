@@ -9,13 +9,15 @@
     private $student;
     private $answers;
     private $subject;
+    private $caption;
     private $date;
     private $mark;
     
-    function __construct($student, string $subject, array $answers, string $date, int $mark)
+    function __construct($student, string $subject, string $caption, array $answers, string $date, int $mark)
     {
       $this->student = $student;
       $this->subject = $subject;
+      $this->caption = $caption;
       $this->answers = $answers;
       $this->date = $date;
       $this->mark = $mark;
@@ -29,6 +31,11 @@
     public function getSubject() : string
     {
       return $this->subject;
+    }
+    
+    public function getCaption() : string
+    {
+      return $this->caption;
     }
     
     public function getAnswers() : array

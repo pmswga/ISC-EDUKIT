@@ -11,8 +11,7 @@
   use IEP\Structures\User;
   use IEP\Structures\Group;
 	
-	if(isset($_SESSION['admin']))
-	{		
+	if (isset($_SESSION['admin'])) {
 		
 		$UM = new UserManager($DB);
 		$GM = new GroupManager($DB);
@@ -28,7 +27,7 @@
 		$CT->assign("subjects", $SM->getAllSubjects());
 		$CT->assign("teachers", $UM->getAllTeachers());
 		$CT->assign("students", $UM->getAllStudents());
-		// $CT->assign("elders", $UM->getElders());
+		$CT->assign("elders", $UM->getAllElders());
 		$CT->assign("parents", $UM->getAllParents());
 		// $CT->assign("allUsers", $UM->getAllUsers());
 		// $CT->assign("typeUsers", $UM->getTypeUsers());

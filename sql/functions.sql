@@ -41,7 +41,7 @@ CREATE FUNCTION IF NOT EXISTS getStudentId (emailUser char(30))
 BEGIN
   DECLARE sid int;
   
-  SELECT `id_user` INTO sid FROM `users` WHERE `email`=emailUser AND `id_type_user`=3;
+  SELECT `id_user` INTO sid FROM `users` WHERE `email`=emailUser AND `id_type_user`=3 OR `id_type_user`=2;
   
   RETURN sid;
 END;

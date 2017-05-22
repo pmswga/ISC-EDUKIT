@@ -66,7 +66,9 @@
 									{if $sogroups != NULL}
 										<table class="table table-bordered">
 											{foreach from=$sogroups item=it}
-												<tr><td><a href=account.php?email={$it['email']}>{$it['sn']} {$it['fn']}</a></td></tr>
+												<tr>
+                          <td>{$it['sn']} {$it['fn']}</td>
+                        </tr>
 											{/foreach}
 										</table>
 									{else}
