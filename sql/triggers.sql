@@ -17,6 +17,7 @@ DROP TRIGGER IF EXISTS insTest;
 DROP TRIGGER IF EXISTS insQuestion;
 DROP TRIGGER IF EXISTS insStudentTest;
 DROP TRIGGER IF EXISTS insStudentAnswer;
+DROP TRIGGER IF EXISTS insStudentTraffic;
 
 
 /* Триггеры для обновления */
@@ -188,6 +189,16 @@ BEGIN
 	END IF;
 END;
 
+CREATE TRIGGER IF NOT EXISTS insStudentTraffic BEFORE INSERT ON `student_traffic` FOR EACH ROW
+BEGIN
+	IF
+		(new.count_passed_hours < 0) OR
+		(new.count_all_hours < 0)    
+	THEN
+		SIGNAL SQLSTATE '45000' SET
+			MESSAGE_TEXT = 'Incorrect value';
+	END IF;
+END;
 
 
 

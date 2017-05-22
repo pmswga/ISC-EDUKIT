@@ -231,7 +231,7 @@ CREATE TABLE IF NOT EXISTS `student_traffic` (
   count_passed_hours int NOT NULL,
   count_all_hours int NOT NULL,
   INDEX(id_student),
-  CONSTRAINT stc_cph CHECK (count_passed_hours > 0 AND count_passed_hours <= count_all_hours),
+  CONSTRAINT stc_cph CHECK (count_passed_hours >= 0 AND count_passed_hours <= count_all_hours),
   CONSTRAINT stc_cah CHECK (count_all_hours > 0)
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
