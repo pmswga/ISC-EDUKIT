@@ -345,6 +345,44 @@
       
     }
     
+    public function getAllAdmins() : array
+    {
+      $db_admins = $this->query("call getAllAdmins()");
+      
+      $admins = array();
+      foreach ($db_admins as $db_admin) {
+        $admins[] = new User(
+          $db_admin['sn'],
+          $db_admin['fn'],
+          $db_admin['pt'],
+          $db_admin['email'],
+          $db_admin['passwd'],
+          1
+        );
+      }
+      
+      return $admins;
+    }
+    
+    public function getAllUsers() : array
+    {
+      $db_admins = $this->query("call getAllUsers()");
+      
+      $admins = array();
+      foreach ($db_admins as $db_admin) {
+        $admins[] = new User(
+          $db_admin['sn'],
+          $db_admin['fn'],
+          $db_admin['pt'],
+          $db_admin['email'],
+          $db_admin['paswd'],
+          1
+        );
+      }
+      
+      return $admins;
+    }
+    
     public function getAllStudents() : array
     {
       $db_students = $this->query("call getAllStudents()");

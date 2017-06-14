@@ -13,6 +13,14 @@
 	align-items:center;
 }
 
+#content figure{
+  text-align: center;
+}
+
+#content h1, h2 {
+  text-align: center;
+}
+
 .oneNews {
 	padding: 15px;
 	margin: 15px;

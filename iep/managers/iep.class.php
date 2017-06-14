@@ -32,6 +32,13 @@
 			else return $this->dbc()->query($what)->fetchAll(\PDO::FETCH_ASSOC);
 		}
 		
+    public function getLogs() : array
+    {
+      $logs = $this->query("call readLogs('all')");
+      
+      return $logs;
+    }
+    
 		abstract public function add($data);
 		abstract public function remove($what);
 		

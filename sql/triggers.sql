@@ -1,7 +1,5 @@
 use `iep`;
 
-/* Триггеры для вставки значений */
-
 DROP TRIGGER IF EXISTS insUser;
 DROP TRIGGER IF EXISTS insTypeUser;
 DROP TRIGGER IF EXISTS insAdmin;
@@ -19,12 +17,6 @@ DROP TRIGGER IF EXISTS insStudentTest;
 DROP TRIGGER IF EXISTS insStudentAnswer;
 DROP TRIGGER IF EXISTS insStudentTraffic;
 
-
-DROP TRIGGER IF EXISTS log_insUser;
-
-
-/* Триггеры для обновления */
-
 DROP TRIGGER IF EXISTS uptRAnswer;
 
 DELIMITER //
@@ -33,7 +25,6 @@ CREATE TRIGGER IF NOT EXISTS insUser BEFORE INSERT ON `users` FOR EACH ROW
 BEGIN
 	IF new.second_name = '' OR
 		new.first_name = ''  OR
-		new.patronymic = ''  OR
 		new.email  = ''      OR
 		new.password = ''
 	THEN
@@ -210,27 +201,6 @@ CREATE TRIGGER IF NOT EXISTS uptRAnswer AFTER UPDATE ON `questions` FOR EACH ROW
 BEGIN
 	UPDATE `answers` SET `answer`=new.r_answer WHERE `id_question`=new.id_question AND `answer`=old.r_answer;
 END;
-
-
-
-
-
-/* Triggers for log */
-
-CREATE TRIGGER IF NOT EXISTS log_insUser AFTER INSERT ON `users` FOR EACH ROW
-BEGIN
-	INSERT INTO `logs` (`tbl`, `msg`) VALUES ('users', 'Added new user');
-END;
-
-
-CREATE TRIGGER IF NOT EXISTS log_uptUser AFTER UPDATE ON `users` FOR EACH ROW
-BEGIN
-	INSERT INTO `logs` (`tbl`, `msg`) VALUES ('users', 'Updated fileds in table users');
-END;
-
-
-
-
 
 
 

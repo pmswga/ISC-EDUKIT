@@ -29,7 +29,7 @@
 		$CT->assign("students", $UM->getAllStudents());
 		$CT->assign("elders", $UM->getAllElders());
 		$CT->assign("parents", $UM->getAllParents());
-		// $CT->assign("allUsers", $UM->getAllUsers());
+		$CT->assign("allUsers", $UM->getAllUsers());
 		// $CT->assign("typeUsers", $UM->getTypeUsers());
 		$CT->assign("studentsByGroup", $studentsByGroup);
 		
@@ -38,7 +38,6 @@
 		if (!empty($_POST['addTeacherButton'])) {
 			$data = CForm::getData(["sn", "fn", "pt", "email", "paswd", "info"]);
 			$data['paswd'] = md5($data['paswd']);
-			
 			$subjects = $_POST['subjects'];
 			
 			$new_teacher = new Teacher(
@@ -58,9 +57,12 @@
 			}
 			
 			if ($UM->add($new_teacher)) {
-				CTools::Redirect("users.php");
-			}
+        CTools::Message("Преподаватель успешно добавлен");
+      } else {
+        CTools::Message("Ошибка при добавлении преподавателя");
+      }
 			
+      CTools::Redirect("users.php");
 		}
 		
 		if (!empty($_POST['grantElderButton'])) {

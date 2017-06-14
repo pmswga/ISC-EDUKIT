@@ -8,6 +8,7 @@
         <ul class="nav nav-tabs tabs-left">
           <li class="active"><a href="#admins" data-toggle="tab">Администраторы</a></li>
           <li><a href="#data" data-toggle="tab">Данные</a></li>
+          <li><a href="#logs" data-toggle="tab">Логи</a></li>
         </ul>
       </div>
       <div class="col-md-10">
@@ -66,6 +67,20 @@
           </div>
           <div class="tab-pane" id="data">
             3
+          </div>
+          <div class="tab-pane" id="logs">
+            <table class="table table-bordered">
+              <tr>
+                <td>№</td>
+                <td>Сообщение</td>
+              </tr>
+              {foreach from=$logs item=log}
+                <tr>
+                    <td>{$log['id']}</td>
+                    <td>{$log['message']}</td>
+                </tr>
+              {/foreach}
+            </table>
           </div>
         </div>
       </div>
