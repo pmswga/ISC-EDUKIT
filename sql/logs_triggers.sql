@@ -4,6 +4,10 @@ DROP TRIGGER IF EXISTS log_insUser;
 DROP TRIGGER IF EXISTS log_uptUser;
 DROP TRIGGER IF EXISTS log_delUser;
 
+DROP TRIGGER IF EXISTS log_insAdmin;
+DROP TRIGGER IF EXISTS log_uptAdmin;
+DROP TRIGGER IF EXISTS log_delAdmin;
+
 DELIMITER //
 
 CREATE TRIGGER IF NOT EXISTS log_insUser AFTER INSERT ON `users` FOR EACH ROW
@@ -39,6 +43,22 @@ BEGIN
         old.fn, ' ',
         old.pt, ' удалён',
     ));
+END;
+
+
+CREATE TRIGGER IF NOT EXISTS log_insAdmin AFTER INSERT ON `admins` FOR EACH ROW
+BEGIN
+	
+END;
+
+CREATE TRIGGER IF NOT EXISTS log_uptAdmin AFTER UPDATE ON `admins` FOR EACH ROW
+BEGIN
+	
+END;
+
+CREATE TRIGGER IF NOT EXISTS log_delAdmin AFTER DELETE ON `admins` FOR EACH ROW
+BEGIN
+	
 END;
 
 //
