@@ -6,11 +6,11 @@ USE `iep`;
 /* Создание таблицы "Пользователи" */
 CREATE TABLE IF NOT EXISTS `users` (
 	id_user int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	second_name char(30) NOT NULL,
-	first_name char(30) NOT NULL,
-	patronymic char(30) NOT NULL,
+	sn char(30) NOT NULL,
+	fn char(30) NOT NULL,
+	pt char(30) NOT NULL,
 	email char(30) NOT NULL UNIQUE,
-	password char(32) NOT NULL,
+	passwd char(32) NOT NULL,
 	id_type_user int NOT NULL,
 	INDEX (id_type_user),
 	CONSTRAINT uc_sn CHECK(second_name <> ''),

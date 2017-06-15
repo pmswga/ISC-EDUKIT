@@ -2,7 +2,7 @@ USE `iep`;
 
 DROP TABLE IF EXISTS `logs`;
 DROP PROCEDURE IF EXISTS writeLog;
-DROP PROCEDURE IF EXISTS readLog;
+DROP PROCEDURE IF EXISTS readLogs;
 DROP PROCEDURE IF EXISTS compressLogs;
 DROP PROCEDURE IF EXISTS clearLogs;
 
@@ -34,14 +34,15 @@ DROP PROCEDURE IF EXISTS clearLogs;
 CREATE TABLE IF NOT EXISTS `logs` (
 	id_log int AUTO_INCREMENT PRIMARY KEY,
 	tbl char(255) NOT NULL,
-	msg text NOT NULL
+	msg text NOT NULL,
+	date date NOT NULL
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
 DELIMITER //
 
 CREATE PROCEDURE IF NOT EXISTS writeLog(tbl char(255), msg text)
 BEGIN
-	INSERT INTO `logs` (`tbl`, `msg`) VALUES (tbl, msg);
+	INSERT INTO `logs` (`tbl`, `msg`, `date`) VALUES (tbl, msg, NOW());
 END;
 
 CREATE PROCEDURE IF NOT EXISTS readLogs(tabl char(255))

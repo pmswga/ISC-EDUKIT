@@ -1,5 +1,6 @@
 use `iep`;
 
+DROP PROCEDURE IF EXISTS addUser;
 DROP PROCEDURE IF EXISTS addAdmin;
 DROP PROCEDURE IF EXISTS addTeacher;
 DROP PROCEDURE IF EXISTS addStudent;
@@ -49,6 +50,12 @@ DROP PROCEDURE IF EXISTS getUnsetSubjects;
 
 
 DELIMITER //
+
+CREATE PROCEDURE addUser(sn char(30), fn char(30), pt char(30), email char(30), passwd char(32), u_type int)
+BEGIN
+	INSERT INTO `users` (`sn`, `fn`, `pt`, `email`, `passwd`, `id_type_user`) VALUES (sn, fn, pt, email, passwd, u_type);
+END;
+
 
 CREATE PROCEDURE addAdmin(sn char(30), fn char(30), pt char(30), email char(30), passwd char(32))
 BEGIN
