@@ -10,24 +10,24 @@ DROP TRIGGER IF EXISTS log_delAdmin;
 
 DELIMITER //
 
-CREATE TRIGGER IF NOT EXISTS log_insUser AFTER INSERT ON `users` FOR EACH ROW
+CREATE TRIGGER log_insUser AFTER INSERT ON `users` FOR EACH ROW
 BEGIN
 	call writeLog('users', CONCAT(
 		'Добавлен новый пользователь [',
         new.sn, ' ',
         new.fn, ' ',
         new.pt, ' ',
-		  new.email, ']'
+		new.email, ']'
     ));
 END;
 
-CREATE TRIGGER IF NOT EXISTS log_uptUser AFTER UPDATE ON `users` FOR EACH ROW
+CREATE TRIGGER log_uptUser AFTER UPDATE ON `users` FOR EACH ROW
 BEGIN
 	call writeLog('users', CONCAT('Данные пользователя обновлены [s',
-		old.sn, ' ',
-		old.fn, ' ',
-		old.pt, ' ',
-		old.email, '] ---> [',
+		OLD.sn, ' ',
+		OLD.fn, ' ',
+		OLD.pt, ' ',
+		OLD.email, '] ---> [',
 		new.sn,  ' ',
 		new.fn, ' ',
 		new.pt, ' ',
@@ -35,28 +35,33 @@ BEGIN
 	));
 END;
 
-CREATE TRIGGER IF NOT EXISTS log_delUser AFTER DELETE ON `users` FOR EACH ROW 
+CREATE TRIGGER log_delUser AFTER DELETE ON `users` FOR EACH ROW 
 BEGIN
 	call writeLog('users', CONCAT(
 		'Пользователь ',
         old.sn, ' ',
         old.fn, ' ',
-        old.pt, ' удалён',
+        old.pt, ' удалён'
     ));
 END;
 
 
-CREATE TRIGGER IF NOT EXISTS log_insAdmin AFTER INSERT ON `admins` FOR EACH ROW
+CREATE TRIGGER log_insAdmin AFTER INSERT ON `admins` FOR EACH ROW
+BEGIN
+	call writeLog('admins', CONCAT(
+		'Добавлен новый администратор ',
+        old.sn, ' ',
+        old.fn, ' ',
+        old.pt, ' '
+    ));
+END;
+
+CREATE TRIGGER log_uptAdmin AFTER UPDATE ON `admins` FOR EACH ROW
 BEGIN
 	
 END;
 
-CREATE TRIGGER IF NOT EXISTS log_uptAdmin AFTER UPDATE ON `admins` FOR EACH ROW
-BEGIN
-	
-END;
-
-CREATE TRIGGER IF NOT EXISTS log_delAdmin AFTER DELETE ON `admins` FOR EACH ROW
+CREATE TRIGGER log_delAdmin AFTER DELETE ON `admins` FOR EACH ROW
 BEGIN
 	
 END;

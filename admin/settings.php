@@ -11,6 +11,8 @@
 		$CT->assign("admins", $UM->getAllAdmins());
 		$CT->assign("logs", $UM->getLogs());
     
+    CTools::var_dump($UM->getLogs());
+    
 		$CT->Show("settings.tpl");
 		
 		if (!empty($_POST['addAdminButton'])) {

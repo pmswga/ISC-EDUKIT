@@ -23,10 +23,10 @@ DELIMITER //
 
 CREATE TRIGGER IF NOT EXISTS insUser BEFORE INSERT ON `users` FOR EACH ROW
 BEGIN
-	IF new.second_name = '' OR
-		new.first_name = ''  OR
+	IF new.sn = '' OR
+		new.fn = ''  OR
 		new.email  = ''      OR
-		new.password = ''
+		new.passwd = ''
 	THEN
 		SIGNAL SQLSTATE '45000' SET 
 			MESSAGE_TEXT = 'Field is empty';

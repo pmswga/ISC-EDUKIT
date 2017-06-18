@@ -34,7 +34,7 @@
 		
     public function getLogs() : array
     {
-      $logs = $this->query("call readLogs('all')");
+      $logs = $this->DBC->query("call readLogs('all')")->fetchAll(\PDO::FETCH_ASSOC);
       
       return $logs;
     }
