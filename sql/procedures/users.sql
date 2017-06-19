@@ -6,6 +6,7 @@ DROP PROCEDURE IF EXISTS addTeacher;
 DROP PROCEDURE IF EXISTS addStudent;
 DROP PROCEDURE IF EXISTS addParent;
 DROP PROCEDURE IF EXISTS removeUser;
+DROP PROCEDURE IF EXISTS removeAdmin;
 
 DROP PROCEDURE IF EXISTS grantElder;
 DROP PROCEDURE IF EXISTS revokeElder;
@@ -73,7 +74,7 @@ END;
 CREATE PROCEDURE addStudent(sn char(30), fn char(30), pt char(30), s_email char(30), paswd char(32), ha char(255), cp char(30), s_grp int)
 BEGIN
 	START TRANSACTION;
-	INSERT INTO `users` (`second_name`, `first_name`, `patronymic`, `email`, `password`, `id_type_user`) VALUES (sn, fn, pt, s_email, paswd, 3);
+	INSERT INTO `users` (`sn`, `fn`, `pt`, `email`, `passwd`, `id_type_user`) VALUES (sn, fn, pt, s_email, paswd, 3);
 	INSERT INTO `students` (`id_student`, `home_address`, `cell_phone`, `grp`) VALUES (getStudentId(s_email), ha, cp, s_grp);
 	COMMIT;
 END;
@@ -89,6 +90,11 @@ END;
 CREATE PROCEDURE removeUser(u_email char(30))
 BEGIN
 	DELETE FROM `users` WHERE `email`=u_email;
+END;
+
+CREATE PROCEDURE removeAdmin(a_email char(30))
+BEGIN
+	DELETE FROM `admins` WHERE `email`=a_email;
 END;
 
 CREATE PROCEDURE grantElder(s_email char(30))

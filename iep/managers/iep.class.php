@@ -39,6 +39,15 @@
       return $logs;
     }
     
+    public function removeLogs(int $log_id) : bool
+    {
+      $remove_log_query = $this->dbc()->prepare("call removeLog(:log)");
+      
+      $remove_log_query->bindValue(":log", $log_id);
+      
+      return $remove_log_query->execute();
+    }
+    
 		abstract public function add($data);
 		abstract public function remove($what);
 		

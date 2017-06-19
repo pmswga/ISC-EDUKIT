@@ -587,6 +587,15 @@
       return $remove_user_query->execute();
     }
     
+    public function removeAdmin(string $admin_email) : bool
+    {
+      $remove_admin_query = $this->dbc()->prepare("call removeAdmin(:email)");
+      
+      $remove_admin_query->bindValue(":email", $admin_email);
+      
+      return $remove_admin_query->execute();
+    }
+    
   }
 
 ?>

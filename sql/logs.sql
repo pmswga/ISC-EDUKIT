@@ -48,9 +48,9 @@ END;
 CREATE PROCEDURE IF NOT EXISTS readLogs(tabl char(255))
 BEGIN
 	IF tabl = 'all' THEN 
-		SELECT `id_log` as 'id', `tbl` as 'table', `msg` as 'message' FROM `logs` ORDER BY `msg`;
+		SELECT `id_log` as 'id', `tbl` as 'table', `msg` as 'message', `date` FROM `logs` ORDER BY `id_log`;
     ELSE
-		SELECT `id_log` as 'id', `tbl` as 'table', `msg` as 'message' FROM `logs` WHERE `tbl`=tabl ORDER BY `msg`;
+		SELECT `id_log` as 'id', `tbl` as 'table', `msg` as 'message', `date` FROM `logs` WHERE `tbl`=tabl ORDER BY `id_log`;
     END IF;
 END;
 
@@ -66,6 +66,11 @@ BEGIN
     ELSE
 		DELETE FROM `logs` WHERE `tbl`=tabl;
     END IF;
+END;
+
+CREATE PROCEDURE IF NOT EXISTS removeLog(log_id int)
+BEGIN
+	DELETE FROM `logs` WHERE `id_log`=log_id;
 END;
 
 //

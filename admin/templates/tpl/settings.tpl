@@ -15,25 +15,34 @@
         <div class="tab-content">
           <div class="tab-pane active" id="admins">
 						<div class="row">
-							<div class="col-md-6">
-								<table class="table table-bordered">
-									<tr>
-										<th>Фамилия</th>
-										<th>Имя</th>
-										<th>Отчество</th>
-										<th>Email</th>
-									</tr>
-									{foreach from=$admins item=admin}
-										<tr>
-											<td>{$admin->getSn()}</td>
-											<td>{$admin->getFn()}</td>
-											<td>{$admin->getPt()}</td>
-											<td>{$admin->getEmail()}</td>
-										</tr>
-									{/foreach}
-								</table>
+							<div class="col-md-8">
+                <form name="deleteAdminsForm" method="POST">
+                  <table class="table table-bordered">
+                    <thead>
+                      <input type="submit" name="deleteAdminsButton" value="Удалить" class="btn btn-danger">
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th>Фамилия</th>
+                        <th>Имя</th>
+                        <th>Отчество</th>
+                        <th>Email</th>
+                        <th>Выбрать</th>
+                      </tr>
+                      {foreach from=$admins item=admin}
+                        <tr>
+                          <td>{$admin->getSn()}</td>
+                          <td>{$admin->getFn()}</td>
+                          <td>{$admin->getPt()}</td>
+                          <td>{$admin->getEmail()}</td>
+                          <td><input type="checkbox" name="admins[]" value="{$admin->getEmail()}" class="form-control"></td>
+                        </tr>
+                      {/foreach}
+                    </tbody>
+                  </table>
+                </form>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-4">
 								<fieldset>
 									<legend>Добавить администратора</legend>
 									<form name="addAdminForm" method="POST">
@@ -69,18 +78,29 @@
             3
           </div>
           <div class="tab-pane" id="logs">
-            <table class="table table-bordered">
-              <tr>
-                <td>№</td>
-                <td>Сообщение</td>
-              </tr>
-              {foreach from=$logs item=log}
-                <tr>
-                    <td>{$log['id']}</td>
-                    <td>{$log['message']}</td>
-                </tr>
-              {/foreach}
-            </table>
+            <form name="deleteLogsForm" method="POST">              
+              <table class="table table-bordered">
+                <thead>
+                  <input type="submit" name="deleteLogsButton" value="Удалить" class="btn btn-danger">
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>№</td>
+                    <td>Сообщение</td>
+                    <td>Дата</td>
+                    <td>Выбрать</td>
+                  </tr>
+                  {foreach from=$logs item=log}
+                    <tr>
+                        <td>{$log['id']}</td>
+                        <td>{$log['message']}</td>
+                        <td>{$log['date']|date_format:"%d.%m.%Y"}</td>
+                        <td><input type="checkbox" name="logs[]" value="{$log['id']}" class="form-control"></td>
+                    </tr>
+                  {/foreach}
+                </tbody>
+              </table>
+            </form>
           </div>
         </div>
       </div>
