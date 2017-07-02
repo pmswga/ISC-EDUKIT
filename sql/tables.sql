@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 	sn char(30) NOT NULL,
 	fn char(30) NOT NULL,
 	pt char(30) NOT NULL,
-	email char(30) NOT NULL UNIQUE,
+	email char(255) NOT NULL UNIQUE,
 	passwd char(32) NOT NULL,
 	id_type_user int NOT NULL,
 	INDEX (id_type_user),

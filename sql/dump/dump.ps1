@@ -3,7 +3,7 @@ try
 
   set-location "C:\OpenServer\domains\EDUKIT\sql\dump"
 
-  $current_date = (get-date).toString("dd_MM_yyyy___m_h")
+  $current_date = (get-date).toString("dd_MM_yyyy___h_m")
   $filename = "backup_by_" + $current_date + ".sql"
   
   mysqldump -u root --databases iep | out-file -filePath $filename
