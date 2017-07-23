@@ -492,6 +492,11 @@
 			}
     }
     
+    public function getStudentTests(string $student_email)
+    {
+      return $this->query("call getStudentTests(:student_email)", [":student_email" => $student_email]);
+    }
+    
     public function remove($test_id) : bool
     {
       $remove_test_query = $this->dbc()->prepare("call removeTest(:test_id)");

@@ -121,7 +121,7 @@ END;
 
 CREATE PROCEDURE authentification(u_email char(30), u_paswd char(32))
 BEGIN
-	SELECT * FROM `users` WHERE `email`=u_email AND `password`=u_paswd;
+	SELECT * FROM `users` WHERE `email`=u_email AND `passwd`=u_paswd;
 END;
 
 CREATE PROCEDURE authentificationAdmin(u_email char(30), u_paswd char(32))

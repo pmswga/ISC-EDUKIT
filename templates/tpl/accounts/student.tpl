@@ -156,13 +156,13 @@
 											<thead>
 												<th>Название</th>
 												<th>Предмет</th>
-												<th>Автор</th>
 											</thead>
 											<tbody>
 												{foreach from=$completedTests item=test}
-													<td>{$test->getCaption()}</td>
-													<td>{$test->getSubject()->getDescription()}</td>
-													<td>{$test->getAuthorEmail()}</td>
+                          <tr>
+                            <td><a href="{$test['id_student_test']}">{$test['caption']}</a></td>
+                            <td>{$test['subject']}</td>
+                          </tr>
 												{/foreach}
 											</tbody>
 										</table>

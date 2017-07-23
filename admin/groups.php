@@ -6,8 +6,7 @@
   use IEP\Managers\SpecialtyManager;
   use IEP\Structures\Group;
   
-	if(isset($_SESSION['admin']))
-	{		
+	if(isset($_SESSION['admin'])) {		
 		
 		$GM = new GroupManager($DB);
 		$SPM = new SpecialtyManager($DB);
@@ -31,15 +30,28 @@
 		if (!empty($_POST['removeGroupButton'])) {
 			$select_grp = $_POST['select_grp'];
 			
-			for ($i = 0; $i < count($select_grp); $i++) {
-				$GM->remove($select_grp[$i]);
-			}
+      if (!empty($select_grp)) {
+        
+        $result = true;
+        for ($i = 0; $i < count($select_grp); $i++) {
+          $result *= $GM->remove($select_grp[$i]);
+        }
+        
+        if ($result) {
+          CTools::Message("Группа/группы были удалены");
+        } else {
+          CTools::Message("Произошла ошибка при удалении группы/групп");          
+        }
+        
+      } else {
+        CTools::Message("Выберете группы, которые хотите удалить");
+      }
 			
 			CTools::Redirect("groups.php");
 		}
 		
-	}
-	else CTools::Redirect("login.php");
-	
+	} else {    
+    CTools::Redirect("login.php");
+  } 
   
 ?>

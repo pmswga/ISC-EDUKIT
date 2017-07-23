@@ -16,12 +16,14 @@
         <div class="tab-content">
           <div class="tab-pane active" id="addUser">
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-8">
+              </div>
+              <div class="col-md-4">
                 <fieldset>
                   <legend>Преподаватель</legend>
                   <form name="addTeacherForm" method="POST">
                     <div class="row">
-                      <div class="col-md-4">
+                      <div class="col-md-12">
                         <div class="form-group">
                           <label>Фамилия</label>
                           <input type="text" name="sn" maxlength="30" class="form-control">
@@ -49,20 +51,6 @@
                         <div class="form-group">
                           <input type="submit" name="addTeacherButton" value="Добавить" class="btn btn-primary">
                         </div>
-                      </div>
-                      <div class="col-md-8">
-                        <table class="table table-bordered">
-                          <tr>
-                            <th>Предмет</th>
-                            <th>Выбрать</th>
-                          </tr>
-                          {foreach from=$subjects item=subject}
-                            <tr>
-                              <td>{$subject->getDescription()}</td>
-                              <td><input type="checkbox" name="subjects[]" value="{$subject->getSubjectID()}" class="form-control"></td>
-                            </tr>
-                          {/foreach}
-                        </table>
                       </div>
                     </div>
                   </form>
@@ -97,11 +85,15 @@
 															<td>{$teacher->getPt()}</td>
 															<td>{$teacher->getEmail()}</td>
 															<td>
-																<ul>
-																{foreach from=$teacher->getSubjects() item=subject}
-																		<li>{$subject->getDescription()}</li>
-																{/foreach}
-																</ul>
+                                {if $teacher->getSubjects() != NULL}
+                                  <ul>
+                                  {foreach from=$teacher->getSubjects() item=subject}
+                                      <li>{$subject->getDescription()}</li>
+                                  {/foreach}
+                                  </ul>
+                                {else}
+                                  <h5 align="center">Предметы не выбраны</h5>
+                                {/if}
 															</td>
 														</tr>
 													{/foreach}

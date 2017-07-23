@@ -85,7 +85,7 @@
         );
         $spec->setSpecialtyID((int)$db_group['spec_id']);
         
-        $group = new Group($db_group['number'], $spec, $db_group['edu_year'], (int)$db_group['is_budget']);
+        $group = new Group($db_group['number'], $spec, $db_group['edu_year'], (int)$db_group['budget']);
         $group->setGroupID((int)$db_group['id_grp']);
         
         $groups[] = $group;

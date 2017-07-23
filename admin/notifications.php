@@ -7,7 +7,7 @@
 		$UM = new IEP\Managers\UserManager($DB);
 		$Notificator = new PHPMailer;
 		
-		$CT->assign("parents", $UM->getParents());
+		$CT->assign("parents", $UM->getAllParents());
 		$CT->Show("notifications.tpl");
 		
 		if (!empty($_POST['sendNotificationButton'])) {

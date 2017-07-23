@@ -22,8 +22,8 @@
           [":grp" => $user->getGroup()->getNumberGroup()]
         )[0];
         
-        $sogroups[] = $elder;
-				
+        !empty($elder) ? $sogroups[] = $elder : null;
+        
 				$CT->assign("fio", $user->getSn()." ".$user->getFn()." ".$user->getPt());
 				$CT->assign("sogroups", $sogroups);
 				$CT->assign("user", $user);
@@ -32,6 +32,7 @@
         $traffic = $UM->query("call getTrafficStudent(:s_email)", [":s_email" => $user->getEmail()]);
 				
         $CT->assign("traffic", $traffic);
+        $CT->assign("completedTests", $TM->getStudentTests($user->getEmail()));
 				
 				$CT->Show("accounts/student.tpl");
 			} break;

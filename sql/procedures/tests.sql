@@ -27,6 +27,7 @@ DROP PROCEDURE IF EXISTS getAnswers; /* Для конкретного вопро
 
 DROP PROCEDURE IF EXISTS createStudentAnswer;
 DROP PROCEDURE IF EXISTS putStudentAnswer;
+DROP PROCEDURE IF EXISTS getStudentTests;
 DROP PROCEDURE IF EXISTS getStudentAnswers;
 
 DROP FUNCTION IF EXISTS isGroupForTest;
@@ -122,7 +123,7 @@ BEGIN
             s.code_spec as spec_code,
             s.description as spec_descp
     FROM `groups_tests` gt
-		RIGHT JOIN `groups` g ON gt.id_group=g.grp AND gt.id_test=32
+		RIGHT JOIN `groups` g ON gt.id_group=g.grp AND gt.id_test=test_id
 		RIGHT JOIN `specialty` s ON g.spec_id=s.id_spec
 	WHERE gt.id_test is null;
 END;
@@ -206,6 +207,13 @@ BEGIN
 	INSERT INTO `student_answers` (`id_student_test`, `question`, `answer`) VALUES (student_test, question, answer);
 END;
 
+CREATE PROCEDURE getStudentTests(student_email char(255))
+BEGIN
+	SELECT * 
+    FROM `student_tests`
+    ORDER BY `caption`;
+END;
+
 CREATE PROCEDURE getStudentAnswers(student_email char(255))
 BEGIN
   SELECT *
@@ -213,6 +221,7 @@ BEGIN
 	INNER JOIN `student_answers` sa ON st.id_student_test=sa.id_student_test
   WHERE st.id_student=getStudentId(student_email);
 END;
+
 
 //
 

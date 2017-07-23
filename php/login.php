@@ -7,9 +7,13 @@
 		$password = md5(htmlspecialchars($_POST['password']));
 		
 		$user = $UM->authentification($email, $password);
-		if(!empty($user)) $_SESSION['user'] = $user;
-		else CTools::Message("Такого пользователя не существует");
-		
+		if(!empty($user)) {      
+      $_SESSION['user'] = $user;
+    } 
+		else {
+      CTools::Message("Такого пользователя не существует");
+    }
+      
 		CTools::Redirect($_SERVER['HTTP_REFERER']);
 	}
 	else CTools::Redirect($_SERVER['HTTP_REFERER']);

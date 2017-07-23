@@ -5,8 +5,7 @@
   use IEP\Managers\SpecialtyManager;
   use IEP\Structures\Specialty;
   
-	if(isset($_SESSION['admin']))
-	{		
+	if(isset($_SESSION['admin'])) {		
 		
 		$SPM = new SpecialtyManager($DB);
 		
@@ -32,8 +31,11 @@
 				$new_spec->setFile($upload_path);
 				
 				if ($SPM->add($new_spec)) {
+          CTools::Message("Специальность успешно добавлена");
 					CTools::Redirect("specialty.php");
-				}
+				} else {
+          CTools::Message("При добавлении специальности произошла ошибка");
+        }
 				
 			}
 			
@@ -41,12 +43,25 @@
 		
 		if (!empty($_POST['removeSpecialtyButton'])) {
 			$select_spec = $_POST['select_spec'];
+      
+      
+      if (!empty($select_spec)) {
+        $result = true;
+        for ($i = 0; $i < count($select_spec); $i++) {
+          $result *= $SPM->remove($select_spec[$i]);
+        }
+        
+        if ($result) {
+            CTools::Message("Специальность/специальности были удалены");
+        } else {
+            CTools::Message("Произошла ошибка при удалении специальности/специальностей");
+        }
+        
+      } else {
+        CTools::Message("Выберете специальности, которые хотите удалить");
+      }
 			
-			for ($i = 0; $i < count($select_spec); $i++) {
-				$SPM->remove($select_spec[$i]);
-			}
-			
-			CTools::Redirect("specialty.php");
+      CTools::Redirect("specialty.php");
 		}
 		
 		if (!empty($_POST['editSpecialtyButton'])) {
