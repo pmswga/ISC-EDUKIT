@@ -27,6 +27,7 @@ DROP PROCEDURE IF EXISTS getAnswers; /* Для конкретного вопро
 
 DROP PROCEDURE IF EXISTS createStudentAnswer;
 DROP PROCEDURE IF EXISTS putStudentAnswer;
+DROP PROCEDURE IF EXISTS getStudentTest;
 DROP PROCEDURE IF EXISTS getStudentTests;
 DROP PROCEDURE IF EXISTS getStudentAnswers;
 
@@ -207,6 +208,13 @@ BEGIN
 	INSERT INTO `student_answers` (`id_student_test`, `question`, `answer`) VALUES (student_test, question, answer);
 END;
 
+CREATE PROCEDURE getStudentTest(student_test int)
+BEGIN
+	SELECT *
+    FROM `student_tests`
+    WHERE `id_student_test`=student_test;
+END;
+
 CREATE PROCEDURE getStudentTests(student_email char(255))
 BEGIN
 	SELECT * 
@@ -214,12 +222,11 @@ BEGIN
     ORDER BY `caption`;
 END;
 
-CREATE PROCEDURE getStudentAnswers(student_email char(255))
+CREATE PROCEDURE getStudentAnswers(student_test int)
 BEGIN
   SELECT *
-  FROM `student_tests` st
-	INNER JOIN `student_answers` sa ON st.id_student_test=sa.id_student_test
-  WHERE st.id_student=getStudentId(student_email);
+  FROM `student_answers`
+  WHERE `id_student_test`=student_test;
 END;
 
 

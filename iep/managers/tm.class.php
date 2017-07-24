@@ -492,6 +492,31 @@
 			}
     }
     
+    public function getStudentAnswers(int $student_test_id)
+    {
+      return $this->query("call getStudentAnswers(:student_test)", [":student_test" => $student_test_id]); 
+    }
+    
+    public function getStudentTest(int $student_test)
+    {
+      $db_test = $this->dbc()->prepare("call getStudentTest(:student_test)");
+      $db_test->bindValue(":student_test", $student_test);
+      
+      if ($db_test->execute()) {
+        
+        echo "<pre>";
+        print_r($db_test->fetchAll());
+        echo "</pre>";
+        
+        
+        
+        return $db_test;
+      } else {
+        
+      }
+      
+    }
+    
     public function getStudentTests(string $student_email)
     {
       return $this->query("call getStudentTests(:student_email)", [":student_email" => $student_email]);

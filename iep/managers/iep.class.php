@@ -21,15 +21,16 @@
 			return $this->DBC;
 		}
 		
-		public function query(string $what, array $params = array())
+		public function query(string $sql, array $params = array())
 		{
-			if(!empty($params))
-			{
-				$get_query = $this->dbc()->prepare($what);
-				$result = $get_query->execute($params);
-        return ($result) ? $get_query->fetchAll(\PDO::FETCH_ASSOC) : false;
+			if (!empty($params)) {
+				$query = $this->dbc()->prepare($sql);
+				$result = $query->execute($params);
+        return ($result) ? $query->fetchAll(\PDO::FETCH_ASSOC) : false;
 			}
-			else return $this->dbc()->query($what)->fetchAll(\PDO::FETCH_ASSOC);
+			else {
+        return $this->dbc()->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
+      }
 		}
 		
     public function getLogs() : array
