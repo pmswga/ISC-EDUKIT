@@ -8,6 +8,7 @@
   require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/studentanswer.class.php";
   require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/subject.class.php";
   require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/group.class.php";
+  require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/studenttest.class.php";
   
   use IEP\Managers\IEP;
   use IEP\Structures\Subject;
@@ -16,6 +17,7 @@
   use IEP\Structures\Test;
   use IEP\Structures\TestQuestion;
   use IEP\Structures\StudentAnswer;
+  use IEP\Structures\StudentTest;
   
   class TestManager extends IEP
   {
@@ -494,7 +496,16 @@
     
     public function getStudentAnswers(int $student_test_id)
     {
-      return $this->query("call getStudentAnswers(:student_test)", [":student_test" => $student_test_id]); 
+      $db_students_tests = $this->query("call getStudentAnswers(:student_test)", [":student_test" => $student_test_id]);
+      
+      $student_tests = array();
+      foreach ($db_students_tests as $db_student_test) {
+        $student_tests[] = new StudentTest(
+          
+        );
+      }
+      
+      return $student_tests;
     }
     
     public function getStudentTest(int $student_test)
@@ -507,8 +518,6 @@
         echo "<pre>";
         print_r($db_test->fetchAll());
         echo "</pre>";
-        
-        
         
         return $db_test;
       } else {
