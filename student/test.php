@@ -19,10 +19,10 @@
         define('THIS_PAGE', basename(__FILE__)."?test=".$test_id);
         
         $test = $TM->getStudentTest($test_id);
+        $answers = $TM->getStudentAnswers($test_id);
+        $test->setAnswers($answers);
         
-        // $answers = $TM->getStudentAnswers($test_id);
-        
-        // $CT->assign("answers", $answers);
+        $CT->assign("test", $test);
         
         $CT->Show("tests/info_about_completed_test.tpl");
         

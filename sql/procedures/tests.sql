@@ -210,21 +210,23 @@ END;
 
 CREATE PROCEDURE getStudentTest(student_test int)
 BEGIN
-	SELECT *
-    FROM `student_tests`
-    WHERE `id_student_test`=student_test;
+	SELECT u.email, st.caption, st.subject, st.date_pass, st.mark 
+    FROM `student_tests` st 
+		INNER JOIN `users` u ON st.id_student=u.id_user
+	WHERE `id_student_test`=student_test;
 END;
 
 CREATE PROCEDURE getStudentTests(student_email char(255))
 BEGIN
 	SELECT * 
     FROM `student_tests`
+    WHERE `id_student`=getStudentID(student_email)
     ORDER BY `caption`;
 END;
 
 CREATE PROCEDURE getStudentAnswers(student_test int)
 BEGIN
-  SELECT *
+  SELECT `question`, `answer`
   FROM `student_answers`
   WHERE `id_student_test`=student_test;
 END;

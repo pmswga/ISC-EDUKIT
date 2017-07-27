@@ -496,16 +496,7 @@
     
     public function getStudentAnswers(int $student_test_id)
     {
-      $db_students_tests = $this->query("call getStudentAnswers(:student_test)", [":student_test" => $student_test_id]);
-      
-      $student_tests = array();
-      foreach ($db_students_tests as $db_student_test) {
-        $student_tests[] = new StudentTest(
-          
-        );
-      }
-      
-      return $student_tests;
+      return $this->query("call getStudentAnswers(:student_test)", [":student_test" => $student_test_id]);
     }
     
     public function getStudentTest(int $student_test)
@@ -515,20 +506,40 @@
       
       if ($db_test->execute()) {
         
-        echo "<pre>";
-        print_r($db_test->fetchAll());
-        echo "</pre>";
+        $test = $db_test->fetchAll(\PDO::FETCH_ASSOC)[0];
         
-        return $db_test;
+        return new StudentTest(
+          $test['email'],
+          $test['caption'],
+          $test['subject'],
+          $test['date_pass'],
+          (int)$test['mark']
+        );
       } else {
-        
+        return array();
       }
       
     }
     
     public function getStudentTests(string $student_email)
-    {
-      return $this->query("call getStudentTests(:student_email)", [":student_email" => $student_email]);
+    {      
+      $db_students_tests = $this->query("call getStudentTests(:student)", [":student" => $student_email]);
+      
+      $student_tests = array();
+      foreach ($db_students_tests as $db_student_test) {
+        $test = new StudentTest(
+          $student_email,
+          $db_student_test['caption'],
+          $db_student_test['subject'],
+          $db_student_test['date_pass'],
+          (int)$db_student_test['mark']
+        );
+        $test->setTestID((int)$db_student_test['id_student_test']);
+        
+        $student_tests[] = $test;
+      }
+      
+      return $student_tests;
     }
     
     public function remove($test_id) : bool

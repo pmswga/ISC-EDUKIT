@@ -160,8 +160,8 @@
 											<tbody>
 												{foreach from=$completedTests item=test}
                           <tr>
-                            <td><a href="student/test.php?test={$test['id_student_test']}">{$test['caption']}</a></td>
-                            <td>{$test['subject']}</td>
+                            <td><a href="student/test.php?test={$test->getTestID()}">{$test->getCaption()}</a></td>
+                            <td>{$test->getSubject()}</td>
                           </tr>
 												{/foreach}
 											</tbody>

@@ -6,6 +6,7 @@
   
   class StudentTest
   {
+    private $id_test;
     private $student;  // Хранит email студента
     private $caption;
     private $subject;
@@ -21,6 +22,17 @@
       $this->date_pass = $date_pass;
       $this->mark = $mark;
       $this->answers = array();
+      $this->id_test = 0;
+    }
+    
+    public function setTestID(int $id)
+    {
+      $this->id_test = $id;
+    }
+    
+    public function getTestID() : int
+    {
+      return $this->id_test;
     }
     
     public function getStudent() : string
@@ -45,7 +57,7 @@
     
     public function getMark() : int
     {
-      return $mark;
+      return $this->mark;
     }
     
     public function setAnswers(array $answers)
