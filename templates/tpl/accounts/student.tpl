@@ -20,11 +20,14 @@
 			{include file="users/menu.tpl"}
 			<div class="row" style="padding: 15px;">
 				<div class="col-md-8">
-					<h2>Моё расписание</h2>
+					<h2>Расписание</h2>
+          
+          
+          
 				</div>
 				<div class="col-md-4">
 					<fieldset>
-						<legend>Информация обо мне</legend>
+						<legend>Моя информация</legend>
 						<table class="table table-striped">
 							<tr>
 								<td>Фамилия</td>
@@ -59,16 +62,19 @@
 					<div class="panel-group" id="u">
 						<div class="panel panel-success">
 							<div class="panel-heading">
-								<h4 class="panel-title"><a data-toggle="collapse" data-parent="#u" href="#u_teachers">Мои одногруппники</a></h4>
+								<h4 class="panel-title"><a data-toggle="collapse" data-parent="#u" href="#u_teachers">Одногруппники</a></h4>
 							</div>
 							<div id="u_teachers" class="panel-collapse collapse">
 								<div class="panel-body">
+                  {$i = 1}
 									{if $sogroups != NULL}
 										<table class="table table-bordered">
 											{foreach from=$sogroups item=it}
 												<tr>
+                          <td>{$i}</td>
                           <td>{$it['sn']} {$it['fn']}</td>
                         </tr>
+                        {$i = $i + 1}
 											{/foreach}
 										</table>
 									{else}
@@ -83,7 +89,7 @@
 			<hr>
 			<div class="row" style="padding: 15px;">
 				<div class="col-md-8">
-					<h2>Моя посещаемость</h2>
+					<h2>Посещаемость</h2>
           <div id="student_traffic">
             {if $traffic != NULL}
               {foreach from=$traffic item=traffic_entry}
@@ -116,7 +122,7 @@
 					<div class="panel-group" id="tests">
 						<div class="panel panel-warning">
 							<div class="panel-heading">
-								<h4 class="panel-title"><a data-toggle="collapse" data-parent="#tests" href="#s_tests">Тесты</a></h4>
+								<h4 class="panel-title"><a data-toggle="collapse" data-parent="#tests" href="#s_tests">Доступные тесты</a></h4>
 							</div>
 							<div id="s_tests" class="panel-collapse collapse">
 								<div class="panel-body">

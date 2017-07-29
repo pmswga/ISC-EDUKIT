@@ -5,6 +5,11 @@
   
   use IEP\Structures\StudentAnswer;
 	
+  $update = function () {
+    CTools::Message("404 Not Found");
+    CTools::Redirect("../user.php");
+  };
+  
 	if (!empty($_SESSION['user']) && !empty($_GET['test_id'])) {
 		
 		if (($_SESSION['user']->getUserType() == USER_TYPE_STUDENT) || 
@@ -61,9 +66,13 @@
               $test->getSubject()->getDescription(),
               $test->getCaption(),
               $student_results,
-              date("Y:m:d", time()), 
+              date("Y-m-d", time()), 
               $mark
             );
+            
+            CTools::var_dump($new_student_answer);
+            
+            echo "<br>------------<br>";
             
             if ($TM->putStudentAnswer($new_student_answer)) {
               CTools::Message("Результаты записаны");
@@ -71,26 +80,24 @@
               CTools::Message("Ошибка");
             }
             
+            CTools::Redirect("../user.php");
+            
           }
           
         } else {
-          CTools::Message("404 Not Found");
-          CTools::Redirect("../user.php");
+          $update();
         }
         
 			} else {
-				CTools::Message("404 Not Found");
-				CTools::Redirect("../user.php");
+        $update();
 			}
 			
 		} else {
-			CTools::Message("404 Not Found");
-			CTools::Redirect("../user.php");
+			$update();
 		}
 		
 	} else {
-		CTools::Message("404 Not Found");
-		CTools::Redirect("../user.php");
+    $update();
 	}
 	
 ?>

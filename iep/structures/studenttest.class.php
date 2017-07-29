@@ -1,9 +1,7 @@
 <?php
   declare(strict_types = 1);
   namespace IEP\Structures;
-  
-  
-  
+   
   class StudentTest
   {
     private $id_test;
@@ -12,7 +10,7 @@
     private $subject;
     private $date_pass;
     private $mark;
-    private $answers; //< В формате массива [[question, answer], [question, answer], ...]
+    private $answers;  //< В формате массива [[question, answer], [question, answer], ...]
     
     function __construct(string $student, string $caption, string $subject, string $date_pass, int $mark)
     {

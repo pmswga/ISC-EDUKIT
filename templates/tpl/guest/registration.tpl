@@ -93,17 +93,54 @@
       <div class="col-md-8">
         <div class="row">
           <div class="col-md-12">
-            <div id="childs">
-            {foreach from=$childrens item=children}
-              <ruby>
-                <figure>
-                  <p><img src="img/people.jpg" width="100"></p>
-                  <figcaption>[{$children->getSn()} {$children->getFn()} {$children->getPt()}]</figcaption>
-                </figure>
-                <rt><input type="checkbox" name="childs[]" value="{$children->getEmail()}"></rt>
-              </ruby>
-            {/foreach}
-            </div>
+            <form name="setChildsForm" method="POST">
+              <div class="panel-group" id="views_users">
+                <div class="panel panel-primary">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#views_users" href="#view_students">Студенты</a>
+                    </h4>
+                  </div>
+                  <div id="view_students" class="panel-collapse collapse-in">
+                    <div class="panel-body">
+                      {foreach from=$studentsByGroup key=group item=student}
+                        <div class="panel-group">
+                          <div class="panel panel-success">
+                            <div class="panel-heading">
+                              <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#{$group}">{$group}</a>
+                              </h4>
+                            </div>
+                            <div id="{$group}" class="panel-collapse collapse">
+                              <div class="panel-body"><table class="table table-bordered">
+                                <table class="table table-bordered">
+                                  <tr>
+                                    <th>Фамилия</th>
+                                    <th>Имя</th>
+                                    <th>Отчество</th>
+                                    <th>E-mail</th>
+                                    <th>Выбрать</th>
+                                  </tr>
+                                  {foreach from=$student item=one_student}
+                                    <tr>
+                                      <td>{$one_student->getSn()}</td>
+                                      <td>{$one_student->getFn()}</td>
+                                      <td>{$one_student->getPt()}</td>
+                                      <td>{$one_student->getEmail()}</td>
+                                      <td><input type="checkbox" value="{$one_student->getEmail()}" name="childs[]" class="form-control"></td>
+                                    </tr>
+                                  {/foreach}
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      {/foreach}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>

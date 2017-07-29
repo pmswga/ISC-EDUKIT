@@ -6,8 +6,13 @@
   use IEP\Structures\Parent_;
 	
 	$childrens = $UM->getAllStudents();
+  
+  $studentsByGroup = array();
+  for ($i = 0; $i < count($childrens); $i++) {
+    $studentsByGroup[$childrens[$i]->getGroup()->getNumberGroup()][] = $childrens[$i];
+  }
 	
-	$CT->assign("childrens", $childrens);
+	$CT->assign("studentsByGroup", $studentsByGroup);
 	$CT->Show("guest/registration.tpl");
 	
 	if (!empty($_POST['regParent'])) {
@@ -27,6 +32,9 @@
 		$reg_parent_data['password'] = md5($reg_parent_data['password']);
 		$reg_parent_data['childs'] = $_POST['childs'];
     
+    CTools::var_dump($_POST['childs']);
+    
+    exit;
     
     $parent = new Parent_(
       new User(

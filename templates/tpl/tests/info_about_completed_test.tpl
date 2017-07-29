@@ -51,6 +51,10 @@
                   <td>Оценка</td>
                   <td>{$test->getMark()}</td>
                 </tr>
+                <tr>
+                  <td>Дата сдачи</td>
+                  <td>{$test->getDatePass()}</td>
+                </tr>
               </table>
             </div>
 					</fieldset>

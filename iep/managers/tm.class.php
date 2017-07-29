@@ -440,12 +440,11 @@
       {
         $this->dbc()->beginTransaction();
         
-        $add_student_answer_query = $this->dbc()->prepare("call createStudentAnswer(:student_email, :subject, :caption, :date, :mark)");
+        $add_student_answer_query = $this->dbc()->prepare("call createStudentTest(:student_email, :subject, :caption, :mark)");
         
         $add_student_answer_query->bindValue(":student_email", $student_answer->getStudent()->getEmail());
         $add_student_answer_query->bindValue(":subject", $student_answer->getSubject());
         $add_student_answer_query->bindValue(":caption", $student_answer->getCaption());
-        $add_student_answer_query->bindValue(":date", $student_answer->getPassDate());
         $add_student_answer_query->bindValue(":mark", $student_answer->getMark());
         
         if ($add_student_answer_query->execute()) {
@@ -456,6 +455,10 @@
             
 						$last_id = $this->query("SELECT LAST_INSERT_ID() as last_id FROM `student_tests`");
 						$last_id = $last_id[0]['last_id'];
+            
+            echo $this->dbc()->lastInsertId()."<br>";
+            
+            exit;
             
             $result = true;
             for ($i = 0; $i < count($answers); $i++) {
@@ -499,22 +502,28 @@
       return $this->query("call getStudentAnswers(:student_test)", [":student_test" => $student_test_id]);
     }
     
-    public function getStudentTest(int $student_test)
+    public function getStudentTest(string $student_email, int $student_test)
     {
-      $db_test = $this->dbc()->prepare("call getStudentTest(:student_test)");
+      $db_test = $this->dbc()->prepare("call getStudentTest(:student_email, :student_test)");
       $db_test->bindValue(":student_test", $student_test);
+      $db_test->bindValue(":student_email", $student_email);
       
       if ($db_test->execute()) {
         
         $test = $db_test->fetchAll(\PDO::FETCH_ASSOC)[0];
         
-        return new StudentTest(
-          $test['email'],
-          $test['caption'],
-          $test['subject'],
-          $test['date_pass'],
-          (int)$test['mark']
-        );
+        if (!empty($test)) {          
+          return new StudentTest(
+            $student_email,
+            $test['caption'],
+            $test['subject'],
+            $test['date_pass'],
+            (int)$test['mark']
+          );
+        } else {
+          return array();
+        }
+        
       } else {
         return array();
       }
