@@ -16,60 +16,60 @@
 		</style>
 	</head>
 	<body>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<h1>{$user->getSn()} {$user->getFn()} {$user->getPt()}</h1>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					{include file='users/menu.tpl'}
-				</div>
-			</div>
+		<div class="container-fluid">
+      {include file='users/menu.tpl'}
 			<div class="row" style="padding: 15px;">
 				<div class="col-md-8">
 					<h2>Мои дети</h2>
 					<div class="panel-group" id="accordion">
-						{if $user->getChilds() != NULL}
+						{if $childs != NULL}
 							{foreach from=$childs item=child}
 								<div class="panel panel-default">
 									<div class="panel-heading">
 										<h4 class="panel-title">
-											<a data-toggle="collapse" data-parent="#accordion"></a>
+											<a data-toggle="collapse" data-parent="#accordion">{$child['student']->getSn()} {$child['student']->getFn()} {$child['student']->getPt()}</a>
 										</h4>
 									</div>
 									<div class="panel-collapse collapse in">
 										<div class="panel-body">
-											<div class="row">
-												<div class="col-md-6">
-													<div class="circle">
-                            <figure>
-                              <img src="img/people.jpg" width="100%">
-                              <figcaption style="text-align: center;">{$child->getSn()} {$child->getFn()} {$child->getPt()}</figcaption>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="circle">
+                            <figure style="text-align: center;">
+                              <img src="img/people.jpg" width="25%">
                             </figure>
-													</div>
-												</div>
-												<div class="col-md-6">
+                          </div>
 													<fieldset>
-														<legend style="text-align: center;">Информация о ребёнке</legend>
+														<legend style="text-align: center;"></legend>
 														<table class="table table-striped">
 															<tr>
 																<td>Email:</td>
-																<td>{$child->getEmail()}</td>
+																<td>{$child['student']->getEmail()}</td>
 															</tr>
 															<tr>
 																<td>Группа:</td>
-																<td>{$child->getGroup()->getNumberGroup()}</td>
+																<td>{$child['student']->getGroup()->getNumberGroup()}</td>
 															</tr>
 															<tr>
 																<td>Телефон:</td>
-																<td>{$child->getCellPhone()}</td>
+																<td>{$child['student']->getCellPhone()}</td>
+															</tr>
+															<tr>
+																<td>Специальность:</td>
+																<td>{$child['student']->getGroup()->getSpec()->getDescription()}</td>
+															</tr>
+															<tr>
+																<td>Код специальности:</td>
+																<td>{$child['student']->getGroup()->getSpec()->getCode()}</td>
 															</tr>
 														</table>
 													</fieldset>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
                           <div class="panel-group" id="detail_info">
-                            <div class="panel panel-default">
+                            <div class="panel panel-primary">
                               <div class="panel-heading">
                                 <h4 class="panel-title">
                                   <a data-toggle="collapse" data-parent="#detail_info" href="#record">Успеваемость</a>
@@ -79,13 +79,30 @@
                                 <div class="panel-body">
                                   <div class="row">
                                     <div class="col-md-12">
-                                    
+                                      {if $child['tests'] != NULL}
+                                        <table class="table table-striped">
+                                          <tr>
+                                            <th>Название теста</th>
+                                            <th>Предмет</th>
+                                            <th>Оценка</th>
+                                          </tr>                                        
+                                          {foreach from=$child['tests'] item=test}
+                                            <tr>
+                                              <td>{$test->getCaption()}</td>
+                                              <td>{$test->getSubject()}</td>
+                                              <td>{$test->getMark()}</td>
+                                            </tr>
+                                          {/foreach}
+                                        </table>
+                                      {else}
+                                          <h3>Пока что пройденные тестов не было</h3>
+                                      {/if}
                                     </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div class="panel panel-default">
+                            <div class="panel panel-primary">
                               <div class="panel-heading">
                                 <h4 class="panel-title">
                                   <a data-toggle="collapse" data-parent="#detail_info" href="#traffic">Посещаемость</a>
@@ -95,15 +112,41 @@
                                 <div class="panel-body">
                                   <div class="row">
                                     <div class="col-md-12">
-                                    
+                                      <div id="student_traffic">
+                                        {if $child['traffic'] != NULL}
+                                          {foreach from=$child['traffic'] item=traffic_entry}
+                                            <div class="cube" 
+                                              data-toggle="popover" 
+                                              data-placement="top"                  
+                                              data-html="true"                  
+                                              title="{$traffic_entry['date_visit']|date_format:'d.m.Y'}" 
+                                              data-content="
+                                                <table class='table table-border'>
+                                                  <tr>
+                                                    <td>Пар</td>
+                                                    <td>Посещено</td>
+                                                    <td>Пропущено</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>{$traffic_entry['count_all_hours']/2}</td>
+                                                    <td>{$traffic_entry['count_passed_hours']/2}</td>
+                                                    <td>{($traffic_entry['count_all_hours']-$traffic_entry['count_passed_hours'])/2}</td>
+                                                  </tr>
+                                                </table>">
+                                            </div>
+                                          {/foreach}
+                                        {else}
+                                          <h3>Похоже, что ваш ребёнок вообще не посещали колледж...</h3>
+                                        {/if}
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-												</div>
-											</div>
+                        </div>
+                      </div>
 										</div>
 									</div>
 								</div>
@@ -112,7 +155,7 @@
 					</div>
 				</div>
 				<div class="col-md-4">
-					<fieldset>  
+					<fieldset>
 						<legend>Информация обо мне</legend>
 						<table class="table table-striped">
 							<tr>
@@ -152,5 +195,13 @@
 				</div>
 			</div>
 		</div>
+    
+    <script type="text/javascript">
+      
+      $("[data-toggle='tooltip']").tooltip();
+      $("[data-toggle='popover']").popover();
+    
+    </script>
+    
 	</body>
 </html>

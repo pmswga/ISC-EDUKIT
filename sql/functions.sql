@@ -31,7 +31,7 @@ CREATE FUNCTION IF NOT EXISTS getUserId (emailUser char(30))
 BEGIN
 	DECLARE uid int;
 	
-	SELECT `id_user` INTO uid FROM `users` WHERE `email`=emailUser;
+	SELECT `id_user` INTO uid FROM `users` WHERE `email`=emailUser LIMIT 1;
 	
 	RETURN uid;
 END;
@@ -41,7 +41,7 @@ CREATE FUNCTION IF NOT EXISTS getStudentId (emailUser char(30))
 BEGIN
   DECLARE sid int;
   
-  SELECT `id_user` INTO sid FROM `users` WHERE `email`=emailUser AND `id_type_user`=3 OR `id_type_user`=2;
+  SELECT `id_user` INTO sid FROM `users` WHERE `email`=emailUser AND `id_type_user`=3 OR `id_type_user`=2 LIMIT 1;
   
   RETURN sid;
 END;
@@ -51,7 +51,7 @@ CREATE FUNCTION IF NOT EXISTS getParentId (emailUser char(30))
 BEGIN
   DECLARE pid int;
   
-  SELECT `id_user` INTO pid FROM `users` WHERE `email`=emailUser AND `id_type_user`=4;
+  SELECT `id_user` INTO pid FROM `users` WHERE `email`=emailUser AND `id_type_user`=4 LIMIT 1;
   
   RETURN pid;
 END;
@@ -61,7 +61,7 @@ CREATE FUNCTION IF NOT EXISTS getElderId (emailUser char(30))
 BEGIN
   DECLARE eid int;
   
-  SELECT `id_user` INTO eid FROM `users` WHERE `email`=emailUser AND `id_type_user`=2;
+  SELECT `id_user` INTO eid FROM `users` WHERE `email`=emailUser AND `id_type_user`=2 LIMIT 1;
   
   RETURN eid;
 END;
@@ -72,7 +72,7 @@ CREATE FUNCTION IF NOT EXISTS getTeacherId(emailTeacher char(30))
 BEGIN
   DECLARE tid int;
   
-  SELECT `id_user` INTO tid FROM `users` WHERE `email`=emailTeacher AND `id_type_user`=1;
+  SELECT `id_user` INTO tid FROM `users` WHERE `email`=emailTeacher AND `id_type_user`=1 LIMIT 1;
   
   RETURN tid;
 END;

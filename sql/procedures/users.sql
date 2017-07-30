@@ -208,7 +208,16 @@ END;
 
 CREATE PROCEDURE getChilds(emailParent char(30))
 BEGIN
-	SELECT u.second_name, u.first_name, u.patronymic, u.email, u.password, s.home_address, s.cell_phone, g.description as 'group', sp.description as 'specialty', r.description as 'relation'
+	SELECT  u.sn, 
+			u.fn, 
+			u.pt, 
+            u.email, 
+            u.passwd, 
+            s.home_address, 
+            s.cell_phone, 
+            g.description as 'group', 
+            sp.description as 'specialty', 
+            r.description as 'relation'
 	FROM `parent_child` pc
 		INNER JOIN `users`     u  ON pc.id_children      = u.id_user
 		INNER JOIN `students`  s  ON u.id_user           = s.id_student
@@ -216,7 +225,7 @@ BEGIN
 		INNER JOIN `specialty` sp ON g.spec_id           = sp.id_spec
 		INNER JOIN `relations` r  ON pc.id_type_relation = r.id_relation
 	WHERE pc.id_parent=getParentId(emailParent)
-	ORDER BY u.first_name, u.second_name, u.patronymic;
+	ORDER BY u.fn, u.sn, u.pt;
 END;
 
 

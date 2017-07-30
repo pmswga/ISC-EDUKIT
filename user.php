@@ -162,8 +162,25 @@
 			} break;
 			case USER_TYPE_PARENT:
 			{
+        
 				$CT->assign("user", $user);
-				$CT->assign("childs", $user->getChilds());
+        
+        $childs = array();
+        foreach ($user->getChilds() as $child) {
+          
+          $tests = $TM->getStudentTests($child->getEmail());
+          $traffic = $UM->query("call getTrafficStudent(:s_email)", [":s_email" => $child->getEmail()]);
+          
+          $childs[] = array(
+            "student" => $child,
+            "tests"   => $tests,
+            "traffic" => $traffic
+          );
+          
+        }
+				$CT->assign("childs", $childs);
+        
+        CTools::var_dump($childs);
         
 				$CT->Show("accounts/parent.tpl");
 			} break;

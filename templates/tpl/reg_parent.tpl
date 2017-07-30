@@ -1,7 +1,6 @@
 {assign var="title" value="Регистрация родителя"}
 {include file='html/begin.tpl'}
 <div class="container-fluid">
-  {include file='guest/menu.tpl'}
   <form name="regParentForm" method="POST" onsubmit="return checkRegParentForm();">
     <div class="row">
       <div class="col-md-4">
@@ -79,11 +78,20 @@
             </div>
           </div>
           <div class="form-group">
-            <input type="checkbox" value=""> Я согласен(а) на обработку персональных данных
+            <input type="checkbox" name="isAgree"> Я согласен(а) на обработку персональных данных
+          </div>
+          <div class="form-group">
+            <input type="checkbox" name="isMyChildren"> Я подтверждаю, что выбранные дети МОИ*
+          </div>
+          <div class="form-group">
+            <p style="color: red;">* - После выбора детей вы не сможете изменить их</p>
           </div>
           <div class="form-group">
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-6">
+                <a href="index.php" class="btn btn-warning btn-lg">Назад</a>
+              </div>
+              <div class="col-md-6">
                 <input class="btn btn-success btn-lg pull-right" name="regParent" type="submit" value="Зарегистрироваться">
               </div>
             </div>

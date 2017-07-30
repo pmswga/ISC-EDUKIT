@@ -220,7 +220,7 @@ CREATE PROCEDURE getStudentTests(student_email char(255))
 BEGIN
 	SELECT * 
     FROM `student_tests`
-    WHERE `id_student`=getStudentID(student_email)
+    WHERE `id_student`=getStudentId(student_email)
     ORDER BY `caption`;
 END;
 

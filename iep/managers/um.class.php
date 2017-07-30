@@ -203,7 +203,7 @@
                 $teacher['fn'],
                 $teacher['pt'],
                 $teacher['email'],
-                $teacher['paswd'],
+                $teacher['passwd'],
                 (int)$teacher['type_user']
               ),
               $teacher['info']
@@ -258,7 +258,7 @@
             
             $childs = array();
             foreach ($db_childs as $db_child) {
-              $childs[] = $this->authentification($db_child["email"], $db_child["password"]);
+              $childs[] = $this->authentification($db_child["email"], $db_child["passwd"]);
             }
             
             $p = new Parent_(
@@ -450,7 +450,7 @@
         $childs = array();
         
         foreach ($db_childs as $db_child) {
-          $childs[] = $this->authentification($db_child['email'], $db_child['password']);
+          $childs[] = $this->authentification($db_child['email'], $db_child['passwd']);
         }
         
         $p = new Parent_(
