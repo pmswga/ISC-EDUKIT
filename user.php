@@ -180,8 +180,6 @@
         }
 				$CT->assign("childs", $childs);
         
-        CTools::var_dump($childs);
-        
 				$CT->Show("accounts/parent.tpl");
 			} break;
       case USER_TYPE_ELDER:

@@ -27,7 +27,10 @@ END;
 
 CREATE PROCEDURE IF NOT EXISTS getTrafficStudent(t_student_email char(30))
 BEGIN
-	SELECT * FROM `student_traffic` WHERE `id_student`=getUserId(t_student_email);
+	SELECT * 
+    FROM `student_traffic`
+    WHERE `id_student`=getUserId(t_student_email)
+    ORDER BY `date_visit`;
 END;
 
 CREATE PROCEDURE IF NOT EXISTS getAllTraffic()
