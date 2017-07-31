@@ -205,7 +205,7 @@ CREATE TABLE IF NOT EXISTS `answers` (
 CREATE TABLE IF NOT EXISTS `student_tests` (
 	id_student_test int AUTO_INCREMENT PRIMARY KEY,
 	id_student int NOT NULL,
-    caption char(255) NOT NULL,
+  caption char(255) NOT NULL,
 	subject char(255) NOT NULL,
 	date_pass date NOT NULL,
 	mark int,
@@ -245,6 +245,18 @@ CREATE TABLE IF NOT EXISTS `groups_tests` (
   PRIMARY KEY(id_test, id_group)
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
+/* Создание таблицы "Новости-админа" */
+CREATE TABLE IF NOT EXISTS `admin_news` (
+	id_news int AUTO_INCREMENT PRIMARY KEY,
+	caption char(255) NOT NULL,
+	content text NOT NULL,
+	id_author int NOT NULL,
+	date_publication date NOT NULL,
+	INDEX (id_author),
+	CONSTRAINT nc_caption CHECK(caption <> ''),
+	CONSTRAINT nc_content CHECK(content <> '')
+) ENGINE = InnoDB CHARACTER SET = UTF8;
+
 /*----------------[constraints.sql]----------------*/
 
 USE `iep`;
@@ -254,9 +266,9 @@ USE `iep`;
 /* Связка таблицы "Users" с таблицей "typeUsers" */
 ALTER TABLE `users`            ADD CONSTRAINT R1  FOREIGN KEY (id_type_user)       REFERENCES `typeUser` (id_type_user) ON UPDATE CASCADE ON DELETE CASCADE; 
 
-/* Связка таблицы "Admins" с таблицей "news" 
-ALTER TABLE `news`             ADD CONSTRAINT R2  FOREIGN KEY (id_author)          REFERENCES `admins` (id_admin) ON UPDATE CASCADE ON DELETE CASCADE;
-*/
+/* Связка таблицы "Admins" с таблицей "admin_news" */
+ALTER TABLE `admin_news`             ADD CONSTRAINT R2  FOREIGN KEY (id_author)          REFERENCES `admins` (id_admin) ON UPDATE CASCADE ON DELETE CASCADE;
+
 /* Связка таблицы "students" с таблицей "users" */
 ALTER TABLE `students`         ADD CONSTRAINT R3  FOREIGN KEY (id_student)         REFERENCES `users` (id_user) ON UPDATE CASCADE ON DELETE CASCADE; 
 
@@ -361,7 +373,7 @@ CREATE FUNCTION IF NOT EXISTS getUserId (emailUser char(30))
 BEGIN
 	DECLARE uid int;
 	
-	SELECT `id_user` INTO uid FROM `users` WHERE `email`=emailUser;
+	SELECT `id_user` INTO uid FROM `users` WHERE `email`=emailUser LIMIT 1;
 	
 	RETURN uid;
 END;
@@ -371,7 +383,7 @@ CREATE FUNCTION IF NOT EXISTS getStudentId (emailUser char(30))
 BEGIN
   DECLARE sid int;
   
-  SELECT `id_user` INTO sid FROM `users` WHERE `email`=emailUser AND `id_type_user`=3 OR `id_type_user`=2;
+  SELECT `id_user` INTO sid FROM `users` WHERE `email`=emailUser AND `id_type_user`=3 OR `id_type_user`=2 LIMIT 1;
   
   RETURN sid;
 END;
@@ -381,7 +393,7 @@ CREATE FUNCTION IF NOT EXISTS getParentId (emailUser char(30))
 BEGIN
   DECLARE pid int;
   
-  SELECT `id_user` INTO pid FROM `users` WHERE `email`=emailUser AND `id_type_user`=4;
+  SELECT `id_user` INTO pid FROM `users` WHERE `email`=emailUser AND `id_type_user`=4 LIMIT 1;
   
   RETURN pid;
 END;
@@ -391,7 +403,7 @@ CREATE FUNCTION IF NOT EXISTS getElderId (emailUser char(30))
 BEGIN
   DECLARE eid int;
   
-  SELECT `id_user` INTO eid FROM `users` WHERE `email`=emailUser AND `id_type_user`=2;
+  SELECT `id_user` INTO eid FROM `users` WHERE `email`=emailUser AND `id_type_user`=2 LIMIT 1;
   
   RETURN eid;
 END;
@@ -402,7 +414,7 @@ CREATE FUNCTION IF NOT EXISTS getTeacherId(emailTeacher char(30))
 BEGIN
   DECLARE tid int;
   
-  SELECT `id_user` INTO tid FROM `users` WHERE `email`=emailTeacher AND `id_type_user`=1;
+  SELECT `id_user` INTO tid FROM `users` WHERE `email`=emailTeacher AND `id_type_user`=1 LIMIT 1;
   
   RETURN tid;
 END;
@@ -1364,7 +1376,7 @@ DROP PROCEDURE IF EXISTS changeCaptionAnswer;
 DROP PROCEDURE IF EXISTS getQuestions; /* Для конкретного теста */
 DROP PROCEDURE IF EXISTS getAnswers; /* Для конкретного вопроса */
 
-DROP PROCEDURE IF EXISTS createStudentAnswer;
+DROP PROCEDURE IF EXISTS createStudentTest;
 DROP PROCEDURE IF EXISTS putStudentAnswer;
 DROP PROCEDURE IF EXISTS getStudentTest;
 DROP PROCEDURE IF EXISTS getStudentTests;
@@ -1537,9 +1549,9 @@ BEGIN
   ORDER BY a.id_answer;
 END;
 
-CREATE PROCEDURE IF NOT EXISTS createStudentAnswer(student_email char(30), subject char(255), t_caption char(255), pass_date date, mark int)
+CREATE PROCEDURE createStudentTest(student_email char(30), subject char(255), t_caption char(255), mark int)
 BEGIN
-	INSERT INTO `student_tests` (`id_student`, `subject`, `caption`, `date_pass`, `mark`) VALUES (getStudentId(student_email), subject, t_caption, date_pass, mark);
+	INSERT INTO `student_tests` (`id_student`, `subject`, `caption`, `date_pass`, `mark`) VALUES (getStudentId(student_email), subject, t_caption, date(now()), mark);
 END;
 
 CREATE PROCEDURE putStudentAnswer(student_test int, question char(255), answer char(255))
@@ -1547,23 +1559,25 @@ BEGIN
 	INSERT INTO `student_answers` (`id_student_test`, `question`, `answer`) VALUES (student_test, question, answer);
 END;
 
-CREATE PROCEDURE getStudentTest(student_test int)
+CREATE PROCEDURE getStudentTest(student_email char(255), student_test int)
 BEGIN
-	SELECT *
-    FROM `student_tests`
-    WHERE `id_student_test`=student_test;
+	SELECT u.email, st.caption, st.subject, st.date_pass, st.mark 
+	FROM `student_tests` st 
+		INNER JOIN `users` u ON st.id_student=u.id_user
+	WHERE st.id_student_test=student_test AND st.id_student=getStudentID(student_email);
 END;
 
 CREATE PROCEDURE getStudentTests(student_email char(255))
 BEGIN
 	SELECT * 
     FROM `student_tests`
+    WHERE `id_student`=getStudentId(student_email)
     ORDER BY `caption`;
 END;
 
 CREATE PROCEDURE getStudentAnswers(student_test int)
 BEGIN
-  SELECT *
+  SELECT `question`, `answer`
   FROM `student_answers`
   WHERE `id_student_test`=student_test;
 END;
@@ -1604,7 +1618,10 @@ END;
 
 CREATE PROCEDURE IF NOT EXISTS getTrafficStudent(t_student_email char(30))
 BEGIN
-	SELECT * FROM `student_traffic` WHERE `id_student`=getUserId(t_student_email);
+	SELECT * 
+    FROM `student_traffic`
+    WHERE `id_student`=getUserId(t_student_email)
+    ORDER BY `date_visit`;
 END;
 
 CREATE PROCEDURE IF NOT EXISTS getAllTraffic()
@@ -1828,7 +1845,16 @@ END;
 
 CREATE PROCEDURE getChilds(emailParent char(30))
 BEGIN
-	SELECT u.second_name, u.first_name, u.patronymic, u.email, u.password, s.home_address, s.cell_phone, g.description as 'group', sp.description as 'specialty', r.description as 'relation'
+	SELECT  u.sn, 
+			u.fn, 
+			u.pt, 
+            u.email, 
+            u.passwd, 
+            s.home_address, 
+            s.cell_phone, 
+            g.description as 'group', 
+            sp.description as 'specialty', 
+            r.description as 'relation'
 	FROM `parent_child` pc
 		INNER JOIN `users`     u  ON pc.id_children      = u.id_user
 		INNER JOIN `students`  s  ON u.id_user           = s.id_student
@@ -1836,7 +1862,7 @@ BEGIN
 		INNER JOIN `specialty` sp ON g.spec_id           = sp.id_spec
 		INNER JOIN `relations` r  ON pc.id_type_relation = r.id_relation
 	WHERE pc.id_parent=getParentId(emailParent)
-	ORDER BY u.first_name, u.second_name, u.patronymic;
+	ORDER BY u.fn, u.sn, u.pt;
 END;
 
 

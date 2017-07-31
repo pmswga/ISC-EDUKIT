@@ -55,6 +55,10 @@
 																<td>{$child['student']->getCellPhone()}</td>
 															</tr>
 															<tr>
+																<td>Адрес:</td>
+																<td>{$child['student']->getHomeAddress()}</td>
+															</tr>
+															<tr>
 																<td>Специальность:</td>
 																<td>{$child['student']->getGroup()->getSpec()->getDescription()}</td>
 															</tr>
@@ -156,7 +160,7 @@
 				</div>
 				<div class="col-md-4">
 					<fieldset>
-						<legend>Информация обо мне</legend>
+						<legend>Моя информация</legend>
 						<table class="table table-striped">
 							<tr>
 								<td>Фамилия</td>

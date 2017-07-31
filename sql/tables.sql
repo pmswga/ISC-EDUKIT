@@ -202,7 +202,7 @@ CREATE TABLE IF NOT EXISTS `answers` (
 CREATE TABLE IF NOT EXISTS `student_tests` (
 	id_student_test int AUTO_INCREMENT PRIMARY KEY,
 	id_student int NOT NULL,
-    caption char(255) NOT NULL,
+  caption char(255) NOT NULL,
 	subject char(255) NOT NULL,
 	date_pass date NOT NULL,
 	mark int,
@@ -240,4 +240,16 @@ CREATE TABLE IF NOT EXISTS `groups_tests` (
 	id_test int NOT NULL,
 	id_group int NOT NULL,
   PRIMARY KEY(id_test, id_group)
+) ENGINE = InnoDB CHARACTER SET = UTF8;
+
+/* Создание таблицы "Новости-админа" */
+CREATE TABLE IF NOT EXISTS `admin_news` (
+	id_news int AUTO_INCREMENT PRIMARY KEY,
+	caption char(255) NOT NULL,
+	content text NOT NULL,
+	id_author int NOT NULL,
+	date_publication date NOT NULL,
+	INDEX (id_author),
+	CONSTRAINT nc_caption CHECK(caption <> ''),
+	CONSTRAINT nc_content CHECK(content <> '')
 ) ENGINE = InnoDB CHARACTER SET = UTF8;

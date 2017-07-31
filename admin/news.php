@@ -21,8 +21,9 @@
 			$new_news = new News($data['caption'], $data['content'], $data['email'], $data['dp']);
 			
 			CTools::var_dump($new_news);
+      exit;
 			
-			if ($NM->add($new_news)) {
+			if ($NM->addAdminNews($new_news)) {
 				CTools::Redirect("news.php");
 			}
 			

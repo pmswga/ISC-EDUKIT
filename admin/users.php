@@ -92,16 +92,6 @@
 			
 		}
 		
-		if (!empty($_POST['changeTypeUserButton'])) {
-			$user = $_POST['user'];
-			$type = $_POST['type'];
-			
-			if ($UM->setUserType($user, $type)) {
-				CTools::Redirect("users.php");
-			}
-			
-		}
-		
 	}
 	else CTools::Redirect("login.php");
   
