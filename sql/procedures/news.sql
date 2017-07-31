@@ -1,11 +1,13 @@
 use `iep`;
 
 DROP PROCEDURE IF EXISTS addNews;
+DROP PROCEDURE IF EXISTS addAdminNews;
 DROP PROCEDURE IF EXISTS removeNews;
 DROP PROCEDURE IF EXISTS changeCaptionNews;
 DROP PROCEDURE IF EXISTS changeContentNews;
 DROP PROCEDURE IF EXISTS getNews;
 DROP PROCEDURE IF EXISTS getAllNews;
+DROP PROCEDURE IF EXISTS getAllAdminNews;
 DROP PROCEDURE IF EXISTS clearAllNews;
 
 DELIMITER //
@@ -13,6 +15,12 @@ DELIMITER //
 CREATE PROCEDURE addNews(n_caption char(255), n_content text, emailTeacher char(30), n_date date)
 BEGIN
 	INSERT INTO `news` (`caption`, `content`, `id_author`, `date_publication`) VALUES (n_caption, n_content, getTeacherId(emailTeacher), n_date);
+END;
+
+
+CREATE PROCEDURE addAdminNews(n_caption char(255), n_content text, emailTeacher char(30), n_date date)
+BEGIN
+	INSERT INTO `admin_news` (`caption`, `content`, `id_author`, `date_publication`) VALUES (n_caption, n_content, getAdminId(emailTeacher), n_date);
 END;
 
 CREATE PROCEDURE removeNews(id_news INT)
@@ -37,9 +45,21 @@ BEGIN
 	SELECT * FROM `v_News` WHERE `email`=n_author_email;
 END;
 
-CREATE PROCEDURE getAllNews() /* Для вывода в панели администратора */
+CREATE PROCEDURE getAllNews()
 BEGIN
 	SELECT * FROM `v_News`;
+END;
+
+CREATE PROCEDURE getAllAdminNews() /* Для вывода в панели администратора */
+BEGIN
+	SELECT  an.id_news,
+			an.caption,
+            an.content,
+            a.email as author,
+            an.date_publication as dp
+    FROM `admin_news` an
+		INNER JOIN `admins` a ON a.id_admin=an.id_news
+    ORDER BY `date_publication`;
 END;
 
 CREATE PROCEDURE clearAllNews()

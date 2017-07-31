@@ -5,12 +5,12 @@
 	use IEP\Managers\NewsManager;
 	use IEP\Structures\News;
 	
-	if(isset($_SESSION['admin']))
-	{		
+	if (isset($_SESSION['admin'])) {		
 		
 		$NM = new NewsManager($DB);
 		
-		$CT->assign("news", $NM->getAllNews());
+		$CT->assign("news", $NM->getAllAdminsNews());
+    $CT->assign("date", date("d.m.y H:i:s"));
 		$CT->assign("user", $_SESSION['admin']);
 		
 		$CT->Show("news.tpl");
@@ -19,11 +19,9 @@
 			$data = CForm::getData(["caption", "content", "email", "dp"]);
 			
 			$new_news = new News($data['caption'], $data['content'], $data['email'], $data['dp']);
-			
-			CTools::var_dump($new_news);
-      exit;
-			
+      
 			if ($NM->addAdminNews($new_news)) {
+        CTools::Message("All good");
 				CTools::Redirect("news.php");
 			}
 			
@@ -47,8 +45,8 @@
 			
 		}
 		
-	}
-	else CTools::Redirect("login.php");
-	
+	}	else {
+    CTools::Redirect("login.php");    
+  }
 	
 ?>

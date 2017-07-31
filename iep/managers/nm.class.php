@@ -23,9 +23,36 @@
       return $add_news_query->execute();
     }
     
+    public function addAdminNews($news)
+    {
+      $add_news_query = $this->dbc()->prepare("call addAdminNews(:caption, :content, :author, :date)");
+      
+      $add_news_query->bindValue(":caption", $news->getCaption());
+      $add_news_query->bindValue(":content", $news->getContent());
+      $add_news_query->bindValue(":author", $news->getAuthor());
+      $add_news_query->bindValue(":date", $news->getDatePublication());
+      
+      return $add_news_query->execute();
+    }
+    
     public function getNews(string $teacher_email)
     {
       $db_news = $this->query("call getNews(:t_email)", [":t_email" => $teacher_email]);
+      
+      $news = array();
+      foreach ($db_news as $db_new) {
+        $new = new News($db_new['caption'], $db_new['content'], $db_new['author'], $db_new['dp']);
+        $new->setNewsID((int)$db_new['id_news']);
+        
+        $news[] = $new;
+      }
+      
+      return $news;
+    }
+    
+    public function getAllAdminsNews()
+    {
+      $db_news = $this->query("call getAllAdminNews()");
       
       $news = array();
       foreach ($db_news as $db_new) {

@@ -1,27 +1,27 @@
 {assign var="title" value="EDUKIT | Новости"}
-{$css_links[] = "vt.css"}
+{$js_links[] = "../ckeditor/ckeditor.js"}
 {include file="html/begin.tpl"}
   <form name="removeNewsForm" method="POST">
     <div class="container-fluid">
       {include file="html/menu.tpl"}
       <div class="row">
         <div class="col-md-8">
-              <table class="table table-bordered">
-                <tr>
-                  <th>Заголовок</th>
-                  <th>Автор</th>
-                  <th>Дата публикации</th>
-                  <th>Выбрать</th>
-                </tr>
-                {foreach from=$news item=one_news}
-                  <tr>
-                    <td>{$one_news->getCaption()}</td>
-                    <td>{$one_news->getContent()}</td>
-                    <td>{$one_news->getDatePublication()}</td>
-                    <td><input type="checkbox" name="select_news[]" value="{$one_news->getNewsID()}" class="form-control"></td>
-                  </tr>
-                {/foreach}
-              </table>
+          <table class="table table-bordered">
+            <tr>
+              <th>Заголовок</th>
+              <th>Автор</th>
+              <th>Дата публикации</th>
+              <th>Выбрать</th>
+            </tr>
+            {foreach from=$news item=one_news}
+              <tr>
+                <td>{$one_news->getCaption()}</td>
+                <td>{$one_news->getContent()}</td>
+                <td>{$one_news->getDatePublication()}</td>
+                <td><input type="checkbox" name="select_news[]" value="{$one_news->getNewsID()}" class="form-control"></td>
+              </tr>
+            {/foreach}
+          </table>
         </div>
         <div class="col-md-4">
           <input type="submit" name="changeNewsButton" value="Изменить" class="btn btn-warning btn-block">
@@ -45,10 +45,10 @@
               </div>
               <div class="form-group">
                 <label>Дата</label>
-                <input type="date" name="dp" class="form-control">
+                <input type="datetime" name="dp" value="{$date}" class="form-control">
               </div>
               <div class="form-group">
-                <input type="submit" name="addNewsButton" value="Добавить" class="btn btn-primary">
+                <input type="submit" name="addNewsButton" value="Добавить" class="btn btn-primary pull-right">
               </div>
             </form>
           </fieldset>
@@ -56,4 +56,9 @@
       </div>
     </div>
   </form>
+    
+  <script type="text/javascript">
+    CKEDITOR.replace("content");
+  </script>
+  
 {include file="html/end.tpl"}

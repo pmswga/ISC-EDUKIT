@@ -1,5 +1,4 @@
 {assign var="title" value="EDUKIT | Специальности"}
-{$css_links[] = "vt.css"}
 {include file="html/begin.tpl"}
   <form name="changeSpecialtyForm" method="POST" enctype="multipart/form-data">
     <div class="container-fluid">

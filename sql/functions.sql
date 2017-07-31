@@ -1,5 +1,6 @@
 use `iep`;
 
+DROP FUNCTION IF EXISTS getAdminId;
 DROP FUNCTION IF EXISTS getUserId;
 DROP FUNCTION IF EXISTS getStudentId;
 DROP FUNCTION IF EXISTS getElderId;
@@ -25,6 +26,16 @@ BEGIN
 END;
 
 /* Функции для пользователей */
+
+CREATE FUNCTION IF NOT EXISTS getAdminId (emailAdmin char(30))
+	RETURNS BOOL
+BEGIN
+	DECLARE aid int;
+	
+	SELECT `id_admin` INTO aid FROM `admins` WHERE `email`=emailAdmin LIMIT 1;
+	
+	RETURN aid;
+END;
 
 CREATE FUNCTION IF NOT EXISTS getUserId (emailUser char(30))
 	RETURNS BOOL
