@@ -253,3 +253,23 @@ CREATE TABLE IF NOT EXISTS `admin_news` (
 	CONSTRAINT nc_caption CHECK(caption <> ''),
 	CONSTRAINT nc_content CHECK(content <> '')
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
+
+/* Создание таблицы "Расписание" */
+/*
+    1 - ПН
+    2 - ВТ
+    3 - СР
+    4 - ЧТ
+    5 - ПТ
+    6 - СБ
+    
+    Всего пар от 1 до 7
+
+*/
+CREATE TABLE IF NOT EXISTS `schedule` (
+  id int AUTO_INCREMENT PRIMARY KEY,
+  id_grp int NOT NULL,
+  day int NOT NULL,
+  pair int NOT NULL,
+  subject int NOT NULL
+) ENGINE = InnoDB CHARACTER SET = UTF8;

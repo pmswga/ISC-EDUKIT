@@ -257,6 +257,26 @@ CREATE TABLE IF NOT EXISTS `admin_news` (
 	CONSTRAINT nc_content CHECK(content <> '')
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
+/* Создание таблицы "Расписание" */
+/*
+    1 - ПН
+    2 - ВТ
+    3 - СР
+    4 - ЧТ
+    5 - ПТ
+    6 - СБ
+    
+    Всего пар от 1 до 7
+
+*/
+CREATE TABLE IF NOT EXISTS `schedule` (
+  id int AUTO_INCREMENT PRIMARY KEY,
+  id_grp int NOT NULL,
+  day int NOT NULL,
+  pair int NOT NULL,
+  subject int NOT NULL
+) ENGINE = InnoDB CHARACTER SET = UTF8;
+
 /*----------------[constraints.sql]----------------*/
 
 USE `iep`;
@@ -267,7 +287,7 @@ USE `iep`;
 ALTER TABLE `users`            ADD CONSTRAINT R1  FOREIGN KEY (id_type_user)       REFERENCES `typeUser` (id_type_user) ON UPDATE CASCADE ON DELETE CASCADE; 
 
 /* Связка таблицы "Admins" с таблицей "admin_news" */
-ALTER TABLE `admin_news`             ADD CONSTRAINT R2  FOREIGN KEY (id_author)          REFERENCES `admins` (id_admin) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE `admin_news`       ADD CONSTRAINT R2  FOREIGN KEY (id_author)          REFERENCES `admins` (id_admin) ON UPDATE CASCADE ON DELETE CASCADE;
 
 /* Связка таблицы "students" с таблицей "users" */
 ALTER TABLE `students`         ADD CONSTRAINT R3  FOREIGN KEY (id_student)         REFERENCES `users` (id_user) ON UPDATE CASCADE ON DELETE CASCADE; 
@@ -338,10 +358,21 @@ ALTER TABLE `groups_tests`     ADD CONSTRAINT R21 FOREIGN KEY(`id_group`)       
 /* Связка таблицы "tests" с таблицей "groups_tests" */
 ALTER TABLE `groups_tests`     ADD CONSTRAINT R22 FOREIGN KEY(`id_test`)          REFERENCES `tests` (`id_test`) ON UPDATE CASCADE ON DELETE CASCADE;
 
+
+
+
+
+/* Связка таблицы "schedule" с таблицей "groups" */
+ALTER TABLE `schedule`  ADD CONSTRAINT R23 FOREIGN KEY (`id_grp`)      REFERENCES `groups` (`grp`) ON UPDATE CASCADE ON DELETE CASCADE;
+
+/* Связка таблицы "schedule" с таблицей "subjects" */
+ALTER TABLE `schedule`  ADD CONSTRAINT R24 FOREIGN KEY (`id_grp`)      REFERENCES `subjects` (`id_subject`) ON UPDATE CASCADE ON DELETE CASCADE;
+
 /*----------------[functions.sql]----------------*/
 
 use `iep`;
 
+DROP FUNCTION IF EXISTS getAdminId;
 DROP FUNCTION IF EXISTS getUserId;
 DROP FUNCTION IF EXISTS getStudentId;
 DROP FUNCTION IF EXISTS getElderId;
@@ -349,6 +380,7 @@ DROP FUNCTION IF EXISTS getParentId;
 DROP FUNCTION IF EXISTS getTeacherId;
 DROP FUNCTION IF EXISTS getSubjectId;
 DROP FUNCTION IF EXISTS getSpecialtyId;
+DROP FUNCTION IF EXISTS getGroupId;
 DROP FUNCTION IF EXISTS isGroupHaveElder;
 DROP FUNCTION IF EXISTS isEmailExists;
 DROP FUNCTION IF EXISTS ifTrafficFixed;
@@ -367,6 +399,16 @@ BEGIN
 END;
 
 /* Функции для пользователей */
+
+CREATE FUNCTION IF NOT EXISTS getAdminId (emailAdmin char(30))
+	RETURNS BOOL
+BEGIN
+	DECLARE aid int;
+	
+	SELECT `id_admin` INTO aid FROM `admins` WHERE `email`=emailAdmin LIMIT 1;
+	
+	RETURN aid;
+END;
 
 CREATE FUNCTION IF NOT EXISTS getUserId (emailUser char(30))
 	RETURNS BOOL
@@ -457,6 +499,16 @@ BEGIN
 	SELECT DISTINCT `id_spec` INTO sid FROM `specialty` WHERE `code_spec`=code_spec;
 	
 	RETURN sid;
+END;
+
+CREATE FUNCTION getGroupId(grp char(10))
+	RETURNS int
+BEGIN
+	DECLARE gid int;
+	
+	SELECT DISTINCT `grp` INTO gid FROM `grp` WHERE `description`=grp;
+	
+	RETURN gid;
 END;
 
 
@@ -1174,11 +1226,13 @@ DELIMITER ;
 use `iep`;
 
 DROP PROCEDURE IF EXISTS addNews;
+DROP PROCEDURE IF EXISTS addAdminNews;
 DROP PROCEDURE IF EXISTS removeNews;
 DROP PROCEDURE IF EXISTS changeCaptionNews;
 DROP PROCEDURE IF EXISTS changeContentNews;
 DROP PROCEDURE IF EXISTS getNews;
 DROP PROCEDURE IF EXISTS getAllNews;
+DROP PROCEDURE IF EXISTS getAllAdminNews;
 DROP PROCEDURE IF EXISTS clearAllNews;
 
 DELIMITER //
@@ -1186,6 +1240,12 @@ DELIMITER //
 CREATE PROCEDURE addNews(n_caption char(255), n_content text, emailTeacher char(30), n_date date)
 BEGIN
 	INSERT INTO `news` (`caption`, `content`, `id_author`, `date_publication`) VALUES (n_caption, n_content, getTeacherId(emailTeacher), n_date);
+END;
+
+
+CREATE PROCEDURE addAdminNews(n_caption char(255), n_content text, emailTeacher char(30), n_date date)
+BEGIN
+	INSERT INTO `admin_news` (`caption`, `content`, `id_author`, `date_publication`) VALUES (n_caption, n_content, getAdminId(emailTeacher), n_date);
 END;
 
 CREATE PROCEDURE removeNews(id_news INT)
@@ -1210,9 +1270,21 @@ BEGIN
 	SELECT * FROM `v_News` WHERE `email`=n_author_email;
 END;
 
-CREATE PROCEDURE getAllNews() /* Для вывода в панели администратора */
+CREATE PROCEDURE getAllNews()
 BEGIN
 	SELECT * FROM `v_News`;
+END;
+
+CREATE PROCEDURE getAllAdminNews() /* Для вывода в панели администратора */
+BEGIN
+	SELECT  an.id_news,
+			an.caption,
+            an.content,
+            a.email as author,
+            an.date_publication as dp
+    FROM `admin_news` an
+		INNER JOIN `admins` a ON a.id_admin=an.id_news
+    ORDER BY `date_publication`;
 END;
 
 CREATE PROCEDURE clearAllNews()
@@ -1248,6 +1320,32 @@ CREATE PROCEDURE getAllRelations()
 BEGIN
 	SELECT * FROM `v_Relations`;
 END;
+
+//
+
+DELIMITER ;
+
+/*----------------[schedule.sql]----------------*/
+
+use `iep`;
+
+DROP PROCEDURE IF EXISTS addScheduleEntry;
+DROP PROCEDURE IF EXISTS getScheduleGroup;
+
+DELIMITER //
+
+CREATE PROCEDURE IF NOT EXISTS addScheduleEntry(grp int, d int, pair int, subject int)
+BEGIN
+  INSERT INTO `schedule` (`id_grp`, `day`, `pair`, `subject`) VALUES (grp, d, pair, subject);
+END;
+
+CREATE PROCEDURE IF NOT EXISTS getScheduleGroup(grp int)
+BEGIN
+  SELECT *
+  FROM `schedule`
+  WHERE `id_grp`=getGroupId(grp);
+END;
+
 
 //
 
@@ -1697,7 +1795,7 @@ END;
 
 CREATE PROCEDURE addAdmin(sn char(30), fn char(30), pt char(30), email char(30), passwd char(32))
 BEGIN
-	INSERT INTO `admins` (`sn`, `fn`, `pt`, `email`, `passwd`) VALUES (sn, fn, pt, email, passwd);
+	INSERT INTO `admins` (`sn`, `fn`, `pt`, `email`, `passwd`) VALUES (sn, fn, pt, email, MD5(passwd));
 END;
 
 CREATE PROCEDURE addTeacher(sn char(30), fn char(30), pt char(32), t_email char(255), paswd char(32), info text)

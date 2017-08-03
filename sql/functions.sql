@@ -8,6 +8,7 @@ DROP FUNCTION IF EXISTS getParentId;
 DROP FUNCTION IF EXISTS getTeacherId;
 DROP FUNCTION IF EXISTS getSubjectId;
 DROP FUNCTION IF EXISTS getSpecialtyId;
+DROP FUNCTION IF EXISTS getGroupId;
 DROP FUNCTION IF EXISTS isGroupHaveElder;
 DROP FUNCTION IF EXISTS isEmailExists;
 DROP FUNCTION IF EXISTS ifTrafficFixed;
@@ -126,6 +127,16 @@ BEGIN
 	SELECT DISTINCT `id_spec` INTO sid FROM `specialty` WHERE `code_spec`=code_spec;
 	
 	RETURN sid;
+END;
+
+CREATE FUNCTION getGroupId(grp char(10))
+	RETURNS int
+BEGIN
+	DECLARE gid int;
+	
+	SELECT DISTINCT `grp` INTO gid FROM `grp` WHERE `description`=grp;
+	
+	RETURN gid;
 END;
 
 

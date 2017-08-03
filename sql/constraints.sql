@@ -6,7 +6,7 @@ USE `iep`;
 ALTER TABLE `users`            ADD CONSTRAINT R1  FOREIGN KEY (id_type_user)       REFERENCES `typeUser` (id_type_user) ON UPDATE CASCADE ON DELETE CASCADE; 
 
 /* Связка таблицы "Admins" с таблицей "admin_news" */
-ALTER TABLE `admin_news`             ADD CONSTRAINT R2  FOREIGN KEY (id_author)          REFERENCES `admins` (id_admin) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE `admin_news`       ADD CONSTRAINT R2  FOREIGN KEY (id_author)          REFERENCES `admins` (id_admin) ON UPDATE CASCADE ON DELETE CASCADE;
 
 /* Связка таблицы "students" с таблицей "users" */
 ALTER TABLE `students`         ADD CONSTRAINT R3  FOREIGN KEY (id_student)         REFERENCES `users` (id_user) ON UPDATE CASCADE ON DELETE CASCADE; 
@@ -76,3 +76,13 @@ ALTER TABLE `groups_tests`     ADD CONSTRAINT R21 FOREIGN KEY(`id_group`)       
 
 /* Связка таблицы "tests" с таблицей "groups_tests" */
 ALTER TABLE `groups_tests`     ADD CONSTRAINT R22 FOREIGN KEY(`id_test`)          REFERENCES `tests` (`id_test`) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+
+
+
+/* Связка таблицы "schedule" с таблицей "groups" */
+ALTER TABLE `schedule`  ADD CONSTRAINT R23 FOREIGN KEY (`id_grp`)      REFERENCES `groups` (`grp`) ON UPDATE CASCADE ON DELETE CASCADE;
+
+/* Связка таблицы "schedule" с таблицей "subjects" */
+ALTER TABLE `schedule`  ADD CONSTRAINT R24 FOREIGN KEY (`id_grp`)      REFERENCES `subjects` (`id_subject`) ON UPDATE CASCADE ON DELETE CASCADE;
