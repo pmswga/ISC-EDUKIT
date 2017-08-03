@@ -272,7 +272,7 @@ CREATE TABLE IF NOT EXISTS `admin_news` (
 CREATE TABLE IF NOT EXISTS `schedule` (
   id int AUTO_INCREMENT PRIMARY KEY,
   id_grp int NOT NULL,
-  day int NOT NULL,
+  day char(2) NOT NULL,
   pair int NOT NULL,
   subject int NOT NULL
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
@@ -366,7 +366,7 @@ ALTER TABLE `groups_tests`     ADD CONSTRAINT R22 FOREIGN KEY(`id_test`)        
 ALTER TABLE `schedule`  ADD CONSTRAINT R23 FOREIGN KEY (`id_grp`)      REFERENCES `groups` (`grp`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 /* Связка таблицы "schedule" с таблицей "subjects" */
-ALTER TABLE `schedule`  ADD CONSTRAINT R24 FOREIGN KEY (`id_grp`)      REFERENCES `subjects` (`id_subject`) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE `schedule`  ADD CONSTRAINT R24 FOREIGN KEY (`subject`)      REFERENCES `subjects` (`id_subject`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 /*----------------[functions.sql]----------------*/
 
@@ -1334,16 +1334,18 @@ DROP PROCEDURE IF EXISTS getScheduleGroup;
 
 DELIMITER //
 
-CREATE PROCEDURE IF NOT EXISTS addScheduleEntry(grp int, d int, pair int, subject int)
+CREATE PROCEDURE IF NOT EXISTS addScheduleEntry(grp int, d char(2), pair int, subject int)
 BEGIN
   INSERT INTO `schedule` (`id_grp`, `day`, `pair`, `subject`) VALUES (grp, d, pair, subject);
 END;
 
 CREATE PROCEDURE IF NOT EXISTS getScheduleGroup(grp int)
 BEGIN
-  SELECT *
-  FROM `schedule`
-  WHERE `id_grp`=getGroupId(grp);
+  SELECT s.day, g.description, s.pair, sb.description
+  FROM `schedule` s
+	INNER JOIN `groups` g ON s.id_grp=g.grp
+	INNER JOIN `subjects` sb ON s.subject=sb.id_subject
+  WHERE s.id_grp=grp;
 END;
 
 

@@ -269,7 +269,7 @@ CREATE TABLE IF NOT EXISTS `admin_news` (
 CREATE TABLE IF NOT EXISTS `schedule` (
   id int AUTO_INCREMENT PRIMARY KEY,
   id_grp int NOT NULL,
-  day int NOT NULL,
+  day char(2) NOT NULL,
   pair int NOT NULL,
   subject int NOT NULL
 ) ENGINE = InnoDB CHARACTER SET = UTF8;

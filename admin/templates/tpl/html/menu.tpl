@@ -8,7 +8,6 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand">Панель управления</a>
       </div>
       <div class="collapse navbar-collapse" id="menu">
         <ul class="nav navbar-nav pull-right">
@@ -18,6 +17,7 @@
           <li><a href="specialty.php">Специальности</a></li>
           <li><a href="news.php">Новости</a></li>
           <li><a href="subjects.php">Предметы</a></li>
+          <li><a href="schedule.php">Расписание</a></li>
           <li><a href="notifications.php">Оповещения</a></li>
           <li><a href="traffic.php">Посещаемость</a></li>
           <li><a href="settings.php">Настройки</a></li>

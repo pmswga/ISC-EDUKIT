@@ -85,4 +85,4 @@ ALTER TABLE `groups_tests`     ADD CONSTRAINT R22 FOREIGN KEY(`id_test`)        
 ALTER TABLE `schedule`  ADD CONSTRAINT R23 FOREIGN KEY (`id_grp`)      REFERENCES `groups` (`grp`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 /* Связка таблицы "schedule" с таблицей "subjects" */
-ALTER TABLE `schedule`  ADD CONSTRAINT R24 FOREIGN KEY (`id_grp`)      REFERENCES `subjects` (`id_subject`) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE `schedule`  ADD CONSTRAINT R24 FOREIGN KEY (`subject`)      REFERENCES `subjects` (`id_subject`) ON UPDATE CASCADE ON DELETE CASCADE;

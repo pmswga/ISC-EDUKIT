@@ -1,0 +1,48 @@
+<?php
+	require_once "start.php";
+	
+  use IEP\Managers\GroupManager;
+  use IEP\Managers\SubjectManager;
+  
+  $update = function () {
+    CTools::Redirect("schedule.php");
+  };
+  
+	if (isset($_SESSION['admin'])) {	
+	
+		$GM = new GroupManager($DB);
+		$SM = new SubjectManager($DB);
+    
+    $CT->assign("groups", $GM->getAllGroups());
+    $CT->assign("subjects", $SM->getAllSubjects());
+  
+    $CT->Show("schedule.tpl");
+    
+    if (!empty($_POST['addScheduleEntryButton'])) {
+      $day = $_POST['day'];
+      $group = $_POST['group'];
+      $pair = $_POST['pair'];
+      $subject = $_POST['subject'];
+      
+      $add_schedule = $GM->dbc()->prepare("call addScheduleEntry(:grp, :day, :pair, :subject)");
+      
+      $add_schedule->bindValue(":grp", $group);
+      $add_schedule->bindValue(":day", $day);
+      $add_schedule->bindValue(":pair", $pair);
+      $add_schedule->bindValue(":subject", $subject);
+      
+      if ($add_schedule->execute()) {
+        CTools::Message("All Good");
+      } else {
+        CTools::Message("All Bad");
+      }
+      
+      $update();
+    }
+    
+  }
+	else {
+    CTools::Redirect("login.php");
+  }
+  
+?>
