@@ -4,8 +4,6 @@
   
   $data = $UM->query("call getScheduleGroup(1)");
   
-  // $data = $UM->query("call getScheduleGroup(1)");
-  
   $dataByGroup = array();
   foreach ($data as $d) {
     $dataByGroup[$d['group']][] = $d;
@@ -20,9 +18,7 @@
     
   }
   
-  CTools::var_dump($dataByGroupByDay);
-  
-  $CT->assign("schedules", $dataByGroup);
+  $CT->assign("schedules", $dataByGroupByDay);
   
 	if (!isset($_SESSION['user'])) {
 		

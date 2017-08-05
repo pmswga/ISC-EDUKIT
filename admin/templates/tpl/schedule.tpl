@@ -4,7 +4,40 @@
 		{include file="html/menu.tpl"}
     <div class="row">
       <div class="col-md-8">
-        
+        <div class="panel-group" id="scheduleGroups">
+          {foreach from=$schedules key=grp item=schedule}
+            <form name="changeScheduleForm" method="POST">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#scheduleGroups" href="#{$grp}">
+                      {$grp}
+                    </a>
+                  </h4>
+                </div>
+                <div id="{$grp}" class="panel-collapse collapse in">
+                  <div class="panel-body">
+                    {foreach from=$schedule key=day item=data}
+                      <table class="table table-hover">
+                        <thead>
+                          <h3>{$day}</h3>
+                        </thead>
+                        <tbody>
+                          {foreach from=$data item=entry}
+                            <tr>
+                              <td>{$entry['pair']}</td>
+                              <td>{$entry['subject']}</td>
+                            </tr>
+                          {/foreach}
+                        </tbody>
+                      </table>
+                    {/foreach}
+                  </div>
+                </div>
+              </div>
+            </form>
+          {/foreach}
+        </div>
       </div>
       <div class="col-md-4">
         <fieldset>
@@ -13,12 +46,12 @@
             <div class="form-group">
               <label>День</label>
               <select name="day" class="form-control">
-                <option value="ПН">ПН</option>
-                <option value="ВТ">ВТ</option>
-                <option value="СР">СР</option>
-                <option value="ЧТ">ЧТ</option>
-                <option value="ПТ">ПТ</option>
-                <option value="СБ">СБ</option>
+                <option value="1">ПН</option>
+                <option value="2">ВТ</option>
+                <option value="3">СР</option>
+                <option value="4">ЧТ</option>
+                <option value="5">ПТ</option>
+                <option value="6">СБ</option>
               </select>
             </div>
             <div class="form-group">

@@ -3,6 +3,7 @@
 	
   use IEP\Managers\GroupManager;
   use IEP\Managers\SubjectManager;
+  use IEP\Managers\ScheduleManager;
   
   $update = function () {
     CTools::Redirect("schedule.php");
@@ -12,9 +13,11 @@
 	
 		$GM = new GroupManager($DB);
 		$SM = new SubjectManager($DB);
+    $SH = new ScheduleManager($DB);
     
     $CT->assign("groups", $GM->getAllGroups());
     $CT->assign("subjects", $SM->getAllSubjects());
+    $CT->assign("schedules", $SH->getAllScheduleGroup());
   
     $CT->Show("schedule.tpl");
     

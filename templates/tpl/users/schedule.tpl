@@ -94,8 +94,25 @@
                       </a>
                     </h4>
                   </div>
-                  <div id="{$grp}" class="panel-collapse collapse">
+                  <div id="{$grp}" class="panel-collapse collapse in">
                     <div class="panel-body">
+                      {foreach from=$schedule key=day item=data}
+                        <table class="table table-hover">
+                          <thead>
+                            <h3>{$day}</h3>
+                          </thead>
+                          <tbody>
+                            {foreach from=$data item=entry}
+                              <tr>
+                                <td>{$entry['pair']}</td>
+                                <td>{$entry['subject']}</td>
+                              </tr>
+                            {/foreach}
+                          </tbody>
+                        </table>
+                      {/foreach}
+                      
+                      <!--
                       <table id="schedule_lunchs" class="table table-bordered">
                         <thead>
                            <td colspan="7"><h2 align="center">Занятия</h2></td>
@@ -118,6 +135,7 @@
                             </tr>
                         </tbody>
                       </table>
+                      -->
                     </div>
                   </div>
                 </div>

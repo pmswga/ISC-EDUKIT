@@ -270,11 +270,11 @@ CREATE TABLE IF NOT EXISTS `admin_news` (
 
 */
 CREATE TABLE IF NOT EXISTS `schedule` (
-  id int AUTO_INCREMENT PRIMARY KEY,
-  id_grp int NOT NULL,
-  day char(2) NOT NULL,
+  id_grp int,
+  day int,
   pair int NOT NULL,
-  subject int NOT NULL
+  subject int NOT NULL,
+  PRIMARY KEY(id_grp, day, pair)
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
 /*----------------[constraints.sql]----------------*/
@@ -1331,23 +1331,40 @@ use `iep`;
 
 DROP PROCEDURE IF EXISTS addScheduleEntry;
 DROP PROCEDURE IF EXISTS getScheduleGroup;
+DROP PROCEDURE IF EXISTS getAllScheduleGroup;
 
 DELIMITER //
 
-CREATE PROCEDURE IF NOT EXISTS addScheduleEntry(grp int, d char(2), pair int, subject int)
+CREATE PROCEDURE IF NOT EXISTS addScheduleEntry(grp int, d int, pair int, subject int)
 BEGIN
   INSERT INTO `schedule` (`id_grp`, `day`, `pair`, `subject`) VALUES (grp, d, pair, subject);
 END;
 
 CREATE PROCEDURE IF NOT EXISTS getScheduleGroup(grp int)
 BEGIN
-  SELECT s.day, g.description, s.pair, sb.description
+  SELECT s.day, 
+		 g.description as 'group', 
+         s.pair, 
+         sb.description as 'subject'
   FROM `schedule` s
 	INNER JOIN `groups` g ON s.id_grp=g.grp
 	INNER JOIN `subjects` sb ON s.subject=sb.id_subject
-  WHERE s.id_grp=grp;
+  WHERE s.id_grp=grp
+  ORDER BY s.pair;
 END;
 
+
+CREATE PROCEDURE IF NOT EXISTS getAllScheduleGroup()
+BEGIN
+  SELECT s.day, 
+		 g.description as 'group', 
+         s.pair, 
+         sb.description as 'subject'
+  FROM `schedule` s
+	INNER JOIN `groups` g ON s.id_grp=g.grp
+	INNER JOIN `subjects` sb ON s.subject=sb.id_subject
+  ORDER BY s.day;
+END;
 
 //
 

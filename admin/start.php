@@ -11,6 +11,7 @@
 	require_once $_SERVER['DOCUMENT_ROOT']."/iep/managers/sbm.class.php";
 	require_once $_SERVER['DOCUMENT_ROOT']."/iep/managers/sm.class.php";
 	require_once $_SERVER['DOCUMENT_ROOT']."/iep/managers/nm.class.php";
+	require_once $_SERVER['DOCUMENT_ROOT']."/iep/managers/shm.class.php";
 	
 	$CT = new CTemplater("templates/tpl", "templates/tpl_c", "templates/configs", "templates/cache");
   
