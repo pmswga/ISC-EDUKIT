@@ -7,24 +7,23 @@
         <div class="panel-group" id="scheduleGroups">
           {foreach from=$schedules key=grp item=schedule}
           {$day_number = 1}
-            <form name="changeScheduleForm" method="POST">
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#scheduleGroups" href="#{$grp}">
-                      {$grp}
-                    </a>
-                  </h4>
-                </div>
-                <div id="{$grp}" class="panel-collapse collapse in">
-                  <div class="panel-body">
-                    <input type="hidden" name="group" value="{$grp}">
-                    <input type="submit" name="changeScheduleButton" value="Изменить" class="btn btn-warning">
-                    {foreach from=$schedule key=day item=data}
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#scheduleGroups" href="#{$grp}">
+                    {$grp}
+                  </a>
+                </h4>
+              </div>
+              <div id="{$grp}" class="panel-collapse collapse in">
+                <div class="panel-body">
+                  {foreach from=$schedule key=day item=data}
+                    <form name="changeScheduleForm" method="POST">
+                      <input type="hidden" name="group" value="{$data[0]['id_grp']}">
+                      <input type="hidden" name="day" value="{$day_number}">
                       <table class="table table-hover">
                         <thead>
                           <h3>{$day}</h3>
-                          <input type="radio" name="day" value="{$day_number}">
                         </thead>
                         <tbody>
                           <tr>
@@ -50,13 +49,13 @@
                           {/foreach}
                         </tbody>
                       </table>
-                      {$day_number = $day_number + 1}
-                    {/foreach}
-                  </div>
+                      <input type="submit" name="changeScheduleButton" value="Изменить" class="btn btn-sm btn-warning">
+                    </form>
+                    {$day_number = $day_number + 1}
+                  {/foreach}
                 </div>
               </div>
-              <br>
-            </form>
+            </div>
           {/foreach}
         </div>
       </div>

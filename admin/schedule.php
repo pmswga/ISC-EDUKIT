@@ -65,10 +65,6 @@
         CTools::Message("Change is bad");
       }
       
-      CTools::var_dump($day);
-      CTools::var_dump($group);
-      CTools::var_dump($pairs);
-      
       $update();
     }
     

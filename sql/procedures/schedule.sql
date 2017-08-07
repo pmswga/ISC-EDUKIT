@@ -29,6 +29,7 @@ CREATE PROCEDURE IF NOT EXISTS getAllScheduleGroup()
 BEGIN
   SELECT s.day, 
 		 g.description as 'group',
+         s.id_grp as 'id_grp',
          s.pair, 
          sb.description as 'subject'
   FROM `schedule` s
@@ -37,11 +38,11 @@ BEGIN
   ORDER BY s.day, s.pair;
 END;
 
-CREATE PROCEDURE changePair(grp char(10), d int, pair int, subj int)
+CREATE PROCEDURE changePair(g int, d int, p int, s int)
 BEGIN
-	UPDATE `schedule` s
-    SET s.subject=subj
-    WHERE s.id_grp=(SELECT DISTINCT `grp` FROM `groups` WHERE `description`=grp) AND s.pair=pair AND s.day=d;
+	UPDATE `schedule`
+    SET `subject`=s
+    WHERE `id_grp`=g AND `pair`=p AND `day`=d;
 END;
 
 //

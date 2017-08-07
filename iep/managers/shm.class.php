@@ -47,9 +47,30 @@
       return $dataByGroupByDay;
     }
     
+    public function getScheduleGroup(int $grp)
+    {
+      $data = $this->query("call getAllScheduleGroup()");
+  
+      $dataByGroup = array();
+      foreach ($data as $d) {
+        $dataByGroup[$d['group']][] = $d;
+      }
+      
+      $dataByGroupByDay = array();
+      foreach ($dataByGroup as $key => $value) {
+        
+        foreach ($value as $day) {      
+          $dataByGroupByDay[$key][$this->intToDay((int)$day['day'])][] = $day;
+        }
+        
+      }
+      
+      return $dataByGroupByDay;
+    }
+    
     public function changePair(string $grp, int $day, int $pair, int $subject) : bool
     {
-      $change_query = $this->dbc()->prepare("UPDATE `schedule` s     SET s.subject=:s     WHERE s.id_grp=(SELECT DISTINCT `grp` FROM `groups` WHERE `description`=:g) AND s.pair=:p AND s.day=:d;");
+      $change_query = $this->dbc()->prepare("UPDATE `schedule`     SET `subject`=:s     WHERE `id_grp`=:g AND `pair`=:p AND `day`=:d");
       $change_query->bindValue(":g", $grp);
       $change_query->bindValue(":d", $day);
       $change_query->bindValue(":p", $pair);

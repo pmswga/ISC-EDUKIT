@@ -2,7 +2,9 @@
 	require_once "start.php";
 	
   
-  $data = $UM->query("call getScheduleGroup(1)");
+  $deafult_group = current($GM->getAllGroups())->getGroupID();
+  
+  $data = $UM->query("call getScheduleGroup(:g_id)", [":g_id" => $deafult_group]);
   
   $dataByGroup = array();
   foreach ($data as $d) {
@@ -18,15 +20,24 @@
     
   }
   
-  $CT->assign("schedules", $dataByGroupByDay);
+  $CT->assign("groups", $GM->getAllGroups());
+  
+  if (!empty($_POST['selectGroupButton'])) {
+    $group = $_POST['group'];
+    
+    $CT->assign("schedules", $dataByGroupByDay);
+  } else {
+    
+    $CT->assign("schedules", $dataByGroupByDay);
+  }
   
 	if (!isset($_SESSION['user'])) {
 		
-    $CT->Show("users/schedule.tpl");
+    $CT->Show("guest/schedule.tpl");
 	
   }
 	else {
-    $CT->Show("guest/schedule.tpl");    
+    $CT->Show("users/schedule.tpl");    
   }
 
 ?>

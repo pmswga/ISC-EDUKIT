@@ -70,111 +70,73 @@
 					</table>
 				</div>
 			<div id="news" class="col-md-9">
-					<form class="form-inline" role="form">
+					<form class="form-inline" method="POST">
 						<div class="form-group">
-							<label class="sr-only" for="exampleInputEmail2">Email</label>
-							<select class="form-control">
-								<option>1 Курс</option>
-								<option>2 Курс</option>
-								<option>3 Курс</option>
-								<option>4 Курс</option>
+							<select name="group" class="form-control">
+                {foreach from=$groups item=group}
+                  <option value="{$group->getGroupID()}">{$group->getNumberGroup()}</option>
+                {/foreach}
 							</select>
 						</div>
-						<button type="submit" class="btn btn-default">Выбрать</button>
+						<input type="submit" name="selectGroupButton" value="Показать" class="btn btn-default">
 					</form>
-					
 					<hr>
 					<div class="panel-group" id="scheduleGroups">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#scheduleGroups" href="#201">
-										201
-									</a>
-								</h4>
-							</div>
-							<div id="201" class="panel-collapse collapse">
-								<div class="panel-body">
-									<table id="schedule_lunchs" class="table table-bordered">
-										<thead>
-											 <td colspan="7"><h2 align="center">Занятия</h2></td>
-										</thead>
-										<tr>
-											<th>Пара</th>
-											<th>Понедельник</th>
-											<th>Вторник</th>
-											<th>Среда</th>
-											<th>Четверг</th>
-											<th>Пятница</th>
-											<th>Суббота</th>
-										</tr>
-										<tr>
-											<td>1</td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td>2</td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td>3</td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td>4</td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td>5</td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td>6</td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td>7</td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-										</tr>
-									</table>
-								</div>
-							</div>
-						</div>
+            {foreach from=$schedules key=grp item=schedule}
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#scheduleGroups" href="#{$grp}">
+                      {$grp}
+                    </a>
+                  </h4>
+                </div>
+                <div id="{$grp}" class="panel-collapse collapse in">
+                  <div class="panel-body">
+                    {foreach from=$schedule key=day item=data}
+                      <table class="table table-hover">
+                        <thead>
+                          <h3>{$day}</h3>
+                        </thead>
+                        <tbody>
+                          {foreach from=$data item=entry}
+                            <tr>
+                              <td>{$entry['pair']}</td>
+                              <td>{$entry['subject']}</td>
+                            </tr>
+                          {/foreach}
+                        </tbody>
+                      </table>
+                    {/foreach}
+                    
+                    <!--
+                    <table id="schedule_lunchs" class="table table-bordered">
+                      <thead>
+                         <td colspan="7"><h2 align="center">Занятия</h2></td>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>Пара</th>
+                          <th>Понедельник</th>
+                          <th>Вторник</th>
+                          <th>Среда</th>
+                          <th>Четверг</th>
+                          <th>Пятница</th>
+                          <th>Суббота</th>
+                        </tr>
+                          <tr>
+                        {foreach from=$schedule item=entry}
+                            <td>{$entry['pair']}</td>
+                            <td>{$entry['subject']}</td>
+                        {/foreach}
+                          </tr>
+                      </tbody>
+                    </table>
+                    -->
+                  </div>
+                </div>
+              </div>
+            {/foreach}
 					</div>
 				</div>
 			</div>

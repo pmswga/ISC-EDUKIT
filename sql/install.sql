@@ -259,6 +259,7 @@ CREATE TABLE IF NOT EXISTS `admin_news` (
 
 /* Создание таблицы "Расписание" */
 /*
+
     1 - ПН
     2 - ВТ
     3 - СР
@@ -272,9 +273,9 @@ CREATE TABLE IF NOT EXISTS `admin_news` (
 CREATE TABLE IF NOT EXISTS `schedule` (
   id_grp int,
   day int,
-  pair int NOT NULL,
+  pair int,
   subject int NOT NULL,
-  PRIMARY KEY(id_grp, day, pair)
+  PRIMARY KEY(id_grp, pair)
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
 /*----------------[constraints.sql]----------------*/
@@ -501,12 +502,12 @@ BEGIN
 	RETURN sid;
 END;
 
-CREATE FUNCTION getGroupId(grp char(10))
+CREATE FUNCTION getGroupId(g char(10))
 	RETURNS int
 BEGIN
 	DECLARE gid int;
 	
-	SELECT DISTINCT `grp` INTO gid FROM `grp` WHERE `description`=grp;
+	SELECT DISTINCT `grp` INTO gid FROM `groups` WHERE `description`=g;
 	
 	RETURN gid;
 END;
@@ -1332,6 +1333,7 @@ use `iep`;
 DROP PROCEDURE IF EXISTS addScheduleEntry;
 DROP PROCEDURE IF EXISTS getScheduleGroup;
 DROP PROCEDURE IF EXISTS getAllScheduleGroup;
+DROP PROCEDURE IF EXISTS changePair;
 
 DELIMITER //
 
@@ -1353,17 +1355,24 @@ BEGIN
   ORDER BY s.pair;
 END;
 
-
 CREATE PROCEDURE IF NOT EXISTS getAllScheduleGroup()
 BEGIN
   SELECT s.day, 
-		 g.description as 'group', 
+		 g.description as 'group',
+         s.id_grp as 'id_grp',
          s.pair, 
          sb.description as 'subject'
   FROM `schedule` s
 	INNER JOIN `groups` g ON s.id_grp=g.grp
 	INNER JOIN `subjects` sb ON s.subject=sb.id_subject
-  ORDER BY s.day;
+  ORDER BY s.day, s.pair;
+END;
+
+CREATE PROCEDURE changePair(g int, d int, p int, s int)
+BEGIN
+	UPDATE `schedule`
+    SET `subject`=s
+    WHERE `id_grp`=g AND `pair`=p AND `day`=d;
 END;
 
 //
