@@ -37,11 +37,11 @@ BEGIN
   ORDER BY s.day, s.pair;
 END;
 
-CREATE PROCEDURE IF NOT EXISTS changePair(grp char(10), d int, pair int, subj int)
+CREATE PROCEDURE changePair(grp char(10), d int, pair int, subj int)
 BEGIN
 	UPDATE `schedule` s
     SET s.subject=subj
-    WHERE s.id_grp=getGroupId(grp) AND s.pair=pair AND s.day=day;
+    WHERE s.id_grp=(SELECT DISTINCT `grp` FROM `groups` WHERE `description`=grp) AND s.pair=pair AND s.day=d;
 END;
 
 //

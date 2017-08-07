@@ -51,9 +51,12 @@
       
       $result = true;
       for ($i = 1; $i <= 7; $i++) {
-        $pairs[] = $_POST['pair_'.$i];
+        $subject = $_POST['pair_'.$i];
         
-        $result *= $SH->changePair($group, $day, $i, $_POST['pair_'.$i]);
+        if ($subject != 0 && !empty($subject)) {          
+          $result *= $SH->changePair($group, $day, $i, $_POST['pair_'.$i]);
+        }
+        
       }
       
       if ($result) {
@@ -66,7 +69,7 @@
       CTools::var_dump($group);
       CTools::var_dump($pairs);
       
-      // $update();
+      $update();
     }
     
   }
