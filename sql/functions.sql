@@ -129,12 +129,12 @@ BEGIN
 	RETURN sid;
 END;
 
-CREATE FUNCTION getGroupId(grp char(10))
+CREATE FUNCTION getGroupId(g char(10))
 	RETURNS int
 BEGIN
 	DECLARE gid int;
 	
-	SELECT DISTINCT `grp` INTO gid FROM `grp` WHERE `description`=grp;
+	SELECT DISTINCT `grp` INTO gid FROM `groups` WHERE `description`=g;
 	
 	RETURN gid;
 END;

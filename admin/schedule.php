@@ -18,7 +18,7 @@
     $CT->assign("groups", $GM->getAllGroups());
     $CT->assign("subjects", $SM->getAllSubjects());
     $CT->assign("schedules", $SH->getAllScheduleGroup());
-  
+    
     $CT->Show("schedule.tpl");
     
     if (!empty($_POST['addScheduleEntryButton'])) {
@@ -41,6 +41,32 @@
       }
       
       $update();
+    }
+    
+    if (!empty($_POST['changeScheduleButton'])) {
+      
+      $group = $_POST['group'];
+      $day = $_POST['day'];
+      $pairs = array();
+      
+      $result = true;
+      for ($i = 1; $i <= 7; $i++) {
+        $pairs[] = $_POST['pair_'.$i];
+        
+        $result *= $SH->changePair($group, $day, $i, $_POST['pair_'.$i]);
+      }
+      
+      if ($result) {
+        CTools::Message("Change is good");
+      } else {
+        CTools::Message("Change is bad");
+      }
+      
+      CTools::var_dump($day);
+      CTools::var_dump($group);
+      CTools::var_dump($pairs);
+      
+      // $update();
     }
     
   }

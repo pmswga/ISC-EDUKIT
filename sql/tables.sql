@@ -256,6 +256,7 @@ CREATE TABLE IF NOT EXISTS `admin_news` (
 
 /* Создание таблицы "Расписание" */
 /*
+
     1 - ПН
     2 - ВТ
     3 - СР

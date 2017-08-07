@@ -6,6 +6,7 @@
       <div class="col-md-8">
         <div class="panel-group" id="scheduleGroups">
           {foreach from=$schedules key=grp item=schedule}
+          {$day_number = 1}
             <form name="changeScheduleForm" method="POST">
               <div class="panel panel-default">
                 <div class="panel-heading">
@@ -17,24 +18,44 @@
                 </div>
                 <div id="{$grp}" class="panel-collapse collapse in">
                   <div class="panel-body">
+                    <input type="hidden" name="group" value="{$grp}">
+                    <input type="submit" name="changeScheduleButton" value="Изменить" class="btn btn-warning">
                     {foreach from=$schedule key=day item=data}
                       <table class="table table-hover">
                         <thead>
                           <h3>{$day}</h3>
+                          <input type="radio" name="day" value="{$day_number}">
                         </thead>
                         <tbody>
+                          <tr>
+                            <th>Пара</th>
+                            <th>Предмет</th>
+                          </tr>
+                          {$i = 1}
                           {foreach from=$data item=entry}
                             <tr>
                               <td>{$entry['pair']}</td>
-                              <td>{$entry['subject']}</td>
+                              <td>
+                                <select class="form-control" name="pair_{$i}">
+                                  <option value="0">{$entry['subject']}</option>
+                                  {foreach from=$subjects item=$subject}
+                                    {if $entry['subject'] != $subject->getDescription()}
+                                      <option value="{$subject->getSubjectID()}">{$subject->getDescription()}</option>
+                                    {/if}
+                                  {/foreach}
+                                </select>
+                              </td>
                             </tr>
+                            {$i = $i + 1}
                           {/foreach}
                         </tbody>
                       </table>
+                      {$day_number = $day_number + 1}
                     {/foreach}
                   </div>
                 </div>
               </div>
+              <br>
             </form>
           {/foreach}
         </div>

@@ -8,7 +8,7 @@
   
   class ScheduleManager extends IEP
   {
-    private function intToDay(int $day)
+    private function intToDay(int $day) : string
     {
       switch ($day)
       {
@@ -26,7 +26,7 @@
       
     }
     
-    public function getAllScheduleGroup()
+    public function getAllScheduleGroup() : array
     {
       $data = $this->query("call getAllScheduleGroup()");
   
@@ -45,6 +45,17 @@
       }
       
       return $dataByGroupByDay;
+    }
+    
+    public function changePair(string $grp, int $day, int $pair, int $subject) : bool
+    {
+      $change_query = $this->dbc()->prepare("call changePair(:g, :d, :p, :s)");
+      $change_query->bindValue(":g", $grp);
+      $change_query->bindValue(":d", $day);
+      $change_query->bindValue(":p", $pair);
+      $change_query->bindValue(":s", $subject);
+      
+      return $change_query->execute();
     }
     
     public function remove($schedule)
