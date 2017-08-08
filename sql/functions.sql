@@ -43,7 +43,7 @@ CREATE FUNCTION IF NOT EXISTS getUserId (emailUser char(30))
 BEGIN
 	DECLARE uid int;
 	
-	SELECT `id_user` INTO uid FROM `users` WHERE `email`=emailUser LIMIT 1;
+	SELECT `id_user` INTO uid FROM `users` WHERE `email`=emailUser;
 	
 	RETURN uid;
 END;
@@ -53,7 +53,7 @@ CREATE FUNCTION IF NOT EXISTS getStudentId (emailUser char(30))
 BEGIN
   DECLARE sid int;
   
-  SELECT `id_user` INTO sid FROM `users` WHERE `email`=emailUser AND `id_type_user`=3 OR `id_type_user`=2 LIMIT 1;
+  SELECT `id_user` INTO sid FROM `users` WHERE `email`=emailUser AND (`id_type_user`=3 OR `id_type_user`=2);
   
   RETURN sid;
 END;

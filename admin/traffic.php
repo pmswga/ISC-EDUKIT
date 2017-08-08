@@ -14,8 +14,17 @@
       $studentsByGroup[$childrens[$i]->getGroup()->getNumberGroup()][] = $childrens[$i];
     }
     
+    
     $CT->assign("studentsByGroup", $studentsByGroup);
   
+    if (!empty($_POST['selectStudent'])) {
+      $emailStudent = $_POST['emailStudent']; 
+      
+      $traffic = $UM->query("call getTrafficStudent(:s_email)", [":s_email" => $emailStudent]);
+      
+      $CT->assign("traffic", $traffic);
+      $CT->assign("test", "Hello");
+    }
   
 		$CT->Show("traffic.tpl");
 		

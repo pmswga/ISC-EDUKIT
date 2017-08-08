@@ -6,6 +6,30 @@
         <div class="col-md-6">
           <fieldset>
             <legend>Посещаемость студента</legend>
+            <div id="student_traffic">
+              {if $traffic != NULL}
+                <table class="table table-bordered">
+                  <tbody>
+                    <tr>
+                      <th>Дата</th>
+                      <th>Всего пар</th>
+                      <th>Посещено</th>
+                      <th>Пропущено</th>
+                    </tr>
+                    {foreach from=$traffic item=traffic_entry}
+                      <tr>
+                        <td>{$traffic_entry['date_visit']|date_format:'d.m.Y'}</td>
+                        <td>{$traffic_entry['count_all_hours']/2}</td>
+                        <td>{$traffic_entry['count_passed_hours']/2}</td>
+                        <td>{($traffic_entry['count_all_hours']-$traffic_entry['count_passed_hours'])/2}</td>
+                      </tr>
+                    {/foreach}
+                  </tbody>
+                </table>
+              {else}
+                <h3 align="center">Выберете студента, чтобы просмотреть его посещаемость</h3>
+              {/if}
+            </div>
           </fieldset>
         </div>
         <div class="col-md-6">
@@ -32,19 +56,18 @@
                               <div class="panel-body"><table class="table table-bordered">
                                 <table class="table table-bordered">
                                   <tr>
-                                    <th>Фамилия</th>
-                                    <th>Имя</th>
-                                    <th>Отчество</th>
+                                    <th>ФИО</th>
                                     <th>E-mail</th>
                                     <th>Выбрать</th>
                                   </tr>
                                   {foreach from=$student item=one_student}
                                     <tr>
-                                      <td>{$one_student->getSn()}</td>
-                                      <td>{$one_student->getFn()}</td>
-                                      <td>{$one_student->getPt()}</td>
+                                      <td>{$one_student->getSn()} {$one_student->getFn()} {$one_student->getPt()}</td>
                                       <td>{$one_student->getEmail()}</td>
-                                      <td><input type="checkbox" value="{$one_student->getEmail()}" name="childs[]" class="form-control"></td>
+                                      <td>
+                                        <input type="hidden" name="emailStudent" value="{$one_student->getEmail()}">
+                                        <input type="submit" name="selectStudent" value="Выбрать" class="btn btn-primary">
+                                      </td>
                                     </tr>
                                   {/foreach}
                                 </table>
@@ -64,4 +87,13 @@
         </div>
       </div>
     </div>
+    
+    
+    <script type="text/javascript">
+      
+      $("[data-toggle='tooltip']").tooltip();
+      $("[data-toggle='popover']").popover();
+    
+    </script>
+    
 {include file="html/end.tpl"}

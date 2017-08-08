@@ -83,10 +83,10 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td>№</td>
-                      <td>Сообщение</td>
-                      <td>Дата</td>
-                      <td>Выбрать</td>
+                      <th>№</th>
+                      <th>Сообщение</th>
+                      <th>Дата</th>
+                      <th>Выбрать</th>
                     </tr>
                     {foreach from=$logs item=log}
                       <tr>
