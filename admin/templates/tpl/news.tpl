@@ -6,22 +6,26 @@
       {include file="html/menu.tpl"}
       <div class="row">
         <div class="col-md-8">
-          <table class="table table-bordered">
-            <tr>
-              <th>Заголовок</th>
-              <th>Автор</th>
-              <th>Дата публикации</th>
-              <th>Выбрать</th>
-            </tr>
-            {foreach from=$news item=one_news}
+          {if $news != NULL}          
+            <table class="table table-bordered">
               <tr>
-                <td>{$one_news->getCaption()}</td>
-                <td>{$one_news->getContent()}</td>
-                <td>{$one_news->getDatePublication()}</td>
-                <td><input type="checkbox" name="select_news[]" value="{$one_news->getNewsID()}" class="form-control"></td>
+                <th>Заголовок</th>
+                <th>Автор</th>
+                <th>Дата публикации</th>
+                <th>Выбрать</th>
               </tr>
-            {/foreach}
-          </table>
+              {foreach from=$news item=one_news}
+                <tr>
+                  <td>{$one_news->getCaption()}</td>
+                  <td>{$one_news->getContent()}</td>
+                  <td>{$one_news->getDatePublication()}</td>
+                  <td><input type="checkbox" name="select_news[]" value="{$one_news->getNewsID()}" class="form-control"></td>
+                </tr>
+              {/foreach}
+            </table>
+          {else}
+            <h3 align="center">Новостей нет</h3>
+          {/if}
         </div>
         <div class="col-md-4">
           <input type="submit" name="changeNewsButton" value="Изменить" class="btn btn-warning btn-block">

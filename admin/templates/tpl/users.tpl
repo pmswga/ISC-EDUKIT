@@ -64,18 +64,22 @@
                 <fieldset>
                   <legend>Удалить пользователя</legend>
                   <div class="row">
-                    <form name="removeUserForm" method="POST" class="form-horizontal">
-                      <div class="col-md-10">
-                        <select name="user" class="form-control">
-                          {foreach from=$allUsers item=user}
-                            <option value="{$user->getEmail()}">{$user->getSn()} {$user->getFn()} {$user->getPt()}</option>
-                          {/foreach}
-                        </select>
-                      </div>
-                      <div class="col-md-2">
-                        <input type="submit" name="removeUserButton" value="Удалить" class="btn btn-danger">
-                      </div>
-                    </form>
+                    {if $allUsers != NULL}
+                      <form name="removeUserForm" method="POST" class="form-horizontal">
+                        <div class="col-md-10">
+                          <select name="user" class="form-control">
+                            {foreach from=$allUsers item=user}
+                              <option value="{$user->getEmail()}">{$user->getSn()} {$user->getFn()} {$user->getPt()}</option>
+                            {/foreach}
+                          </select>
+                        </div>
+                        <div class="col-md-2">
+                          <input type="submit" name="removeUserButton" value="Удалить" class="btn btn-danger">
+                        </div>
+                      </form>
+                    {else}
+                      <h3 align="center">Пользователи не зарегистрированы</h3>
+                    {/if}
                   </div>
                 </fieldset>
               </div>

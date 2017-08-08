@@ -12,97 +12,96 @@
         </ul>
       </div>
       <div class="col-md-10">
-        <div class="tab-content">
-          <div class="tab-pane active" id="admins">
-						<div class="row">
-							<div class="col-md-8">
-                <form name="deleteAdminsForm" method="POST">
-                  <table class="table table-bordered">
-                    <thead>
-                      <input type="submit" name="deleteAdminsButton" value="Удалить" class="btn btn-danger">
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th>Фамилия</th>
-                        <th>Имя</th>
-                        <th>Отчество</th>
-                        <th>Email</th>
-                        <th>Выбрать</th>
-                      </tr>
-                      {foreach from=$admins item=admin}
+        <form name="deleteAdminsForm" method="POST">
+          <div class="tab-content">
+            <div class="tab-pane active" id="admins">
+              <div class="row">
+                <div class="col-md-8">
+                    <table class="table table-bordered">
+                      <tbody>
                         <tr>
-                          <td>{$admin->getSn()}</td>
-                          <td>{$admin->getFn()}</td>
-                          <td>{$admin->getPt()}</td>
-                          <td>{$admin->getEmail()}</td>
-                          <td><input type="checkbox" name="admins[]" value="{$admin->getEmail()}" class="form-control"></td>
+                          <th>Фамилия</th>
+                          <th>Имя</th>
+                          <th>Отчество</th>
+                          <th>Email</th>
+                          <th>Выбрать</th>
                         </tr>
-                      {/foreach}
-                    </tbody>
-                  </table>
-                </form>
-							</div>
-							<div class="col-md-4">
-								<fieldset>
-									<legend>Добавить администратора</legend>
-									<form name="addAdminForm" method="POST">
-										<div class="form-group">
-											<label>Фамилия</label>
-											<input type="text" name="sn" class="form-control">
-										</div>
-										<div class="form-group">
-											<label>Имя</label>
-											<input type="text" name="fn" class="form-control">
-										</div>
-										<div class="form-group">
-											<label>Отчество</label>
-											<input type="text" name="pt" class="form-control">
-										</div>
-										<div class="form-group">
-											<label>Email</label>
-											<input type="email" name="email" class="form-control">
-										</div>
-										<div class="form-group">
-											<label>Пароль</label>
-											<input type="password" name="paswd" class="form-control">
-										</div>
-										<div class="form-group">
-											<input type="submit" name="addAdminButton" value="Зарегистрировать" class="btn btn-primary pull-right">
-										</div>
-									</form>
-								</fieldset>
-							</div>
-						</div>
-          </div>
-          <div class="tab-pane" id="data">
-            3
-          </div>
-          <div class="tab-pane" id="logs">
-            <form name="deleteLogsForm" method="POST">              
-              <table class="table table-bordered">
-                <thead>
-                  <input type="submit" name="deleteLogsButton" value="Удалить" class="btn btn-danger">
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>№</td>
-                    <td>Сообщение</td>
-                    <td>Дата</td>
-                    <td>Выбрать</td>
-                  </tr>
-                  {foreach from=$logs item=log}
+                        {foreach from=$admins item=admin}
+                          <tr>
+                            <td>{$admin->getSn()}</td>
+                            <td>{$admin->getFn()}</td>
+                            <td>{$admin->getPt()}</td>
+                            <td>{$admin->getEmail()}</td>
+                            <td><input type="checkbox" name="admins[]" value="{$admin->getEmail()}" class="form-control"></td>
+                          </tr>
+                        {/foreach}
+                      </tbody>
+                    </table>
+                </div>
+                <div class="col-md-4">
+                  <input type="submit" name="deleteAdminsButton" value="Удалить" class="btn btn-danger btn-block">
+                  <br>
+                  <fieldset>
+                    <legend>Добавить администратора</legend>
+                    <form name="addAdminForm" method="POST">
+                      <div class="form-group">
+                        <label>Фамилия</label>
+                        <input type="text" name="sn" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <label>Имя</label>
+                        <input type="text" name="fn" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <label>Отчество</label>
+                        <input type="text" name="pt" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <label>Пароль</label>
+                        <input type="password" name="paswd" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <input type="submit" name="addAdminButton" value="Зарегистрировать" class="btn btn-primary pull-right">
+                      </div>
+                    </form>
+                  </fieldset>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="data">
+              3
+            </div>
+            <div class="tab-pane" id="logs">
+              <form name="deleteLogsForm" method="POST">              
+                <table class="table table-bordered">
+                  <thead>
+                    <input type="submit" name="deleteLogsButton" value="Удалить" class="btn btn-danger">
+                  </thead>
+                  <tbody>
                     <tr>
-                        <td>{$log['id']}</td>
-                        <td>{$log['message']}</td>
-                        <td>{$log['date']|date_format:"%d.%m.%Y"}</td>
-                        <td><input type="checkbox" name="logs[]" value="{$log['id']}" class="form-control"></td>
+                      <td>№</td>
+                      <td>Сообщение</td>
+                      <td>Дата</td>
+                      <td>Выбрать</td>
                     </tr>
-                  {/foreach}
-                </tbody>
-              </table>
-            </form>
+                    {foreach from=$logs item=log}
+                      <tr>
+                          <td>{$log['id']}</td>
+                          <td>{$log['message']}</td>
+                          <td>{$log['date']|date_format:"%d.%m.%Y"}</td>
+                          <td><input type="checkbox" name="logs[]" value="{$log['id']}" class="form-control"></td>
+                      </tr>
+                    {/foreach}
+                  </tbody>
+                </table>
+              </form>
+            </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>
