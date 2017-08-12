@@ -455,11 +455,7 @@
             
 						$last_id = $this->query("SELECT LAST_INSERT_ID() as last_id FROM `student_tests`");
 						$last_id = $last_id[0]['last_id'];
-            
-            echo $this->dbc()->lastInsertId()."<br>";
-            
-            exit;
-            
+                        
             $result = true;
             for ($i = 0; $i < count($answers); $i++) {
               

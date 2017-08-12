@@ -28,6 +28,7 @@ DROP PROCEDURE IF EXISTS getAllAdmins;
 DROP PROCEDURE IF EXISTS getAllUsers;
 DROP PROCEDURE IF EXISTS getAllStudents;
 DROP PROCEDURE IF EXISTS getAllElders;
+DROP PROCEDURE IF EXISTS getAllStudentsElders;
 DROP PROCEDURE IF EXISTS getAllParents;
 DROP PROCEDURE IF EXISTS getAllTeachers;
 
@@ -187,6 +188,13 @@ END;
 CREATE PROCEDURE getAllElders()
 BEGIN
 	SELECT * FROM `v_Elders`;
+END;
+
+CREATE PROCEDURE getAllStudentsElders()
+BEGIN
+	(select * from `v_Students`)
+	union all
+	(select * from `v_Elders`);
 END;
 
 CREATE PROCEDURE getAllParents()

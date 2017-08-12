@@ -8,7 +8,6 @@
         <ul class="nav nav-tabs tabs-left">
           <li class="active"><a href="#addUser" data-toggle="tab">Добавить</a></li>
           <li><a href="#viewUsers" data-toggle="tab">Просмотр</a></li>
-          <li><a href="#grant" data-toggle="tab">Старосты</a></li>
           <li><a href="#editUser" data-toggle="tab">Изменить</a></li>
         </ul>
       </div>
@@ -168,7 +167,12 @@
                                         <th>Телефон</th>
                                       </tr>
                                       {foreach from=$student item=one_student}
-                                        <tr>
+                                        {if $one_student->getUserType() == 2}
+                                          {$css = "background-color: crimson;color: white;"}
+                                        {else}
+                                          {$css = ""}
+                                        {/if}
+                                        <tr style="{$css}">
                                           <td>{$i}</td>
                                           <td>{$one_student->getSn()}</td>
                                           <td>{$one_student->getFn()}</td>
@@ -234,72 +238,43 @@
                   </div>
                   <div class="tab-pane" id="elders">
                     <div class="row">
-                      <div class="col-md-12">
+                      <div class="col-md-6">
                         <br>
-                        {if $elders != NULL}
-                          <table class="table table-bordered">
-                            <tr>
-                              <th>Группа</th>
-                              <th>ФИО</th>
-                              <th>E-mail</th>
-                            </tr>
-                            {foreach from=$elders item=elder}
-                              <tr>
-                                <td>{$elder->getGroup()->getNumberGroup()}</td>
-                                <td>{$elder->getSn()} {$elder->getFn()} {$elder->getPt()}</td>
-                                <td>{$elder->getEmail()}</td>
-                              </tr>
-                            {/foreach}
-                          </table>
-                        {else}
-                          <h3>Старосты не назначены</h3>
-                        {/if}
+                        <form name="grantElderForm" method="POST">
+                          <div class="form-group">
+                            <label>Студент</label>
+                            <select name="studentEmail" class="form-control">
+                              {foreach from=$students item=student}
+                                <option value="{$student->getEmail()}">{$student->getSn()} {$student->getFn()} {$student->getPt()} | <small>{$student->getGroup()->getNumberGroup()}</small></option>
+                              {/foreach}
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <input type="submit" name="grantElderButton" value="Назначить" class="btn btn-primary">
+                          </div>
+                        </form>
+                      </div>
+                      <div class="col-md-6">
+                        <br>
+                        <form name="revokeElderForm" method="POST">
+                          <div class="form-group">
+                            <label>Студент</label>
+                            <select name="studentEmail" class="form-control">
+                              {foreach from=$elders item=elder}
+                                <option value="{$elder->getEmail()}">{$elder->getSn()} {$elder->getFn()} {$elder->getPt()} | <small>{$elder->getGroup()->getNumberGroup()}</small></option>
+                              {/foreach}
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <input type="submit" name="revokeElderButton" value="Разжаловать" class="btn btn-primary">
+                          </div>
+                        </form>
                       </div>
                     </div>
                   </div>
                 </div>
 							</div>
 						</div>
-          </div>
-          <div class="tab-pane" id="grant">
-            <div class="row">
-              <div class="col-md-6">
-                <fieldset>
-                  <legend>Назначить</legend>
-                  <form name="grantElderForm" method="POST">
-                    <div class="form-group">
-                      <label>Студент</label>
-                      <select name="studentEmail" class="form-control">
-												{foreach from=$students item=student}
-													<option value="{$student->getEmail()}">{$student->getSn()} {$student->getFn()} {$student->getPt()} | <small>{$student->getGroup()->getNumberGroup()}</small></option>
-												{/foreach}
-											</select>
-                    </div>
-                    <div class="form-group">
-                      <input type="submit" name="grantElderButton" value="Назначить" class="btn btn-primary">
-                    </div>
-                  </form>
-                </fieldset>
-              </div>
-              <div class="col-md-6">
-                <fieldset>
-                  <legend>Разжаловать</legend>
-                  <form name="revokeElderForm" method="POST">
-                    <div class="form-group">
-                      <label>Студент</label>
-                      <select name="studentEmail" class="form-control">
-												{foreach from=$elders item=elder}
-													<option value="{$elder->getEmail()}">{$elder->getSn()} {$elder->getFn()} {$elder->getPt()} | <small>{$elder->getGroup()->getNumberGroup()}</small></option>
-												{/foreach}
-											</select>
-                    </div>
-                    <div class="form-group">
-                      <input type="submit" name="revokeElderButton" value="Разжаловать" class="btn btn-primary">
-                    </div>
-                  </form>
-                </fieldset>
-              </div>
-            </div>
           </div>
           <div class="tab-pane" id="editUser">
             4

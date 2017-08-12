@@ -203,7 +203,7 @@
                 $teacher['fn'],
                 $teacher['pt'],
                 $teacher['email'],
-                $teacher['passwd'],
+                $teacher['paswd'],
                 (int)$teacher['type_user']
               ),
               $teacher['info']
@@ -481,6 +481,36 @@
     public function getAllElders()
     {
       $db_students = $this->query("call getAllElders()");
+      
+      $students = array();
+      foreach ($db_students as $db_student) {
+        $spec = new Specialty($db_student['spec_code'], $db_student['spec_descp'], "none");
+        $spec->setSpecialtyID((int)$db_student['spec_id']);
+        
+        $group = new Group($db_student['grp'], $spec, $db_student['edu_year'], (int)$db_student['is_budget']);
+        $group->setGroupID((int)$db_student['grp_id']);
+        
+        $students[] = new Student(
+          new User(
+            $db_student['sn'],
+            $db_student['fn'],
+            $db_student['pt'],
+            $db_student['email'],
+            $db_student['paswd'],
+            (int)$db_student['type_user']
+          ),
+          $db_student['home_address'],
+          $db_student['cell_phone'],
+          $group
+        );
+      }
+      
+      return $students;
+    }
+    
+    public function getAllStudentsElders()
+    {
+      $db_students = $this->query("call getAllStudentsElders()");
       
       $students = array();
       foreach ($db_students as $db_student) {

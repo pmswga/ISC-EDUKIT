@@ -70,10 +70,6 @@
               $mark
             );
             
-            CTools::var_dump($new_student_answer);
-            
-            echo "<br>------------<br>";
-            
             if ($TM->putStudentAnswer($new_student_answer)) {
               CTools::Message("Результаты записаны");
             } else {

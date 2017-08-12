@@ -17,7 +17,7 @@
 		$GM = new GroupManager($DB);
 		$SM = new SubjectManager($DB);
 		
-		$all_students = $UM->getAllStudents();
+		$all_students = $UM->getAllStudentsElders();
 		$studentsByGroup = array();
 		for ($i = 0; $i < count($all_students); $i++) {
 			$studentsByGroup[$all_students[$i]->getGroup()->getNumberGroup()][] = $all_students[$i];
@@ -30,7 +30,6 @@
 		$CT->assign("elders", $UM->getAllElders());
 		$CT->assign("parents", $UM->getAllParents());
 		$CT->assign("allUsers", $UM->getAllUsers());
-		// $CT->assign("typeUsers", $UM->getTypeUsers());
 		$CT->assign("studentsByGroup", $studentsByGroup);
 		
 		$CT->Show("users.tpl");
