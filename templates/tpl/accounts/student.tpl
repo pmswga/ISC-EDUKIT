@@ -92,27 +92,24 @@
 					<h2>Посещаемость</h2>
           <div id="student_traffic">
             {if $traffic != NULL}
-              {foreach from=$traffic item=traffic_entry}
-                <div class="cube" 
-                  data-toggle="popover" 
-                  data-placement="top"                  
-                  data-html="true"                  
-                  title="{$traffic_entry['date_visit']|date_format:'d.m.Y'}" 
-                  data-content="
-                    <table class='table table-border'>
-                      <tr>
-                        <td>Пар</td>
-                        <td>Посещено</td>
-                        <td>Пропущено</td>
-                      </tr>
-                      <tr>
-                        <td>{$traffic_entry['count_all_hours']/2}</td>
-                        <td>{$traffic_entry['count_passed_hours']/2}</td>
-                        <td>{($traffic_entry['count_all_hours']-$traffic_entry['count_passed_hours'])/2}</td>
-                      </tr>
-                    </table>">
-                </div>
-              {/foreach}
+              <table class="table table-border">
+                <tbody>
+                  <tr>
+                    <th>Дата</th>
+                    <th>Всего пар</th>
+                    <th>Посещено</th>
+                    <th>Пропущено</th>
+                  </tr>
+                  {foreach from=$traffic item=traffic_entry}
+                    <tr>
+                      <td>{$traffic_entry['date_visit']|date_format:'d.m.Y'}</td>
+                      <td>{$traffic_entry['count_all_hours']/2}</td>
+                      <td>{$traffic_entry['count_passed_hours']/2}</td>
+                      <td>{($traffic_entry['count_all_hours']-$traffic_entry['count_passed_hours'])/2}</td>
+                    </tr>
+                  {/foreach}
+                </tbody>
+              </table>
             {else}
               <h3>Похоже, что вы вообще не посещали колледж...</h3>
             {/if}

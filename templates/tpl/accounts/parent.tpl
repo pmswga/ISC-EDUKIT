@@ -23,6 +23,7 @@
 					<h2>Мои дети</h2>
 					<div class="panel-group" id="accordion">
 						{if $childs != NULL}
+              {$i = 0}
 							{foreach from=$childs item=child}
 								<div class="panel panel-default">
 									<div class="panel-heading">
@@ -109,36 +110,33 @@
                             <div class="panel panel-primary">
                               <div class="panel-heading">
                                 <h4 class="panel-title">
-                                  <a data-toggle="collapse href="#traffic">Посещаемость</a>
+                                  <a data-toggle="collapse" href="#traffic_{$i}">Результаты тестирования</a>
                                 </h4>
                               </div>
-                              <div class="panel-collapse collapse" id="traffic">
+                              <div class="panel-collapse collapse" id="traffic_{$i}">
                                 <div class="panel-body">
                                   <div class="row">
                                     <div class="col-md-12">
                                       <div id="student_traffic">
                                         {if $child['traffic'] != NULL}
-                                          {foreach from=$child['traffic'] item=traffic_entry}
-                                            <div class="cube" 
-                                              data-toggle="popover" 
-                                              data-placement="top"                  
-                                              data-html="true"                  
-                                              title="{$traffic_entry['date_visit']|date_format:'d.m.Y'}" 
-                                              data-content="
-                                                <table class='table table-border'>
-                                                  <tr>
-                                                    <td>Пар</td>
-                                                    <td>Посещено</td>
-                                                    <td>Пропущено</td>
-                                                  </tr>
-                                                  <tr>
-                                                    <td>{$traffic_entry['count_all_hours']/2}</td>
-                                                    <td>{$traffic_entry['count_passed_hours']/2}</td>
-                                                    <td>{($traffic_entry['count_all_hours']-$traffic_entry['count_passed_hours'])/2}</td>
-                                                  </tr>
-                                                </table>">
-                                            </div>
-                                          {/foreach}
+                                          <table class="table table-border">
+                                            <tbody>
+                                              <tr>
+                                                <th>Дата</th>
+                                                <th>Всего пар</th>
+                                                <th>Посещено</th>
+                                                <th>Пропущено</th>
+                                              </tr>
+                                              {foreach from=$child['traffic'] item=traffic_entry}
+                                                <tr>
+                                                  <td>{$traffic_entry['date_visit']|date_format:'d.m.Y'}</td>
+                                                  <td>{$traffic_entry['count_all_hours']/2}</td>
+                                                  <td>{$traffic_entry['count_passed_hours']/2}</td>
+                                                  <td>{($traffic_entry['count_all_hours']-$traffic_entry['count_passed_hours'])/2}</td>
+                                                </tr>
+                                              {/foreach}
+                                            </tbody>
+                                          </table>
                                         {else}
                                           <h3>Похоже, что ваш ребёнок вообще не посещали колледж...</h3>
                                         {/if}
@@ -154,6 +152,7 @@
 										</div>
 									</div>
 								</div>
+                {$i = $i + 1}
 							{/foreach}
 						{/if}
 					</div>

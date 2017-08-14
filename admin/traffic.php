@@ -23,7 +23,6 @@
       $traffic = $UM->query("call getTrafficStudent(:s_email)", [":s_email" => $emailStudent]);
       
       $CT->assign("traffic", $traffic);
-      $CT->assign("test", "Hello");
     }
   
 		$CT->Show("traffic.tpl");

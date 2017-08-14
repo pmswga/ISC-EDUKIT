@@ -6,24 +6,30 @@
 		<form name="sendNotificationForm" method="POST">
 			<div class="row">
 				<div class="col-md-6">
-					<table class="table table-border">
-						<tr>
-							<th>Фамилия</th>
-							<th>Имя</th>
-							<th>Отчество</th>
-							<th>E-mail</th>
-							<th>Выбрать</th>
-						</tr>
-						{foreach from=$parents item=parent}
-							<tr>
-								<td>{$parent->getSn()}</td>
-								<td>{$parent->getFn()}</td>
-								<td>{$parent->getPt()}</td>
-								<td>{$parent->getEmail()}</td>
-								<td><input type="checkbox" name="select_parent[]" value="{$parent->getEmail()}" class="form-control"></td>
-							</tr>
-						{/foreach}
-					</table>
+          <fieldset>
+            <legend>Родители</legend>
+            <table class="table table-border">
+              <tr>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Отчество</th>
+                <th>E-mail</th>
+                <th>Выбрать</th>
+              </tr>
+              {foreach from=$parents item=parent}
+                <tr>
+                  <td>{$parent->getSn()}</td>
+                  <td>{$parent->getFn()}</td>
+                  <td>{$parent->getPt()}</td>
+                  <td>{$parent->getEmail()}</td>
+                  <td><input type="checkbox" name="select_parent[]" value="{$parent->getEmail()}" class="form-control"></td>
+                </tr>
+              {/foreach}
+            </table>
+          </fieldset>
+          <fieldset>
+            <legend>Студенты</legend>
+          </fieldset>
 				</div>
 				<div class="col-md-6">
 						<div class="form-group">
