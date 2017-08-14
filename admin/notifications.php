@@ -8,16 +8,16 @@
 		$Notificator = new PHPMailer;
 		
 		$CT->assign("parents", $UM->getAllParents());
+    $CT->assign("students", $UM->getAllStudentsElders());
 		$CT->Show("notifications.tpl");
 		
 		if (!empty($_POST['sendNotificationButton'])) {
-			$select_parents = $_POST['select_parent'];
+			$select_parents = $_POST['select_user'];
 			$subject = $_POST['subject'];
 			$notification = $_POST['message'];
 			
 			$Notificator->setFrom("edukit@noreply.com", "Гусева Елена Львовна");
-			
-			
+						
 			for ($i = 0; $i < count($select_parents); $i++) {
 				$Notificator->addAddress($select_parents[$i]);
 			}
@@ -27,15 +27,30 @@
 			$Notificator->Subject = $subject;
 			$Notificator->Body    = $notification;
 			
+      for ($i = 0; $i < count($_FILES['userfile']['tmp_name']); $i++) {
+        $uploadFile = tempnam(sys_get_temp_dir(), sha1($_FILES['userfile']['name'][$i]));
+        $filename = $_FILES['userfile']['name'][$i];
+        
+        if (move_uploaded_file($_FILES['userfile']['tmp_name'][$i], $uploadFile)) {
+          $Notificator->addAttachment($uploadFile, $filename);
+        } else {
+          CTools::Message("Erro load file");
+        }
+        
+      }
+      
 			if ($Notificator->send()) {
 				CTools::Message("Уведомление отправлено");
 			} else {
 				CTools::Message($Notificator->ErrorInfo);
 			}
-			
+      
+      CTools::Redirect("notifications.php");
 		}
 		
 	}
-	else CTools::Redirect("login.php");
+	else {    
+    CTools::Redirect("login.php");
+  } 
 
 ?>

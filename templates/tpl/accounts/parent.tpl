@@ -77,7 +77,7 @@
                             <div class="panel panel-primary">
                               <div class="panel-heading">
                                 <h4 class="panel-title">
-                                  <a data-toggle="collapse" data-parent="#detail_info" href="#record">Успеваемость</a>
+                                  <a data-toggle="collapse" data-parent="#detail_info" href="#record">Результаты тестирования</a>
                                 </h4>
                               </div>
                               <div class="panel-collapse collapse" id="record">
@@ -110,7 +110,7 @@
                             <div class="panel panel-primary">
                               <div class="panel-heading">
                                 <h4 class="panel-title">
-                                  <a data-toggle="collapse" href="#traffic_{$i}">Результаты тестирования</a>
+                                  <a data-toggle="collapse" href="#traffic_{$i}">Посещаемость</a>
                                 </h4>
                               </div>
                               <div class="panel-collapse collapse" id="traffic_{$i}">

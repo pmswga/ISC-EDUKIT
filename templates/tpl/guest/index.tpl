@@ -1,4 +1,4 @@
-{assign var="title" value="EDUKIT | Информационно-образовательный портал"}
+{assign var="title" value="Информационно-образовательный портал"}
 {include file='html/begin.tpl'}
 		<div class="container-fluid">
 			{include file='guest/menu.tpl'}

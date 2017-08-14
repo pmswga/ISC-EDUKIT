@@ -106,18 +106,14 @@
                           <table class="table table-bordered">
                             <tr>
                               <th>№</th>
-                              <th>Фамилия</th>
-                              <th>Имя</th>
-                              <th>Отчество</th>
+                              <th>ФИО</th>
                               <th>E-mail</th>
                               <th>Предметы</th>
                             </tr>
                             {foreach from=$teachers item=teacher}
                               <tr>
                                 <td>{$i}</td>
-                                <td>{$teacher->getSn()}</td>
-                                <td>{$teacher->getFn()}</td>
-                                <td>{$teacher->getPt()}</td>
+                                <td>{$teacher->getSn()} {$teacher->getFn()} {$teacher->getPt()}</td>
                                 <td>{$teacher->getEmail()}</td>
                                 <td>
                                   {if $teacher->getSubjects() != NULL}
@@ -159,9 +155,7 @@
                                     <table class="table table-bordered">
                                       <tr>
                                         <th>№</th>
-                                        <th>Фамилия</th>
-                                        <th>Имя</th>
-                                        <th>Отчество</th>
+                                        <th>ФИО</th>
                                         <th>E-mail</th>
                                         <th>Адрес</th>
                                         <th>Телефон</th>
@@ -174,9 +168,7 @@
                                         {/if}
                                         <tr style="{$css}">
                                           <td>{$i}</td>
-                                          <td>{$one_student->getSn()}</td>
-                                          <td>{$one_student->getFn()}</td>
-                                          <td>{$one_student->getPt()}</td>
+                                          <td>{$one_student->getSn()} {$one_student->getFn()} {$one_student->getPt()}</td>
                                           <td>{$one_student->getEmail()}</td>
                                           <td>{$one_student->getHomeAddress()}</td>
                                           <td>{$one_student->getCellPhone()}</td>
@@ -202,9 +194,7 @@
                         {if $parents != NULL}
                           <table class="table table-bordered">
                             <tr>
-                              <th>Фамилия</th>
-                              <th>Имя</th>
-                              <th>Отчество</th>
+                              <th>ФИО</th>
                               <th>E-mail</th>
                               <th>Возраст</th>
                               <th>Образование</th>
@@ -213,9 +203,7 @@
                             </tr>
                             {foreach from=$parents item=parent}
                               <tr>
-                                <td>{$parent->getFn()}</td>
-                                <td>{$parent->getSn()}</td>
-                                <td>{$parent->getPt()}</td>
+                                <td>{$parent->getSn()} {$parent->getFn()} {$parent->getPt()}</td>
                                 <td>{$parent->getEmail()}</td>
                                 <td>{$parent->getAge()}</td>
                                 <td>{$parent->getEducation()}</td>
