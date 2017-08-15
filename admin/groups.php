@@ -17,8 +17,9 @@
 		$CT->Show("groups.tpl");
 		
 		if (!empty($_POST['addGroupButton'])) {
-			$data = CForm::getData(["group", "edu_year", "spec", "payment"]);
-			
+			$data = CForm::getData(["group", "edu_year_1", "edu_year_2", "spec", "payment"]);
+			$data['edu_year'] = $data['edu_year_1']."/".$data['edu_year_2'];
+      
 			$new_grp = new Group($data['group'], $data['spec'], $data["edu_year"], $data['payment']);
 			
 			if ($GM->add($new_grp)) {

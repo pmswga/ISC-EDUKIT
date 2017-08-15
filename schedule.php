@@ -1,34 +1,25 @@
 <?php
 	require_once "start.php";
-	
   
-  $deafult_group = current($GM->getAllGroups())->getGroupID();
+  $groups = $GM->getAllGroups();
   
-  $data = $UM->query("call getScheduleGroup(:g_id)", [":g_id" => $deafult_group]);
-  
-  $dataByGroup = array();
-  foreach ($data as $d) {
-    $dataByGroup[$d['group']][] = $d;
-  }
-  
-  $dataByGroupByDay = array();
-  foreach ($dataByGroup as $key => $value) {
+  if (!empty($groups[0])) {    
+    $deafult_group = $groups[0]->getGroupID();
     
-    foreach ($value as $day) {      
-      $dataByGroupByDay[$key][$day['day']][] = $day;
+    if (!empty($_POST['selectGroupButton'])) {
+      $group = $_POST['group'];
+      
+      $data = $SHM->getScheduleGroup($group);
+      
+      $CT->assign("schedules", $data);
+      
+    } else {
+      $data = $SHM->getScheduleGroup($deafult_group);
+      
+      $CT->assign("schedules", $data);
     }
-    
-  }
   
-  $CT->assign("groups", $GM->getAllGroups());
-  
-  if (!empty($_POST['selectGroupButton'])) {
-    $group = $_POST['group'];
-    
-    $CT->assign("schedules", $dataByGroupByDay);
-  } else {
-    
-    $CT->assign("schedules", $dataByGroupByDay);
+    $CT->assign("groups", $groups);
   }
   
 	if (!isset($_SESSION['user'])) {

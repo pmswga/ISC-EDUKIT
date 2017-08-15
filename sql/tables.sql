@@ -269,7 +269,15 @@ CREATE TABLE IF NOT EXISTS `admin_news` (
 */
 CREATE TABLE IF NOT EXISTS `schedule` (
   id_grp int,
-  day int,
+  _day int,
+  pair int,
+  subject int NOT NULL,
+  PRIMARY KEY(id_grp, pair, _day)
+) ENGINE = InnoDB CHARACTER SET = UTF8;
+
+CREATE TABLE IF NOT EXISTS `changed_schedule` (
+  id_grp int,
+  _day date,
   pair int,
   subject int NOT NULL,
   PRIMARY KEY(id_grp, pair)

@@ -272,10 +272,10 @@ CREATE TABLE IF NOT EXISTS `admin_news` (
 */
 CREATE TABLE IF NOT EXISTS `schedule` (
   id_grp int,
-  day int,
+  _day int,
   pair int,
   subject int NOT NULL,
-  PRIMARY KEY(id_grp, pair)
+  PRIMARY KEY(id_grp, pair, _day)
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
 /*----------------[constraints.sql]----------------*/
@@ -416,7 +416,7 @@ CREATE FUNCTION IF NOT EXISTS getUserId (emailUser char(30))
 BEGIN
 	DECLARE uid int;
 	
-	SELECT `id_user` INTO uid FROM `users` WHERE `email`=emailUser LIMIT 1;
+	SELECT `id_user` INTO uid FROM `users` WHERE `email`=emailUser;
 	
 	RETURN uid;
 END;
@@ -426,7 +426,7 @@ CREATE FUNCTION IF NOT EXISTS getStudentId (emailUser char(30))
 BEGIN
   DECLARE sid int;
   
-  SELECT `id_user` INTO sid FROM `users` WHERE `email`=emailUser AND `id_type_user`=3 OR `id_type_user`=2 LIMIT 1;
+  SELECT `id_user` INTO sid FROM `users` WHERE `email`=emailUser AND (`id_type_user`=3 OR `id_type_user`=2);
   
   RETURN sid;
 END;
@@ -1791,6 +1791,7 @@ DROP PROCEDURE IF EXISTS getAllAdmins;
 DROP PROCEDURE IF EXISTS getAllUsers;
 DROP PROCEDURE IF EXISTS getAllStudents;
 DROP PROCEDURE IF EXISTS getAllElders;
+DROP PROCEDURE IF EXISTS getAllStudentsElders;
 DROP PROCEDURE IF EXISTS getAllParents;
 DROP PROCEDURE IF EXISTS getAllTeachers;
 
@@ -1828,6 +1829,11 @@ END;
 
 CREATE PROCEDURE addTeacher(sn char(30), fn char(30), pt char(32), t_email char(255), paswd char(32), info text)
 BEGIN
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+	BEGIN
+		ROLLBACK;
+	END;
+
 	START TRANSACTION;
 	INSERT INTO `users` (`fn`, `sn`, `pt`, `email`, `passwd`, `id_type_user`) VALUES (fn, sn, pt, t_email, paswd, 1);
 	INSERT INTO `teachers` (`id_teacher`, `info`) VALUES ((SELECT DISTINCT LAST_INSERT_ID() FROM `users`), info);
@@ -1836,14 +1842,24 @@ END;
 
 CREATE PROCEDURE addStudent(sn char(30), fn char(30), pt char(30), s_email char(30), paswd char(32), ha char(255), cp char(30), s_grp int)
 BEGIN
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+	BEGIN
+		ROLLBACK;
+	END;
+    
 	START TRANSACTION;
 	INSERT INTO `users` (`sn`, `fn`, `pt`, `email`, `passwd`, `id_type_user`) VALUES (sn, fn, pt, s_email, paswd, 3);
-	INSERT INTO `students` (`id_student`, `home_address`, `cell_phone`, `grp`) VALUES (getStudentId(s_email), ha, cp, s_grp);
+	INSERT INTO `students` (`id_student`, `home_address`, `cell_phone`, `grp`) VALUES ((select getStudentId(s_email)), ha, cp, s_grp);
 	COMMIT;
 END;
 
 CREATE PROCEDURE addParent(sn char(30), fn char(30), pt char(30), p_email char(30), paswd char(32), p_age int(11), p_education char(50), p_wp char(255), p_post char(255), hp char(30), cp char(30))
 BEGIN
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+	BEGIN
+		ROLLBACK;
+	END;
+    
 	START TRANSACTION;
 	INSERT INTO `users` (`fn`, `sn`, `pt`, `email`, `passwd`, `id_type_user`) VALUES (fn, sn, pt, p_email, paswd, 4);
 	INSERT INTO `parents` (`id_parent`, `age`, `education`, `work_place`, `post`, `home_phone`, `cell_phone`) VALUES (getParentId(p_email), p_age, p_education, p_wp, p_post, hp, cp);
@@ -1935,6 +1951,13 @@ END;
 CREATE PROCEDURE getAllElders()
 BEGIN
 	SELECT * FROM `v_Elders`;
+END;
+
+CREATE PROCEDURE getAllStudentsElders()
+BEGIN
+	(select * from `v_Students`)
+	union all
+	(select * from `v_Elders`);
 END;
 
 CREATE PROCEDURE getAllParents()

@@ -52,7 +52,14 @@
                   </div>
                   <div class="form-group">
                     <label>Года обучения</label>
-                    <input type="text" name="edu_year" class="form-control">
+                    <div class="row">
+                      <div class="col-md-6">                      
+                        <input type="number" name="edu_year_1" min="2010" value="2010" max="2099" class="form-control">
+                      </div>
+                      <div class="col-md-6">
+                        <input type="number" name="edu_year_2" min="2010" value="2011" max="2099" class="form-control">
+                      </div>
+                    </div>
                   </div>
                   <div class="form-group">
                     <label>Специальность</label>

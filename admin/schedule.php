@@ -1,6 +1,6 @@
 <?php
 	require_once "start.php";
-	
+  
   use IEP\Managers\GroupManager;
   use IEP\Managers\SubjectManager;
   use IEP\Managers\ScheduleManager;
@@ -9,18 +9,18 @@
     CTools::Redirect("schedule.php");
   };
   
-	if (isset($_SESSION['admin'])) {	
-	
-		$GM = new GroupManager($DB);
-		$SM = new SubjectManager($DB);
+  if (isset($_SESSION['admin'])) {	
+    $GM = new GroupManager($DB);
+    $SM = new SubjectManager($DB);
     $SH = new ScheduleManager($DB);
-    
+
     $CT->assign("groups", $GM->getAllGroups());
     $CT->assign("subjects", $SM->getAllSubjects());
     $CT->assign("schedules", $SH->getAllScheduleGroup());
+    $CT->assign("date_now", date("d.m.Y"));
     
     $CT->Show("schedule.tpl");
-    
+
     if (!empty($_POST['addScheduleEntryButton'])) {
       $day = $_POST['day'];
       $group = $_POST['group'];
@@ -35,14 +35,14 @@
       $add_schedule->bindValue(":subject", $subject);
       
       if ($add_schedule->execute()) {
-        CTools::Message("All Good");
+          CTools::Message("All Good");
       } else {
-        CTools::Message("All Bad");
+          CTools::Message("All Bad");
       }
       
       $update();
     }
-    
+  
     if (!empty($_POST['changeScheduleButton'])) {
       
       $group = $_POST['group'];
@@ -68,8 +68,7 @@
       $update();
     }
     
-  }
-	else {
+  } else {
     CTools::Redirect("login.php");
   }
   

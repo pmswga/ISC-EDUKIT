@@ -70,8 +70,9 @@
 					</table>
 				</div>
 			<div id="news" class="col-md-9">
-					<form class="form-inline" method="POST">
+					<form name="selectGroupForm" class="form-inline" method="POST">
 						<div class="form-group">
+              <label>Группа: </label>
 							<select name="group" class="form-control">
                 {foreach from=$groups item=group}
                   <option value="{$group->getGroupID()}">{$group->getNumberGroup()}</option>
