@@ -23,7 +23,26 @@
     
     public function add($schedule)
     {
+      $add_schedule = $this->dbc()->prepare("call addScheduleEntry(:grp, :day, :pair, :subject)");
       
+      $add_schedule->bindValue(":grp", $schedule['group']);
+      $add_schedule->bindValue(":day", $schedule['day']);
+      $add_schedule->bindValue(":pair", $schedule['pair']);
+      $add_schedule->bindValue(":subject", $schedule['subject']);
+      
+      return $add_schedule->execute();
+    }
+    
+    public function addChangeSchedule($schedule) : bool
+    {
+      $add_schedule = $this->dbc()->prepare("call addChangeSchedule(:grp, :day, :pair, :subject)");
+      
+      $add_schedule->bindValue(":grp", $schedule['group']);
+      $add_schedule->bindValue(":day", $schedule['day']);
+      $add_schedule->bindValue(":pair", $schedule['pair']);
+      $add_schedule->bindValue(":subject", $schedule['subject']);
+      
+      return $add_schedule->execute();
     }
     
     public function getAllScheduleGroup() : array
@@ -50,6 +69,48 @@
     public function getScheduleGroup(int $grp)
     {
       $data = $this->query("call getScheduleGroup(:g)", [":g" => $grp]);
+  
+      $dataByGroup = array();
+      foreach ($data as $d) {
+        $dataByGroup[$d['group']][] = $d;
+      }
+      
+      $dataByGroupByDay = array();
+      foreach ($dataByGroup as $key => $value) {
+        
+        foreach ($value as $day) {      
+          $dataByGroupByDay[$key][$this->intToDay((int)$day['_day'])][] = $day;
+        }
+        
+      }
+      
+      return $dataByGroupByDay;
+    }
+
+    public function getAllChangedSchedule()
+    {
+        $data = $this->query("call getAllChangedSchedule()");
+
+        $dataByGroup = array();
+        foreach ($data as $d) {
+            $dataByGroup[$d['group']][] = $d;
+        }
+
+        $dataByGroupByDay = array();
+        foreach ($dataByGroup as $key => $value) {
+
+            foreach ($value as $day) {
+                $dataByGroupByDay[$key][$this->intToDay((int)$day['_day'])][] = $day;
+            }
+
+        }
+
+        return $dataByGroupByDay;
+    }
+
+    public function getChangeScheduleGroup(int $grp)
+    {
+      $data = $this->query("call getChangeScheduleGroup(:g)", [":g" => $grp]);
   
       $dataByGroup = array();
       foreach ($data as $d) {

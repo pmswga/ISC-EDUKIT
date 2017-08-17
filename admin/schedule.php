@@ -9,7 +9,7 @@
     CTools::Redirect("schedule.php");
   };
   
-  if (isset($_SESSION['admin'])) {	
+  if (isset($_SESSION['admin'])) {
     $GM = new GroupManager($DB);
     $SM = new SubjectManager($DB);
     $SH = new ScheduleManager($DB);
@@ -17,6 +17,7 @@
     $CT->assign("groups", $GM->getAllGroups());
     $CT->assign("subjects", $SM->getAllSubjects());
     $CT->assign("schedules", $SH->getAllScheduleGroup());
+    $CT->assign("changedSchedule", $SH->getAllChangedSchedule());
     $CT->assign("date_now", date("d.m.Y"));
     
     $CT->Show("schedule.tpl");
@@ -27,17 +28,10 @@
       $pair = $_POST['pair'];
       $subject = $_POST['subject'];
       
-      $add_schedule = $GM->dbc()->prepare("call addScheduleEntry(:grp, :day, :pair, :subject)");
-      
-      $add_schedule->bindValue(":grp", $group);
-      $add_schedule->bindValue(":day", $day);
-      $add_schedule->bindValue(":pair", $pair);
-      $add_schedule->bindValue(":subject", $subject);
-      
-      if ($add_schedule->execute()) {
-          CTools::Message("All Good");
+      if ($SH->add(["day" => $day, "group" => $group, "pair" => $pair, "subject" => $subject])) {
+        CTools::Message("All Good");
       } else {
-          CTools::Message("All Bad");
+        CTools::Message("All Bad");
       }
       
       $update();
@@ -68,8 +62,25 @@
       $update();
     }
     
+    if (!empty($_POST[''])) {
+      $day = $_POST['day'];
+      $group = $_POST['group'];
+      $pair = $_POST['pair'];
+      $subject = $_POST['subject'];
+      
+      if ($SH->addChangeSchedule(["day" => $day, "group" => $group, "pair" => $pair, "subject" => $subject])) {
+        CTools::Message("All Good");
+      } else {
+        CTools::Message("All Bad");
+      }
+      
+      $update();
+    }
+    
+    
   } else {
     CTools::Redirect("login.php");
   }
+    
   
 ?>
