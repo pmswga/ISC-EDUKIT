@@ -21,9 +21,46 @@
 			<div class="row" style="padding: 15px;">
 				<div class="col-md-8">
 					<h2>Расписание</h2>
-          
-          
-          
+					<div class="panel-group" id="scheduleGroups">
+            {if $schedules != NULL}
+              {foreach from=$schedules key=grp item=schedule}
+                <div class="panel panel-success">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#scheduleGroups" href="#{$grp}">
+                        Основное расписание для {$grp}
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="{$grp}" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                      {foreach from=$schedule key=day item=data}
+                        <table class="table table-hover">
+                          <thead>
+                            <h3>{$day}</h3>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th>Пара</th>
+                              <th>Предмет</th>
+                            </tr>
+                            {foreach from=$data item=entry}
+                              <tr>
+                                <td>{$entry['pair']}</td>
+                                <td>{$entry['subject']}</td>
+                              </tr>
+                            {/foreach}
+                          </tbody>
+                        </table>
+                      {/foreach}
+                    </div>
+                  </div>
+                </div>
+              {/foreach}
+            {else}
+              <h3 align="center">Расписания нет</h3>
+            {/if}
+					</div>
 				</div>
 				<div class="col-md-4">
 					<fieldset>

@@ -93,15 +93,15 @@
 
         $dataByGroup = array();
         foreach ($data as $d) {
-            $dataByGroup[$d['group']][] = $d;
+          $dataByGroup[$d['group']][] = $d;
         }
 
         $dataByGroupByDay = array();
         foreach ($dataByGroup as $key => $value) {
 
-            foreach ($value as $day) {
-                $dataByGroupByDay[$key][$this->intToDay((int)$day['_day'])][] = $day;
-            }
+          foreach ($value as $day) {            
+            $dataByGroupByDay[$key][$day['_day']][] = $day;
+          }
 
         }
 
@@ -121,7 +121,7 @@
       foreach ($dataByGroup as $key => $value) {
         
         foreach ($value as $day) {      
-          $dataByGroupByDay[$key][$this->intToDay((int)$day['_day'])][] = $day;
+          $dataByGroupByDay[$key][$day['_day']][] = $day;
         }
         
       }
@@ -132,6 +132,17 @@
     public function changePair(string $grp, int $day, int $pair, int $subject) : bool
     {
       $change_query = $this->dbc()->prepare("UPDATE `schedule`     SET `subject`=:s     WHERE `id_grp`=:g AND `pair`=:p AND `_day`=:d");
+      $change_query->bindValue(":g", $grp);
+      $change_query->bindValue(":d", $day);
+      $change_query->bindValue(":p", $pair);
+      $change_query->bindValue(":s", $subject);
+      
+      return $change_query->execute();
+    }
+    
+    public function changeChangedPair(string $grp, string $day, int $pair, int $subject) : bool
+    {
+      $change_query = $this->dbc()->prepare("UPDATE `changed_schedule`     SET `subject`=:s     WHERE `id_grp`=:g AND `pair`=:p AND `_day`=:d");
       $change_query->bindValue(":g", $grp);
       $change_query->bindValue(":d", $day);
       $change_query->bindValue(":p", $pair);

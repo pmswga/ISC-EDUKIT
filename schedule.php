@@ -10,15 +10,20 @@
       $group = $_POST['group'];
       
       $data = $SHM->getScheduleGroup($group);
+      $changed_schedules = $SHM->getChangeScheduleGroup($group);
       
       $CT->assign("schedules", $data);
+      $CT->assign("changed_schedules", $changed_schedules);
       
     } else {
       $data = $SHM->getScheduleGroup($deafult_group);
+      $changed_schedules = $SHM->getChangeScheduleGroup($deafult_group);
       
       $CT->assign("schedules", $data);
+      $CT->assign("changed_schedules", $changed_schedules);
     }
   
+    $CT->assign("", $SHM->getAllChangedSchedule());
     $CT->assign("groups", $groups);
   }
   

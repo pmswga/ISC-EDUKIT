@@ -7,6 +7,7 @@ DROP PROCEDURE IF EXISTS getChangeScheduleGroup;
 DROP PROCEDURE IF EXISTS getAllScheduleGroup;
 DROP PROCEDURE IF EXISTS getAllChangedSchedule;
 DROP PROCEDURE IF EXISTS changePair;
+DROP PROCEDURE IF EXISTS changeChangedSchedulePair;
 
 DELIMITER //
 
@@ -15,9 +16,9 @@ BEGIN
   INSERT INTO `schedule` (`id_grp`, `_day`, `pair`, `subject`) VALUES (grp, d, pair, subject);
 END;
 
-CREATE PROCEDURE IF NOT EXISTS addChangeSchedule(g int, d date, p int, s int)
+CREATE PROCEDURE IF NOT EXISTS addChangeSchedule(g int, d datetime, p int, s int)
 BEGIN
-	INSERT INTO `changed_schedule` (`id_grp`, `_day`, `pair`, `subject`) VALUES (grp, d, p, s);
+	INSERT INTO `changed_schedule` (`id_grp`, `_day`, `pair`, `subject`) VALUES (g, d, p, s);
 END;
 
 CREATE PROCEDURE IF NOT EXISTS getScheduleGroup(grp int)
@@ -77,6 +78,13 @@ END;
 CREATE PROCEDURE changePair(g int, d int, p int, s int)
 BEGIN
 	UPDATE `schedule`
+    SET `subject`=s
+    WHERE `id_grp`=g AND `pair`=p AND `_day`=d;
+END;
+
+CREATE PROCEDURE changeChangedSchedulePair(g int, d datetime, p int, s int)
+BEGIN
+	UPDATE `changed_schedule`
     SET `subject`=s
     WHERE `id_grp`=g AND `pair`=p AND `_day`=d;
 END;

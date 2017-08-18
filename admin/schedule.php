@@ -61,17 +61,47 @@
       
       $update();
     }
-    
-    if (!empty($_POST[''])) {
+      
+    if (!empty($_POST['setChangeScheduleButton'])) {
       $day = $_POST['day'];
       $group = $_POST['group'];
       $pair = $_POST['pair'];
       $subject = $_POST['subject'];
       
-      if ($SH->addChangeSchedule(["day" => $day, "group" => $group, "pair" => $pair, "subject" => $subject])) {
+      if ($SH->addChangeSchedule(["day" => date_format(new DateTime($day), "Y-m-d"),
+                                  "group" => $group, 
+                                  "pair" => $pair, 
+                                  "subject" => $subject])
+      ) {
         CTools::Message("All Good");
       } else {
         CTools::Message("All Bad");
+      }
+      
+      $update();
+    }
+    
+    
+    if (!empty($_POST['changeChangedScheduleButton'])) {
+      
+      $group = $_POST['group'];
+      $day = $_POST['day'];
+      $pairs = array();
+      
+      $result = true;
+      for ($i = 1; $i <= 7; $i++) {
+        $subject = $_POST['pair_'.$i];
+        
+        if ($subject != 0 && !empty($subject)) {          
+          $result *= $SH->changeChangedPair($group, $day, $i, $_POST['pair_'.$i]);
+        }
+        
+      }
+      
+      if ($result) {
+        CTools::Message("Change is good");
+      } else {
+        CTools::Message("Change is bad");
       }
       
       $update();

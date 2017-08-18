@@ -277,7 +277,7 @@ CREATE TABLE IF NOT EXISTS `schedule` (
 
 CREATE TABLE IF NOT EXISTS `changed_schedule` (
   id_grp int,
-  _day date,
+  _day datetime,
   pair int,
   subject int NOT NULL,
   PRIMARY KEY(id_grp, pair)

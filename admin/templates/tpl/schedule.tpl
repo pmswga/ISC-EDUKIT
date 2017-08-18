@@ -130,19 +130,19 @@
                         <div class="panel-heading">
                           <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#scheduleGroups" href="#{$grp}">
-                                {$grp}
+                              {$grp}
                             </a>
                           </h4>
                         </div>
                         <div id="{$grp}" class="panel-collapse collapse in">
                           <div class="panel-body">
                               {foreach from=$schedule key=day item=data}
-                                <form name="changeScheduleForm" method="POST">
+                                <form name="changeChangedScheduleForm" method="POST">
                                   <input type="hidden" name="group" value="{$data[0]['id_grp']}">
-                                  <input type="hidden" name="day" value="{$day_number}">
+                                  <input type="hidden" name="day" value="{$day|date_format:'Y-m-d'}">
                                   <table class="table table-hover">
                                     <thead>
-                                    <h3>{$day}</h3>
+                                    <h3>{$day|date_format:'d.m.Y (l)'}</h3>
                                     </thead>
                                     <tbody>
                                     <tr>
@@ -168,7 +168,7 @@
                                     {/foreach}
                                     </tbody>
                                   </table>
-                                  <input type="submit" name="changeScheduleButton" value="Изменить" class="btn btn-sm btn-warning">
+                                  <input type="submit" name="changeChangedScheduleButton" value="Изменить" class="btn btn-sm btn-warning">
                                 </form>
                                   {$day_number = $day_number + 1}
                               {/foreach}
@@ -186,7 +186,7 @@
                   <form name="setChangeScheduleForm" method="POST">
                     <div class="form-group">
                       <label>Дата</label>
-                      <input type="datetime" name="date" value="{$date_now}" class="form-control">
+                      <input type="datetime" name="day" value="{$date_now}" class="form-control">
                     </div>
                     <div class="form-group">
                       <label>Группа</label>
@@ -210,7 +210,7 @@
                     </div>
                     <div class="form-group">
                       <label>Предмет</label>
-                      <select name="subjects" class="form-control">
+                      <select name="subject" class="form-control">
                         {foreach from=$subjects item=subject}
                           <option value="{$subject->getSubjectID()}">{$subject->getDescription()}</option>
                         {/foreach}

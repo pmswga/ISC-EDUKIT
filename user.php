@@ -33,7 +33,8 @@
 				
         $CT->assign("traffic", $traffic);
         $CT->assign("completedTests", $TM->getStudentTests($user->getEmail()));
-				
+				$CT->assign("schedules", $SHM->getScheduleGroup($user->getGroup()->getGroupID()));
+        
 				$CT->Show("accounts/student.tpl");
 			} break;
 			case USER_TYPE_TEACHER:
