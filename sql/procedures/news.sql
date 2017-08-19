@@ -7,7 +7,7 @@ DROP PROCEDURE IF EXISTS changeCaptionNews;
 DROP PROCEDURE IF EXISTS changeContentNews;
 DROP PROCEDURE IF EXISTS getNews;
 DROP PROCEDURE IF EXISTS getAllNews;
-DROP PROCEDURE IF EXISTS getAllAdminNews;
+DROP PROCEDURE IF EXISTS getAdminNews;
 DROP PROCEDURE IF EXISTS clearAllNews;
 
 DELIMITER //
@@ -47,18 +47,19 @@ END;
 
 CREATE PROCEDURE getAllNews()
 BEGIN
-	SELECT * FROM `v_News`;
+	(SELECT `id_news`, `caption`, `content`, `id_author` as author, `date_publication` as dp FROM `admin_news`)
+	union all
+	(SELECT `id_news`, `caption`, `content`, `author`, `dp` FROM `v_News`);
 END;
 
-CREATE PROCEDURE getAllAdminNews() /* Для вывода в панели администратора */
+CREATE PROCEDURE getAdminNews(author CHAR(255)) /* Для вывода в панели администратора */
 BEGIN
 	SELECT  an.id_news,
 			an.caption,
             an.content,
-            a.email as author,
             an.date_publication as dp
     FROM `admin_news` an
-		INNER JOIN `admins` a ON a.id_admin=an.id_news
+	WHERE an.id_author=getAdminId(author)
     ORDER BY `date_publication`;
 END;
 

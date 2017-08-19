@@ -78,7 +78,7 @@
             </div>
           </div>
           <div class="form-group">
-            <input type="checkbox" name="isAgree"> Я согласен(а) на обработку персональных данных
+            <input type="checkbox" name="isAgree"> Я согласен(на) на обработку персональных данных
           </div>
           <div class="form-group">
             <input type="checkbox" name="isMyChildren"> Я подтверждаю, что выбранные дети МОИ*

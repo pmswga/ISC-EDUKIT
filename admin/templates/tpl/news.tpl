@@ -18,7 +18,7 @@
                 <tr>
                   <td>{$one_news->getCaption()}</td>
                   <td>{$one_news->getContent()}</td>
-                  <td>{$one_news->getDatePublication()}</td>
+                  <td>{$one_news->getDatePublication()|date_format:'d.m.Y h:i:s'}</td>
                   <td><input type="checkbox" name="select_news[]" value="{$one_news->getNewsID()}" class="form-control"></td>
                 </tr>
               {/foreach}

@@ -8,9 +8,9 @@
 	if (isset($_SESSION['admin'])) {		
 		
 		$NM = new NewsManager($DB);
-		
-		$CT->assign("news", $NM->getAllAdminsNews());
-    $CT->assign("date", date("d.m.y H:i:s"));
+    
+		$CT->assign("news", $NM->getAdminNews($_SESSION['admin']->getEmail()));
+    $CT->assign("date", date("d.m.Y H:i:s"));
 		$CT->assign("user", $_SESSION['admin']);
 		
 		$CT->Show("news.tpl");
@@ -18,6 +18,8 @@
 		if (!empty($_POST['addNewsButton'])) {
 			$data = CForm::getData(["caption", "content", "email", "dp"]);
 			
+      $data['dp'] = date_format(new DateTime($data['dp']), "Y-m-d");
+      
 			$new_news = new News($data['caption'], $data['content'], $data['email'], $data['dp']);
       
 			if ($NM->addAdminNews($new_news)) {

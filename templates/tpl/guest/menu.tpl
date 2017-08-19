@@ -17,7 +17,7 @@
 					<li><a href="schedule.php">Расписание</a></li>
 					<li><a href="teachers.php">Преподаватели</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#reg">Регистрация</a></li>
-					<li><a href="#" data-toggle="modal" data-target="#auth">Войти</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#auth">Вход</a></li>
 				</ul>
 			</div>
 		</nav>

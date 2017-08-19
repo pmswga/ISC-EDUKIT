@@ -50,13 +50,13 @@
       return $news;
     }
     
-    public function getAllAdminsNews()
+    public function getAdminNews(string $admin_email)
     {
-      $db_news = $this->query("call getAllAdminNews()");
+      $db_news = $this->query("call getAdminNews(:admin_email)", [":admin_email" => $admin_email]);
       
       $news = array();
       foreach ($db_news as $db_new) {
-        $new = new News($db_new['caption'], $db_new['content'], $db_new['author'], $db_new['dp']);
+        $new = new News($db_new['caption'], $db_new['content'], $admin_email, $db_new['dp']);
         $new->setNewsID((int)$db_new['id_news']);
         
         $news[] = $new;
