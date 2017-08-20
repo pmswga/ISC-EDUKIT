@@ -73,12 +73,13 @@ CREATE PROCEDURE getTestsForGroup(grp int)
 BEGIN
 	SELECT t.id_test,
 			t.caption, 
-            t.id_teacher  as author,
+            CONCAT(u.sn, ' ', LEFT(u.fn, 1), '. ', LEFT(u.pt, 1), '.') as author,
             s.description as subject_caption,
             s.id_subject  as subject_id
     FROM `tests` t
 		INNER JOIN `groups_tests` gt ON t.id_test=gt.id_test
 		INNER JOIN `subjects` s ON s.id_subject=t.id_subject
+        INNER JOIN `users` u ON t.id_teacher=u.id_user 
 	WHERE `id_group`=grp;
 END;
 
@@ -200,7 +201,7 @@ END;
 
 CREATE PROCEDURE createStudentTest(student_email char(30), subject char(255), t_caption char(255), mark int)
 BEGIN
-	INSERT INTO `student_tests` (`id_student`, `subject`, `caption`, `date_pass`, `mark`) VALUES (getStudentId(student_email), subject, t_caption, date(now()), mark);
+	INSERT INTO `student_tests` (`id_student`, `subject`, `caption`, `date_pass`, `mark`) VALUES (getStudentId(student_email), subject, t_caption, now(), mark);
 END;
 
 CREATE PROCEDURE putStudentAnswer(student_test int, question char(255), answer char(255))

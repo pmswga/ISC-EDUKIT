@@ -5,6 +5,7 @@
   class StudentTest
   {
     private $id_test;
+    private $test_author;
     private $student;  // Хранит email студента
     private $caption;
     private $subject;
@@ -31,6 +32,16 @@
     public function getTestID() : int
     {
       return $this->id_test;
+    }
+    
+    public function setTestAuthor(string $test_author)
+    {
+      $this->test_author = $test_author;
+    }
+    
+    public function getTestAuthor() : string
+    {
+      return $this->test_author;
     }
     
     public function getStudent() : string

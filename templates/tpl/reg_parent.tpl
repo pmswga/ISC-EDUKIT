@@ -149,8 +149,9 @@
     if (childs.toString() == "") {
       alert("Вы не выбрали ребёнка");
       return false;
+    } else {    
+      return true;
     }
-    else return true;
   }
   
 </script>

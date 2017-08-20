@@ -20,14 +20,51 @@
 			{include file="users/menu.tpl"}
 			<div class="row" style="padding: 15px;">
 				<div class="col-md-8">
-					<h2>Расписание</h2>
 					<div class="panel-group" id="scheduleGroups">
+            {if $changed_schedules != NULL}
+              {foreach from=$changed_schedules key=grp item=schedule}
+                <div class="panel panel-warning">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse">
+                        Изменения для {$grp}
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="{$grp}" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                      {foreach from=$schedule key=day item=data}
+                        <table class="table table-hover">
+                          <thead>
+                            <h3>{$day|date_format:'d.m.Y (l)'}</h3>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th>Пара</th>
+                              <th>Предмет</th>
+                            </tr>
+                            {foreach from=$data item=entry}
+                              <tr>
+                                <td>{$entry['pair']}</td>
+                                <td>{$entry['subject']}</td>
+                              </tr>
+                            {/foreach}
+                          </tbody>
+                        </table>
+                      {/foreach}
+                    </div>
+                  </div>
+                </div>
+              {/foreach}
+            {else}
+              <h3 align="center">Изменений нет</h3>
+            {/if}
             {if $schedules != NULL}
               {foreach from=$schedules key=grp item=schedule}
                 <div class="panel panel-success">
                   <div class="panel-heading">
                     <h4 class="panel-title">
-                      <a data-toggle="collapse" data-parent="#scheduleGroups" href="#{$grp}">
+                      <a data-toggle="collapse">
                         Основное расписание для {$grp}
                       </a>
                     </h4>
@@ -97,7 +134,7 @@
 						</table>
 					</fieldset>
 					<div class="panel-group" id="u">
-						<div class="panel panel-success">
+						<div class="panel panel-default">
 							<div class="panel-heading">
 								<h4 class="panel-title"><a data-toggle="collapse" data-parent="#u" href="#u_teachers">Одногруппники</a></h4>
 							</div>
@@ -195,13 +232,13 @@
 										<table class="table table-bordered">
 											<thead>
 												<th>Название</th>
-												<th>Предмет</th>
+												<th>Дата</th>
 											</thead>
 											<tbody>
 												{foreach from=$completedTests item=test}
                           <tr>
                             <td><a href="student/test.php?test={$test->getTestID()}">{$test->getCaption()}</a></td>
-                            <td>{$test->getSubject()}</td>
+                            <td>{$test->getDatePass()|date_format:'d.m.Y H:i:s'}</td>
                           </tr>
 												{/foreach}
 											</tbody>

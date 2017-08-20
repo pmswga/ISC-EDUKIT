@@ -34,6 +34,7 @@
         $CT->assign("traffic", $traffic);
         $CT->assign("completedTests", $TM->getStudentTests($user->getEmail()));
 				$CT->assign("schedules", $SHM->getScheduleGroup($user->getGroup()->getGroupID()));
+        $CT->assign("changed_schedules", $SHM->getChangeScheduleGroup($user->getGroup()->getGroupID()));
         
 				$CT->Show("accounts/student.tpl");
 			} break;

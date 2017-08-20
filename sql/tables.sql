@@ -202,9 +202,9 @@ CREATE TABLE IF NOT EXISTS `answers` (
 CREATE TABLE IF NOT EXISTS `student_tests` (
 	id_student_test int AUTO_INCREMENT PRIMARY KEY,
 	id_student int NOT NULL,
-  caption char(255) NOT NULL,
+	caption char(255) NOT NULL,
 	subject char(255) NOT NULL,
-	date_pass date NOT NULL,
+	date_pass datetime NOT NULL,
 	mark int,
 	INDEX(id_student),
 	CONSTRAINT stc_subject CHECK(subject <> ''),

@@ -44,16 +44,12 @@
                   <td>{$test->getSubject()}</td>
                 </tr>
                 <tr>
-                  <td>Автор</td>
-                  <td>{$test->getStudent()}</td>
-                </tr>
-                <tr>
                   <td>Оценка</td>
                   <td>{$test->getMark()}</td>
                 </tr>
                 <tr>
                   <td>Дата сдачи</td>
-                  <td>{$test->getDatePass()}</td>
+                  <td>{$test->getDatePass()|date_format:'d.m.Y H:i:s'}</td>
                 </tr>
               </table>
             </div>
