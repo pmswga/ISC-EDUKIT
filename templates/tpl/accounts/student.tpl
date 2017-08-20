@@ -232,7 +232,7 @@
 										<table class="table table-bordered">
 											<thead>
 												<th>Название</th>
-												<th>Дата</th>
+												<th>Дата сдачи</th>
 											</thead>
 											<tbody>
 												{foreach from=$completedTests item=test}

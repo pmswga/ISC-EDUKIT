@@ -1,10 +1,19 @@
 <?php
   declare(strict_types = 1);
 	namespace IEP\Structures;
-  
+    
   require_once "specialty.class.php";
   
   use IEP\Structures\Specialty;
+  
+  /*!
+    \brief Класс, которые несёт в себе информацию об группе
+    \author pmswga
+    \version 1.0
+    
+    Класс является сущность, в которую помещаются данные из базы данных
+    
+  */
   
 	class Group
 	{
@@ -13,6 +22,13 @@
 		private $spec;
     private $year_education;
 		private $is_budget;
+    
+    /*!
+      \param[in] $number 
+      \param[in] $spec 
+      \param[in] $year_education 
+      \param[in] $is_budget 
+    */
     
 		function __construct(string $number, $spec, string $year_education, int $is_budget = 1)
 		{
