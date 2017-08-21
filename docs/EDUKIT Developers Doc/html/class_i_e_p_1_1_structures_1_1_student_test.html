@@ -71,6 +71,9 @@ $(function() {
 <div class="title">Класс StudentTest</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Класс описывающий сущность результатов теста  
+ <a href="class_i_e_p_1_1_structures_1_1_student_test.html#details">Подробнее...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Открытые члены</h2></td></tr>
@@ -99,7 +102,11 @@ $(function() {
 <tr class="memitem:a8331839d823f3debf82550182d39a951"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_e_p_1_1_structures_1_1_student_test.html#a8331839d823f3debf82550182d39a951">getAnswers</a> ()</td></tr>
 <tr class="separator:a8331839d823f3debf82550182d39a951"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Конструктор(ы)</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
+<div class="textblock"><p>Класс описывающий сущность результатов теста </p>
+<dl class="section author"><dt>Автор</dt><dd>pmswga </dd></dl>
+<dl class="section version"><dt>Версия</dt><dd>1.0 </dd></dl>
+</div><h2 class="groupheader">Конструктор(ы)</h2>
 <a id="a23a89bba959b84312a66edd578f32961"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a23a89bba959b84312a66edd578f32961">&#9670;&nbsp;</a></span>__construct()</h2>
 
@@ -143,6 +150,16 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">$student</td><td>- Email студента </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">$caption</td><td>- Название теста </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">$subject</td><td>- Предмет </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">$date_pass</td><td>- Дата сдачи </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">$mark</td><td>- Оценка </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -161,6 +178,8 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Возвращает</dt><dd>Массив с ответами </dd></dl>
+<dl class="section note"><dt>Заметки</dt><dd>Формат массива [[question, answer], [question, answer], ...] </dd></dl>
 
 </div>
 </div>
@@ -178,6 +197,7 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Возвращает</dt><dd>Название теста </dd></dl>
 
 </div>
 </div>
@@ -195,6 +215,7 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Возвращает</dt><dd>Дату сдачи теста </dd></dl>
 
 </div>
 </div>
@@ -212,6 +233,7 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Возвращает</dt><dd>Оценку за тест </dd></dl>
 
 </div>
 </div>
@@ -229,6 +251,7 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Возвращает</dt><dd>Email студента </dd></dl>
 
 </div>
 </div>
@@ -246,6 +269,7 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Возвращает</dt><dd>Предмет </dd></dl>
 
 </div>
 </div>
@@ -263,6 +287,8 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Возвращает</dt><dd>Автора теста </dd></dl>
+<dl class="section note"><dt>Заметки</dt><dd>Формат "Фамилия И.О." </dd></dl>
 
 </div>
 </div>
@@ -280,6 +306,7 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Возвращает</dt><dd>Идентификатор пройденного теста </dd></dl>
 
 </div>
 </div>
@@ -298,6 +325,13 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">$answers</td><td>- массив с ответами </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Заметки</dt><dd>Формат массива [[question, answer], [question, answer], ...] </dd></dl>
 
 </div>
 </div>
@@ -316,6 +350,13 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">$test_author</td><td>- Автор теста </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Заметки</dt><dd>Формат "Фамилия И.О." </dd></dl>
 
 </div>
 </div>
@@ -334,6 +375,12 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">$id</td><td>- Идентификатор пройденного теста </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
