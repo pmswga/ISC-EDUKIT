@@ -72,7 +72,17 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Базовые классы:<a class="el" href="class_i_e_p_1_1_structures_1_1_user.html">User</a>.</p>
+<p>Класс для хранения данных об родителе  
+ <a href="class_i_e_p_1_1_structures_1_1_parent__.html#details">Подробнее...</a></p>
+<div class="dynheader">
+Граф наследования:Parent_:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_i_e_p_1_1_structures_1_1_parent__.png" usemap="#Parent_5F_map" alt=""/>
+  <map id="Parent_5F_map" name="Parent_5F_map">
+<area href="class_i_e_p_1_1_structures_1_1_user.html" title="Общий класс для всех пользователей " alt="User" shape="rect" coords="0,0,56,24"/>
+</map>
+ </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Открытые члены</h2></td></tr>
@@ -132,7 +142,12 @@ $(function() {
 <tr class="memdesc:a3d981af58fd4b08d6f3e001d04639426 inherit pro_attribs_class_i_e_p_1_1_structures_1_1_user"><td class="mdescLeft">&#160;</td><td class="mdescRight">Тип пользователя  <a href="class_i_e_p_1_1_structures_1_1_user.html#a3d981af58fd4b08d6f3e001d04639426">Подробнее...</a><br /></td></tr>
 <tr class="separator:a3d981af58fd4b08d6f3e001d04639426 inherit pro_attribs_class_i_e_p_1_1_structures_1_1_user"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Конструктор(ы)</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
+<div class="textblock"><p>Класс для хранения данных об родителе </p>
+<dl class="section author"><dt>Автор</dt><dd>pmswga </dd></dl>
+<dl class="section version"><dt>Версия</dt><dd>1.0</dd></dl>
+<p>Данный класс содержит в себе информацию об родителе </p>
+</div><h2 class="groupheader">Конструктор(ы)</h2>
 <a id="a562721cd9b670b813205871e5e30a3c7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a562721cd9b670b813205871e5e30a3c7">&#9670;&nbsp;</a></span>__construct()</h2>
 
@@ -188,6 +203,24 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramtype">-</td><td class="paramname">$user</td><td>- Объект типа класса <a class="el" href="class_i_e_p_1_1_structures_1_1_user.html" title="Общий класс для всех пользователей ">User</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Заметки</dt><dd>Необходим для хранения основной информации</dd></dl>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramtype">-</td><td class="paramname">$age</td><td>- Возраст </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramtype">-</td><td class="paramname">$education</td><td>- Образование </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramtype">-</td><td class="paramname">$work_place</td><td>- Место работы </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramtype">-</td><td class="paramname">$post</td><td>- Должность </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramtype">-</td><td class="paramname">$home_phone</td><td>- Домашний телефон </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramtype">-</td><td class="paramname">$cell_phone</td><td>- Сотовый телефон </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -206,6 +239,7 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Возвращает</dt><dd>Возраст </dd></dl>
 
 </div>
 </div>
@@ -223,6 +257,7 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Возвращает</dt><dd>Сотовый телефон </dd></dl>
 
 </div>
 </div>
@@ -240,6 +275,7 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Возвращает</dt><dd>Массив с объектами класса <a class="el" href="class_i_e_p_1_1_structures_1_1_student.html">Student</a> </dd></dl>
 
 </div>
 </div>
@@ -257,6 +293,8 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Возвращает</dt><dd>Образование </dd></dl>
+<dl class="section note"><dt>Заметки</dt><dd>К примеру, высшее или среднее </dd></dl>
 
 </div>
 </div>
@@ -274,6 +312,7 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Возвращает</dt><dd>Домашний телефон </dd></dl>
 
 </div>
 </div>
@@ -291,6 +330,7 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Возвращает</dt><dd>Должность </dd></dl>
 
 </div>
 </div>
@@ -308,6 +348,7 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Возвращает</dt><dd>Место работы </dd></dl>
 
 </div>
 </div>
@@ -326,6 +367,12 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">Массив</td><td>с объектами класса <a class="el" href="class_i_e_p_1_1_structures_1_1_student.html">Student</a> </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

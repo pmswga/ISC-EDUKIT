@@ -47,7 +47,10 @@ END;
 
 CREATE PROCEDURE getAllNews()
 BEGIN
-	(SELECT `id_news`, `caption`, `content`, `id_author` as author, `date_publication` as dp FROM `admin_news`)
+	(SELECT `id_news`, `caption`, `content`, CONCAT(u.sn, ' ', LEFT(u.fn, 1), '. ', LEFT(u.pt, 1), '.') as author, `date_publication` as dp 
+		FROM `admin_news` as an 
+			INNER JOIN `admins` u ON an.id_author=u.id_admin
+	)
 	union all
 	(SELECT `id_news`, `caption`, `content`, `author`, `dp` FROM `v_News`);
 END;

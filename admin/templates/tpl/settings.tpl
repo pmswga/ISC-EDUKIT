@@ -20,17 +20,13 @@
                     <table class="table table-bordered">
                       <tbody>
                         <tr>
-                          <th>Фамилия</th>
-                          <th>Имя</th>
-                          <th>Отчество</th>
+                          <th>ФИО</th>
                           <th>Email</th>
                           <th>Выбрать</th>
                         </tr>
                         {foreach from=$admins item=admin}
                           <tr>
-                            <td>{$admin->getSn()}</td>
-                            <td>{$admin->getFn()}</td>
-                            <td>{$admin->getPt()}</td>
+                            <td>{$admin->getSn()} {$admin->getFn()} {$admin->getPt()}</td>
                             <td>{$admin->getEmail()}</td>
                             <td><input type="checkbox" name="admins[]" value="{$admin->getEmail()}" class="form-control"></td>
                           </tr>

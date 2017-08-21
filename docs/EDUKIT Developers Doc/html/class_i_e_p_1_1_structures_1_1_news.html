@@ -71,6 +71,9 @@ $(function() {
 <div class="title">Класс News</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Класс, который хранит в себе информацию об новости  
+ <a href="class_i_e_p_1_1_structures_1_1_news.html#details">Подробнее...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Открытые члены</h2></td></tr>
@@ -97,7 +100,12 @@ $(function() {
 <tr class="memitem:aa367ff421446447c8969bf1272893585"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_e_p_1_1_structures_1_1_news.html#aa367ff421446447c8969bf1272893585">setDatePublication</a> ($date_publication)</td></tr>
 <tr class="separator:aa367ff421446447c8969bf1272893585"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Конструктор(ы)</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
+<div class="textblock"><p>Класс, который хранит в себе информацию об новости </p>
+<dl class="section author"><dt>Автор</dt><dd>pmswga </dd></dl>
+<dl class="section version"><dt>Версия</dt><dd>1.0</dd></dl>
+<p>Класс представляет собой сущность, в которую помещаются данные из базы данных </p>
+</div><h2 class="groupheader">Конструктор(ы)</h2>
 <a id="a64b9f1f3c455ca71225cabd61311622b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a64b9f1f3c455ca71225cabd61311622b">&#9670;&nbsp;</a></span>__construct()</h2>
 
@@ -135,6 +143,22 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">$caption</td><td>- Заголовок </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">$content</td><td>- Содержание новости</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">$author</td><td>- Автор </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Заметки</dt><dd>Формат отображения "Фамилия И.О."</dd></dl>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">$date_publication</td><td>- Дата публикации </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Заметки</dt><dd>Формат даты "d.m.Y H:i:s" </dd></dl>
 
 </div>
 </div>
@@ -153,6 +177,8 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Возвращает</dt><dd>Автора новости </dd></dl>
+<dl class="section note"><dt>Заметки</dt><dd>Формат отображения "Фамилия И.О." </dd></dl>
 
 </div>
 </div>
@@ -170,6 +196,7 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Возвращает</dt><dd>Заголовок новости </dd></dl>
 
 </div>
 </div>
@@ -187,6 +214,8 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Возвращает</dt><dd>Возвращает HTML содержимое новости </dd></dl>
+<dl class="section note"><dt>Заметки</dt><dd>Для декодирования и отображения HTML на сайте используется функция html_entity_decode() </dd></dl>
 
 </div>
 </div>
@@ -204,6 +233,8 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Возвращает</dt><dd>Дату публикации </dd></dl>
+<dl class="section note"><dt>Заметки</dt><dd>Формат даты "d.m.Y H:i:s" </dd></dl>
 
 </div>
 </div>
@@ -221,6 +252,7 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Возвращает</dt><dd>Идентификатор новости </dd></dl>
 
 </div>
 </div>
@@ -239,6 +271,13 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">$author</td><td>- Автор новости </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Заметки</dt><dd>Формат отображения "Фамилия И.О." </dd></dl>
 
 </div>
 </div>
@@ -257,6 +296,12 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">$caption</td><td>- Заголовок новости </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -275,6 +320,12 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">$content</td><td>- Содержание новости </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -293,6 +344,13 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">$date_publication</td><td>- Дата публикации </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Заметки</dt><dd>Формат даты "d.m.Y H:i:s" </dd></dl>
 
 </div>
 </div>
@@ -311,6 +369,13 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">$id</td><td>- Идентификатор новости </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Заметки</dt><dd>Идентификатор из базы данных </dd></dl>
 
 </div>
 </div>

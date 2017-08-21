@@ -1,7 +1,18 @@
 <?php
 	declare(strict_types = 1);
 	namespace IEP\Structures;
+  
+  /*!
     
+    \class Specialty
+    \brief Класс, который описывает Специальность
+    \author pmswga
+    \version 1.0
+    
+    
+    
+  */
+  
 	class Specialty
 	{
 		private $id;
