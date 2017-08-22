@@ -66,18 +66,22 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Открытые члены</a>  </div>
+<a href="#pub-methods">Открытые члены</a> &#124;
+<a href="#pri-attribs">Закрытые данные</a>  </div>
   <div class="headertitle">
 <div class="title">Класс IEP</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Базовый класс для выполнения базовых функций работы с БД  
+ <a href="class_i_e_p_1_1_managers_1_1_i_e_p.html#details">Подробнее...</a></p>
 <div class="dynheader">
 Граф наследования:IEP:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="class_i_e_p_1_1_managers_1_1_i_e_p.png" usemap="#IEP_map" alt=""/>
   <map id="IEP_map" name="IEP_map">
-<area href="class_i_e_p_1_1_managers_1_1_group_manager.html" alt="GroupManager" shape="rect" coords="126,56,242,80"/>
+<area href="class_i_e_p_1_1_managers_1_1_group_manager.html" title="Менеджер для управления группами " alt="GroupManager" shape="rect" coords="126,56,242,80"/>
 <area href="class_i_e_p_1_1_managers_1_1_news_manager.html" alt="NewsManager" shape="rect" coords="126,112,242,136"/>
 <area href="class_i_e_p_1_1_managers_1_1_schedule_manager.html" alt="ScheduleManager" shape="rect" coords="126,168,242,192"/>
 <area href="class_i_e_p_1_1_managers_1_1_specialty_manager.html" alt="SpecialtyManager" shape="rect" coords="126,224,242,248"/>
@@ -106,8 +110,22 @@ $(function() {
 <tr class="separator:a5718dddc9c96c76cbcea478ce593dedb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca74d656488fa3f2b28401b80b1f79c9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_e_p_1_1_managers_1_1_i_e_p.html#aca74d656488fa3f2b28401b80b1f79c9">remove</a> ($what)</td></tr>
 <tr class="separator:aca74d656488fa3f2b28401b80b1f79c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Закрытые данные</h2></td></tr>
+<tr class="memitem:a47583a8166305523043146f33dc5335a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_e_p_1_1_managers_1_1_i_e_p.html#a47583a8166305523043146f33dc5335a">$DBC</a></td></tr>
+<tr class="separator:a47583a8166305523043146f33dc5335a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Конструктор(ы)</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
+<div class="textblock"><p>Базовый класс для выполнения базовых функций работы с БД </p>
+<dl class="section author"><dt>Автор</dt><dd>pmswga </dd></dl>
+<dl class="section version"><dt>Версия</dt><dd>1.0</dd></dl>
+<p>Базовые функций:</p><ol type="1">
+<li>Добавление</li>
+<li></li>
+</ol>
+<p>... </p>
+</div><h2 class="groupheader">Конструктор(ы)</h2>
 <a id="aad6f240442b7c2c49d009084c59be075"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aad6f240442b7c2c49d009084c59be075">&#9670;&nbsp;</a></span>__construct()</h2>
 
@@ -123,6 +141,13 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">$dbc</td><td>- Контроллер базы данных </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Заметки</dt><dd>Объект класса PDO </dd></dl>
 
 </div>
 </div>
@@ -150,6 +175,12 @@ $(function() {
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">$data</td><td>- Данные для добавления </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -167,6 +198,8 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Возвращает</dt><dd>Контроллер базы данных </dd></dl>
+<dl class="section note"><dt>Заметки</dt><dd>Объект класса PDO </dd></dl>
 
 </div>
 </div>
@@ -184,6 +217,8 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Возвращает</dt><dd>Логи </dd></dl>
+<dl class="section note"><dt>Заметки</dt><dd>Массив с записями </dd></dl>
 
 </div>
 </div>
@@ -212,6 +247,13 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">$sql</td><td>- SQL код </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">$params</td><td>- Аргументы </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -238,6 +280,12 @@ $(function() {
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">$what</td><td>- Данные для удаления </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -256,6 +304,12 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">$log_id</td><td>- идентификатор записи логи </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -273,6 +327,36 @@ $(function() {
           <td></td>
         </tr>
       </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">$dbc</td><td>- Контроллер базы данных </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Заметки</dt><dd>Объект класса PDO </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Поля</h2>
+<a id="a47583a8166305523043146f33dc5335a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47583a8166305523043146f33dc5335a">&#9670;&nbsp;</a></span>$DBC</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">$DBC</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>

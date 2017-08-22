@@ -3,6 +3,9 @@
   /*! 
     \addtogroup Consts
     @{
+  */
+  
+  /*!
   
     \name Типы пользователей
     \author pmswga

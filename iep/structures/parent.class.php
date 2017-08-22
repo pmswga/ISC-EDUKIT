@@ -123,7 +123,8 @@
 		}
 		
     /*!
-      \param[in] Массив с объектами класса Student
+      \param[in] $childs - дети
+      \note Массив с объектами класса Student
     */
     
 		public function setChilds(array $childs)

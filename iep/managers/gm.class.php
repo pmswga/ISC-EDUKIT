@@ -9,8 +9,23 @@
   use IEP\Structures\Specialty;
   use IEP\Structures\Group;
   
+  /*!
+    
+    \class GroupManager
+    \extends IEP
+    \brief Менеджер для управления группами
+    \author pmswga
+    \version 1.0
+    
+  */
+  
   class GroupManager extends IEP
   {
+    
+    /*!
+      \param[in] $group - Группа
+      \note Объект класса Group
+    */
     
     public function add($group) : bool
     {

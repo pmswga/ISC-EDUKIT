@@ -33,7 +33,8 @@ var menudata={children:[
 {text:"r",url:"functions_func.html#index_r"},
 {text:"s",url:"functions_func.html#index_s"},
 {text:"u",url:"functions_func.html#index_u"}]},
-{text:"Переменные",url:"functions_vars.html"}]}]},
+{text:"Переменные",url:"functions_vars.html",children:[
+{text:"$",url:"functions_vars.html#index_0x24"}]}]}]},
 {text:"Файлы",url:"files.html",children:[
 {text:"Файлы",url:"files.html"},
 {text:"Список членов всех файлов",url:"globals.html",children:[
