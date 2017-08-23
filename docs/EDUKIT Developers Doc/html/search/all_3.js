@@ -1,12 +1,12 @@
 var searchData=
 [
   ['changecaptionanswer',['changeCaptionAnswer',['../class_i_e_p_1_1_managers_1_1_test_manager.html#ad8e47b91eb0fa218814ceb975dcdf325',1,'IEP::Managers::TestManager']]],
-  ['changecaptionnews',['changeCaptionNews',['../class_i_e_p_1_1_managers_1_1_news_manager.html#ac51fefdd38dbbcc03f1f4b1f88fd5d5d',1,'IEP::Managers::NewsManager']]],
+  ['changecaptionnews',['changeCaptionNews',['../class_i_e_p_1_1_managers_1_1_news_manager.html#a4d9c8b2ddcf30908e1f93c5db7524b7e',1,'IEP::Managers::NewsManager']]],
   ['changecaptionquestion',['changeCaptionQuestion',['../class_i_e_p_1_1_managers_1_1_test_manager.html#a92869848722478b76a38c7ce40cadb71',1,'IEP::Managers::TestManager']]],
   ['changecaptiontest',['changeCaptionTest',['../class_i_e_p_1_1_managers_1_1_test_manager.html#a5b9273f71b5e109e896f1af065306682',1,'IEP::Managers::TestManager']]],
   ['changechangedpair',['changeChangedPair',['../class_i_e_p_1_1_managers_1_1_schedule_manager.html#a10d30adfae2f42a8214a3a719bef3f96',1,'IEP::Managers::ScheduleManager']]],
   ['changecodespecialty',['changeCodeSpecialty',['../class_i_e_p_1_1_managers_1_1_specialty_manager.html#acd31b5676fdd9d68bd6fd22cbfbcaea6',1,'IEP::Managers::SpecialtyManager']]],
-  ['changecontentnews',['changeContentNews',['../class_i_e_p_1_1_managers_1_1_news_manager.html#a8ad34a8909a2c2213cc457e7a15e1716',1,'IEP::Managers::NewsManager']]],
+  ['changecontentnews',['changeContentNews',['../class_i_e_p_1_1_managers_1_1_news_manager.html#a443d52f702863af038eaba9dbb67ad16',1,'IEP::Managers::NewsManager']]],
   ['changedescpspecialty',['changeDescpSpecialty',['../class_i_e_p_1_1_managers_1_1_specialty_manager.html#a7cd6e326c79b5590373b3824c84e91b9',1,'IEP::Managers::SpecialtyManager']]],
   ['changedescriptiongroup',['changeDescriptionGroup',['../class_i_e_p_1_1_managers_1_1_group_manager.html#afeda624214a566bca86fccf0cbefd16b',1,'IEP::Managers::GroupManager']]],
   ['changedescriptionsubject',['changeDescriptionSubject',['../class_i_e_p_1_1_managers_1_1_subject_manager.html#a953afa64f19119b67177218d2fe30e97',1,'IEP::Managers::SubjectManager']]],
@@ -15,6 +15,5 @@ var searchData=
   ['changeranswerquestion',['changeRAnswerQuestion',['../class_i_e_p_1_1_managers_1_1_test_manager.html#a0d4f5cd908fc584101a5a6a3e1e970be',1,'IEP::Managers::TestManager']]],
   ['changespecgroup',['changeSpecGroup',['../class_i_e_p_1_1_managers_1_1_group_manager.html#a9e39a6c588eecb046e2b74f23e24ce73',1,'IEP::Managers::GroupManager']]],
   ['changesubjecttest',['changeSubjectTest',['../class_i_e_p_1_1_managers_1_1_test_manager.html#ae2b5b6c33cccf39064d47c8bdf26f833',1,'IEP::Managers::TestManager']]],
-  ['changeuserpassword',['changeUserPassword',['../class_i_e_p_1_1_managers_1_1_user_manager.html#aa79f8879985a288ba5b8297616f75050',1,'IEP::Managers::UserManager']]],
-  ['consts',['Consts',['../group___consts.html',1,'']]]
+  ['changeuserpassword',['changeUserPassword',['../class_i_e_p_1_1_managers_1_1_user_manager.html#aa79f8879985a288ba5b8297616f75050',1,'IEP::Managers::UserManager']]]
 ];

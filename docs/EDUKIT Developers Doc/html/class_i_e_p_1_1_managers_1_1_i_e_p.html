@@ -73,21 +73,23 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Базовый класс для выполнения базовых функций работы с БД  
+<p>Базовый класс для все остальных менеджеров  
  <a href="class_i_e_p_1_1_managers_1_1_i_e_p.html#details">Подробнее...</a></p>
-<div class="dynheader">
-Граф наследования:IEP:</div>
-<div class="dyncontent">
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Граф наследования:IEP:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
   <img src="class_i_e_p_1_1_managers_1_1_i_e_p.png" usemap="#IEP_map" alt=""/>
   <map id="IEP_map" name="IEP_map">
 <area href="class_i_e_p_1_1_managers_1_1_group_manager.html" title="Менеджер для управления группами " alt="GroupManager" shape="rect" coords="126,56,242,80"/>
-<area href="class_i_e_p_1_1_managers_1_1_news_manager.html" alt="NewsManager" shape="rect" coords="126,112,242,136"/>
+<area href="class_i_e_p_1_1_managers_1_1_news_manager.html" title="Менеджер для работы с новостями " alt="NewsManager" shape="rect" coords="126,112,242,136"/>
 <area href="class_i_e_p_1_1_managers_1_1_schedule_manager.html" alt="ScheduleManager" shape="rect" coords="126,168,242,192"/>
 <area href="class_i_e_p_1_1_managers_1_1_specialty_manager.html" alt="SpecialtyManager" shape="rect" coords="126,224,242,248"/>
-<area href="class_i_e_p_1_1_managers_1_1_subject_manager.html" alt="SubjectManager" shape="rect" coords="126,280,242,304"/>
+<area href="class_i_e_p_1_1_managers_1_1_subject_manager.html" title="Менеджер для управления предметами " alt="SubjectManager" shape="rect" coords="126,280,242,304"/>
 <area href="class_i_e_p_1_1_managers_1_1_test_manager.html" alt="TestManager" shape="rect" coords="126,336,242,360"/>
-<area href="class_i_e_p_1_1_managers_1_1_traffic_manager.html" alt="TrafficManager" shape="rect" coords="126,392,242,416"/>
+<area href="class_i_e_p_1_1_managers_1_1_traffic_manager.html" title="Менеджер для работы с записями посещамости " alt="TrafficManager" shape="rect" coords="126,392,242,416"/>
 <area href="class_i_e_p_1_1_managers_1_1_user_manager.html" alt="UserManager" shape="rect" coords="126,448,242,472"/>
 </map>
  </div></div>
@@ -114,17 +116,26 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Закрытые данные</h2></td></tr>
 <tr class="memitem:a47583a8166305523043146f33dc5335a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_e_p_1_1_managers_1_1_i_e_p.html#a47583a8166305523043146f33dc5335a">$DBC</a></td></tr>
+<tr class="memdesc:a47583a8166305523043146f33dc5335a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Контроллер базы данных (PDO)  <a href="#a47583a8166305523043146f33dc5335a">Подробнее...</a><br /></td></tr>
 <tr class="separator:a47583a8166305523043146f33dc5335a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
-<div class="textblock"><p>Базовый класс для выполнения базовых функций работы с БД </p>
+<div class="textblock"><p>Базовый класс для все остальных менеджеров </p>
 <dl class="section author"><dt>Автор</dt><dd>pmswga </dd></dl>
 <dl class="section version"><dt>Версия</dt><dd>1.0</dd></dl>
-<p>Базовые функций:</p><ol type="1">
-<li>Добавление</li>
-<li></li>
+<p>Все запросы к базе данных осуществляются через PDO</p>
+<p>Базовые функций, выполняемые менеджером:</p><ol type="1">
+<li>Добавление данных</li>
+<li>Удаление данных</li>
+<li>Выполнение запроса к БД напрямую</li>
+<li>Работа с логами (Выборка, удаление)</li>
 </ol>
-<p>... </p>
+<p>Логи ведутся в базе данных:</p><ol type="1">
+<li>На добавление</li>
+<li>На удаление</li>
+<li>На изменение</li>
+</ol>
+<p>С помощью специальных методов можно получить доступ к логам </p>
 </div><h2 class="groupheader">Конструктор(ы)</h2>
 <a id="aad6f240442b7c2c49d009084c59be075"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aad6f240442b7c2c49d009084c59be075">&#9670;&nbsp;</a></span>__construct()</h2>
@@ -359,6 +370,8 @@ $(function() {
 </table>
 </div><div class="memdoc">
 
+<p>Контроллер базы данных (PDO) </p>
+
 </div>
 </div>
 <hr/>Объявления и описания членов класса находятся в файле:<ul>
@@ -367,7 +380,7 @@ $(function() {
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по EDUKIT Developers Doc. Последние изменения: Ср 23 Авг 2017 19:19:28. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -1,0 +1,225 @@
+.TH "GroupManager" 3 "Ср 23 Авг 2017" "Version 1.0.0" "EDUKIT Developers Doc" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+GroupManager \- Менеджер для управления группами  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Базовые классы:\fBIEP\fP\&.
+.SS "Открытые члены"
+
+.in +1c
+.ti -1c
+.RI "\fBadd\fP ($group)"
+.br
+.RI "Добавляет группу "
+.ti -1c
+.RI "\fBgetGroups\fP (int $test_id)"
+.br
+.RI "Возвращает группы, которые привязаны к тесту "
+.ti -1c
+.RI "\fBgetUnsetGroups\fP (int $test_id)"
+.br
+.RI "Возвращает группы, которые непривязаны к тесту "
+.ti -1c
+.RI "\fBgetAllGroups\fP ()"
+.br
+.RI "Возвращает все группы "
+.ti -1c
+.RI "\fBchangeDescriptionGroup\fP (int $grp_id, string $new_descp)"
+.br
+.RI "Изменяет название группы "
+.ti -1c
+.RI "\fBchangeSpecGroup\fP (int $grp_id, int $spec_id)"
+.br
+.RI "Изменяет специальность группы "
+.ti -1c
+.RI "\fBupCourse\fP (int $grp_id)"
+.br
+.RI "Переводит группы на курс выше "
+.ti -1c
+.RI "\fBremove\fP ($group_id)"
+.br
+.RI "Удаляет группу "
+.in -1c
+.SH "Подробное описание"
+.PP 
+Менеджер для управления группами 
+
+
+.PP
+\fBАвтор:\fP
+.RS 4
+pmswga 
+.RE
+.PP
+\fBВерсия:\fP
+.RS 4
+1\&.0
+.RE
+.PP
+Задачи менеджера групп:
+.IP "1." 4
+Добавление/удаление групп
+.IP "2." 4
+Изменение данных о группе (название, специальность)
+.IP "3." 4
+Выборка групп 
+.PP
+
+.SH "Методы"
+.PP 
+.SS "add ( $group)"
+
+.PP
+Добавляет группу 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$group\fP - Группа 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Объект класса Group 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+TRUE - успешно, FALSE - ошибка 
+.RE
+.PP
+
+.SS "changeDescriptionGroup (int $grp_id, string $new_descp)"
+
+.PP
+Изменяет название группы 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$grp_id\fP - Идентификатор группы 
+.br
+\fI$new_descp\fP - Новое название группы 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+TRUE - успешно, FALSE - ошибка 
+.RE
+.PP
+
+.SS "changeSpecGroup (int $grp_id, int $spec_id)"
+
+.PP
+Изменяет специальность группы 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$grp_id\fP - Идентификатор группы 
+.br
+\fI$spec_id\fP - Новый идентификатор группы 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+TRUE - успешно, FALSE - ошибка 
+.RE
+.PP
+
+.SS "getAllGroups ()"
+
+.PP
+Возвращает все группы 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Группы 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Массив с объктами класса Group 
+.RE
+.PP
+
+.SS "getGroups (int $test_id)"
+
+.PP
+Возвращает группы, которые привязаны к тесту 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$test_id\fP - Идентификатор теста 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+Группы 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Массив с объктами класса Group 
+.RE
+.PP
+
+.SS "getUnsetGroups (int $test_id)"
+
+.PP
+Возвращает группы, которые непривязаны к тесту 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$test_id\fP - Идентификатор теста 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+Группы 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Массив с объктами класса Group 
+.RE
+.PP
+
+.SS "remove ( $group_id)"
+
+.PP
+Удаляет группу 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$group_id\fP - Идентификатор группы 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+TRUE - успешно, FALSE - ошибка 
+.RE
+.PP
+
+.SS "upCourse (int $grp_id)"
+
+.PP
+Переводит группы на курс выше 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$grp_id\fP - Идентификатор группы 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+TRUE - успешно, FALSE - ошибка 
+.RE
+.PP
+
+
+.SH "Автор"
+.PP 
+Автоматически создано Doxygen для EDUKIT Developers Doc из исходного текста\&.

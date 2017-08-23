@@ -1,0 +1,220 @@
+.TH "Parent_" 3 "Ср 23 Авг 2017" "Version 1.0.0" "EDUKIT Developers Doc" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Parent_ \- Класс для хранения данных об родителе  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Базовые классы:\fBUser\fP\&.
+.SS "Открытые члены"
+
+.in +1c
+.ti -1c
+.RI "\fB__construct\fP (\fBUser\fP $user, int $age, string $education, string $work_place, string $post, string $home_phone, string $cell_phone)"
+.br
+.ti -1c
+.RI "\fBgetAge\fP ()"
+.br
+.ti -1c
+.RI "\fBgetEducation\fP ()"
+.br
+.ti -1c
+.RI "\fBgetWorkPlace\fP ()"
+.br
+.ti -1c
+.RI "\fBgetPost\fP ()"
+.br
+.ti -1c
+.RI "\fBgetHomePhone\fP ()"
+.br
+.ti -1c
+.RI "\fBgetCellPhone\fP ()"
+.br
+.ti -1c
+.RI "\fBgetChilds\fP ()"
+.br
+.ti -1c
+.RI "\fBsetChilds\fP (array $childs)"
+.br
+.in -1c
+.SS "Закрытые данные"
+
+.in +1c
+.ti -1c
+.RI "\fB$age\fP"
+.br
+.ti -1c
+.RI "\fB$education\fP"
+.br
+.ti -1c
+.RI "\fB$work_place\fP"
+.br
+.ti -1c
+.RI "\fB$post\fP"
+.br
+.ti -1c
+.RI "\fB$home_phone\fP"
+.br
+.ti -1c
+.RI "\fB$cell_phone\fP"
+.br
+.ti -1c
+.RI "\fB$childs\fP"
+.br
+.in -1c
+.SS "Дополнительные унаследованные члены"
+.SH "Подробное описание"
+.PP 
+Класс для хранения данных об родителе 
+
+
+.PP
+\fBАвтор:\fP
+.RS 4
+pmswga 
+.RE
+.PP
+\fBВерсия:\fP
+.RS 4
+1\&.0
+.RE
+.PP
+Данный класс содержит в себе информацию об родителе 
+.SH "Конструктор(ы)"
+.PP 
+.SS "__construct (\fBUser\fP $user, int $age, string $education, string $work_place, string $post, string $home_phone, string $cell_phone)"
+
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$user\fP - Объект типа класса \fBUser\fP 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Необходим для хранения основной информации
+.RE
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$age\fP - Возраст 
+.br
+\fI$education\fP - Образование 
+.br
+\fI$work_place\fP - Место работы 
+.br
+\fI$post\fP - Должность 
+.br
+\fI$home_phone\fP - Домашний телефон 
+.br
+\fI$cell_phone\fP - Сотовый телефон 
+.RE
+.PP
+
+.SH "Методы"
+.PP 
+.SS "getAge ()"
+
+.PP
+\fBВозвращает:\fP
+.RS 4
+Возраст 
+.RE
+.PP
+
+.SS "getCellPhone ()"
+
+.PP
+\fBВозвращает:\fP
+.RS 4
+Сотовый телефон 
+.RE
+.PP
+
+.SS "getChilds ()"
+
+.PP
+\fBВозвращает:\fP
+.RS 4
+Массив с объектами класса \fBStudent\fP 
+.RE
+.PP
+
+.SS "getEducation ()"
+
+.PP
+\fBВозвращает:\fP
+.RS 4
+Образование 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+К примеру, высшее или среднее 
+.RE
+.PP
+
+.SS "getHomePhone ()"
+
+.PP
+\fBВозвращает:\fP
+.RS 4
+Домашний телефон 
+.RE
+.PP
+
+.SS "getPost ()"
+
+.PP
+\fBВозвращает:\fP
+.RS 4
+Должность 
+.RE
+.PP
+
+.SS "getWorkPlace ()"
+
+.PP
+\fBВозвращает:\fP
+.RS 4
+Место работы 
+.RE
+.PP
+
+.SS "setChilds (array $childs)"
+
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$childs\fP - дети 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Массив с объектами класса \fBStudent\fP 
+.RE
+.PP
+
+.SH "Поля"
+.PP 
+.SS "$age\fC [private]\fP"
+
+.SS "$cell_phone\fC [private]\fP"
+
+.SS "$childs\fC [private]\fP"
+
+.SS "$education\fC [private]\fP"
+
+.SS "$home_phone\fC [private]\fP"
+
+.SS "$post\fC [private]\fP"
+
+.SS "$work_place\fC [private]\fP"
+
+
+.SH "Автор"
+.PP 
+Автоматически создано Doxygen для EDUKIT Developers Doc из исходного текста\&.

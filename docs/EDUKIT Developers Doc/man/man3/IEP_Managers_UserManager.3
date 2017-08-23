@@ -1,0 +1,115 @@
+.TH "UserManager" 3 "Ср 23 Авг 2017" "Version 1.0.0" "EDUKIT Developers Doc" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+UserManager
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Базовые классы:\fBIEP\fP\&.
+.SS "Открытые члены"
+
+.in +1c
+.ti -1c
+.RI "\fBadd\fP ($user)"
+.br
+.ti -1c
+.RI "\fBauthentification\fP (string $email, string $passwd)"
+.br
+.ti -1c
+.RI "\fBauthentificationAdmin\fP (string $email, string $passwd)"
+.br
+.ti -1c
+.RI "\fBgetAllAdmins\fP ()"
+.br
+.ti -1c
+.RI "\fBgetAllUsers\fP ()"
+.br
+.ti -1c
+.RI "\fBgetAllStudents\fP ()"
+.br
+.ti -1c
+.RI "\fBgetAllTeachers\fP ()"
+.br
+.ti -1c
+.RI "\fBgetAllParents\fP ()"
+.br
+.ti -1c
+.RI "\fBgetAllElders\fP ()"
+.br
+.ti -1c
+.RI "\fBgetAllStudentsElders\fP ()"
+.br
+.ti -1c
+.RI "\fBgrantElder\fP (string $student_email)"
+.br
+.ti -1c
+.RI "\fBrevokeElder\fP (string $student_email)"
+.br
+.ti -1c
+.RI "\fBsetChild\fP (string $parent_email, string $student_email, int $relation)"
+.br
+.ti -1c
+.RI "\fBunsetChild\fP (string $parent_email, string $student_email)"
+.br
+.ti -1c
+.RI "\fBsetSubject\fP (string $teacher_email, int $subject_id)"
+.br
+.ti -1c
+.RI "\fBunsetSubject\fP (string $teacher_email, int $subject_id)"
+.br
+.ti -1c
+.RI "\fBchangeUserPassword\fP (string $user_email, string $old_passwd, string $new_passwd)"
+.br
+.ti -1c
+.RI "\fBremove\fP ($user_email)"
+.br
+.ti -1c
+.RI "\fBremoveAdmin\fP (string $admin_email)"
+.br
+.in -1c
+.SH "Методы"
+.PP 
+.SS "add ( $user)"
+
+.SS "authentification (string $email, string $passwd)"
+
+.SS "authentificationAdmin (string $email, string $passwd)"
+
+.SS "changeUserPassword (string $user_email, string $old_passwd, string $new_passwd)"
+
+.SS "getAllAdmins ()"
+
+.SS "getAllElders ()"
+
+.SS "getAllParents ()"
+
+.SS "getAllStudents ()"
+
+.SS "getAllStudentsElders ()"
+
+.SS "getAllTeachers ()"
+
+.SS "getAllUsers ()"
+
+.SS "grantElder (string $student_email)"
+
+.SS "remove ( $user_email)"
+
+.SS "removeAdmin (string $admin_email)"
+
+.SS "revokeElder (string $student_email)"
+
+.SS "setChild (string $parent_email, string $student_email, int $relation)"
+
+.SS "setSubject (string $teacher_email, int $subject_id)"
+
+.SS "unsetChild (string $parent_email, string $student_email)"
+
+.SS "unsetSubject (string $teacher_email, int $subject_id)"
+
+
+.SH "Автор"
+.PP 
+Автоматически создано Doxygen для EDUKIT Developers Doc из исходного текста\&.

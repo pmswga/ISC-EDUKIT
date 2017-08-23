@@ -1,0 +1,250 @@
+.TH "News" 3 "Ср 23 Авг 2017" "Version 1.0.0" "EDUKIT Developers Doc" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+News \- Класс, который хранит в себе информацию об новости  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Открытые члены"
+
+.in +1c
+.ti -1c
+.RI "\fB__construct\fP (string $caption, string $content, string $author, string $date_publication)"
+.br
+.ti -1c
+.RI "\fBsetNewsID\fP (int $id)"
+.br
+.ti -1c
+.RI "\fBgetNewsID\fP ()"
+.br
+.ti -1c
+.RI "\fBgetCaption\fP ()"
+.br
+.ti -1c
+.RI "\fBgetContent\fP ()"
+.br
+.ti -1c
+.RI "\fBgetAuthor\fP ()"
+.br
+.ti -1c
+.RI "\fBgetDatePublication\fP ()"
+.br
+.ti -1c
+.RI "\fBsetCaption\fP ($caption)"
+.br
+.ti -1c
+.RI "\fBsetContent\fP ($content)"
+.br
+.ti -1c
+.RI "\fBsetAuthor\fP ($author)"
+.br
+.ti -1c
+.RI "\fBsetDatePublication\fP ($date_publication)"
+.br
+.in -1c
+.SS "Закрытые данные"
+
+.in +1c
+.ti -1c
+.RI "\fB$id\fP"
+.br
+.ti -1c
+.RI "\fB$caption\fP"
+.br
+.ti -1c
+.RI "\fB$content\fP"
+.br
+.ti -1c
+.RI "\fB$author\fP"
+.br
+.ti -1c
+.RI "\fB$date_publication\fP"
+.br
+.in -1c
+.SH "Подробное описание"
+.PP 
+Класс, который хранит в себе информацию об новости 
+
+
+.PP
+\fBАвтор:\fP
+.RS 4
+pmswga 
+.RE
+.PP
+\fBВерсия:\fP
+.RS 4
+1\&.0
+.RE
+.PP
+Класс представляет собой сущность, в которую помещаются данные из базы данных 
+.SH "Конструктор(ы)"
+.PP 
+.SS "__construct (string $caption, string $content, string $author, string $date_publication)"
+
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$caption\fP - Заголовок 
+.br
+\fI$content\fP - Содержание новости
+.br
+\fI$author\fP - Автор 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Формат отображения 'Фамилия И\&.О\&.'
+.RE
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$date_publication\fP - Дата публикации 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Формат даты 'd\&.m\&.Y H:i:s' 
+.RE
+.PP
+
+.SH "Методы"
+.PP 
+.SS "getAuthor ()"
+
+.PP
+\fBВозвращает:\fP
+.RS 4
+Автора новости 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Формат отображения 'Фамилия И\&.О\&.' 
+.RE
+.PP
+
+.SS "getCaption ()"
+
+.PP
+\fBВозвращает:\fP
+.RS 4
+Заголовок новости 
+.RE
+.PP
+
+.SS "getContent ()"
+
+.PP
+\fBВозвращает:\fP
+.RS 4
+Возвращает HTML содержимое новости 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Для декодирования и отображения HTML на сайте используется функция html_entity_decode() 
+.RE
+.PP
+
+.SS "getDatePublication ()"
+
+.PP
+\fBВозвращает:\fP
+.RS 4
+Дату публикации 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Формат даты 'd\&.m\&.Y H:i:s' 
+.RE
+.PP
+
+.SS "getNewsID ()"
+
+.PP
+\fBВозвращает:\fP
+.RS 4
+Идентификатор новости 
+.RE
+.PP
+
+.SS "setAuthor ( $author)"
+
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$author\fP - Автор новости 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Формат отображения 'Фамилия И\&.О\&.' 
+.RE
+.PP
+
+.SS "setCaption ( $caption)"
+
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$caption\fP - Заголовок новости 
+.RE
+.PP
+
+.SS "setContent ( $content)"
+
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$content\fP - Содержание новости 
+.RE
+.PP
+
+.SS "setDatePublication ( $date_publication)"
+
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$date_publication\fP - Дата публикации 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Формат даты 'd\&.m\&.Y H:i:s' 
+.RE
+.PP
+
+.SS "setNewsID (int $id)"
+
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$id\fP - Идентификатор новости 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Идентификатор из базы данных 
+.RE
+.PP
+
+.SH "Поля"
+.PP 
+.SS "$author\fC [private]\fP"
+
+.SS "$caption\fC [private]\fP"
+
+.SS "$content\fC [private]\fP"
+
+.SS "$date_publication\fC [private]\fP"
+
+.SS "$id\fC [private]\fP"
+
+
+.SH "Автор"
+.PP 
+Автоматически создано Doxygen для EDUKIT Developers Doc из исходного текста\&.

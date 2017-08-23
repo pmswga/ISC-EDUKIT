@@ -1,6 +1,5 @@
 var menudata={children:[
 {text:"Титульная страница",url:"index.html"},
-{text:"Группы",url:"modules.html"},
 {text:"Пространства имен",url:"namespaces.html",children:[
 {text:"Пространства имен",url:"namespaces.html"}]},
 {text:"Структуры данных",url:"annotated.html",children:[

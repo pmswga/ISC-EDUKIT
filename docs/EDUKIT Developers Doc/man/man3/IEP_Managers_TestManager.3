@@ -1,0 +1,135 @@
+.TH "TestManager" 3 "Ср 23 Авг 2017" "Version 1.0.0" "EDUKIT Developers Doc" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+TestManager
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Базовые классы:\fBIEP\fP\&.
+.SS "Открытые члены"
+
+.in +1c
+.ti -1c
+.RI "\fBadd\fP ($test)"
+.br
+.ti -1c
+.RI "\fBgetTestsForGroup\fP (int $grp)"
+.br
+.ti -1c
+.RI "\fBgetTest\fP (int $test_id)"
+.br
+.ti -1c
+.RI "\fBgetTests\fP (string $teacher_email)"
+.br
+.ti -1c
+.RI "\fBgetAllTests\fP ()"
+.br
+.ti -1c
+.RI "\fBisGroupForTest\fP (int $test_id, int $grp_id)"
+.br
+.ti -1c
+.RI "\fBaddQuestion\fP (int $test_id, \fBTestQuestion\fP $question)"
+.br
+.ti -1c
+.RI "\fBaddAnswer\fP (int $question_id, string $answer)"
+.br
+.ti -1c
+.RI "\fBgetAnswers\fP (int $question_id)"
+.br
+.ti -1c
+.RI "\fBchangeCaptionTest\fP (int $test_id, string $test_caption)"
+.br
+.ti -1c
+.RI "\fBchangeSubjectTest\fP (int $test_id, int $subject_id)"
+.br
+.ti -1c
+.RI "\fBchangeCaptionQuestion\fP (int $question_id, string $new_caption)"
+.br
+.ti -1c
+.RI "\fBchangeRAnswerQuestion\fP (int $question_id, string $new_RAnswer)"
+.br
+.ti -1c
+.RI "\fBchangeCaptionAnswer\fP (int $answer_id, string $new_answer)"
+.br
+.ti -1c
+.RI "\fBsetGroup\fP (int $test_id, int $test_grp)"
+.br
+.ti -1c
+.RI "\fBunsetGroup\fP (int $test_id, int $test_grp)"
+.br
+.ti -1c
+.RI "\fBremoveQuestion\fP (int $question_id)"
+.br
+.ti -1c
+.RI "\fBremoveAnswer\fP (int $answer_id)"
+.br
+.ti -1c
+.RI "\fBputStudentAnswer\fP (\fBStudentAnswer\fP $student_answer)"
+.br
+.ti -1c
+.RI "\fBgetStudentAnswers\fP (int $student_test_id)"
+.br
+.ti -1c
+.RI "\fBgetStudentTest\fP (string $student_email, int $student_test)"
+.br
+.ti -1c
+.RI "\fBgetStudentTests\fP (string $student_email)"
+.br
+.ti -1c
+.RI "\fBremove\fP ($test_id)"
+.br
+.in -1c
+.SH "Методы"
+.PP 
+.SS "add ( $test)"
+
+.SS "addAnswer (int $question_id, string $answer)"
+
+.SS "addQuestion (int $test_id, \fBTestQuestion\fP $question)"
+
+.SS "changeCaptionAnswer (int $answer_id, string $new_answer)"
+
+.SS "changeCaptionQuestion (int $question_id, string $new_caption)"
+
+.SS "changeCaptionTest (int $test_id, string $test_caption)"
+
+.SS "changeRAnswerQuestion (int $question_id, string $new_RAnswer)"
+
+.SS "changeSubjectTest (int $test_id, int $subject_id)"
+
+.SS "getAllTests ()"
+
+.SS "getAnswers (int $question_id)"
+
+.SS "getStudentAnswers (int $student_test_id)"
+
+.SS "getStudentTest (string $student_email, int $student_test)"
+
+.SS "getStudentTests (string $student_email)"
+
+.SS "getTest (int $test_id)"
+
+.SS "getTests (string $teacher_email)"
+
+.SS "getTestsForGroup (int $grp)"
+
+.SS "isGroupForTest (int $test_id, int $grp_id)"
+
+.SS "putStudentAnswer (\fBStudentAnswer\fP $student_answer)"
+
+.SS "remove ( $test_id)"
+
+.SS "removeAnswer (int $answer_id)"
+
+.SS "removeQuestion (int $question_id)"
+
+.SS "setGroup (int $test_id, int $test_grp)"
+
+.SS "unsetGroup (int $test_id, int $test_grp)"
+
+
+.SH "Автор"
+.PP 
+Автоматически создано Doxygen для EDUKIT Developers Doc из исходного текста\&.

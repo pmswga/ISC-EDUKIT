@@ -1,0 +1,198 @@
+.TH "User" 3 "Ср 23 Авг 2017" "Version 1.0.0" "EDUKIT Developers Doc" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+User \- Общий класс для всех пользователей  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Производные классы:\fBParent_\fP, \fBStudent\fP и \fBTeacher\fP\&.
+.SS "Открытые члены"
+
+.in +1c
+.ti -1c
+.RI "\fB__construct\fP (string $sn, string $fn, string $pt, string $email, string $password, int $typeUser=0)"
+.br
+.ti -1c
+.RI "\fBgetSn\fP ()"
+.br
+.ti -1c
+.RI "\fBgetFn\fP ()"
+.br
+.ti -1c
+.RI "\fBgetPt\fP ()"
+.br
+.ti -1c
+.RI "\fBgetEmail\fP ()"
+.br
+.ti -1c
+.RI "\fBgetPassword\fP ()"
+.br
+.ti -1c
+.RI "\fBgetUserType\fP ()"
+.br
+.in -1c
+.SS "Защищенные данные"
+
+.in +1c
+.ti -1c
+.RI "\fB$sn\fP"
+.br
+.RI "Фамилия "
+.ti -1c
+.RI "\fB$fn\fP"
+.br
+.RI "Имя "
+.ti -1c
+.RI "\fB$pt\fP"
+.br
+.RI "Отчество "
+.ti -1c
+.RI "\fB$email\fP"
+.br
+.RI "Почта "
+.ti -1c
+.RI "\fB$password\fP"
+.br
+.RI "Пароль "
+.ti -1c
+.RI "\fB$typeUser\fP"
+.br
+.RI "Тип пользователя "
+.in -1c
+.SH "Подробное описание"
+.PP 
+Общий класс для всех пользователей 
+
+
+.PP
+\fBАвтор:\fP
+.RS 4
+pmswga 
+.RE
+.PP
+\fBВерсия:\fP
+.RS 4
+1\&.0
+.RE
+.PP
+Данный класс содержит в себе общую информацию об пользователе 
+.SH "Конструктор(ы)"
+.PP 
+.SS "__construct (string $sn, string $fn, string $pt, string $email, string $password, int $typeUser = \fC0\fP)"
+
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$sn\fP - Фамилия 
+.br
+\fI$fn\fP - Имя 
+.br
+\fI$pt\fP - Отчество 
+.br
+\fI$email\fP - Электронная почта 
+.br
+\fI$password\fP - Пароль
+.br
+\fI$typeUser\fP - Тип пользователя 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+там их много крч\&.\&.\&.\&. 
+.RE
+.PP
+
+.SH "Методы"
+.PP 
+.SS "getEmail ()"
+
+.PP
+\fBВозвращает:\fP
+.RS 4
+Электронную почту пользователя 
+.RE
+.PP
+
+.SS "getFn ()"
+
+.PP
+\fBВозвращает:\fP
+.RS 4
+Имя пользователя 
+.RE
+.PP
+
+.SS "getPassword ()"
+
+.PP
+\fBВозвращает:\fP
+.RS 4
+Пароль пользователя 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Пароль захеширован с помощью MD5 
+.RE
+.PP
+
+.SS "getPt ()"
+
+.PP
+\fBВозвращает:\fP
+.RS 4
+Отчество пользователя 
+.RE
+.PP
+
+.SS "getSn ()"
+
+.PP
+\fBВозвращает:\fP
+.RS 4
+Фамилию пользователя 
+.RE
+.PP
+
+.SS "getUserType ()"
+
+.PP
+\fBВозвращает:\fP
+.RS 4
+Вовзращает тип пользователя 
+.RE
+.PP
+
+.SH "Поля"
+.PP 
+.SS "$email\fC [protected]\fP"
+
+.PP
+Почта 
+.SS "$fn\fC [protected]\fP"
+
+.PP
+Имя 
+.SS "$password\fC [protected]\fP"
+
+.PP
+Пароль 
+.SS "$pt\fC [protected]\fP"
+
+.PP
+Отчество 
+.SS "$sn\fC [protected]\fP"
+
+.PP
+Фамилия 
+.SS "$typeUser\fC [protected]\fP"
+
+.PP
+Тип пользователя 
+
+.SH "Автор"
+.PP 
+Автоматически создано Doxygen для EDUKIT Developers Doc из исходного текста\&.

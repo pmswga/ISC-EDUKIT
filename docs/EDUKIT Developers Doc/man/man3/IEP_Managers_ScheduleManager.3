@@ -1,0 +1,74 @@
+.TH "ScheduleManager" 3 "Ср 23 Авг 2017" "Version 1.0.0" "EDUKIT Developers Doc" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ScheduleManager
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Базовые классы:\fBIEP\fP\&.
+.SS "Открытые члены"
+
+.in +1c
+.ti -1c
+.RI "\fBadd\fP ($schedule)"
+.br
+.ti -1c
+.RI "\fBaddChangeSchedule\fP ($schedule)"
+.br
+.ti -1c
+.RI "\fBgetAllScheduleGroup\fP ()"
+.br
+.ti -1c
+.RI "\fBgetScheduleGroup\fP (int $grp)"
+.br
+.ti -1c
+.RI "\fBgetAllChangedSchedule\fP ()"
+.br
+.ti -1c
+.RI "\fBgetChangeScheduleGroup\fP (int $grp)"
+.br
+.ti -1c
+.RI "\fBchangePair\fP (string $grp, int $day, int $pair, int $subject)"
+.br
+.ti -1c
+.RI "\fBchangeChangedPair\fP (string $grp, string $day, int $pair, int $subject)"
+.br
+.ti -1c
+.RI "\fBremove\fP ($schedule)"
+.br
+.in -1c
+.SS "Закрытые члены"
+
+.in +1c
+.ti -1c
+.RI "\fBintToDay\fP (int $day)"
+.br
+.in -1c
+.SH "Методы"
+.PP 
+.SS "add ( $schedule)"
+
+.SS "addChangeSchedule ( $schedule)"
+
+.SS "changeChangedPair (string $grp, string $day, int $pair, int $subject)"
+
+.SS "changePair (string $grp, int $day, int $pair, int $subject)"
+
+.SS "getAllChangedSchedule ()"
+
+.SS "getAllScheduleGroup ()"
+
+.SS "getChangeScheduleGroup (int $grp)"
+
+.SS "getScheduleGroup (int $grp)"
+
+.SS "intToDay (int $day)\fC [private]\fP"
+
+.SS "remove ( $schedule)"
+
+
+.SH "Автор"
+.PP 
+Автоматически создано Doxygen для EDUKIT Developers Doc из исходного текста\&.

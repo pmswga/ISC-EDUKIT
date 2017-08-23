@@ -17,14 +17,21 @@
     \author pmswga
     \version 1.0
     
+    Задачи менеджера групп:
+      1. Добавление/удаление групп
+      2. Изменение данных о группе (название, специальность)
+      3. Выборка групп
+    
   */
   
   class GroupManager extends IEP
   {
     
     /*!
+      \brief Добавляет группу
       \param[in] $group - Группа
       \note Объект класса Group
+      \return TRUE - успешно, FALSE - ошибка
     */
     
     public function add($group) : bool
@@ -38,6 +45,13 @@
       
       return $add_group_query->execute();
     }
+    
+    /*!
+      \brief Возвращает группы, которые привязаны к тесту
+      \param[in] $test_id - Идентификатор теста
+      \return Группы
+      \note Массив с объктами класса Group
+    */
     
     public function getGroups(int $test_id) : array
     {
@@ -63,6 +77,13 @@
       return $groups;
     }
     
+    /*!
+      \brief Возвращает группы, которые непривязаны к тесту
+      \param[in] $test_id - Идентификатор теста
+      \return Группы
+      \note Массив с объктами класса Group
+    */
+    
     public function getUnsetGroups(int $test_id) : array
     {
       $db_groups = $this->query("call getUnsetGroups(:test_id)", [":test_id" => $test_id]);
@@ -87,6 +108,13 @@
       return $unset_groups;
     }
     
+    
+    /*!
+      \brief Возвращает все группы
+      \return Группы
+      \note Массив с объктами класса Group
+    */
+    
     public function getAllGroups() : array
     {
       $db_groups = $this->query("call getAllGroups()");
@@ -109,6 +137,13 @@
       return $groups;
     }
     
+    /*!
+      \brief Изменяет название группы
+      \param[in] $grp_id    - Идентификатор группы
+      \param[in] $new_descp - Новое название группы
+      \return TRUE - успешно, FALSE - ошибка
+    */
+    
     public function changeDescriptionGroup(int $grp_id, string $new_descp) : bool
     {
       $change_descp_grp_query = $this->dbc()->prepare("call changeDescriptionGroup(:grp, :descp)");
@@ -118,6 +153,13 @@
       
       return $change_descp_grp_query->execute();
     }
+    
+    /*!
+      \brief Изменяет специальность группы
+      \param[in] $grp_id  - Идентификатор группы
+      \param[in] $spec_id - Новый идентификатор группы
+      \return TRUE - успешно, FALSE - ошибка
+    */
     
     public function changeSpecGroup(int $grp_id, int $spec_id) : bool
     {
@@ -129,7 +171,13 @@
       return $change_spec_grp_query->execute();
     }
     
-    public function upCourse(int $grp_id)
+    /*!
+      \brief Переводит группы на курс выше
+      \param[in] $grp_id  - Идентификатор группы
+      \return TRUE - успешно, FALSE - ошибка
+    */
+    
+    public function upCourse(int $grp_id) : bool
     {
       $up_course_grp_query = $this->dbc()->prepare("call upCourse(:grp)");
       
@@ -137,6 +185,12 @@
       
       return $up_course_grp_query->execute();
     }
+    
+    /*!
+      \brief Удаляет группу
+      \param[in] $group_id  - Идентификатор группы
+      \return TRUE - успешно, FALSE - ошибка
+    */
     
     public function remove($group_id) : bool
     {

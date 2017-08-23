@@ -8,8 +8,28 @@
   use IEP\Managers\IEP;
   use IEP\Structures\Subject;
   
+  /*!
+    
+    \class SubjectManager
+    \extends IEP
+    \brief Менеджер для управления предметами
+    \author pmswga
+    \version 1.0
+    
+    Задачи менеджера:
+      1. 
+    
+  */
+  
   class SubjectManager extends IEP
   {
+    
+    /*!
+      \brief Добавление нового предмета
+      \param[in] $subject - Предмет
+      \note Объект класса Subject
+      \return TRUE - успешно, FALSE - ошибка
+    */
     
     public function add($subject)
     {
@@ -19,6 +39,13 @@
       
       return $add_subject_query->execute();
     }
+    
+    /*!
+      \brief Возвращает предметы, которые ведёт преподаватель
+      \param[in] $teacher_email - Электронная почта преподавателя
+      \return Предметы
+      \note Массив с объектами класса Subject
+    */
     
     public function getSubjects(string $teacher_email)
     {
@@ -35,6 +62,12 @@
       return $subjects;
     }
     
+    /*!
+      \brief Возвращает все предметы
+      \return Предметы
+      \note Массив с объектами класса Subject
+    */
+    
     public function getAllSubjects() : array
     {
       $db_subjects = $this->query("call getAllSubjects()");
@@ -50,6 +83,13 @@
       return $subjects;
     }
     
+    /*!
+      \brief Назначает предмет преподавателю
+      \param[in] $teacher_email - Электронная почта преподавателя
+      \param[in] $subject_id    - Идентификатор предмета 
+      \return TRUE - успешно, FALSE - ошибка
+    */
+    
     public function setSubject(string $teacher_email, int $subject_id) : bool
     {
       $set_subject_query = $this->dbc()->prepare("call setSubject(:t_email, :subject_id)");
@@ -60,6 +100,13 @@
       return $set_subject_query->execute();
     }
     
+    /*!
+      \brief Снимает предмет с преподавателя
+      \param[in] $teacher_email - Электронная почта преподавателя
+      \param[in] $subject_id    - Идентификатор предмета 
+      \return TRUE - успешно, FALSE - ошибка
+    */
+    
     public function unsetSubject(string $teacher_email, int $subject_id) : bool
     {
       $unset_subject_query = $this->dbc()->prepare("call unsetSubject(:t_email, :subject_id)");
@@ -69,6 +116,13 @@
       
       return $unset_subject_query->execute();
     }
+    
+    /*!
+      \brief Возвращает все неназначенные предметы на преподавателя
+      \param[in] $teacher_email - Электронная почта преподавателя
+      \return Предметы
+      \note Массив с объектами класса Subject
+    */
     
     public function getUnsetSubjects(string $teacher_email) : array
     {
@@ -85,7 +139,11 @@
       return $unset_subjects;
     }
     
-    public function changeDescriptionSubject(int $subject_id, string $new_descp)
+    /*!
+      
+    */
+    
+    public function changeDescriptionSubject(int $subject_id, string $new_descp) : bool
     {
       $change_subject_query = $this->dbc()->prepare("call changeDescriptionSubject(:subject_id, :new_descp)");
       
@@ -94,6 +152,12 @@
       
       return $change_subject_query->execute(); 
     }
+    
+    /*!
+      \brief Удаляет предмет
+      \param[in] $subject_id - Идентификатор предмета
+      \return TRUE - успешно, FALSE - ошибка
+    */
     
     public function remove($subject_id) : bool
     {
@@ -105,6 +169,5 @@
     }
     
   }
-  
   
 ?>

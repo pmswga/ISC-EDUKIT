@@ -5,8 +5,7 @@ var indexSectionsWithContent =
   2: "i",
   3: "ginpstu",
   4: "_acdgipqrsu",
-  5: "$u",
-  6: "c"
+  5: "$u"
 };
 
 var indexSectionNames =
@@ -16,8 +15,7 @@ var indexSectionNames =
   2: "namespaces",
   3: "files",
   4: "functions",
-  5: "variables",
-  6: "groups"
+  5: "variables"
 };
 
 var indexSectionLabels =
@@ -27,7 +25,6 @@ var indexSectionLabels =
   2: "Пространства имен",
   3: "Файлы",
   4: "Функции",
-  5: "Переменные",
-  6: "Группы"
+  5: "Переменные"
 };
 
