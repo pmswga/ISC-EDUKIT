@@ -1,11 +1,12 @@
 var indexSectionsWithContent =
 {
-  0: "$_acdginpqrstu",
+  0: "$_acdginpqrstuÐ",
   1: "ginpstu",
   2: "i",
   3: "ginpstu",
   4: "_acdgipqrsu",
-  5: "$u"
+  5: "$u",
+  6: "Ð"
 };
 
 var indexSectionNames =
@@ -15,7 +16,8 @@ var indexSectionNames =
   2: "namespaces",
   3: "files",
   4: "functions",
-  5: "variables"
+  5: "variables",
+  6: "pages"
 };
 
 var indexSectionLabels =
@@ -25,6 +27,7 @@ var indexSectionLabels =
   2: "Пространства имен",
   3: "Файлы",
   4: "Функции",
-  5: "Переменные"
+  5: "Переменные",
+  6: "Страницы"
 };
 

@@ -6,8 +6,29 @@
   
   use IEP\Managers\IEP;
   
+  /*!
+    
+    \class ScheduleManager
+    \extends IEP
+    \brief Менеджер для работы с расписанием
+    \author pmswga
+    \version 1.0
+    
+    Задачи менеджера:
+      1. 
+    
+  */
+  
   class ScheduleManager extends IEP
   {
+    
+    /*!
+      \brief Форматирует числовое представление дня недели в строку
+      \param[in] $day - Номер дня недели
+      \return Строковое представление дня недели
+      \note 1 - ПН, 2 - ВТ, 3 - СР, 4 - ЧТ, 5 - ПТ, 6 - СБ
+    */
+    
     private function intToDay(int $day) : string
     {
       switch ($day)
@@ -18,8 +39,27 @@
         case 4: return "ЧТ"; break;
         case 5: return "ПТ"; break;
         case 6: return "СБ"; break;
+        default: return ""; break;
       }
     }
+    
+    /*!
+      \brief Добавление новой записи о расписании
+      \param[in] $schedule - Запись о расписании
+      \note Ассоциативный массив в формате
+      \code
+        
+        $schedule_entry = array(
+          "group"   => ,
+          "day"     => ,
+          "pair"    => ,
+          "subject" => 
+        );
+        
+      \endcode
+      
+      \return TRUE - успешно, FALSE - ошибка
+    */
     
     public function add($schedule)
     {
@@ -33,6 +73,24 @@
       return $add_schedule->execute();
     }
     
+    /*!
+      \brief Добавление новой записи об изменениях в расписании
+      \param[in] $schedule - Запись об изменениях в расписании
+      \note Ассоциативный массив в формате
+      \code
+        
+        $schedule_entry = array(
+          "group"   => ,
+          "day"     => ,
+          "pair"    => ,
+          "subject" => 
+        );
+        
+      \endcode
+      
+      \return TRUE - успешно, FALSE - ошибка
+    */
+    
     public function addChangeSchedule($schedule) : bool
     {
       $add_schedule = $this->dbc()->prepare("call addChangeSchedule(:grp, :day, :pair, :subject)");
@@ -44,6 +102,32 @@
       
       return $add_schedule->execute();
     }
+    
+    /*!
+      \brief Возвращает расписание всех групп      
+      \return Расписание
+      \note Ассоциативный массив в формате
+      \code
+        
+        $schedule = array(
+          "П-304" => array(
+            "ПН" => array(
+              [0] => array(
+                [_day]    => ,
+                [group]   => ,
+                [id_grp]  => ,
+                [pair]    => ,
+                [subject] => 
+              ),
+              ...
+            )
+            ...
+          ),
+          ...
+        );
+        
+      \endcode
+    */
     
     public function getAllScheduleGroup() : array
     {
@@ -66,6 +150,13 @@
       return $dataByGroupByDay;
     }
     
+    /*!
+      \brief Возвращает расписание группы
+      \param[in] $grp - Идентификатор
+      \return Расписание
+      \note Ассоциативный массив
+    */
+    
     public function getScheduleGroup(int $grp)
     {
       $data = $this->query("call getScheduleGroup(:g)", [":g" => $grp]);
@@ -86,27 +177,60 @@
       
       return $dataByGroupByDay;
     }
+    
+    /*!
+      \brief Возвращает изменения во всех группах
+      \return Изменения в расписании
+      \note Ассоциативный массив в формате
+      \code
+        
+        $schedule = array(
+          "П-304" => array(
+            "2017-09-02 00:00:00" => array(
+              [0] => array(
+                [_day]    => ,
+                [group]   => ,
+                [id_grp]  => ,
+                [pair]    => ,
+                [subject] => 
+              ),
+              ...
+            )
+            ...
+          ),
+          ...
+        );
+        
+      \endcode
+    */
 
     public function getAllChangedSchedule()
     {
-        $data = $this->query("call getAllChangedSchedule()");
+      $data = $this->query("call getAllChangedSchedule()");
 
-        $dataByGroup = array();
-        foreach ($data as $d) {
-          $dataByGroup[$d['group']][] = $d;
+      $dataByGroup = array();
+      foreach ($data as $d) {
+        $dataByGroup[$d['group']][] = $d;
+      }
+
+      $dataByGroupByDay = array();
+      foreach ($dataByGroup as $key => $value) {
+
+        foreach ($value as $day) {            
+          $dataByGroupByDay[$key][$day['_day']][] = $day;
         }
 
-        $dataByGroupByDay = array();
-        foreach ($dataByGroup as $key => $value) {
+      }
 
-          foreach ($value as $day) {            
-            $dataByGroupByDay[$key][$day['_day']][] = $day;
-          }
-
-        }
-
-        return $dataByGroupByDay;
+      return $dataByGroupByDay;
     }
+    
+    /*!
+      \brief Возвращает изменения в расписании группы
+      \param[in] $grp - Идентификатор
+      \return Расписание
+      \note Ассоциативный массив
+    */
 
     public function getChangeScheduleGroup(int $grp)
     {
@@ -129,6 +253,15 @@
       return $dataByGroupByDay;
     }
     
+    /*!
+      \brief Изменяет предмет
+      \param[in] $grp     - Идентификатор группы
+      \param[in] $day     - День недели
+      \param[in] $pair    - Пара
+      \param[in] $subject - Идентфикатор предмета
+      \return TRUE - успешно, FALSE - ошибка
+    */
+    
     public function changePair(string $grp, int $day, int $pair, int $subject) : bool
     {
       $change_query = $this->dbc()->prepare("UPDATE `schedule`     SET `subject`=:s     WHERE `id_grp`=:g AND `pair`=:p AND `_day`=:d");
@@ -140,6 +273,14 @@
       return $change_query->execute();
     }
     
+    /*!
+      \brief Изменяет предмет в изменениях в расписании
+      \param[in] $grp     - Идентификатор группы
+      \param[in] $day     - День недели
+      \param[in] $pair    - Пара
+      \param[in] $subject - Идентфикатор предмета
+      \return TRUE - успешно, FALSE - ошибка
+    */
     public function changeChangedPair(string $grp, string $day, int $pair, int $subject) : bool
     {
       $change_query = $this->dbc()->prepare("UPDATE `changed_schedule`     SET `subject`=:s     WHERE `id_grp`=:g AND `pair`=:p AND `_day`=:d");
@@ -150,6 +291,13 @@
       
       return $change_query->execute();
     }
+    
+    /*!
+      \brief Удаление записи о расписании
+      \param[in] $schedule - Запись о расписании
+      \warning Ожидает реализации
+      \bug Хз, с начала времён тут
+    */
     
     public function remove($schedule)
     {

@@ -140,7 +140,10 @@
     }
     
     /*!
-      
+      \brief Изменяет название предмета
+      \param[in] $subject_id - Идентификатор предмета
+      \param[in] $new_descp  - Новое название предмета
+      \return TRUE - успешно, FALSE - ошибка
     */
     
     public function changeDescriptionSubject(int $subject_id, string $new_descp) : bool
