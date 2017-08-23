@@ -1,0 +1,796 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.13"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>EDUKIT Developers: База данных SQL</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="ukit.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">EDUKIT Developers
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Руководство программиста</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.8.13 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">База данных SQL </div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="toc"><h3>Оглавление</h3>
+<ul><li class="level1"><a href="#general">Общие сведения</a></li>
+<li class="level1"><a href="#dbc">Технология доступа к базе данных</a></li>
+<li class="level1"><a href="#sec">Основные объекты базы данных</a><ul><li class="level2"><a href="#tables_sec">Таблицы</a></li>
+<li class="level2"><a href="#views_sec">Представления</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="textblock"><h1><a class="anchor" id="general"></a>
+Общие сведения</h1>
+<h1><a class="anchor" id="dbc"></a>
+Технология доступа к базе данных</h1>
+<h1><a class="anchor" id="sec"></a>
+Основные объекты базы данных</h1>
+<p>Подразделы: <a class="el" href="sql_info.html#tables_sec">Таблицы</a>, <a class="el" href="sql_info.html#views_sec">Представления</a></p>
+<h2><a class="anchor" id="tables_sec"></a>
+Таблицы</h2>
+<p>В этом разделе описываются все таблицы, включая их поля, типы данных и индексы</p>
+<p> 
+  
+    <fieldset>
+      <legend id="users">Users</legend>
+      <table border='1' cellpadding='15' width="100%">
+        <tbody>
+          <tr>
+            <th>Имя</th>
+            <th>Тип</th>
+            <th>Примечание</th>
+          </tr>
+          <tr>
+            <td>id_user</td>
+            <td>int(11)</td>
+            <td>AI, PK</td>
+          </tr>
+          <tr>
+            <td>sn</td>
+            <td>char(30)</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>fn</td>
+            <td>char(30)</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>pt</td>
+            <td>char(30)</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>email</td>
+            <td>char(255)</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>passwd</td>
+            <td>char(32)</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>id_type_user</td>
+            <td>int(11)</td>
+            <td><a href="#typeUsers">FK</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+    
+    <br>
+    
+    <fieldset>
+      <legend id="typeUsers">TypeUsers</legend>
+      <table border='1' cellpadding='15' width="100%">
+        <tbody>
+          <tr>
+            <th>Имя</th>
+            <th>Тип</th>
+            <th>Примечание</th>
+          </tr>
+          <tr>
+            <td>id_type_user</td>
+            <td>int(11)</td>
+            <td>AI, PK</td>
+          </tr>
+          <tr>
+            <td>description</td>
+            <td>char(30)</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+    
+    <br>
+    
+    <fieldset>
+      <legend id="students">Students</legend>
+      <table border='1' cellpadding='15' width="100%">
+        <tbody>
+          <tr>
+            <th>Имя</th>
+            <th>Тип</th>
+            <th>Примечание</th>
+          </tr>
+          <tr>
+            <td>id_student</td>
+            <td>int(11)</td>
+            <td><a href="#users">PK</a></td>
+          </tr>
+          <tr>
+            <td>home_address</td>
+            <td>char(255)</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>cell_phone</td>
+            <td>char(12)</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>grp</td>
+            <td>int(11)</td>
+            <td><a href="#groups">FK</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+    
+    <br>
+    
+    <fieldset>
+      <legend id="groups">Groups</legend>
+      <table border='1' cellpadding='15' width="100%">
+        <tbody>
+          <tr>
+            <th>Имя</th>
+            <th>Тип</th>
+            <th>Примечание</th>
+          </tr>
+          <tr>
+            <td>grp</td>
+            <td>int(11)</td>
+            <td>AI, PK</td>
+          </tr>
+          <tr>
+            <td>description</td>
+            <td>char(10)</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>edu_year</td>
+            <td>char(10)</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>spec_id</td>
+            <td>int(11)</td>
+            <td><a href="#specialty">FK</a></td>
+          </tr>
+          <tr>
+            <td>is_budget</td>
+            <td>int(11)</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+    
+    <br>
+    
+    <fieldset>
+      <legend id="specialty">Specialty</legend>
+      <table border='1' cellpadding='15' width="100%">
+        <tbody>
+          <tr>
+            <th>Имя</th>
+            <th>Тип</th>
+            <th>Примечание</th>
+          </tr>
+          <tr>
+            <td>id_spec</td>
+            <td>int(11)</td>
+            <td>AI, PK</td>
+          </tr>
+          <tr>
+            <td>code_spec</td>
+            <td>char(10)</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>description</td>
+            <td>char(255)</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>pdf_file</td>
+            <td>char(255)</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+    
+    <br>
+    
+    <fieldset>
+      <legend id="parents">Parents</legend>
+      <table border='1' cellpadding='15' width="100%">
+        <tbody>
+          <tr>
+            <th>Имя</th>
+            <th>Тип</th>
+            <th>Примечание</th>
+          </tr>
+          <tr>
+            <td>id_parent</td>
+            <td>int(11)</td>
+            <td><a href="#users">PK</a></td>
+          </tr>
+          <tr>
+            <td>age</td>
+            <td>int(11)</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>education</td>
+            <td>char(50)</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>work_place</td>
+            <td>char(255)</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>post</td>
+            <td>char(255)</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>home_address</td>
+            <td>char(30)</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>cell_phone</td>
+            <td>char(30)</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+    
+    <br>
+    
+    <fieldset>
+      <legend id="parent_child">Parent_child</legend>
+      <table border='1' cellpadding='15' width="100%">
+        <tbody>
+          <tr>
+            <th>Имя</th>
+            <th>Тип</th>
+            <th>Примечание</th>
+          </tr>
+          <tr>
+            <td>id_parent</td>
+            <td>int(11)</td>
+            <td><a href="#parents">PK</a></td>
+          </tr>
+          <tr>
+            <td>id_children</td>
+            <td>int(11)</td>
+            <td><a href="#students">PK</a></td>
+          </tr>
+          <tr>
+            <td>id_type_user</td>
+            <td>int(11)</td>
+            <td><a href="#relations">FK</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+    
+    <br>
+    
+    <fieldset>
+      <legend id="relations">Relations</legend>
+      <table border='1' cellpadding='15' width="100%">
+        <tbody>
+          <tr>
+            <th>Имя</th>
+            <th>Тип</th>
+            <th>Примечание</th>
+          </tr>
+          <tr>
+            <td>id_relation</td>
+            <td>int(11)</td>
+            <td>AI, PK</td>
+          </tr>
+          <tr>
+            <td>description</td>
+            <td>char(255)</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+    
+    <br>
+    
+    <fieldset>
+      <legend id="teachers">Teachers</legend>
+      <table border='1' cellpadding='15' width="100%">
+        <tbody>
+          <tr>
+            <th>Имя</th>
+            <th>Тип</th>
+            <th>Примечание</th>
+          </tr>
+          <tr>
+            <td>id_teacher</td>
+            <td>int(11)</td>
+            <td><a href="#users">PK</a></td>
+          </tr>
+          <tr>
+            <td>info</td>
+            <td>text</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+    
+    <br>
+    
+    <fieldset>
+      <legend id="teacher_subjects">Teacher_subjects</legend>
+      <table border='1' cellpadding='15' width="100%">
+        <tbody>
+          <tr>
+            <th>Имя</th>
+            <th>Тип</th>
+            <th>Примечание</th>
+          </tr>
+          <tr>
+            <td>id_teacher</td>
+            <td>int(11)</td>
+            <td><a href="#teachers">PK</a></td>
+          </tr>
+          <tr>
+            <td>id_subject</td>
+            <td>int(11)</td>
+            <td><a href="#subjects">PK</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+    
+    <br>
+    
+    <fieldset>
+      <legend id="subjects">Subjects</legend>
+      <table border='1' cellpadding='15' width="100%">
+        <tbody>
+          <tr>
+            <th>Имя</th>
+            <th>Тип</th>
+            <th>Примечание</th>
+          </tr>
+          <tr>
+            <td>id_subject</td>
+            <td>int(11)</td>
+            <td>AI, PK</td>
+          </tr>
+          <tr>
+            <td>description</td>
+            <td>char(255)</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+    
+    <br>
+    
+    <fieldset>
+      <legend id="news">News</legend>
+      <table border='1' cellpadding='15' width="100%">
+        <tbody>
+          <tr>
+            <th>Имя</th>
+            <th>Тип</th>
+            <th>Примечание</th>
+          </tr>
+          <tr>
+            <td>id_news</td>
+            <td>int(11)</td>
+            <td>AI, PK</td>
+          </tr>
+          <tr>
+            <td>description</td>
+            <td>char(255)</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>caption</td>
+            <td>char(255)</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>content</td>
+            <td>text</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>id_author</td>
+            <td>int(11)</td>
+            <td><a href="#users">FK</a></td>
+          </tr>
+          <tr>
+            <td>date_publication</td>
+            <td>date</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+    
+    <br>
+    
+    <fieldset>
+      <legend id="tests">Tests</legend>
+      <table border='1' cellpadding='15' width="100%">
+        <tbody>
+          <tr>
+            <th>Имя</th>
+            <th>Тип</th>
+            <th>Примечание</th>
+          </tr>
+          <tr>
+            <td>id_test</td>
+            <td>int(11)</td>
+            <td>AI, PK</td>
+          </tr>
+          <tr>
+            <td>id_subject</td>
+            <td>int(11)</td>
+            <td><a href="#subjects">FK</a></td>
+          </tr>
+          <tr>
+            <td>id_teacher</td>
+            <td>int(11)</td>
+            <td><a href="#teachers">FK</a></td>
+          </tr>
+          <tr>
+            <td>caption</td>
+            <td>char(255)</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+    
+    <br>
+    
+    <fieldset>
+      <legend id="questions">Questions</legend>
+      <table border='1' cellpadding='15' width="100%">
+        <tbody>
+          <tr>
+            <th>Имя</th>
+            <th>Тип</th>
+            <th>Примечание</th>
+          </tr>
+          <tr>
+            <td>id_question</td>
+            <td>int(11)</td>
+            <td>AI, PK</td>
+          </tr>
+          <tr>
+            <td>id_test</td>
+            <td>int(11)</td>
+            <td><a href="#tests">FK</a></td>
+          </tr>
+          <tr>
+            <td>question</td>
+            <td>char(255)</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>r_answer</td>
+            <td>char(255)</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+    
+    <br>
+    
+    <fieldset>
+      <legend id="answers">Answers</legend>
+      <table border='1' cellpadding='15' width="100%">
+        <tbody>
+          <tr>
+            <th>Имя</th>
+            <th>Тип</th>
+            <th>Примечание</th>
+          </tr>
+          <tr>
+            <td>id_answer</td>
+            <td>int(11)</td>
+            <td>AI, PK</td>
+          </tr>
+          <tr>
+            <td>id_question</td>
+            <td>int(11)</td>
+            <td><a href="#questions">FK</a></td>
+          </tr>
+          <tr>
+            <td>answer</td>
+            <td>char(255)</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+    
+    <br>
+    
+    <fieldset>
+      <legend id="groups_tests">Groups_tests</legend>
+      <table border='1' cellpadding='15' width="100%">
+        <tbody>
+          <tr>
+            <th>Имя</th>
+            <th>Тип</th>
+            <th>Примечание</th>
+          </tr>
+          <tr>
+            <td>id_test</td>
+            <td>int(11)</td>
+            <td><a href="#tests">PK</a></td>
+          </tr>
+          <tr>
+            <td>id_grp</td>
+            <td>int(11)</td>
+            <td><a href="#groups">PK</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+    
+    <br>
+    
+    <fieldset>
+      <legend id="admins">Admins</legend>
+      <table border='1' cellpadding='15' width="100%">
+        <tbody>
+          <tr>
+            <th>Имя</th>
+            <th>Тип</th>
+            <th>Примечание</th>
+          </tr>
+          <tr>
+            <td>id_admin</td>
+            <td>int(11)</td>
+            <td>AI, PK</td>
+          </tr>
+          <tr>
+            <td>sn</td>
+            <td>char(30)</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>fn</td>
+            <td>char(30)</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>pt</td>
+            <td>char(30)</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>email</td>
+            <td>char(30)</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>passwd</td>
+            <td>char(32)</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+    
+    <br>
+    
+    <fieldset>
+      <legend id="admin_news">Admin_news</legend>
+      <table border='1' cellpadding='15' width="100%">
+        <tbody>
+          <tr>
+            <th>Имя</th>
+            <th>Тип</th>
+            <th>Примечание</th>
+          </tr>
+          <tr>
+            <td>id_news</td>
+            <td>int(11)</td>
+            <td>AI, PK</td>
+          </tr>
+          <tr>
+            <td>description</td>
+            <td>char(255)</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>caption</td>
+            <td>char(255)</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>content</td>
+            <td>text</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>id_author</td>
+            <td>int(11)</td>
+            <td><a href="#admins">FK</a></td>
+          </tr>
+          <tr>
+            <td>date_publication</td>
+            <td>date</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+    
+    <br>
+    
+    <fieldset>
+      <legend id="schedule">Schedule</legend>
+      <table border='1' cellpadding='15' width="100%">
+        <tbody>
+          <tr>
+            <th>Имя</th>
+            <th>Тип</th>
+            <th>Примечание</th>
+          </tr>
+          <tr>
+            <td>id_grp</td>
+            <td>int(11)</td>
+            <td><a href="#groups">PK</a></td>
+          </tr>
+          <tr>
+            <td>_day</td>
+            <td>int(11)</td>
+            <td>PK</td>
+          </tr>
+          <tr>
+            <td>pair</td>
+            <td>int(11)</td>
+            <td>PK</td>
+          </tr>
+          <tr>
+            <td>subject</td>
+            <td>int(11)</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset> 
+    
+    <br>
+    
+    <fieldset>
+      <legend id="changed_schedule">Changed_schedule</legend>
+      <table border='1' cellpadding='15' width="100%">
+        <tbody>
+          <tr>
+            <th>Имя</th>
+            <th>Тип</th>
+            <th>Примечание</th>
+          </tr>
+          <tr>
+            <td>id_grp</td>
+            <td>int(11)</td>
+            <td><a href="#groups">PK</a></td>
+          </tr>
+          <tr>
+            <td>_day</td>
+            <td>datetime</td>
+            <td>PK</td>
+          </tr>
+          <tr>
+            <td>pair</td>
+            <td>int(11)</td>
+            <td>PK</td>
+          </tr>
+          <tr>
+            <td>subject</td>
+            <td>int(11)</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>        
+    
+    
+    
+  </p>
+<h2><a class="anchor" id="views_sec"></a>
+Представления</h2>
+<p>Здесь описываем представления </p>
+</div></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Документация по EDUKIT Developers. Последние изменения: Ср 23 Авг 2017 21:52:20. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
+</body>
+</html>
