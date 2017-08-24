@@ -9,7 +9,7 @@
   use IEP\Structures\TrafficEntry;
   
   /*!
-    \class TrafficManager
+    \class TrafficManager trm.class.php "iep/managers/trm.class.php"
     \extends IEP
     \brief Менеджер для работы с записями посещамости
     \author pmswga

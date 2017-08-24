@@ -10,7 +10,7 @@
   
   /*!
     
-    \class NewsManager
+    \class NewsManager nm.class.php "iep/managers/nm.class.php"
     \extends IEP
     \brief Менеджер для работы с новостями
     \author pmswga

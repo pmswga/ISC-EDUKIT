@@ -11,7 +11,7 @@
   
   /*!
     
-    \class GroupManager
+    \class GroupManager gm.class.php "iep/managers/gm.class.php"
     \extends IEP
     \brief Менеджер для управления группами
     \author pmswga

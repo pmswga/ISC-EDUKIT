@@ -10,7 +10,7 @@
   
   /*!
     
-    \class SubjectManager
+    \class SubjectManager sbm.class.php "iep/managers/sbm.class.php"
     \extends IEP
     \brief Менеджер для управления предметами
     \author pmswga

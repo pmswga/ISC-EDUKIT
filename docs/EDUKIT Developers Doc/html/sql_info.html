@@ -70,6 +70,9 @@ $(function() {
 <li class="level1"><a href="#dbc">Технология доступа к базе данных</a></li>
 <li class="level1"><a href="#sec">Основные объекты базы данных</a><ul><li class="level2"><a href="#tables_sec">Таблицы</a></li>
 <li class="level2"><a href="#views_sec">Представления</a></li>
+<li class="level2"><a href="#functions_sec">Функции</a></li>
+<li class="level2"><a href="#stored_proc_sec">Хранимые процедуры</a></li>
+<li class="level2"><a href="#triggers_sec">Триггеры</a></li>
 </ul>
 </li>
 </ul>
@@ -78,9 +81,15 @@ $(function() {
 Общие сведения</h1>
 <h1><a class="anchor" id="dbc"></a>
 Технология доступа к базе данных</h1>
+<p> 
+  
+    <p>В качестве контроллера для доступа к базе данных используюется PDO (PHP Data Objects)</p>
+    <p>Больше об PDO вы можете узнать в <a href="http://php.net/manual/ru/book.pdo.php" target="_blank">офицальной документации</a></p>
+    
+  </p>
 <h1><a class="anchor" id="sec"></a>
 Основные объекты базы данных</h1>
-<p>Подразделы: <a class="el" href="sql_info.html#tables_sec">Таблицы</a>, <a class="el" href="sql_info.html#views_sec">Представления</a></p>
+<p>Подразделы: <a class="el" href="sql_info.html#tables_sec">Таблицы</a>, <a class="el" href="sql_info.html#views_sec">Представления</a>, <a class="el" href="sql_info.html#functions_sec">Функции</a>, <a class="el" href="sql_info.html#stored_proc_sec">Хранимые процедуры</a>, <a class="el" href="sql_info.html#triggers_sec">Триггеры</a></p>
 <h2><a class="anchor" id="tables_sec"></a>
 Таблицы</h2>
 <p>В этом разделе описываются все таблицы, включая их поля, типы данных и индексы</p>
@@ -742,7 +751,7 @@ $(function() {
           </tr>
         </tbody>
       </table>
-    </fieldset> 
+    </fieldset>
     
     <br>
     
@@ -777,18 +786,204 @@ $(function() {
           </tr>
         </tbody>
       </table>
-    </fieldset>        
+    </fieldset>
     
     
     
   </p>
 <h2><a class="anchor" id="views_sec"></a>
 Представления</h2>
-<p>Здесь описываем представления </p>
+<p> 
+    
+    <table border='1' cellpadding='15' width="100%">
+      <tbody>
+        <tr>
+          <th>Название</th>
+          <th>Описание</th>
+        </tr>
+        <tr>
+          <td>v_Admins</td>
+          <td>Администраторы</td>
+        </tr>
+        <tr>
+          <td>v_Users</td>
+          <td>Пользователи</td>
+        </tr>
+        <tr>
+          <td>v_Students</td>
+          <td>Студенты</td>
+        </tr>
+        <tr>
+          <td>v_Teachers</td>
+          <td>Преподаватели</td>
+        </tr>
+        <tr>
+          <td>v_Elders</td>
+          <td>Старосты</td>
+        </tr>
+        <tr>
+          <td>v_Parents</td>
+          <td>Родители</td>
+        </tr>
+        <tr>
+          <td>v_Groups</td>
+          <td>Группы</td>
+        </tr>
+        <tr>
+          <td>v_Specialtyes</td>
+          <td>Специальности</td>
+        </tr>
+        <tr>
+          <td>v_Subjects</td>
+          <td>Предметы</td>
+        </tr>
+        <tr>
+          <td>v_News</td>
+          <td>Новости (от преподавателей)</td>
+        </tr>
+        <tr>
+          <td>v_Traffic</td>
+          <td>Посещаемость</td>
+        </tr>
+        <tr>
+          <td>v_Relations</td>
+          <td>Отношения между родителем и ребёнком</td>
+        </tr>
+        <tr>
+          <td>v_Tests</td>
+          <td>Тесты</td>
+        </tr>
+      </tbody>
+    </table>
+      
+  </p>
+<h2><a class="anchor" id="functions_sec"></a>
+Функции</h2>
+<p>Ниже приведён список функций, которые используются для возврата идентификаторов</p>
+<p> 
+  
+    <ul>
+      <li>getAdminId</li>
+      <li>getUserId</li>
+      <li>getStudentId</li>
+      <li>getElderId</li>
+      <li>getParentId</li>
+      <li>getTeacherId</li>
+      <li>getSubjectId</li>
+      <li>getSpecialtyId</li>
+      <li>getGroupId</li>
+      <li>isGroupHaveElder</li>
+      <li>isEmail</li>
+      <li>TrafficFixed</li>
+    </ul>
+  
+  </p>
+<h2><a class="anchor" id="stored_proc_sec"></a>
+Хранимые процедуры</h2>
+<p> 
+  
+    <fieldset>
+      <legend>Вспомогательные процедуры</legend>
+      <ul>
+        <li>getTeacherID</li>
+        <li>getStudentID</li>
+        <li>getElderID</li>
+        <li>getParentID</li>
+        <li>getSubjectID</li>
+      </ul>
+    </fieldset>
+  
+    <fieldset>
+      <legend>Работа с логами</legend>
+      <ul>
+        <li>writeLog</li>
+        <li>readLogs</li>
+        <li>compressLogs</li>
+        <li>clearLogs</li>
+      </ul>
+    </fieldset>
+  
+    <fieldset>
+      <legend></legend>
+    </fieldset>
+  
+    <fieldset>
+      <legend></legend>
+    </fieldset>
+  
+    <fieldset>
+      <legend></legend>
+    </fieldset>
+  
+    <fieldset>
+      <legend></legend>
+    </fieldset>
+  
+    <fieldset>
+      <legend></legend>
+    </fieldset>
+  
+    <fieldset>
+      <legend></legend>
+    </fieldset>
+  
+    <fieldset>
+      <legend></legend>
+    </fieldset>
+  
+  </p>
+<h2><a class="anchor" id="triggers_sec"></a>
+Триггеры</h2>
+<p> 
+  
+    <fieldset>
+      <legend>Проверка данных</legend>
+      <ul>
+        <li>insUser</li>
+        <li>insTypeUser</li>
+        <li>insAdmin</li>
+        <li>insStudents</li>
+        <li>insGroup</li>
+        <li>insSpecialty</li>
+        <li>insParent</li>
+        <li>insRelation</li>
+        <li>insTeacher</li>
+        <li>insNews</li>
+        <li>insSubject</li>
+        <li>insTest</li>
+        <li>insQuestion</li>
+        <li>insStudentTest</li>
+        <li>insStudentAnswer</li>
+        <li>insStudentTraffic</li>
+      </ul>
+    </fieldset>
+  
+    <fieldset>
+      <legend>Ведение лога данных</legend>
+      <ul>
+        <li>log_insUser</li>
+        <li>log_uptUser</li>
+        <li>log_delUser</li>
+        <li>log_insAdmin</li>
+        <li>log_uptAdmin</li>
+        <li>log_delAdmin</li>
+        <li>log_insStudent</li>
+        <li>log_uptStudent</li>
+        <li>log_delStudent</li>
+        <li>log_insSubject</li>
+        <li>log_uptSubject</li>
+        <li>log_delSubject</li>
+        <li>log_insSpecialty</li>
+        <li>log_uptSpecialty</li>
+        <li>log_delSpecialty</li>
+      </ul>
+    </fieldset>
+  
+   </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по EDUKIT Developers. Последние изменения: Чт 24 Авг 2017 23:36:38. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по EDUKIT Developers. Последние изменения: Пт 25 Авг 2017 00:16:19. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

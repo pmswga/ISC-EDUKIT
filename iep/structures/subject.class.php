@@ -3,7 +3,7 @@
 	namespace IEP\Structures;
 
   /*!
-    \class Subject
+    \class Subject subject.class.php "iep/structures/subject.class.php"
     \brief Класс, который несёт в себе информацию об предмете
     \author pmswga
     \version 1.0

@@ -4,7 +4,7 @@
   
   /*!
     
-    \class StudentTest studenttest.class.php
+    \class StudentTest studenttest.class.php "iep/structures/studenttest.class.php"
     \brief Класс описывающий сущность результатов теста
     \author pmswga
     \version 1.0

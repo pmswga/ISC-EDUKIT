@@ -8,7 +8,7 @@
   
   /*!
     
-    \class ScheduleManager
+    \class ScheduleManager shm.class.php "iep/managers/shm.class.php"
     \extends IEP
     \brief Менеджер для работы с расписанием
     \author pmswga

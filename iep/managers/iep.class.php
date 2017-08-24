@@ -4,7 +4,7 @@
   
   /*!
     
-    \class IEP
+    \class IEP iep.class.php "iep/managers/iep.class.php"
     \brief Базовый класс для все остальных менеджеров
     \author pmswga
     \version 1.0

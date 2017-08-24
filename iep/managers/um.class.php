@@ -376,7 +376,9 @@
     }
     
     /*!
-      \brief ...
+      \brief Возвращает всех администраторов
+      \return Администраторы
+      \note Массив с объектами класса User
     */
     
     public function getAllAdmins() : array
@@ -398,6 +400,12 @@
       return $admins;
     }
     
+    /*!
+      \brief Возвращает всех пользователей
+      \return Пользователи
+      \note Массив с объектами класса User
+    */
+    
     public function getAllUsers() : array
     {
       $db_admins = $this->query("call getAllUsers()");
@@ -416,6 +424,12 @@
       
       return $admins;
     }
+    
+    /*!
+      \brief Возвращает всех студентов
+      \return Студенты
+      \note Массив с объектами класса Student
+    */
     
     public function getAllStudents() : array
     {
@@ -447,6 +461,12 @@
       return $students;
     }
     
+    /*!
+      \brief Возвращает всех преподавателей
+      \return Преподаватели
+      \note Массив с объектами класса Teacher
+    */
+    
     public function getAllTeachers() : array
     {
       $db_teachers = $this->query("call getAllTeachers()");
@@ -471,6 +491,12 @@
       
       return $teachers;
     }
+    
+    /*!
+      \brief Возвращает всех родителей
+      \return Родители
+      \note Массив с объектами класса Parent_
+    */
     
     public function getAllParents() : array
     {
@@ -512,6 +538,12 @@
       return $parents;
     }
     
+    /*!
+      \brief Возвращает всех старост
+      \return Старосты
+      \note Массив с объектами класса Student
+    */
+    
     public function getAllElders()
     {
       $db_students = $this->query("call getAllElders()");
@@ -541,6 +573,12 @@
       
       return $students;
     }
+    
+    /*!
+      \brief Возвращает всех студентов и старост
+      \return Студенты и старосты
+      \note Массив с объектами класса Student
+    */
     
     public function getAllStudentsElders()
     {
@@ -572,6 +610,12 @@
       return $students;
     }
     
+    /*!
+      \brief Назначает старосту
+      \param[in] $student_email - Электронная почта студента
+      \return TRUE - успешно, FALSE - ошибка
+    */
+    
     public function grantElder(string $student_email) : bool
     {
       $grant_elder_query = $this->dbc()->prepare("call grantElder(:email)");
@@ -581,6 +625,12 @@
       return $grant_elder_query->execute();
     }
     
+    /*!
+      \brief Разжаловает старосту
+      \param[in] $student_email - Электронная почта студента
+      \return TRUE - успешно, FALSE - ошибка
+    */
+    
     public function revokeElder(string $student_email) : bool
     {
       $revoke_elder_query = $this->dbc()->prepare("call revokeElder(:email)");
@@ -589,6 +639,14 @@
       
       return $revoke_elder_query->execute();
     }
+    
+    /*!
+      \brief Назначает детей родителю
+      \param[in] $parent_email  - Электронная почта родителя
+      \param[in] $student_email - Электронная почта студента
+      \param[in] $relation      - Тип отношения
+      \return TRUE - успешно, FALSE - ошибка
+    */
     
     public function setChild(string $parent_email, string $student_email, int $relation)
     {
@@ -601,6 +659,13 @@
       return $set_child_query->execute();
     }
     
+    /*!
+      \brief Убирает детей от родителя
+      \param[in] $parent_email  - Электронная почта родителя
+      \param[in] $student_email - Электронная почта студента
+      \return TRUE - успешно, FALSE - ошибка
+    */
+    
     public function unsetChild(string $parent_email, string $student_email) : bool
     {
       $unset_child_query = $this->dbc()->prepare("call unsetChild(:p_email, :s_email)");
@@ -611,7 +676,14 @@
       return $unset_child_query->execute();
     }
     
-    public function setSubject(string $teacher_email, int $subject_id)
+    /*!
+      \brief Назначает предмет преподавателю
+      \param[in] $teacher_email  - Электронная почта родителя
+      \param[in] $subject_id    - Идентификатор предмета
+      \return TRUE - успешно, FALSE - ошибка
+    */
+    
+    public function setSubject(string $teacher_email, int $subject_id) : bool
     {
       $set_subject_query = $this->dbc()->prepare("call setSubject(:t_email, :subject_id)");
       
@@ -621,7 +693,14 @@
       return $set_subject_query->execute();
     }
     
-    public function unsetSubject(string $teacher_email, int $subject_id)
+    /*!
+      \brief Убирает предмет у преподавателя
+      \param[in] $teacher_email  - Электронная почта родителя
+      \param[in] $subject_id    - Идентификатор предмета
+      \return TRUE - успешно, FALSE - ошибка
+    */
+    
+    public function unsetSubject(string $teacher_email, int $subject_id) : bool
     {
       $unset_subject_query = $this->dbc()->prepare("call unsetSubject(:t_email, :subject_id)");
       
@@ -631,7 +710,15 @@
       return $unset_subject_query->execute();
     }
     
-    public function changeUserPassword(string $user_email, string $old_passwd, string $new_passwd)
+    /*!
+      \brief Изменяет пароль пользователя
+      \param[in] $user_email - Электронная почта пользователя
+      \param[in] $old_passwd - Старый пароль
+      \param[in] $new_passwd - Новый пароль
+      \return TRUE - успешно, FALSE - ошибка
+    */
+    
+    public function changeUserPassword(string $user_email, string $old_passwd, string $new_passwd) : bool
     {
       $change_passwod_query = $this->dbc()->prepare("call changeUserPassword(:email, :old_passwd, :new_passwd)");
       
@@ -642,6 +729,12 @@
       return $change_passwod_query->execute();
     }
     
+    /*!
+      \brief Удаляет пользователя
+      \param[in] $user_email - почта пользователя
+      \return TRUE - успешно, FALSE - ошибка
+    */
+    
     public function remove($user_email) : bool
     {
       $remove_user_query = $this->dbc()->prepare("call removeUser(:email)");
@@ -650,6 +743,12 @@
       
       return $remove_user_query->execute();
     }
+    
+    /*!
+      \brief Удаляет администратора
+      \param[in] $admin_email - почта пользователя
+      \return TRUE - успешно, FALSE - ошибка
+    */
     
     public function removeAdmin(string $admin_email) : bool
     {
