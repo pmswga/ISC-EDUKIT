@@ -10,7 +10,7 @@
 	
   /*!
     
-    \class Student
+    \class Student student.class.php "iep/structures/student.class.php"
     \extends User
     \brief Класс описывающий сущность Студент
     \author pmswga

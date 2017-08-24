@@ -4,7 +4,7 @@
   
   /*!
     
-    \class Specialty
+    \class Specialty specialty.class.php "iep/structures/specialty.class.php"
     \brief Класс, который описывает Специальность
     \author pmswga
     \version 1.0

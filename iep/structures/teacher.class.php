@@ -6,7 +6,7 @@
 
   /*!
     
-    \class Teacher
+    \class Teacher teacher.class.php "iep/structures/teacher.class.php"
     \extends User
     \brief Класс описывает сущность пользователя Преподаватель
     \author pmswga

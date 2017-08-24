@@ -7,7 +7,7 @@
   use IEP\Structures\Specialty;
   
   /*!
-    \class Group
+    \class Group group.class.php "iep/structures/group.class.php"
     \brief Класс, который несёт в себе информацию об группе
     \author pmswga
     \version 1.0

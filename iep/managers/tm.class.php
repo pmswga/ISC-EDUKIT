@@ -19,8 +19,24 @@
   use IEP\Structures\StudentAnswer;
   use IEP\Structures\StudentTest;
   
+  /*!
+    \class TestManager tm.class.php "iep/managers/tm.class.php"
+    \extends IEP
+    \brief Менеджер для работы с тестами
+    \author pmswga
+    \version 1.0
+    
+  */
+  
   class TestManager extends IEP
   {
+    
+    /*!
+      \brief Добавляет новый тест
+      \param[in] $test - Тест
+      \note Объект класса Test
+      \return TRUE - успешно, FALSE - ошибка
+    */
     
     public function add($test)
     {
@@ -74,7 +90,14 @@
 			}
     }
     
-    public function getTestsForGroup(int $grp)
+    /*!
+      \brief Возвращает все тесты доступные группе
+      \param[in] $grp - Идентификатор группы
+      \return Тесты
+      \note Массив с объектами класса Test
+    */
+    
+    public function getTestsForGroup(int $grp) : array
     {
       $db_tests = $this->query("call getTestsForGroup(:grp)", [":grp" => $grp]);
       
@@ -116,7 +139,14 @@
       return $tests;
     }
     
-    public function getTest(int $test_id)
+    /*!
+      \brief Возвращает тест по его идентификатору
+      \param[in] $test_id - Идентификатор теста
+      \return Тест
+      \note Объект класса Test
+    */
+    
+    public function getTest(int $test_id) : Test
     {
       $db_test = $this->query("call getTest(:test_id)", [":test_id" => $test_id])[0];
       
@@ -151,7 +181,14 @@
       return $test;
     }
     
-    public function getTests(string $teacher_email)
+    /*!
+      \brief Возвращает все тесты, созданные преподавателем
+      \param[in] $teacher_email - Электронная почта преподавателя
+      \return Тесты
+      \note Массив с объектами класса Test
+    */
+    
+    public function getTests(string $teacher_email) : array
     {
       $db_tests = $this->query("call getTests(:t_email)", [":t_email" => $teacher_email]);
       
@@ -210,6 +247,12 @@
       
       return $tests;
     }
+    
+    /*!
+      \brief Возвращает все созданные тесты
+      \return Тесты
+      \note Массив с объектами класса Test
+    */
     
     public function getAllTests() : array
     {
@@ -271,12 +314,28 @@
       return $tests;
     }
     
+    /*!
+      \brief Проверяет привязанность группы к тесту
+      \param[in] $test_id - Идентификатор теста
+      \param[in] $grp_id  - Идентификатор группы
+      \return TRUE, FALSE
+      \warning Возвращает не bool, а int
+    */
+    
     public function isGroupForTest(int $test_id, int $grp_id)
     {
       return $this->query("select isGroupForTest(:test_id, :grp) as result", 
         [":test_id" => $test_id, ":grp" => $grp_id]
       )[0]['result'];
     }
+    
+    /*!
+      \brief Добавляет новый вопрос в тест
+      \param[in] $test_id  - Идентификатор теста
+      \param[in] $question - Вопрос
+      \note Объект класса TestQuestion
+      \return TRUE - успешно, FALSE - ошибка
+    */
     
     public function addQuestion(int $test_id, TestQuestion $question)
     {
@@ -328,7 +387,14 @@
 			}
     }
     
-    public function addAnswer(int $question_id, string $answer)
+    /*!
+      \brief Добавляет ответ к вопросу
+      \param[in] $question_id - Идентификатор вопроса
+      \param[in] $answer      - Ответ
+      \return TRUE - успешно, FALSE - ошибка
+    */
+    
+    public function addAnswer(int $question_id, string $answer) : bool
     {
       $add_answer_query = $this->dbc()->prepare("call addAnswer(:question_id, :answ)");
       
@@ -337,6 +403,13 @@
       
       return $add_answer_query->execute();
     }
+    
+    /*!
+      \brief Возвращает все ответы на вопрос
+      \param[in] $question_id - Идентификатор теста
+      \return Ответы
+      \note Ассоциативнный массив
+    */
     
 		public function getAnswers(int $question_id)
 		{
@@ -347,6 +420,13 @@
 			return $answers_query->execute();
 		}
     
+    /*!
+      \brief Изменяет заголовок к тесту
+      \param[in] $test_id      - Идентификатор теста
+      \param[in] $test_caption - Новый заголовок теста
+      \return TRUE - успешно, FALSE - ошибка
+    */
+    
 		public function changeCaptionTest(int $test_id, string $test_caption) : bool
 		{
 			$test_change = $this->dbc()->prepare("call changeCaptionTest(:test_id, :test_caption)");
@@ -356,6 +436,13 @@
 			
 			return $test_change->execute();
 		}
+    
+    /*!
+      \brief Изменяет предмет, по которому идёт тестирование
+      \param[in] $test_id      - Идентификатор теста
+      \param[in] $subject_id - Идентификатор предмета
+      \return TRUE - успешно, FALSE - ошибка
+    */
 		
 		public function changeSubjectTest(int $test_id, int $subject_id) : bool
 		{
@@ -366,6 +453,13 @@
 			
 			return $test_change->execute();
 		}
+    
+    /*!
+      \brief Изменяет заголовок вопроса
+      \param[in] $question_id - Идентификатор теста
+      \param[in] $new_caption - Новый заголовок вопроса
+      \return TRUE - успешно, FALSE - ошибка
+    */
 		
 		public function changeCaptionQuestion(int $question_id, string $new_caption) : bool
 		{
@@ -376,6 +470,13 @@
 			
 			return $change_question_query->execute();
 		}
+    
+    /*!
+      \brief Изменяет правильный ответ на вопрос
+      \param[in] $question_id - Идентификатор теста
+      \param[in] $new_RAnswer - Новый правильный ответ
+      \return TRUE - успешно, FALSE - ошибка
+    */
 		
 		public function changeRAnswerQuestion(int $question_id, string $new_RAnswer) : bool
 		{
@@ -386,6 +487,13 @@
 			
 			return $change_question_query->execute();
 		}
+    
+    /*!
+      \brief Изменяет ответ на вопрос
+      \param[in] $answer_id - Идентификатор ответа
+      \param[in] $new_answer  - Новый ответ
+      \return TRUE - успешно, FALSE - ошибка
+    */
 		
 		public function changeCaptionAnswer(int $answer_id, string $new_answer) : bool
 		{
@@ -396,6 +504,13 @@
 			
 			return $change_answer_query->execute();
 		}
+    
+    /*!
+      \brief Назначает группу на тест
+      \param[in] $test_id   - Идентификатор теста
+      \param[in] $test_grp  - Идентификатор группы
+      \return TRUE - успешно, FALSE - ошибка
+    */
 		
 		public function setGroup(int $test_id, int $test_grp) : bool
 		{
@@ -406,6 +521,13 @@
 			
 			return $set_group_query->execute();
 		}
+    
+    /*!
+      \brief Снимает группу с теста
+      \param[in] $test_id   - Идентификатор теста
+      \param[in] $test_grp  - Идентификатор группы
+      \return TRUE - успешно, FALSE - ошибка
+    */
 		
 		public function unsetGroup(int $test_id, int $test_grp) : bool
 		{
@@ -417,13 +539,25 @@
 			return $set_group_query->execute();
 		}
     
-    public function removeQuestion(int $question_id)
+    /*!
+      \brief Удаляет вопрос
+      \param[in] $question_id - Идентификатор вопроса
+      \return TRUE - успешно, FALSE - ошибка
+    */
+    
+    public function removeQuestion(int $question_id) : bool
 		{
 			$remove_question_query = $this->dbc()->prepare("call removeQuestion(:question_id)");
 			$remove_question_query->bindValue(":question_id", $question_id);
 			
 			return $remove_question_query->execute();
 		}
+    
+    /*!
+      \brief Удаляет ответ на вопрос
+      \param[in] $answer_id - Идентификатор ответа
+      \return TRUE - успешно, FALSE - ошибка
+    */
 		
 		public function removeAnswer(int $answer_id) : bool
 		{
@@ -433,6 +567,13 @@
 			
 			return $remove_answer_query->execute();
 		}
+    
+    /*!
+      \brief Записывает результаты прохождения теста
+      \param[in] $student_answer - ответы студента
+      \note Объект класса StudentAnswer
+      \return TRUE - успешно, FALSE - ошибка
+    */
     
     public function putStudentAnswer(StudentAnswer $student_answer) : bool
     {
@@ -493,10 +634,25 @@
 			}
     }
     
+    /*!
+      \brief Возвращает все ответы к пройденному тесту
+      \param[in] $student_test_id - Идентификатор пройденного теста
+      \return Ответы студента
+      \note Ассоциативнный массив
+    */
+    
     public function getStudentAnswers(int $student_test_id)
     {
       return $this->query("call getStudentAnswers(:student_test)", [":student_test" => $student_test_id]);
     }
+    
+    /*!
+      \brief Возвращает тест, пройденные студентом
+      \param[in] $student_email - Электронная почта студента
+      \param[in] $student_test  - Идентификатор пройденного теста
+      \return Результат пройденного теста
+      \note Объект класса StudentTest
+    */
     
     public function getStudentTest(string $student_email, int $student_test)
     {
@@ -526,7 +682,14 @@
       
     }
     
-    public function getStudentTests(string $student_email)
+    /*!
+      \brief Возвращает все пройденные тесты
+      \param[in] $student_email - Электронная почта студента
+      \return Пройденные тесты
+      \note Массив с объектами класса StudentTest
+    */
+    
+    public function getStudentTests(string $student_email) : array
     {      
       $db_students_tests = $this->query("call getStudentTests(:student)", [":student" => $student_email]);
       
@@ -546,6 +709,12 @@
       
       return $student_tests;
     }
+    
+    /*!
+      \brief Удаляет тест
+      \param[in] $test_id - Идентификатор теста
+      \return TRUE - успешно, FALSE - ошибка
+    */
     
     public function remove($test_id) : bool
     {

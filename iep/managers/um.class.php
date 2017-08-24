@@ -18,8 +18,24 @@
   use IEP\Structures\Group;
   use IEP\Structures\Specialty;
   
+  /*!
+    
+    \class UserManager um.class.php "iep/managers/um.class.php"
+    \extends IEP
+    \brief Менеджер для работы с пользователями
+    \author pmswga
+    \version 1.0
+    
+  */
+  
   class UserManager extends IEP
   {
+    
+    /*!
+      \brief Добавляет нового пользователя
+      \param[in] $user - Новый пользователь
+      \note Объект класса User
+    */
     
     public function add($user)
     {
@@ -185,6 +201,13 @@
       
     }
     
+    /*!
+      \brief Производит аутентификацию пользователя
+      \param[in] $email    - Электронная почта пользователя
+      \param[in] $passwd - Пароль
+      \return FALSE - пользователь не существует, объект класса User - пользователь существует
+    */
+    
     public function authentification(string $email, string $passwd)
     {
       $user = $this->query("call authentification(:email, :passwd)", [":email" => $email, ":passwd" => $passwd])[0];
@@ -324,6 +347,13 @@
       }
     }
     
+    /*!
+      \brief Производит аутентификацию администратора
+      \param[in] $email    - Электронная почта администратора
+      \param[in] $passwd - Пароль
+      \return FALSE - пользователь не существует, объект класса User - пользователь существует
+    */
+    
     public function authentificationAdmin(string $email, string $passwd)
     {
       $admin = $this->query("call authentificationAdmin(:email, :passwd)", [":email" => $email, ":passwd" => $passwd])[0];
@@ -344,6 +374,10 @@
       }
       
     }
+    
+    /*!
+      \brief ...
+    */
     
     public function getAllAdmins() : array
     {

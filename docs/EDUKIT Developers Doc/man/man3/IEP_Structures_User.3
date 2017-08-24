@@ -1,4 +1,4 @@
-.TH "User" 3 "Ср 23 Авг 2017" "Version 1.0" "EDUKIT Developers" \" -*- nroff -*-
+.TH "User" 3 "Чт 24 Авг 2017" "Version 1.0" "EDUKIT Developers" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -7,6 +7,8 @@ User \- Общий класс для всех пользователей
 .SH SYNOPSIS
 .br
 .PP
+.PP
+\fC#include 'iep/structures/user\&.class\&.php'\fP
 .PP
 Производные классы:\fBParent_\fP, \fBStudent\fP и \fBTeacher\fP\&.
 .SS "Открытые члены"
@@ -18,21 +20,27 @@ User \- Общий класс для всех пользователей
 .ti -1c
 .RI "\fBgetSn\fP ()"
 .br
+.RI "Возвращает фамилию "
 .ti -1c
 .RI "\fBgetFn\fP ()"
 .br
+.RI "Возвращает имя "
 .ti -1c
 .RI "\fBgetPt\fP ()"
 .br
+.RI "Возвращает отчество "
 .ti -1c
 .RI "\fBgetEmail\fP ()"
 .br
+.RI "Возвращает электронную почту "
 .ti -1c
 .RI "\fBgetPassword\fP ()"
 .br
+.RI "Возвращает пароль "
 .ti -1c
 .RI "\fBgetUserType\fP ()"
 .br
+.RI "Возвращает тип пользователя "
 .in -1c
 .SS "Защищенные данные"
 
@@ -110,14 +118,18 @@ pmswga
 .SS "getEmail ()"
 
 .PP
+Возвращает электронную почту 
+.PP
 \fBВозвращает:\fP
 .RS 4
-Электронную почту пользователя 
+Электронная почта пользователя 
 .RE
 .PP
 
 .SS "getFn ()"
 
+.PP
+Возвращает имя 
 .PP
 \fBВозвращает:\fP
 .RS 4
@@ -127,6 +139,8 @@ pmswga
 
 .SS "getPassword ()"
 
+.PP
+Возвращает пароль 
 .PP
 \fBВозвращает:\fP
 .RS 4
@@ -142,6 +156,8 @@ pmswga
 .SS "getPt ()"
 
 .PP
+Возвращает отчество 
+.PP
 \fBВозвращает:\fP
 .RS 4
 Отчество пользователя 
@@ -150,6 +166,8 @@ pmswga
 
 .SS "getSn ()"
 
+.PP
+Возвращает фамилию 
 .PP
 \fBВозвращает:\fP
 .RS 4
@@ -160,9 +178,16 @@ pmswga
 .SS "getUserType ()"
 
 .PP
+Возвращает тип пользователя 
+.PP
 \fBВозвращает:\fP
 .RS 4
-Вовзращает тип пользователя 
+Тип пользователя 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+См\&. константы в \fBtypeusers\&.consts\&.php\fP 
 .RE
 .PP
 
@@ -192,6 +217,13 @@ pmswga
 
 .PP
 Тип пользователя 
+.PP
+\fBЗаметки:\fP
+.RS 4
+См\&. константы в typeusers\&.class\&.php 
+.RE
+.PP
+
 
 .SH "Автор"
 .PP 

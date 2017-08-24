@@ -6,7 +6,7 @@
 	
   /*!
     
-    \class Parent_
+    \class Parent_ parent.class.php "iep/structures/parent.class.php"
     \extends User
     \brief Класс для хранения данных об родителе
     \author pmswga

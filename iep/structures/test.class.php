@@ -2,6 +2,15 @@
   declare(strict_types = 1);
 	namespace IEP\Structures;
   
+  /*!
+    
+    \class Test test.class.php "iep/structures/test.class.php"
+    \brief Класс описывает сущность - тест
+    \author pmswga
+    \version 1.0
+    
+  */
+  
 	class Test
 	{
 		

@@ -3,7 +3,8 @@
 	namespace IEP\Structures;
 	
   /*!
-    \class User
+  
+    \class User user.class.php "iep/structures/user.class.php"
     \brief Общий класс для всех пользователей
     \author pmswga
     \version 1.0
@@ -20,7 +21,14 @@
 		protected $pt;        ///< Отчество
 		protected $email;     ///< Почта
 		protected $password;  ///< Пароль
-		protected $typeUser;  ///< Тип пользователя
+    
+    /*!
+      \var $typeUser
+      \brief Тип пользователя
+      \note См. константы в typeusers.class.php
+    */
+    
+		protected $typeUser;
     
     /*!
       \param[in] $sn       - Фамилия
@@ -45,6 +53,7 @@
 		}
     
     /*!
+      \brief Возвращает фамилию
       \return Фамилию пользователя
     */
     
@@ -54,6 +63,7 @@
 		}
     
     /*!
+      \brief Возвращает имя
       \return Имя пользователя
     */
 		
@@ -63,6 +73,7 @@
 		}
     
     /*!
+      \brief Возвращает отчество
       \return Отчество пользователя
     */
 		
@@ -72,7 +83,8 @@
 		}
     
     /*!
-      \return Электронную почту пользователя
+      \brief Возвращает электронную почту
+      \return Электронная почта пользователя
     */
 		
 		public function getEmail() : string
@@ -81,6 +93,7 @@
 		}
     
     /*!
+      \brief Возвращает пароль
       \return Пароль пользователя
       \note Пароль захеширован с помощью MD5
     */
@@ -91,7 +104,9 @@
 		}
     
     /*!
-      \return Вовзращает тип пользователя
+      \brief Возвращает тип пользователя
+      \return Тип пользователя
+      \note См. константы в typeusers.consts.php
     */
     
 		public function getUserType() : int

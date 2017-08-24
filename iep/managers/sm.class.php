@@ -8,8 +8,25 @@
   use IEP\Managers\IEP;
   use IEP\Structures\Specialty;
   
+  /*!
+    
+    \class SpecialtyManager sm.class.php "iep/managers/sm.class.php"
+    \extends IEP
+    \brief Менеджер для работы со специальностями
+    \author pmswga
+    \version 1.0
+    
+  */
+  
   class SpecialtyManager extends IEP
   {
+    
+    /*!
+      \brief Добавляет новую специальность
+      \param[in] $spec - Специальность
+      \note Объект класс Specialty
+      \return TRUE - успешно, FALSE - ошибка
+    */
     
     public function add($spec) : bool
     {
@@ -21,6 +38,12 @@
       
       return $add_spec_query->execute();
     }
+    
+    /*!
+      \brief Возвращает все специальности
+      \return Специальности
+      \note Массив с объектами класса Specialty
+    */
     
     public function getAllSpecialty() : array
     {
@@ -37,6 +60,14 @@
       return $specs;
     }
     
+    /*!
+      \brief Изменяет код специальности
+      \param[in] $spec_id - Идентификатор специальности
+      \param[in] $code    - Новый код специальности
+      \note Формат кода специальности "ХХ.ХХ.ХХ", где Х - число от 0 до 9
+      \return TRUE - успешно, FALSE - ошибка
+    */
+    
     public function changeCodeSpecialty(int $spec_id, string $code) : bool
     {
       $change_code_spec_query = $this->dbc()->prepare("call changeCodeSpecialty(:spec_id, :code)");
@@ -46,6 +77,13 @@
       
       return $change_code_spec_query->execute();
     }
+    
+    /*!
+      \brief Изменяет название специальности
+      \param[in] $spec_id - Идентификатор специальности
+      \param[in] $descp   - Новое название специальности
+      \return TRUE - успешно, FALSE - ошибка
+    */
     
     public function changeDescpSpecialty(int $spec_id, string $descp) : bool
     {
@@ -57,6 +95,14 @@
       return $change_descp_spec_query->execute();
     }
     
+    /*!
+      \brief Изменяет файл специальности
+      \param[in] $spec_id - Идентификатор специальности
+      \param[in] $file   - Путь до файла специальности
+      \note Файл должен быть в формате PDF
+      \return TRUE - успешно, FALSE - ошибка
+    */
+    
     public function changeFileSpecialty(int $spec_id, string $file) : bool
     {
       $change_file_spec_query = $this->dbc()->prepare("call changeFileSpecialty(:spec_id, :file)");
@@ -67,6 +113,12 @@
       return $change_file_spec_query->execute();
     }
     
+    /*!
+      \brief Удаляет специальность
+      \param[in] $spec_id - Идентификатор специальности
+      \return TRUE - успешно, FALSE - ошибка
+    */
+    
     public function remove($spec_id) : bool
     {
       $remove_spec_query = $this->dbc()->prepare("call removeSpecialty(:spec_id)");
@@ -76,7 +128,6 @@
       return $remove_spec_query->execute();
     }
     
-  }
-  
+  }  
   
 ?>

@@ -1,11 +1,14 @@
-.TH "UserManager" 3 "Ср 23 Авг 2017" "Version 1.0" "EDUKIT Developers" \" -*- nroff -*-
+.TH "UserManager" 3 "Чт 24 Авг 2017" "Version 1.0" "EDUKIT Developers" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-UserManager
+UserManager \- Менеджер для работы с пользователями  
+
 .SH SYNOPSIS
 .br
 .PP
+.PP
+\fC#include 'iep/managers/um\&.class\&.php'\fP
 .PP
 Базовые классы:\fBIEP\fP\&.
 .SS "Открытые члены"
@@ -14,15 +17,19 @@ UserManager
 .ti -1c
 .RI "\fBadd\fP ($user)"
 .br
+.RI "Добавляет нового пользователя "
 .ti -1c
 .RI "\fBauthentification\fP (string $email, string $passwd)"
 .br
+.RI "Производит аутентификацию пользователя "
 .ti -1c
 .RI "\fBauthentificationAdmin\fP (string $email, string $passwd)"
 .br
+.RI "Производит аутентификацию администратора "
 .ti -1c
 .RI "\fBgetAllAdmins\fP ()"
 .br
+.RI "\&.\&.\&. "
 .ti -1c
 .RI "\fBgetAllUsers\fP ()"
 .br
@@ -69,18 +76,83 @@ UserManager
 .RI "\fBremoveAdmin\fP (string $admin_email)"
 .br
 .in -1c
+.SH "Подробное описание"
+.PP 
+Менеджер для работы с пользователями 
+
+
+.PP
+\fBАвтор:\fP
+.RS 4
+pmswga 
+.RE
+.PP
+\fBВерсия:\fP
+.RS 4
+1\&.0 
+.RE
+.PP
+
 .SH "Методы"
 .PP 
 .SS "add ( $user)"
 
+.PP
+Добавляет нового пользователя 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$user\fP - Новый пользователь 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Объект класса User 
+.RE
+.PP
+
 .SS "authentification (string $email, string $passwd)"
 
+.PP
+Производит аутентификацию пользователя 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$email\fP - Электронная почта пользователя 
+.br
+\fI$passwd\fP - Пароль 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+FALSE - пользователь не существует, объект класса User - пользователь существует 
+.RE
+.PP
+
 .SS "authentificationAdmin (string $email, string $passwd)"
+
+.PP
+Производит аутентификацию администратора 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$email\fP - Электронная почта администратора 
+.br
+\fI$passwd\fP - Пароль 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+FALSE - пользователь не существует, объект класса User - пользователь существует 
+.RE
+.PP
 
 .SS "changeUserPassword (string $user_email, string $old_passwd, string $new_passwd)"
 
 .SS "getAllAdmins ()"
 
+.PP
+\&.\&.\&. 
 .SS "getAllElders ()"
 
 .SS "getAllParents ()"

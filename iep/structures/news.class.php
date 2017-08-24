@@ -4,8 +4,7 @@
 
   /*!
     
-    \name news.class.php
-    \class News
+    \class News news.class.php "iep/structures/news.class.php"
     \brief Класс, который хранит в себе информацию об новости
     \author pmswga
     \version 1.0

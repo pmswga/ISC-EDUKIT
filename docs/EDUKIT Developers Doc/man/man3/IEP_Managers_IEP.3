@@ -1,4 +1,4 @@
-.TH "IEP" 3 "Ср 23 Авг 2017" "Version 1.0" "EDUKIT Developers" \" -*- nroff -*-
+.TH "IEP" 3 "Чт 24 Авг 2017" "Version 1.0" "EDUKIT Developers" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -15,27 +15,35 @@ IEP \- Базовый класс для все остальных менедже
 .ti -1c
 .RI "\fB__construct\fP (\\PDO $\fBdbc\fP)"
 .br
+.RI "Задаёт контроллер базы данных "
 .ti -1c
 .RI "\fBsetDBC\fP ($\fBdbc\fP)"
 .br
+.RI "Задаёт контроллер базы данных "
 .ti -1c
 .RI "\fBdbc\fP ()"
 .br
+.RI "Возвращает контроллер базы данных "
 .ti -1c
 .RI "\fBquery\fP (string $sql, array $params=array())"
 .br
+.RI "Выполняет запрос "
 .ti -1c
 .RI "\fBgetLogs\fP ()"
 .br
+.RI "Возвращает все записи логов "
 .ti -1c
 .RI "\fBremoveLogs\fP (int $log_id)"
 .br
+.RI "Удаляет запись лога "
 .ti -1c
 .RI "\fBadd\fP ($data)"
 .br
+.RI "Добавление каких-либо данных в базу данных "
 .ti -1c
 .RI "\fBremove\fP ($what)"
 .br
+.RI "Удаление каких-либо данными из базы данных "
 .in -1c
 .SS "Закрытые данные"
 
@@ -89,6 +97,8 @@ pmswga
 .SS "__construct (\\PDO $dbc)"
 
 .PP
+Задаёт контроллер базы данных Базовый конструктор для всех унаследованных менеджеров
+.PP
 \fBАргументы:\fP
 .RS 4
 \fI$dbc\fP - Контроллер базы данных 
@@ -105,6 +115,8 @@ pmswga
 .SS "add ( $data)\fC [abstract]\fP"
 
 .PP
+Добавление каких-либо данных в базу данных 
+.PP
 \fBАргументы:\fP
 .RS 4
 \fI$data\fP - Данные для добавления 
@@ -113,6 +125,8 @@ pmswga
 
 .SS "dbc ()"
 
+.PP
+Возвращает контроллер базы данных 
 .PP
 \fBВозвращает:\fP
 .RS 4
@@ -128,6 +142,8 @@ pmswga
 .SS "getLogs ()"
 
 .PP
+Возвращает все записи логов 
+.PP
 \fBВозвращает:\fP
 .RS 4
 Логи 
@@ -142,6 +158,8 @@ pmswga
 .SS "query (string $sql, array $params = \fCarray()\fP)"
 
 .PP
+Выполняет запрос 
+.PP
 \fBАргументы:\fP
 .RS 4
 \fI$sql\fP - SQL код 
@@ -149,9 +167,16 @@ pmswga
 \fI$params\fP - Аргументы 
 .RE
 .PP
+\fBВозвращает:\fP
+.RS 4
+TRUE или FALSE, если запрос не предполагает выборку данных, а иначе ассоциативный массив с данными 
+.RE
+.PP
 
 .SS "remove ( $what)\fC [abstract]\fP"
 
+.PP
+Удаление каких-либо данными из базы данных 
 .PP
 \fBАргументы:\fP
 .RS 4
@@ -162,6 +187,8 @@ pmswga
 .SS "removeLogs (int $log_id)"
 
 .PP
+Удаляет запись лога 
+.PP
 \fBАргументы:\fP
 .RS 4
 \fI$log_id\fP - идентификатор записи логи 
@@ -170,6 +197,8 @@ pmswga
 
 .SS "setDBC ( $dbc)"
 
+.PP
+Задаёт контроллер базы данных 
 .PP
 \fBАргументы:\fP
 .RS 4

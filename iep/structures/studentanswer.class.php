@@ -4,6 +4,15 @@
   
   require_once "student.class.php";
   
+  /*!
+  
+    \class StudentAnswer studentanswer.class.php "iep/structures/studentanswer.class.php"
+    \brief Класс описывает сущность - ответы студента на тест
+    \author pmswga
+    \version 1.0
+  
+  */
+  
   class StudentAnswer
   {
     private $student;
