@@ -6,8 +6,49 @@
     \tableofcontents
     
     \section general Общие сведения
-    
-    
+      
+      Данная страница описывает основные объекты базы данных, которые используются в работе EDUKIT
+      
+      \htmlonly
+        
+        <table border="1" cellpadding="15">
+          <tbody>
+            <tr>
+              <th>Кол-во</th>
+              <th>Значение</th>
+            </tr>
+            <tr>
+              <td>Таблиц</td>
+              <td>24</td>
+            </tr>
+            <tr>
+              <td>Столбцов</td>
+              <td>189</td>
+            </tr>
+            <tr>
+              <td>Индексов</td>
+              <td>53</td>
+            </tr>
+            <tr>
+              <td>Триггеров</td>
+              <td>33</td>
+            </tr>
+            <tr>
+              <td>Представлений</td>
+              <td>13</td>
+            </tr>
+            <tr>
+              <td>Хранимых процедур</td>
+              <td>111</td>
+            </tr>
+            <tr>
+              <td>Функций</td>
+              <td>13</td>
+            </tr>
+          </tbody>
+        </table>
+        
+      \endhtmlonly
     
     \section dbc Технология доступа к базе данных
     
@@ -895,41 +936,123 @@
         </fieldset>
       
         <fieldset>
-          <legend></legend>
+          <legend>Работа со специальностями</legend>
+          <ul>
+            <li>addSpecialty</li>
+            <li>removeSpecialty</li>
+            <li>changeCodeSpecialty</li>
+            <li>changeDescriptionSpecialty</li>
+            <li>changeFileSpecialty</li>
+            <li>getAllSpecialty</li>
+          </ul>
         </fieldset>
       
         <fieldset>
-          <legend></legend>
+          <legend>Работа с предметами</legend>
+          <ul>
+            <li>addSubject</li>
+            <li>removeSubject</li>
+            <li>changeDescriptionSubject</li>
+            <li>getSubjects</li>
+            <li>getAllSubjects</li>
+          </ul>
         </fieldset>
       
         <fieldset>
-          <legend></legend>
+          <legend>Работа с тестами</legend>
+          <ul>
+            <li>addTest</li>
+            <li>removeTest</li>
+            <li>changeCaptionTest</li>
+            <li>changeSubjectTest</li>
+            <li>setGroup</li>
+            <li>unsetGroup</li>
+
+            <li>getTestsForGroup</li>
+            <li>getTestGroups</li>
+            <li>getUnsetGroups</li>
+            <li>getTests</li>
+            <li>getTest</li>
+            <li>getAllTests</li>
+            <li>clearTest</li>
+
+            <li>addQuestion</li>
+            <li>addAnswer</li>
+            <li>removeQuestion</li>
+            <li>removeAnswer</li>
+            <li>changeCaptionQuestion</li>
+            <li>changeRAnswerQuestion</li>
+            <li>changeCaptionAnswer</li>
+            <li>getQuestions</li>
+            <li>getAnswers</li>
+
+            <li>createStudentTest</li>
+            <li>putStudentAnswer</li>
+            <li>getStudentTest</li>
+            <li>getStudentTests</li>
+            <li>getStudentAnswers</li>
+
+            <li>isGroupForTest</li>
+          </ul>
         </fieldset>
       
         <fieldset>
-          <legend></legend>
+          <legend>Работа с посещаемостью</legend>
+          <ul>
+            <li>addTrafficEntry</li>
+            <li>clearTrafficStudent</li>
+            <li>clearAllTraffic</li>
+            <li>getTrafficStudent</li>
+            <li>getAllTraffic</li>
+          </ul>
         </fieldset>
       
         <fieldset>
-          <legend></legend>
+          <legend>Работа с пользователями</legend>
+          <ul>
+            <li>addUser</li>
+            <li>addAdmin</li>
+            <li>addTeacher</li>
+            <li>addStudent</li>
+            <li>addParent</li>
+            <li>removeUser</li>
+            <li>removeAdmin</li>
+
+            <li>grantElder</li>
+            <li>revokeElder</li>
+
+            <li>changeUserPassword</li>
+            <li>getUserType</li>
+
+            <li>authentication</li>
+            <li>authenticationAdmin</li>
+
+            <li>getTeacherInfo</li>
+            <li>getStudentInfo</li>
+            <li>getElderInfo</li>
+            <li>getParentInfo</li>
+
+            <li>getAllAdmins</li>
+            <li>getAllUsers</li>
+            <li>getAllStudents</li>
+            <li>getAllElders</li>
+            <li>getAllStudentsElders</li>
+            <li>getAllParents</li>
+            <li>getAllTeachers</li>
+
+            <li>setChild</li>
+            <li>unsetChild</li>
+            <li>changeRelation</li>
+            <li>getChilds</li>
+
+            <li>setSubject</li>
+            <li>unsetSubject</li>
+            <li>getSubjects</li>
+            <li>getUnsetSubjects</li>
+
+          </ul>
         </fieldset>
-      
-        <fieldset>
-          <legend></legend>
-        </fieldset>
-      
-        <fieldset>
-          <legend></legend>
-        </fieldset>
-      
-        <fieldset>
-          <legend></legend>
-        </fieldset>
-      
-        <fieldset>
-          <legend></legend>
-        </fieldset>
-      
+        
       \endhtmlonly
     
     \subsection triggers_sec Триггеры
