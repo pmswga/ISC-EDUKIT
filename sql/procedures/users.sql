@@ -61,7 +61,7 @@ END;
 
 CREATE PROCEDURE addAdmin(sn char(30), fn char(30), pt char(30), email char(30), passwd char(32))
 BEGIN
-	INSERT INTO `admins` (`sn`, `fn`, `pt`, `email`, `passwd`) VALUES (sn, fn, pt, email, MD5(passwd));
+	INSERT INTO `admins` (`sn`, `fn`, `pt`, `email`, `passwd`) VALUES (sn, fn, pt, email, passwd);
 END;
 
 CREATE PROCEDURE addTeacher(sn char(30), fn char(30), pt char(32), t_email char(255), paswd char(32), info text)
