@@ -2,6 +2,7 @@ use `iep`;
 
 DROP PROCEDURE IF EXISTS addNews;
 DROP PROCEDURE IF EXISTS addAdminNews;
+DROP PROCEDURE IF EXISTS removeAdminNews;
 DROP PROCEDURE IF EXISTS removeNews;
 DROP PROCEDURE IF EXISTS changeCaptionNews;
 DROP PROCEDURE IF EXISTS changeContentNews;
@@ -21,6 +22,11 @@ END;
 CREATE PROCEDURE addAdminNews(n_caption char(255), n_content text, emailTeacher char(30), n_date date)
 BEGIN
 	INSERT INTO `admin_news` (`caption`, `content`, `id_author`, `date_publication`) VALUES (n_caption, n_content, getAdminId(emailTeacher), n_date);
+END;
+
+CREATE PROCEDURE removeAdminNews(id_news INT(11))
+BEGIN
+	DELETE FROM `admin_news` WHERE `id_news`=id_news;
 END;
 
 CREATE PROCEDURE removeNews(id_news INT)

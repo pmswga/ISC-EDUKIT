@@ -3,6 +3,13 @@ table tr th{
   text-align: center;
 }
 
+table tr td  *  {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
 h2 {
   text-align: center;
 }

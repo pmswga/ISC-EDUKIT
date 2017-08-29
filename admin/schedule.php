@@ -22,7 +22,9 @@
     $CT->assign("date_now", date("d.m.Y"));
     
     $CT->Show("schedule.tpl");
-
+    
+    
+    
     if (!empty($_POST['addScheduleEntryButton'])) {
       $day = $_POST['day'];
       $group = $_POST['group'];
@@ -95,8 +97,7 @@
         $subject = $_POST['pair_'.$i];
         
         if ($subject != 0 && !empty($subject)) {
-          echo $i." pair";
-          $result *= $SH->changeChangedPair($group, $day, $i, $_POST['pair_'.$i]);
+          $result *= $SH->changeChangedPair($group, $day, $i, $subject);
         }
         
       }

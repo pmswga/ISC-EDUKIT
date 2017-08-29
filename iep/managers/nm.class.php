@@ -157,6 +157,19 @@
       return $change_conent_news_query->execute();
     }
     
+    /*!
+      \brief
+      \param[in]
+      \return TRUE - успешно, FALSE - ошибка
+    */
+    
+    public function removeAdminNews(int $news_id) : bool
+    {
+      $remove_news_query = $this->dbc()->prepare("call removeAdminNews(:news_id)"); 
+      $remove_news_query->bindValue(":news_id", $news_id);
+      
+      return $remove_news_query->execute();
+    }
     
     /*!
       \brief Возвращает все опубликованные новости

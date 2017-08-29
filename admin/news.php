@@ -34,7 +34,7 @@
 			
 			$result = true;
 			for ($i = 0; $i < count($select_news); $i++) {
-				$result *= $NM->remove($select_news[$i]);
+				$result *= $NM->removeAdminNews($select_news[$i]);
 			}
 			
 			if ($result) {

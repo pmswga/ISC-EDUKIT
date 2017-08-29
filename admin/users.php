@@ -92,8 +92,8 @@
 		}
 		
 	}
-	else CTools::Redirect("login.php");
-  
-	// !!!!!!!!!! ВЫВОД СООБЩЕНИЙ !!!!!!!!!!!!!!
+	else {    
+    CTools::Redirect("login.php");
+  } 
 	
 ?>

@@ -27,10 +27,12 @@
     $CT->assign("groups", $groups);
   }
   
+  $CT->assign("week", date("W"));
+  
 	if (!isset($_SESSION['user'])) {
 		
     $CT->Show("guest/schedule.tpl");
-	
+    
   }
 	else {
     $CT->Show("users/schedule.tpl");    

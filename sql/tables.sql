@@ -281,5 +281,5 @@ CREATE TABLE IF NOT EXISTS `changed_schedule` (
   _day datetime,
   pair int,
   subject int NOT NULL,
-  PRIMARY KEY(id_grp, pair)
+  PRIMARY KEY(id_grp, pair, _day)
 ) ENGINE = InnoDB CHARACTER SET = UTF8;

@@ -6,7 +6,7 @@
 		<div class="col-md-12">
 			<div class="container-fluid">
 				<div id="rings" class="col-md-3">
-					<h2>Расписание</h2>
+          <h2>Неделя №{$week}</h2>
 					<nav id="nowDay" class="text-center">
 						<ul class="pagination pagination-sm">
 							<li id="1"><a>ПН</a></li>
