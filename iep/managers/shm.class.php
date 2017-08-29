@@ -63,12 +63,13 @@
     
     public function add($schedule)
     {
-      $add_schedule = $this->dbc()->prepare("call addScheduleEntry(:grp, :day, :pair, :subject)");
+      $add_schedule = $this->dbc()->prepare("call addScheduleEntry(:grp, :day, :pair, :subj_1, :subj_2)");
       
       $add_schedule->bindValue(":grp", $schedule['group']);
       $add_schedule->bindValue(":day", $schedule['day']);
       $add_schedule->bindValue(":pair", $schedule['pair']);
-      $add_schedule->bindValue(":subject", $schedule['subject']);
+      $add_schedule->bindValue(":subj_1", $schedule['subj_1']);
+      $add_schedule->bindValue(":subj_2", $schedule['subj_2']);
       
       return $add_schedule->execute();
     }
@@ -262,14 +263,15 @@
       \return TRUE - успешно, FALSE - ошибка
     */
     
-    public function changePair(string $grp, int $day, int $pair, int $subject) : bool
+    public function changePair(string $grp, int $day, int $pair, int $subj_1, int $subj_2) : bool
     {
-      $change_query = $this->dbc()->prepare("UPDATE `schedule`     SET `subject`=:s     WHERE `id_grp`=:g AND `pair`=:p AND `_day`=:d");
+      $change_query = $this->dbc()->prepare("UPDATE `schedule`     SET `subj_1`=:s1, `subj_2`=:s2      WHERE `id_grp`=:g AND `pair`=:p AND `_day`=:d");
       $change_query->bindValue(":g", $grp);
       $change_query->bindValue(":d", $day);
       $change_query->bindValue(":p", $pair);
-      $change_query->bindValue(":s", $subject);
-      
+      $change_query->bindValue(":s1", $subj_1);
+      $change_query->bindValue(":s2", $subj_2);
+            
       return $change_query->execute();
     }
     
@@ -288,6 +290,20 @@
       $change_query->bindValue(":d", $day);
       $change_query->bindValue(":p", $pair);
       $change_query->bindValue(":s", $subject);
+      
+      return $change_query->execute();
+    }
+    
+    /*!
+      \brief Удаляет записи об изменениях в расписании
+      \param[in] $grp - Идентификатор группы
+      \return TRUE - успешно, FALSE - ошибка
+    */
+    
+    public function deleteChangedPair(int $grp) : bool
+    {
+      $change_query = $this->dbc()->prepare("DELETE FROM `changed_schedule`     WHERE `id_grp`=:g");
+      $change_query->bindValue(":g", $grp);
       
       return $change_query->execute();
     }

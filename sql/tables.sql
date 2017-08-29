@@ -271,7 +271,8 @@ CREATE TABLE IF NOT EXISTS `schedule` (
   id_grp int,
   _day int,
   pair int,
-  subject int NOT NULL,
+  subj_1 int NOT NULL,
+  subj_2 int NOT NULL,
   PRIMARY KEY(id_grp, pair, _day)
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 

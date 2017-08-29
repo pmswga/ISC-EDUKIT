@@ -932,6 +932,7 @@
             <li>getAllChangedSchedule</li>
             <li>changePair</li>
             <li>changeChangedSchedulePair</li>
+            <li>deleteChangedSchedulePair</li>
           </ul>
         </fieldset>
       

@@ -46,10 +46,7 @@ DROP PROCEDURE IF EXISTS unsetSubject;
 DROP PROCEDURE IF EXISTS getSubjects;
 DROP PROCEDURE IF EXISTS getUnsetSubjects;
 
-
-
 /* Реализация */
-
 
 DELIMITER //
 

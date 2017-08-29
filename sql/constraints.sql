@@ -85,12 +85,13 @@ ALTER TABLE `groups_tests`     ADD CONSTRAINT R22 FOREIGN KEY(`id_test`)        
 ALTER TABLE `schedule`  ADD CONSTRAINT R23 FOREIGN KEY (`id_grp`)      REFERENCES `groups` (`grp`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 /* Связка таблицы "schedule" с таблицей "subjects" */
-ALTER TABLE `schedule`  ADD CONSTRAINT R24 FOREIGN KEY (`subject`)      REFERENCES `subjects` (`id_subject`) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE `schedule`  ADD CONSTRAINT R24 FOREIGN KEY (`subj_1`)      REFERENCES `subjects` (`id_subject`) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE `schedule`  ADD CONSTRAINT R25 FOREIGN KEY (`subj_2`)      REFERENCES `subjects` (`id_subject`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 
 /* Связка таблицы "schedule" с таблицей "groups" */
-ALTER TABLE `changed_schedule`  ADD CONSTRAINT R25 FOREIGN KEY (`id_grp`)      REFERENCES `groups` (`grp`) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE `changed_schedule`  ADD CONSTRAINT R26 FOREIGN KEY (`id_grp`)      REFERENCES `groups` (`grp`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 /* Связка таблицы "schedule" с таблицей "subjects" */
-ALTER TABLE `changed_schedule`  ADD CONSTRAINT R26 FOREIGN KEY (`subject`)      REFERENCES `subjects` (`id_subject`) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE `changed_schedule`  ADD CONSTRAINT R27 FOREIGN KEY (`subject`)      REFERENCES `subjects` (`id_subject`) ON UPDATE CASCADE ON DELETE CASCADE;

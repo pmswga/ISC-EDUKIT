@@ -18,6 +18,7 @@
     $CT->assign("subjects", $SM->getAllSubjects());
     $CT->assign("schedules", $SH->getAllScheduleGroup());
     $CT->assign("changedSchedule", $SH->getAllChangedSchedule());
+       
     $CT->assign("date_now", date("d.m.Y"));
     
     $CT->Show("schedule.tpl");
@@ -26,9 +27,10 @@
       $day = $_POST['day'];
       $group = $_POST['group'];
       $pair = $_POST['pair'];
-      $subject = $_POST['subject'];
+      $subject_1 = $_POST['subj_1'];
+      $subject_2 = $_POST['subj_2'];
       
-      if ($SH->add(["day" => $day, "group" => $group, "pair" => $pair, "subject" => $subject])) {
+      if ($SH->add(["day" => $day, "group" => $group, "pair" => $pair, "subj_1" => $subject_1, "subj_2" => $subject_2])) {
         CTools::Message("All Good");
       } else {
         CTools::Message("All Bad");
@@ -45,10 +47,11 @@
       
       $result = true;
       for ($i = 1; $i <= 7; $i++) {
-        $subject = $_POST['pair_'.$i];
+        $subj_1 = $_POST['down_pair_'.$i];
+        $subj_2 = $_POST['up_pair_'.$i];
         
-        if ($subject != 0 && !empty($subject)) {          
-          $result *= $SH->changePair($group, $day, $i, $_POST['pair_'.$i]);
+        if ($subj_1 != 0 && $subj_2 != 0) {
+          $result *= $SH->changePair($group, $day, $i, $subj_1, $subj_2);
         }
         
       }
@@ -86,17 +89,18 @@
       
       $group = $_POST['group'];
       $day = $_POST['day'];
-      $pairs = array();
       
       $result = true;
       for ($i = 1; $i <= 7; $i++) {
         $subject = $_POST['pair_'.$i];
         
-        if ($subject != 0 && !empty($subject)) {          
+        if ($subject != 0 && !empty($subject)) {
+          echo $i." pair";
           $result *= $SH->changeChangedPair($group, $day, $i, $_POST['pair_'.$i]);
         }
         
       }
+      
       
       if ($result) {
         CTools::Message("Change is good");
@@ -107,6 +111,17 @@
       $update();
     }
     
+    if (!empty($_POST['deleteChangedScheduleButton'])) {
+      $group = $_POST['group'];
+      
+      if ($SH->deleteChangedPair($group)) {
+        CTools::Message("Delete is good");
+      } else {
+        CTools::Message("Delete is bad");
+      }
+      
+      $update();
+    }
     
   } else {
     CTools::Redirect("login.php");
