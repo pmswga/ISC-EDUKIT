@@ -1,8 +1,8 @@
 <?php
-	require_once "../engine/ctemplater.php";
-	require_once "../engine/ctools.php";
-	require_once "../engine/cform.php";
-	require_once "../engine/settings.php";
+	require_once $_SERVER['DOCUMENT_ROOT']."/engine/ctemplater.php";
+	require_once $_SERVER['DOCUMENT_ROOT']."/engine/ctools.php";
+	require_once $_SERVER['DOCUMENT_ROOT']."/engine/cform.php";
+	require_once $_SERVER['DOCUMENT_ROOT']."/engine/settings.php";
 	
 	require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/user.class.php";
 	require_once $_SERVER['DOCUMENT_ROOT']."/iep/consts/typeusers.consts.php";
@@ -13,6 +13,8 @@
 	require_once $_SERVER['DOCUMENT_ROOT']."/iep/managers/nm.class.php";
 	require_once $_SERVER['DOCUMENT_ROOT']."/iep/managers/shm.class.php";
 	
+  use IEP\Managers\UserManager;
+  
 	$CT = new CTemplater("templates/tpl", "templates/tpl_c", "templates/configs", "templates/cache");
   
 	$DB = new PDO("mysql:dbname=".DATA_BASE_NAME.";host=127.0.0.1:".PORT, USER_NAME, USER_PASSWORD);
@@ -48,6 +50,8 @@
           
     return iconv("UTF-8","UTF-8//IGNORE",strtr($string,$replace));
   }
+  
+  $UM = new UserManager($DB);
   
 	session_start();
 ?>

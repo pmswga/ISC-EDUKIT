@@ -30,13 +30,23 @@
     
     public function add($spec) : bool
     {
-      $add_spec_query = $this->dbc()->prepare("call addSpecialty(:code, :descp, :file)");
+      if (
+        !empty($spec->getCode()) &&
+        !empty($spec->getDescription()) &&
+        !empty($spec->getFilepath())
+      ) {
+        
+        $add_spec_query = $this->dbc()->prepare("call addSpecialty(:code, :descp, :file)");
+        
+        $add_spec_query->bindValue(":code",  $spec->getCode());
+        $add_spec_query->bindValue(":descp", $spec->getDescription());
+        $add_spec_query->bindValue(":file",  $spec->getFilepath());
+        
+        return $add_spec_query->execute();
+      } else {
+        return false;
+      }
       
-      $add_spec_query->bindValue(":code",  $spec->getCode());
-      $add_spec_query->bindValue(":descp", $spec->getDescription());
-      $add_spec_query->bindValue(":file",  $spec->getFilepath());
-      
-      return $add_spec_query->execute();
     }
     
     /*!

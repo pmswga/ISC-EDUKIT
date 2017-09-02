@@ -10,6 +10,7 @@
     
   */
   
+  const USER_TYPE_ADMIN   = 0; ///< Администратор
 	const USER_TYPE_TEACHER = 1; ///< Преподаватель
 	const USER_TYPE_ELDER   = 2; ///< Староста
 	const USER_TYPE_STUDENT = 3; ///< Студент

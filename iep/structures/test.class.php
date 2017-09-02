@@ -172,7 +172,7 @@
     
     public function getQuestions() : array
     {
-      return$this->questions;
+      return $this->questions;
     }
 		
 	}

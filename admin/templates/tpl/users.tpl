@@ -3,7 +3,6 @@
 {include file="html/begin.tpl"}
   <div class="container-fluid">
     {include file="html/menu.tpl"}
-    
     <div class="row">
       <div class="col-md-8">
       <div class="row">
@@ -89,16 +88,17 @@
                 <div class="col-md-12">
                   <br>
                   {if $studentsByGroup != NULL}
+                    {$group_n = 1}
                     {foreach from=$studentsByGroup key=group item=student}
                       {$i = 1}
                       <div class="panel-group">
                         <div class="panel panel-default">
                           <div class="panel-heading">
                             <h4 class="panel-title">
-                              <a data-toggle="collapse" href="#{$group}">{$group}</a>
+                              <a data-toggle="collapse" href="#{$group_n}">{$group}</a>
                             </h4>
                           </div>
-                          <div id="{$group}" class="panel-collapse collapse">
+                          <div id="{$group_n}" class="panel-collapse collapse">
                             <div class="panel-body"><table class="table table-bordered">
                               <table class="table table-hover">
                                 <tr>
@@ -128,6 +128,7 @@
                           </div>
                         </div>
                       </div>
+                      {$group_n = $group_n + 1}
                     {/foreach}
                   {else}
                     <h3>Студенты не зарегистрированы</h3>
@@ -220,27 +221,27 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label>Фамилия</label>
-                  <input type="text" name="sn" maxlength="30" class="form-control">
+                  <input type="text" name="sn" maxlength="30" class="form-control" required>
                 </div>
                 <div class="form-group">
                   <label>Имя</label>
-                  <input type="text" name="fn" maxlength="30" class="form-control">
+                  <input type="text" name="fn" maxlength="30" class="form-control" required>
                 </div>
                 <div class="form-group">
                   <label>Отчество</label>
-                  <input type="text" name="pt" maxlength="30" class="form-control">
+                  <input type="text" name="pt" maxlength="30" class="form-control" required>
                 </div>
                 <div class="form-group">
                   <label>E-mail</label>
-                  <input type="email" name="email" maxlength="30" class="form-control">
+                  <input type="email" name="email" maxlength="30" class="form-control" required>
                 </div>
                 <div class="form-group">
                   <label>Пароль</label>
-                  <input type="password" name="paswd" maxlength="32" class="form-control">
+                  <input type="password" name="paswd" maxlength="32" class="form-control" required>
                 </div>
                 <div class="form-group">
                   <label>Информация</label>
-                  <textarea name="info" rows="5" class="form-control"></textarea>
+                  <textarea name="info" rows="5" class="form-control"></textarea required>
                 </div>
                 <div class="form-group">
                   <input type="submit" name="addTeacherButton" value="Добавить" class="btn btn-primary">

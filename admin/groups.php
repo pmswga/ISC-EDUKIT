@@ -5,8 +5,12 @@
   use IEP\Managers\GroupManager;
   use IEP\Managers\SpecialtyManager;
   use IEP\Structures\Group;
+  use IEP\Structures\User;
   
-	if(isset($_SESSION['admin'])) {		
+	if (isset($_SESSION['admin']) && 
+     ($_SESSION['admin'] instanceof User) &&
+     $UM->adminExists($_SESSION['admin'])
+  ) {
 		
 		$GM = new GroupManager($DB);
 		$SPM = new SpecialtyManager($DB);
@@ -23,9 +27,12 @@
 			$new_grp = new Group($data['group'], $data['spec'], $data["edu_year"], $data['payment']);
 			
 			if ($GM->add($new_grp)) {
-				CTools::Redirect("groups.php");
-			}
-			
+        CTools::Message("Группа успешно добавлена");
+			} else {
+        CTools::Message("Ошибка при добавлении группы");
+      }
+      
+      CTools::Redirect("groups.php");
 		}
 		
 		if (!empty($_POST['removeGroupButton'])) {

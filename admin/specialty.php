@@ -4,21 +4,25 @@
   
   use IEP\Managers\SpecialtyManager;
   use IEP\Structures\Specialty;
+  use IEP\Structures\User;
   
-	if(isset($_SESSION['admin'])) {		
+	if (isset($_SESSION['admin']) && 
+     ($_SESSION['admin'] instanceof User) &&
+     $UM->adminExists($_SESSION['admin'])
+  ) {
 		
 		$SPM = new SpecialtyManager($DB);
 		
 		$specialtyes = $SPM->getAllSpecialty();
 		
 		$CT->assign("specialtyes", $specialtyes);
-		
 		$CT->Show("specialty.tpl");
 		
 		if (!empty($_POST['addSpecialtyButton'])) {
 			
-			$data = CForm::getData(["code_spec", "descp"]);
-			
+			$data = CForm::getData(["code_spec_1", "code_spec_2", "code_spec_3", "descp"]);
+			$data['code_spec'] = $data['code_spec_1'].".".$data['code_spec_2'].".".$data['code_spec_3'];
+      
 			$new_spec = new Specialty($data['code_spec'], $data['descp']);
 			
 			$file = $_FILES['pdf_file'];
@@ -32,18 +36,19 @@
 				
 				if ($SPM->add($new_spec)) {
           CTools::Message("Специальность успешно добавлена");
-					CTools::Redirect("specialty.php");
 				} else {
-          CTools::Message("При добавлении специальности произошла ошибка");
+          CTools::Message("Ошибка при добавлении специальности");
         }
 				
-			}
+			} else {
+        CTools::Message("Ошибка при добавлении специальности");
+      }
 			
+      CTools::Redirect("specialty.php");
 		}
 		
 		if (!empty($_POST['removeSpecialtyButton'])) {
 			$select_spec = $_POST['select_spec'];
-      
       
       if (!empty($select_spec)) {
         $result = true;
@@ -52,9 +57,9 @@
         }
         
         if ($result) {
-            CTools::Message("Специальность/специальности были удалены");
+          CTools::Message("Специальность/специальности были удалены");
         } else {
-            CTools::Message("Произошла ошибка при удалении специальности/специальностей");
+          CTools::Message("Ошибка при удалении специальности/специальностей");
         }
         
       } else {
@@ -65,10 +70,11 @@
 		}
 		
 		if (!empty($_POST['editSpecialtyButton'])) {
-			
+			//code...
 		}
 		
-	}
-	else CTools::Redirect("login.php");
+	} else {
+    CTools::Redirect("login.php");
+  } 
   
 ?>

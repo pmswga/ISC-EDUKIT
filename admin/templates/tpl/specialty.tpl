@@ -17,9 +17,9 @@
                   </tr>
                   {foreach from=$specialtyes item=specialty}
                     <tr>
-                      <td>{$specialty->getCode()}</td>
-                      <td>{$specialty->getDescription()}</td>
-                      <td><a href="{$specialty->getFilepath()}" target="__blank" download>{$specialty->getFilename()}</a></td>
+                      <td><p>{$specialty->getCode()}</p></td>
+                      <td><p>{$specialty->getDescription()}</p></td>
+                      <td><a href="pdfs/{$specialty->getFilename()}" download>{$specialty->getFilename()}</a></td>
                       <td><input type="checkbox" name="select_spec[]" value="{$specialty->getSpecialtyID()}" class="form-control"></td>
                     </tr>
                   {/foreach}
@@ -29,7 +29,7 @@
               {/if}
             </div>
             <div class="col-md-4">
-              <input type="submit" name="editSpecialtyButton" value="Изменить" class="btn btn-warning btn-block">
+              <!--<input type="submit" name="editSpecialtyButton" value="Изменить" class="btn btn-warning btn-block">-->
               <input type="submit" name="removeSpecialtyButton" value="Удалить" class="btn btn-danger btn-block">
               <br>
               <fieldset>
@@ -37,7 +37,17 @@
                 <form name="addSpecialtyForm" method="POST" enctype="multipart/form-data">
                   <div class="form-group">
                     <label>Код специальности</label>
-                    <input type="text" name="code_spec" maxlength="10" class="form-control">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <input type="number" name="code_spec_1" maxlength="2" class="form-control">
+                      </div>
+                      <div class="col-md-4">
+                        <input type="number" name="code_spec_2" maxlength="2" class="form-control">
+                      </div>
+                      <div class="col-md-4">
+                        <input type="number" name="code_spec_3" maxlength="2" class="form-control">
+                      </div>
+                    </div>
                   </div>
                   <div class="form-group">
                     <label>Описание</label>

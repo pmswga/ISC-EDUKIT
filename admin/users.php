@@ -10,17 +10,20 @@
   use IEP\Structures\Teacher;
   use IEP\Structures\User;
   use IEP\Structures\Group;
-	
-	if (isset($_SESSION['admin'])) {
-		
-		$UM = new UserManager($DB);
-		$GM = new GroupManager($DB);
-		$SM = new SubjectManager($DB);
+  
+	if (isset($_SESSION['admin']) && 
+     ($_SESSION['admin'] instanceof User) &&
+     $UM->adminExists($_SESSION['admin'])
+  ) {
+    
+    $GM = new GroupManager($DB);
+    $SM = new SubjectManager($DB);
 		
 		$all_students = $UM->getAllStudentsElders();
 		$studentsByGroup = array();
 		for ($i = 0; $i < count($all_students); $i++) {
-			$studentsByGroup[$all_students[$i]->getGroup()->getNumberGroup()][] = $all_students[$i];
+      $key = $all_students[$i]->getGroup()->getNumberGroup()." (".$all_students[$i]->getGroup()->getYearEducation().")";
+			$studentsByGroup[$key][] = $all_students[$i];
 		}
 		
 		$CT->assign("groups", $GM->getAllGroups());

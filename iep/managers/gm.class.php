@@ -36,14 +36,23 @@
     
     public function add($group) : bool
     {
-      $add_group_query = $this->dbc()->prepare("call addGroup(:descp, :spec_id, :year_edu, :is_budget)");
-      
-      $add_group_query->bindValue(":descp", $group->getNumberGroup());
-      $add_group_query->bindValue(":spec_id", $group->getSpec());
-      $add_group_query->bindValue(":year_edu", $group->getYearEducation());
-      $add_group_query->bindValue(":is_budget", $group->getStatus());
-      
-      return $add_group_query->execute();
+      if (
+        !empty($group->getNumberGroup()) && 
+        !empty($group->getSpec()) && 
+        !empty($group->getYearEducation()) && 
+        !empty($group->getStatus())
+      ) {        
+        $add_group_query = $this->dbc()->prepare("call addGroup(:descp, :spec_id, :year_edu, :is_budget)");
+        
+        $add_group_query->bindValue(":descp", $group->getNumberGroup());
+        $add_group_query->bindValue(":spec_id", $group->getSpec());
+        $add_group_query->bindValue(":year_edu", $group->getYearEducation());
+        $add_group_query->bindValue(":is_budget", $group->getStatus());
+        
+        return $add_group_query->execute();
+      } else {
+        return false;
+      }
     }
     
     /*!
@@ -194,11 +203,15 @@
     
     public function remove($group_id) : bool
     {
-      $remove_group_query = $this->dbc()->prepare("call removeGroup(:grp_id)");
-      
-      $remove_group_query->bindValue(":grp_id", $group_id);
-      
-      return $remove_group_query->execute();
+      if (!empty($group_id) && ($group_id > 0)) {        
+        $remove_group_query = $this->dbc()->prepare("call removeGroup(:grp_id)");
+        
+        $remove_group_query->bindValue(":grp_id", $group_id);
+        
+        return $remove_group_query->execute();
+      } else {
+        return false;
+      }
     }
     
   }

@@ -1,11 +1,11 @@
 <?php
 	require_once "start.php";
   
-	use IEP\Managers\UserManager;
 	use IEP\Structures\User;
   
-	if (!isset($_SESSION['admin'])) {
-		$UM = new UserManager($DB);
+	if (!isset($_SESSION['admin']) && 
+     !($_SESSION['admin'] instanceof User)
+  ) {
 		
 		$CT->Show("login.tpl");
 		
@@ -24,9 +24,9 @@
 			}
 			
 		}
-	}
-	else {
-    CTools::Redirect("index.php");
+    
+	}	else {
+    CTools::Redirect("php/logout.php");
   } 
 	
 ?>

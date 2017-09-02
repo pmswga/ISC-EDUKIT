@@ -14,34 +14,33 @@
                     <th>Группа</th>
                     <th>Специальность</th>
                     <th>Года обучения</th>
-                    <th>Кол-во студентов</th>
                     <th>Тип</th>
                     <th>Выбрать</th>
                   </tr>
                   {foreach from=$groups item=group}
                     <tr>
-                      <td>{$group->getNumberGroup()}</td>
-                      <td>{$group->getCode()}</td>
-                      <td>{$group->getYearEducation()}</td>
-                      <td>~</td>
+                      <td><p>{$group->getNumberGroup()}</p></td>
+                      <td><p>{$group->getCode()}</p></td>
+                      <td><p>{$group->getYearEducation()}</p></td>
                       <td>
-                        {if $group->getStatus() == 1}
-                          Бюджетная
-                        {elseif $group->getStatus() == 0}
-                          Коммерческая
-                        {/if}
+                        <p>
+                          {if $group->getStatus() == 1}
+                            Бюджетная
+                          {elseif $group->getStatus() == 0}
+                            Коммерческая
+                          {/if}
+                        </p>
                       </td>
                       <td><input type="checkbox" name="select_grp[]" value="{$group->getGroupID()}" class="form-control"></td>
                     </tr>
                   {/foreach}
                 </table>
               {else}
-                  <h1 align="center">Группы не добавлены</h1>
+                <h1 align="center">Группы не добавлены</h1>
               {/if}
             </div>
             <div class="col-md-4">
               <input type="submit" name="removeGroupButton" value="Удалить" class="btn btn-danger btn-block">
-              <button type="button" class="btn btn-primary btn-block">Перевести на курс выше</button>
               <br>
               <fieldset>
                 <legend>Новая группа</legend>

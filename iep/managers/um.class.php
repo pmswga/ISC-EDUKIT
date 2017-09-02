@@ -32,6 +32,63 @@
   {
     
     /*!
+      \brief
+      \param[in]
+      \note
+      \return
+    */
+    
+    public function adminExists(User $user) : bool
+    { 
+      $exists_user = $this->query("SELECT * FROM `admins` WHERE `email`=:email AND `passwd`=:passwd", [
+        ":email" => $user->getEmail(),
+        ":passwd" => $user->getPassword()
+      ])[0];
+      
+      if (
+        $exists_user['sn'] === $user->getSn() &&
+        $exists_user['fn'] === $user->getFn() &&
+        $exists_user['pt'] === $user->getPt() &&
+        $exists_user['email'] === $user->getEmail() &&
+        $exists_user['passwd'] === $user->getPassword()
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    
+    /*!
+      \brief
+      \param[in]
+      \note
+      \return
+    */
+    
+    public function userExists(User $user) : bool
+    {
+      $exists_user = $this->query("SELECT * FROM `users` WHERE `email`=:email AND `passwd`=:passwd AND `id_type_user`=:user_type", [
+        ":email" => $user->getEmail(),
+        ":passwd" => $user->getPassword(),
+        ":user_type" => $user->getUserType()
+      ])[0];
+      
+      
+      if (
+        $exists_user['sn'] === $user->getSn() &&
+        $exists_user['fn'] === $user->getFn() &&
+        $exists_user['pt'] === $user->getPt() &&
+        $exists_user['email'] === $user->getEmail() &&
+        $exists_user['passwd'] === $user->getPassword() &&
+        $exists_user['id_type_user'] === $user->getUserType()
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    
+    /*!
       \brief Добавляет нового пользователя
       \param[in] $user - Новый пользователь
       \note Объект класса User
@@ -45,49 +102,59 @@
         {
           try
           {
-            $this->dbc()->beginTransaction();
             
-            $add_teacher_query = $this->dbc()->prepare("call addTeacher(:sn, :fn, :pt, :email, :paswd, :info)");
-            
-            $add_teacher_query->bindValue(":sn", $user->getSn());
-            $add_teacher_query->bindValue(":fn", $user->getFn());
-            $add_teacher_query->bindValue(":pt", $user->getPt());
-            $add_teacher_query->bindValue(":email", $user->getEmail());
-            $add_teacher_query->bindValue(":paswd", $user->getPassword());
-            $add_teacher_query->bindValue(":info", $user->getInfo());
-            
-            if ($add_teacher_query->execute()) {
+            if (!empty($user->getSn()) &&
+                !empty($user->getFn()) &&
+                !empty($user->getPt()) &&
+                !empty($user->getEmail()) &&
+                !empty($user->getPassword()) &&
+                !empty($user->getInfo())
+            ) {
+              $this->dbc()->beginTransaction();
               
-              $subjects = $user->getSubjects();
+              $add_teacher_query = $this->dbc()->prepare("call addTeacher(:sn, :fn, :pt, :email, :paswd, :info)");
               
-              if (!empty($subjects)) {
+              $add_teacher_query->bindValue(":sn", $user->getSn());
+              $add_teacher_query->bindValue(":fn", $user->getFn());
+              $add_teacher_query->bindValue(":pt", $user->getPt());
+              $add_teacher_query->bindValue(":email", $user->getEmail());
+              $add_teacher_query->bindValue(":paswd", $user->getPassword());
+              $add_teacher_query->bindValue(":info", $user->getInfo());
+              
+              if ($add_teacher_query->execute()) {
                 
-                $set_subject_query = $this->dbc()->prepare("call setSubject(:email, :subject)");
-                $set_subject_query->bindValue(":email", $user->getEmail());
+                $subjects = $user->getSubjects();
                 
-                $result = true;
-                for ($i = 0; $i < count($subjects); $i++) {
-                  $set_subject_query->bindValue(":subject", $subjects[$i]);
+                if (!empty($subjects)) {
                   
-                  $result *= $set_subject_query->execute();
-                }
-                
-                if ($result) {
+                  $set_subject_query = $this->dbc()->prepare("call setSubject(:email, :subject)");
+                  $set_subject_query->bindValue(":email", $user->getEmail());
+                  
+                  $result = true;
+                  for ($i = 0; $i < count($subjects); $i++) {
+                    $set_subject_query->bindValue(":subject", $subjects[$i]);
+                    
+                    $result *= $set_subject_query->execute();
+                  }
+                  
+                  if ($result) {
+                    return $this->dbc()->commit();
+                  } else {                    
+                    $this->dbc()->rollBack();
+                    return false;
+                  }
+                  
+                } 
+                else {
                   return $this->dbc()->commit();
-                } else {
-                  $this->writeLog($set_subject_query->errorInfo()[3]);
-                  
-                  $this->dbc()->rollBack();
-                  return false;
                 }
                 
-              } 
-              else {
-                return $this->dbc()->commit();
+              } else {
+                $this->dbc()->rollBack();
+                return false;
               }
               
             } else {
-              $this->dbc()->rollBack();
               return false;
             }
             
