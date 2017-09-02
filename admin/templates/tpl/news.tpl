@@ -16,9 +16,9 @@
               </tr>
               {foreach from=$news item=one_news}
                 <tr>
-                  <td>{$one_news->getCaption()}</td>
-                  <td>{$one_news->getContent()}</td>
-                  <td>{$one_news->getDatePublication()|date_format:'d.m.Y h:i:s'}</td>
+                  <td><a href="#{$one_news->getNewsID()}" class="one_news">{$one_news->getCaption()}</a></td>
+                  <td><p>{$one_news->getAuthor()}</p></td>
+                  <td><p>{$one_news->getDatePublication()|date_format:'d.m.Y h:i:s'}</p></td>
                   <td><input type="checkbox" name="select_news[]" value="{$one_news->getNewsID()}" class="form-control"></td>
                 </tr>
               {/foreach}
@@ -40,7 +40,7 @@
               </div>
               <div class="form-group">
                 <label>Содержание</label>
-                <textarea name="content" rows="15" class="form-control"></textarea>
+                <textarea id="cont" name="content" rows="15" class="form-control"></textarea>
               </div>
               <div class="form-group">
                 <label>Автор</label>
@@ -52,6 +52,7 @@
                 <input type="datetime" name="dp" value="{$date}" class="form-control">
               </div>
               <div class="form-group">
+                <input type="hidden" name="news_id">
                 <input type="submit" name="addNewsButton" value="Добавить" class="btn btn-primary pull-right">
               </div>
             </form>
@@ -62,7 +63,30 @@
   </form>
     
   <script type="text/javascript">
-    CKEDITOR.replace("content");
+    var editor = CKEDITOR.replace("content");
+    
+    $(".one_news").on("click", function(){
+      var news_id = $(this).attr("href").substr(1, $(this).attr("href").length);
+      
+      $.ajax({
+        url: "php/get_news.php",
+        type: "POST",
+        data: "news_id=" + news_id,
+        success: function (replay) {
+          var data = $.parseJSON(replay);
+          
+          $("[name='caption']").attr("value", data.caption);
+          
+          var dp = new Date(data.date_publication);
+          
+          $("[name='dp']").attr("value", dp.toLocaleTimeString());
+          $("[name='news_id']").attr("value", data.id_news);
+          
+        }
+      });
+      
+    });
+    
   </script>
   
 {include file="html/end.tpl"}

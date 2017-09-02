@@ -58,6 +58,11 @@
       return $add_news_query->execute();
     }
     
+    public function getAdminNewsByID(int $news_id) : array
+    {
+      return $get_news_query = $this->query("SELECT * FROM `admin_news` WHERE `id_news`=:news_id", [":news_id" => $news_id]);
+    }
+    
     /*!
       \brief Возвращает все новости опубликованные преподавателем
       \param[in] $teacher_email - электронная почта преподавателя
