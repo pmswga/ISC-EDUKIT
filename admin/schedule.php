@@ -4,12 +4,17 @@
   use IEP\Managers\GroupManager;
   use IEP\Managers\SubjectManager;
   use IEP\Managers\ScheduleManager;
+  use IEP\Structures\User;
   
   $update = function () {
     CTools::Redirect("schedule.php");
   };
   
-  if (isset($_SESSION['admin'])) {
+	if (isset($_SESSION['admin']) && 
+     ($_SESSION['admin'] instanceof User) &&
+     $UM->adminExists($_SESSION['admin'])
+  ) {
+    
     $GM = new GroupManager($DB);
     $SM = new SubjectManager($DB);
     $SH = new ScheduleManager($DB);
@@ -20,10 +25,7 @@
     $CT->assign("changedSchedule", $SH->getAllChangedSchedule());
        
     $CT->assign("date_now", date("d.m.Y"));
-    
     $CT->Show("schedule.tpl");
-    
-    
     
     if (!empty($_POST['addScheduleEntryButton'])) {
       $day = $_POST['day'];
@@ -33,9 +35,9 @@
       $subject_2 = $_POST['subj_2'];
       
       if ($SH->add(["day" => $day, "group" => $group, "pair" => $pair, "subj_1" => $subject_1, "subj_2" => $subject_2])) {
-        CTools::Message("All Good");
+        CTools::Message("Пара успешно назначена");
       } else {
-        CTools::Message("All Bad");
+        CTools::Message("Ошибка при назначении пары");
       }
       
       $update();
@@ -59,9 +61,9 @@
       }
       
       if ($result) {
-        CTools::Message("Change is good");
+        CTools::Message("Изменения применены");
       } else {
-        CTools::Message("Change is bad");
+        CTools::Message("Ошибка при принятии изменений");
       }
       
       $update();
@@ -78,14 +80,13 @@
                                   "pair" => $pair, 
                                   "subject" => $subject])
       ) {
-        CTools::Message("All Good");
+        CTools::Message("Изменение успешно назначено");
       } else {
-        CTools::Message("All Bad");
+        CTools::Message("Ошибка при назначении изменения в расписании");
       }
       
       $update();
     }
-    
     
     if (!empty($_POST['changeChangedScheduleButton'])) {
       
@@ -102,11 +103,10 @@
         
       }
       
-      
       if ($result) {
-        CTools::Message("Change is good");
+        CTools::Message("Изменения применены");
       } else {
-        CTools::Message("Change is bad");
+        CTools::Message("Ошибка при принятии изменений");
       }
       
       $update();
@@ -116,9 +116,9 @@
       $group = $_POST['group'];
       
       if ($SH->deleteChangedPair($group)) {
-        CTools::Message("Delete is good");
+        CTools::Message("Все изменения были удалены");
       } else {
-        CTools::Message("Delete is bad");
+        CTools::Message("Ошибка при удалении изменений в расписании");
       }
       
       $update();

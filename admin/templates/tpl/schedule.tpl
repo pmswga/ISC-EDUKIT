@@ -14,17 +14,18 @@
               <br>
               <div class="col-md-8">
                 <div class="panel-group" id="scheduleGroups">
+                  {$grp_n = 1}
                   {foreach from=$schedules key=grp item=schedule}
-                  {$day_number = 1}
+                    {$day_number = 1}
                     <div class="panel panel-default">
                       <div class="panel-heading">
                         <h4 class="panel-title">
-                          <a data-toggle="collapse" data-parent="#scheduleGroups" href="#{$grp}">
+                          <a data-toggle="collapse" data-parent="#scheduleGroups" href="#{$grp_n}">
                             {$grp}
                           </a>
                         </h4>
                       </div>
-                      <div id="{$grp}" class="panel-collapse collapse in">
+                      <div id="{$grp_n}" class="panel-collapse collapse">
                         <div class="panel-body">
                           {foreach from=$schedule key=day item=data}
                             <form name="changeScheduleForm" method="POST">
@@ -76,6 +77,7 @@
                         </div>
                       </div>
                     </div>
+                    {$grp_n = $grp_n + 1}
                   {/foreach}
                 </div>
               </div>
@@ -118,6 +120,7 @@
                       <label>Предмет</label>
                       <div class="row">
                         <div class="col-md-6">
+                          <label>Нижняя</label>
                           <select name="subj_1" class="form-control">
                             {foreach from=$subjects item=subject}
                               <option value="{$subject->getSubjectID()}">{$subject->getDescription()}</option>
@@ -125,6 +128,7 @@
                           </select>
                         </div>
                         <div class="col-md-6">
+                          <label>Верхняя</label>
                           <select name="subj_2" class="form-control">
                             {foreach from=$subjects item=subject}
                               <option value="{$subject->getSubjectID()}">{$subject->getDescription()}</option>
@@ -132,7 +136,6 @@
                           </select>
                         </div>
                       </div>
-                      
                     </div>
                     <div class="form-group">
                       <input type="submit" name="addScheduleEntryButton" value="Назначить" class="btn btn-primary pull-right">
@@ -146,18 +149,20 @@
             <br>
             <div class="row">
               <div class="col-md-8">
-                {if $changedSchedule != NULL}
+                <div class="panel-group" id="scheduleChangesGroups">
+                  {if $changedSchedule != NULL}
+                    {$group_n = 1}
                     {foreach from=$changedSchedule key=grp item=schedule}
                       {$day_number = 1}
                       <div class="panel panel-default">
                         <div class="panel-heading">
                           <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#scheduleGroups" href="#{$grp}">
+                            <a data-toggle="collapse" data-parent="#scheduleChangesGroups" href="#change_{$group_n}">
                               {$grp}
                             </a>
                           </h4>
                         </div>
-                        <div id="{$grp}" class="panel-collapse collapse in">
+                        <div id="change_{$group_n}" class="panel-collapse collapse">
                           <div class="panel-body">
                             {foreach from=$schedule key=day item=data}
                               <form name="changeChangedScheduleForm" method="POST">
@@ -200,10 +205,12 @@
                           </div>
                         </div>
                       </div>
+                      {$group_n = $group_n + 1}
                     {/foreach}
-                {else}
+                  {else}
                     <h3 align="center">Изменений нет</h3>
-                {/if}
+                  {/if}
+                </div>
               </div>
               <div class="col-md-4">
                 <fieldset>
@@ -242,7 +249,7 @@
                       </select>
                     </div>
                     <div class="form-group">
-                      <input type="submit" name="setChangeScheduleButton" value="Применить" class="btn btn-primary">
+                      <input type="submit" name="setChangeScheduleButton" value="Поставить изменения" class="btn btn-primary">
                     </div>
                   </form>
                 </fieldset>
@@ -257,7 +264,7 @@
                         {/foreach}
                       </select>
                     </div>
-                    <input type="submit" name="deleteChangedScheduleButton" value="Удалить все изменения" class="btn btn-sm btn-danger">
+                    <input type="submit" name="deleteChangedScheduleButton" value="Удалить все изменения" class="btn btn-danger">
                   </form>
                 </fieldset>
               </div>

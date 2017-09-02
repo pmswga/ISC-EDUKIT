@@ -61,17 +61,28 @@
       \return TRUE - успешно, FALSE - ошибка
     */
     
-    public function add($schedule)
+    public function add($schedule) : bool
     {
-      $add_schedule = $this->dbc()->prepare("call addScheduleEntry(:grp, :day, :pair, :subj_1, :subj_2)");
+      if (
+        !empty($schedule['group']) &&
+        !empty($schedule['day']) &&
+        !empty($schedule['pair']) &&
+        !empty($schedule['subj_1']) &&
+        !empty($schedule['subj_2'])
+      ) {
+        $add_schedule = $this->dbc()->prepare("call addScheduleEntry(:grp, :day, :pair, :subj_1, :subj_2)");
+        
+        $add_schedule->bindValue(":grp", $schedule['group']);
+        $add_schedule->bindValue(":day", $schedule['day']);
+        $add_schedule->bindValue(":pair", $schedule['pair']);
+        $add_schedule->bindValue(":subj_1", $schedule['subj_1']);
+        $add_schedule->bindValue(":subj_2", $schedule['subj_2']);
+        
+        return $add_schedule->execute();
+      } else {
+        return false;
+      }
       
-      $add_schedule->bindValue(":grp", $schedule['group']);
-      $add_schedule->bindValue(":day", $schedule['day']);
-      $add_schedule->bindValue(":pair", $schedule['pair']);
-      $add_schedule->bindValue(":subj_1", $schedule['subj_1']);
-      $add_schedule->bindValue(":subj_2", $schedule['subj_2']);
-      
-      return $add_schedule->execute();
     }
     
     /*!
@@ -133,16 +144,16 @@
     public function getAllScheduleGroup() : array
     {
       $data = $this->query("call getAllScheduleGroup()");
-  
+        
       $dataByGroup = array();
       foreach ($data as $d) {
-        $dataByGroup[$d['group']][] = $d;
+        $dataByGroup[$d['group']." (".$d['edu_year'].")"][] = $d;
       }
       
       $dataByGroupByDay = array();
       foreach ($dataByGroup as $key => $value) {
         
-        foreach ($value as $day) {      
+        foreach ($value as $day) {
           $dataByGroupByDay[$key][$this->intToDay((int)$day['_day'])][] = $day;
         }
         
@@ -164,7 +175,7 @@
   
       $dataByGroup = array();
       foreach ($data as $d) {
-        $dataByGroup[$d['group']][] = $d;
+        $dataByGroup[$d['group']." (".$d['edu_year'].")"][] = $d;
       }
       
       $dataByGroupByDay = array();
@@ -211,7 +222,7 @@
 
       $dataByGroup = array();
       foreach ($data as $d) {
-        $dataByGroup[$d['group']][] = $d;
+        $dataByGroup[$d['group']." (".$d['edu_year'].")"][] = $d;
       }
 
       $dataByGroupByDay = array();

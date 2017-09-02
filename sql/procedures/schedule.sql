@@ -26,6 +26,7 @@ CREATE PROCEDURE IF NOT EXISTS getScheduleGroup(grp int)
 BEGIN
 	SELECT s._day, 
 		g.description as 'group',
+        g.edu_year,
 		s.id_grp as 'id_grp',
 		s.pair, 
 		(SELECT `description` FROM `subjects` WHERE `id_subject`=s.subj_1) as 'subj_1',
@@ -42,6 +43,7 @@ CREATE PROCEDURE IF NOT EXISTS getChangeScheduleGroup(grp int)
 BEGIN
   SELECT s._day, 
 		 g.description as 'group',
+         g.edu_year,
          s.id_grp as 'id_grp',
          s.pair, 
          sb.description as 'subject'
@@ -57,6 +59,7 @@ BEGIN
 	SELECT s._day, 
 		g.description as 'group',
 		s.id_grp as 'id_grp',
+        g.edu_year,
 		s.pair, 
 		(SELECT `description` FROM `subjects` WHERE `id_subject`=s.subj_1) as 'subj_1',
 		s.subj_1 as 'id_subj_1',
@@ -71,6 +74,7 @@ CREATE PROCEDURE IF NOT EXISTS getAllChangedSchedule()
 BEGIN
   SELECT s._day, 
 		 g.description as 'group',
+         g.edu_year,
          s.id_grp as 'id_grp',
          s.pair, 
          sb.description as 'subject'

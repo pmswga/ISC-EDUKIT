@@ -265,7 +265,7 @@
 									</tr>
 									{foreach from=$groups item=group}
 										<tr>
-											<td>{$group->getNumberGroup()}</td>
+											<td>{$group->getNumberGroup()} ({$group->getYearEducation()})</td>
 											<td>{$group->getSpec()->getCode()}</td>
 											<td><input type="checkbox" name="select_group[]" value="{$group->getGroupID()}" class="form-control"></td>
 										</tr>
