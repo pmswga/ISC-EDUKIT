@@ -1,9 +1,18 @@
 <?php
 	require_once "start.php";
-	
-  use IEP\Managers\UserManager;
+	require_once "ini.class.php";
   
-	if (isset($_SESSION['admin'])) {
+  $ini = new INI("file");
+  $ini->addValue("Section", "var", "value");
+  $ini->toFile();
+  
+  use IEP\Managers\UserManager;
+  use IEP\Structures\User;
+  
+	if (isset($_SESSION['admin']) && 
+     ($_SESSION['admin'] instanceof User) &&
+     $UM->adminExists($_SESSION['admin'])
+  ) {
 	
     $UM = new UserManager($DB);
   

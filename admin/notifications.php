@@ -2,7 +2,12 @@
 	require_once "start.php";
   require_once "../mail/PHPMailerAutoload.php";
 	
-	if (isset($_SESSION['admin'])) {
+  use IEP\Structures\User;
+  
+	if (isset($_SESSION['admin']) && 
+     ($_SESSION['admin'] instanceof User) &&
+     $UM->adminExists($_SESSION['admin'])
+  ) {
 		
 		$UM = new IEP\Managers\UserManager($DB);
 		$Notificator = new PHPMailer;

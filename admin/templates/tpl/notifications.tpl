@@ -17,7 +17,7 @@
               {foreach from=$parents item=parent}
                 <tr>
                   <td>{$parent->getSn()} {$parent->getFn()} {$parent->getPt()}</td>
-                  <td>{$parent->getEmail()}</td>
+                  <td><a href="mailto:{$parent->getEmail()}">{$parent->getEmail()}</a></td>
                   <td><input type="checkbox" name="select_user[]" value="{$parent->getEmail()}" class="form-control"></td>
                 </tr>
               {/foreach}
@@ -28,13 +28,15 @@
             <table class="table table-border">
               <tr>
                 <th>ФИО</th>
+                <th>Группа</th>
                 <th>E-mail</th>
                 <th>Выбрать</th>
               </tr>
               {foreach from=$students item=student}
                 <tr>
                   <td>{$student->getSn()} {$student->getFn()} {$student->getPt()}</td>
-                  <td>{$student->getEmail()}</td>
+                  <td>{$student->getGroup()->getNumberGroup()} ({$student->getGroup()->getYearEducation()})</td>
+                  <td><a href="mailto:{$student->getEmail()}">{$student->getEmail()}</td>
                   <td><input type="checkbox" name="select_user[]" value="{$student->getEmail()}" class="form-control"></td>
                 </tr>
               {/foreach}
