@@ -29,7 +29,7 @@ END;
 /* Функции для пользователей */
 
 CREATE FUNCTION IF NOT EXISTS getAdminId (emailAdmin char(30))
-	RETURNS BOOL
+	RETURNS INT
 BEGIN
 	DECLARE aid int;
 	
@@ -39,7 +39,7 @@ BEGIN
 END;
 
 CREATE FUNCTION IF NOT EXISTS getUserId (emailUser char(30))
-	RETURNS BOOL
+	RETURNS INT
 BEGIN
 	DECLARE uid int;
 	

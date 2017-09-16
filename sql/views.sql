@@ -101,3 +101,52 @@ CREATE VIEW v_Tests (id_test, author, caption, subject_id, subject_caption) as
   	INNER JOIN `subjects` s ON t.id_subject=s.id_subject
   ORDER BY id_test;
   
+
+
+
+
+/* Views for admin */
+
+DROP VIEW IF EXISTS v_info_Students;
+DROP VIEW IF EXISTS v_info_Elders;
+DROP VIEW IF EXISTS v_info_Teachers;
+DROP VIEW IF EXISTS v_info_Parents;
+
+CREATE VIEW v_info_Students (fio, email, home_address, cell_phone, grp, edu_year, is_budget, code_spec, descp_spec) as
+	SELECT CONCAT(u.sn, ' ', u.fn, ' ', u.pt), u.email, s.home_address, s.cell_phone, g.description, g.edu_year, g.is_budget, sp.code_spec, sp.description
+	FROM `users` u 
+		INNER JOIN `students` s   ON u.id_user=s.id_student
+		INNER JOIN `groups` g     ON s.grp=g.grp
+		INNER JOIN `specialty` sp ON sp.id_spec=g.spec_id
+	WHERE u.id_type_user=3 OR u.id_type_user=2
+	ORDER BY u.sn, u.fn, u.pt, g.description;
+
+CREATE VIEW v_info_Elders (fio, email, cell_phone, grp, edu_year) as
+	SELECT CONCAT(u.sn, ' ', u.fn, ' ', u.pt), u.email, s.cell_phone, g.description, g.edu_year
+	FROM `users` u 
+		INNER JOIN `students` s ON u.id_user=s.id_student
+		INNER JOIN `groups` g ON s.grp=g.grp
+		INNER JOIN `specialty` sp ON sp.id_spec=g.spec_id
+	WHERE u.id_type_user=2
+	ORDER BY u.sn, u.fn, u.pt, g.description;
+
+CREATE VIEW v_info_Teachers (fio, email, info) as
+	SELECT CONCAT(u.sn, ' ', u.fn, ' ', u.pt), u.email, t.info
+	FROM `users` u
+		INNER JOIN `teachers` t ON u.id_user=t.id_teacher
+  WHERE u.id_type_user=1
+  ORDER BY u.sn, u.fn, u.pt;	
+
+CREATE VIEW v_info_Parents (fio, email, age, education, work_place, post, home_phone, cell_phone) as
+  SELECT CONCAT(u.sn, ' ', u.fn, ' ', u.pt), u.email, p.age, p.education, p.work_place, p.post, p.home_phone, p.cell_phone
+  FROM `users` u 
+		INNER JOIN `parents` p ON u.id_user=p.id_parent
+  WHERE u.id_type_user=4
+  ORDER BY u.sn, u.fn, u.pt;
+
+
+
+
+
+
+

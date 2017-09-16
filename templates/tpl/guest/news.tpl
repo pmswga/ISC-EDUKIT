@@ -18,7 +18,7 @@
 												<p>{$one_news->getContent()}</p>
 											</article>
 											<hr>
-											<p>Автор: {$one_news->getAuthor()}</p>
+											<p><b>Автор:</b> {$one_news->getAuthor()}</p>
 										</aside>
 									{/foreach}
 								</aside>
@@ -28,7 +28,4 @@
 				</div>
 			</div>
 		</div>
-		
-		<!-- Scripts -->
-		
 {include file='html/end.tpl'}

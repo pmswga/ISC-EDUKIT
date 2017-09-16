@@ -24,7 +24,7 @@ $(document).ready(function(){
       grp: false,
       address: false,
       cell_phone: false,
-      password: false,      
+      password: false
     },
     isTrue: function(){
       var st = true;
@@ -146,7 +146,23 @@ $(document).ready(function(){
     }
     
   });
-  
+
+  /*!
+
+    Задаём группу по умолчанию
+
+   */
+
+  var current_group = $($("[name='grp']")[0]).val();
+
+  if (current_group > 0) {
+    setStatus(["grpDiv"], "success");
+    status_send.setStatusTo("grp", true);
+  } else {
+    setStatus(["grpDiv"], "error");
+    status_send.setStatusTo("grp", false);
+  }
+
   $("[name='grp']").change(function(){
     
     var grp = document.registration.grp.value;
