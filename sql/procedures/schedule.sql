@@ -12,17 +12,17 @@ DROP PROCEDURE IF EXISTS deleteChangedSchedulePair;
 
 DELIMITER //
 
-CREATE PROCEDURE IF NOT EXISTS addScheduleEntry(grp int, d int, pair int, subj1 int, subj2 int)
+CREATE PROCEDURE addScheduleEntry(grp int, d int, pair int, subj1 int, subj2 int)
 BEGIN
   INSERT INTO `schedule` (`id_grp`, `_day`, `pair`, `subj_1`, `subj_2`) VALUES (grp, d, pair, subj1, subj2);
 END;
 
-CREATE PROCEDURE IF NOT EXISTS addChangeSchedule(g int, d datetime, p int, s int)
+CREATE PROCEDURE addChangeSchedule(g int, d datetime, p int, s int)
 BEGIN
 	INSERT INTO `changed_schedule` (`id_grp`, `_day`, `pair`, `subject`) VALUES (g, d, p, s);
 END;
 
-CREATE PROCEDURE IF NOT EXISTS getScheduleGroup(grp int)
+CREATE PROCEDURE getScheduleGroup(grp int)
 BEGIN
 	SELECT s._day, 
 		g.description as 'group',
@@ -39,7 +39,7 @@ BEGIN
 	ORDER BY s._day, s.pair;
 END;
 
-CREATE PROCEDURE IF NOT EXISTS getChangeScheduleGroup(grp int)
+CREATE PROCEDURE getChangeScheduleGroup(grp int)
 BEGIN
   SELECT s._day, 
 		 g.description as 'group',
@@ -54,7 +54,7 @@ BEGIN
   ORDER BY s.pair;
 END;
 
-CREATE PROCEDURE IF NOT EXISTS getAllScheduleGroup()
+CREATE PROCEDURE getAllScheduleGroup()
 BEGIN  
 	SELECT s._day, 
 		g.description as 'group',
@@ -70,7 +70,7 @@ BEGIN
 	ORDER BY s._day, s.pair;
 END;
 
-CREATE PROCEDURE IF NOT EXISTS getAllChangedSchedule()
+CREATE PROCEDURE getAllChangedSchedule()
 BEGIN
   SELECT s._day, 
 		 g.description as 'group',
