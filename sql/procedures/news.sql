@@ -18,15 +18,14 @@ BEGIN
 	INSERT INTO `news` (`caption`, `content`, `id_author`, `date_publication`) VALUES (n_caption, n_content, getTeacherId(emailTeacher), n_date);
 END;
 
-
 CREATE PROCEDURE addAdminNews(n_caption char(255), n_content text, emailTeacher char(30), n_date date)
 BEGIN
 	INSERT INTO `admin_news` (`caption`, `content`, `id_author`, `date_publication`) VALUES (n_caption, n_content, getAdminId(emailTeacher), n_date);
 END;
 
-CREATE PROCEDURE removeAdminNews(id_news INT(11))
+CREATE PROCEDURE removeAdminNews(news_id int)
 BEGIN
-	DELETE FROM `admin_news` WHERE `id_news`=id_news;
+	DELETE FROM `admin_news` WHERE `id_news`=news_id;
 END;
 
 CREATE PROCEDURE removeNews(id_news INT)

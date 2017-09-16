@@ -52,8 +52,8 @@
     }
 		
 		if (!empty($_POST['removeNewsButton'])) {
-			$select_news = $_POST['select_news'];
-			
+			$select_news = $_POST['select_news'];      
+      
 			$result = true;
 			for ($i = 0; $i < count($select_news); $i++) {
 				$result *= $NM->removeAdminNews($select_news[$i]);
