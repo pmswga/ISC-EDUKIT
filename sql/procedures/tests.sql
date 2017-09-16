@@ -99,7 +99,7 @@ BEGIN
   ORDER BY g.description;
 END;
 
-CREATE FUNCTION IF NOT EXISTS isGroupForTest(test_id int, grp int)
+CREATE FUNCTION isGroupForTest(test_id int, grp int)
 	RETURNS BOOL
 BEGIN
 	IF EXISTS (SELECT `id_group` FROM `groups_tests` WHERE `id_test`=test_id AND `id_group`=grp) THEN
