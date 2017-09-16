@@ -79,12 +79,18 @@
                           <tbody>
                             <tr>
                               <th>Пара</th>
-                              <th>Предмет</th>
+                              <th>Нижняя неделя</th>
+                              <th>Верхняя неделя</th>
                             </tr>
                             {foreach from=$data item=entry}
                               <tr>
                                 <td>{$entry['pair']}</td>
-                                <td>{$entry['subject']}</td>
+                                {if $entry['subj_1'] == $entry['subj_2']}
+                                  <td colspan="2">{$entry['subj_1']}</td>
+                                {else}
+                                  <td>{$entry['subj_1']}</td>
+                                  <td>{$entry['subj_2']}</td>
+                                {/if}
                               </tr>
                             {/foreach}
                           </tbody>

@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-08-20 14:31:31
+/* Smarty version 3.1.29, created on 2017-09-16 09:43:00
   from "C:\OpenServer\domains\EDUKIT\templates\tpl\accounts\student.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_59997313208571_52678629',
+  'unifunc' => 'content_59bcc7f46e60b1_84624128',
   'file_dependency' => 
   array (
     '2ff7ebb86c93a5f54bc7d29a079fd7580315f41c' => 
     array (
       0 => 'C:\\OpenServer\\domains\\EDUKIT\\templates\\tpl\\accounts\\student.tpl',
-      1 => 1503228690,
+      1 => 1505544175,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
     'file:users/menu.tpl' => 1,
   ),
 ),false)) {
-function content_59997313208571_52678629 ($_smarty_tpl) {
+function content_59bcc7f46e60b1_84624128 ($_smarty_tpl) {
 if (!is_callable('smarty_modifier_date_format')) require_once 'C:\\OpenServer\\domains\\EDUKIT\\engine\\smarty\\plugins\\modifier.date_format.php';
 ?>
 <!DOCTYPE html>
@@ -205,7 +205,8 @@ $__foreach_data_4_saved_local_item = $_smarty_tpl->tpl_vars['data'];
                           <tbody>
                             <tr>
                               <th>Пара</th>
-                              <th>Предмет</th>
+                              <th>Нижняя неделя</th>
+                              <th>Верхняя неделя</th>
                             </tr>
                             <?php
 $_from = $_smarty_tpl->tpl_vars['data']->value;
@@ -222,8 +223,15 @@ $__foreach_entry_5_saved_local_item = $_smarty_tpl->tpl_vars['entry'];
                               <tr>
                                 <td><?php echo $_smarty_tpl->tpl_vars['entry']->value['pair'];?>
 </td>
-                                <td><?php echo $_smarty_tpl->tpl_vars['entry']->value['subject'];?>
+                                <?php if ($_smarty_tpl->tpl_vars['entry']->value['subj_1'] == $_smarty_tpl->tpl_vars['entry']->value['subj_2']) {?>
+                                  <td colspan="2"><?php echo $_smarty_tpl->tpl_vars['entry']->value['subj_1'];?>
 </td>
+                                <?php } else { ?>
+                                  <td><?php echo $_smarty_tpl->tpl_vars['entry']->value['subj_1'];?>
+</td>
+                                  <td><?php echo $_smarty_tpl->tpl_vars['entry']->value['subj_2'];?>
+</td>
+                                <?php }?>
                               </tr>
                             <?php
 $_smarty_tpl->tpl_vars['entry'] = $__foreach_entry_5_saved_local_item;
