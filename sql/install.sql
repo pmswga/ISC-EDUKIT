@@ -420,7 +420,7 @@ END;
 /* Функции для пользователей */
 
 CREATE FUNCTION IF NOT EXISTS getAdminId (emailAdmin char(30))
-	RETURNS BOOL
+	RETURNS INT
 BEGIN
 	DECLARE aid int;
 	
@@ -430,7 +430,7 @@ BEGIN
 END;
 
 CREATE FUNCTION IF NOT EXISTS getUserId (emailUser char(30))
-	RETURNS BOOL
+	RETURNS INT
 BEGIN
 	DECLARE uid int;
 	
@@ -1182,6 +1182,55 @@ CREATE VIEW v_Tests (id_test, author, caption, subject_id, subject_caption) as
   ORDER BY id_test;
   
 
+
+
+
+/* Views for admin */
+
+DROP VIEW IF EXISTS v_info_Students;
+DROP VIEW IF EXISTS v_info_Elders;
+DROP VIEW IF EXISTS v_info_Teachers;
+DROP VIEW IF EXISTS v_info_Parents;
+
+CREATE VIEW v_info_Students (fio, email, home_address, cell_phone, grp, edu_year, is_budget, code_spec, descp_spec) as
+	SELECT CONCAT(u.sn, ' ', u.fn, ' ', u.pt), u.email, s.home_address, s.cell_phone, g.description, g.edu_year, g.is_budget, sp.code_spec, sp.description
+	FROM `users` u 
+		INNER JOIN `students` s   ON u.id_user=s.id_student
+		INNER JOIN `groups` g     ON s.grp=g.grp
+		INNER JOIN `specialty` sp ON sp.id_spec=g.spec_id
+	WHERE u.id_type_user=3 OR u.id_type_user=2
+	ORDER BY u.sn, u.fn, u.pt, g.description;
+
+CREATE VIEW v_info_Elders (fio, email, cell_phone, grp, edu_year) as
+	SELECT CONCAT(u.sn, ' ', u.fn, ' ', u.pt), u.email, s.cell_phone, g.description, g.edu_year
+	FROM `users` u 
+		INNER JOIN `students` s ON u.id_user=s.id_student
+		INNER JOIN `groups` g ON s.grp=g.grp
+		INNER JOIN `specialty` sp ON sp.id_spec=g.spec_id
+	WHERE u.id_type_user=2
+	ORDER BY u.sn, u.fn, u.pt, g.description;
+
+CREATE VIEW v_info_Teachers (fio, email, info) as
+	SELECT CONCAT(u.sn, ' ', u.fn, ' ', u.pt), u.email, t.info
+	FROM `users` u
+		INNER JOIN `teachers` t ON u.id_user=t.id_teacher
+  WHERE u.id_type_user=1
+  ORDER BY u.sn, u.fn, u.pt;	
+
+CREATE VIEW v_info_Parents (fio, email, age, education, work_place, post, home_phone, cell_phone) as
+  SELECT CONCAT(u.sn, ' ', u.fn, ' ', u.pt), u.email, p.age, p.education, p.work_place, p.post, p.home_phone, p.cell_phone
+  FROM `users` u 
+		INNER JOIN `parents` p ON u.id_user=p.id_parent
+  WHERE u.id_type_user=4
+  ORDER BY u.sn, u.fn, u.pt;
+
+
+
+
+
+
+
+
 /*----------------[groups.sql]----------------*/
 
 use `iep`;
@@ -1246,6 +1295,7 @@ use `iep`;
 
 DROP PROCEDURE IF EXISTS addNews;
 DROP PROCEDURE IF EXISTS addAdminNews;
+DROP PROCEDURE IF EXISTS removeAdminNews;
 DROP PROCEDURE IF EXISTS removeNews;
 DROP PROCEDURE IF EXISTS changeCaptionNews;
 DROP PROCEDURE IF EXISTS changeContentNews;
@@ -1265,6 +1315,11 @@ END;
 CREATE PROCEDURE addAdminNews(n_caption char(255), n_content text, emailTeacher char(30), n_date date)
 BEGIN
 	INSERT INTO `admin_news` (`caption`, `content`, `id_author`, `date_publication`) VALUES (n_caption, n_content, getAdminId(emailTeacher), n_date);
+END;
+
+CREATE PROCEDURE removeAdminNews(id_news INT(11))
+BEGIN
+	DELETE FROM `admin_news` WHERE `id_news`=id_news;
 END;
 
 CREATE PROCEDURE removeNews(id_news INT)
@@ -1378,6 +1433,7 @@ CREATE PROCEDURE IF NOT EXISTS getScheduleGroup(grp int)
 BEGIN
 	SELECT s._day, 
 		g.description as 'group',
+        g.edu_year,
 		s.id_grp as 'id_grp',
 		s.pair, 
 		(SELECT `description` FROM `subjects` WHERE `id_subject`=s.subj_1) as 'subj_1',
@@ -1394,6 +1450,7 @@ CREATE PROCEDURE IF NOT EXISTS getChangeScheduleGroup(grp int)
 BEGIN
   SELECT s._day, 
 		 g.description as 'group',
+         g.edu_year,
          s.id_grp as 'id_grp',
          s.pair, 
          sb.description as 'subject'
@@ -1409,6 +1466,7 @@ BEGIN
 	SELECT s._day, 
 		g.description as 'group',
 		s.id_grp as 'id_grp',
+        g.edu_year,
 		s.pair, 
 		(SELECT `description` FROM `subjects` WHERE `id_subject`=s.subj_1) as 'subj_1',
 		s.subj_1 as 'id_subj_1',
@@ -1423,6 +1481,7 @@ CREATE PROCEDURE IF NOT EXISTS getAllChangedSchedule()
 BEGIN
   SELECT s._day, 
 		 g.description as 'group',
+         g.edu_year,
          s.id_grp as 'id_grp',
          s.pair, 
          sb.description as 'subject'
@@ -1872,8 +1931,6 @@ DROP PROCEDURE IF EXISTS getAllElders;
 DROP PROCEDURE IF EXISTS getAllStudentsElders;
 DROP PROCEDURE IF EXISTS getAllParents;
 DROP PROCEDURE IF EXISTS getAllTeachers;
-
-
 
 
 DROP PROCEDURE IF EXISTS setChild;
