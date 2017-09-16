@@ -16,7 +16,7 @@ DROP FUNCTION IF EXISTS ifTrafficFixed;
 
 DELIMITER //
 
-CREATE FUNCTION IF NOT EXISTS isEmailExists(email char(30))
+CREATE FUNCTION isEmailExists(email char(30))
 	RETURNS BOOL
 BEGIN
 	IF EXISTS (SELECT `email` FROM `users` WHERE `email`=email) THEN
@@ -28,7 +28,7 @@ END;
 
 /* Функции для пользователей */
 
-CREATE FUNCTION IF NOT EXISTS getAdminId (emailAdmin char(30))
+CREATE FUNCTION getAdminId (emailAdmin char(30))
 	RETURNS INT
 BEGIN
 	DECLARE aid int;
@@ -38,7 +38,7 @@ BEGIN
 	RETURN aid;
 END;
 
-CREATE FUNCTION IF NOT EXISTS getUserId (emailUser char(30))
+CREATE FUNCTION getUserId (emailUser char(30))
 	RETURNS INT
 BEGIN
 	DECLARE uid int;
@@ -48,7 +48,7 @@ BEGIN
 	RETURN uid;
 END;
 
-CREATE FUNCTION IF NOT EXISTS getStudentId (emailUser char(30)) 
+CREATE FUNCTION getStudentId (emailUser char(30)) 
 	RETURNS INT
 BEGIN
   DECLARE sid int;
@@ -58,7 +58,7 @@ BEGIN
   RETURN sid;
 END;
 
-CREATE FUNCTION IF NOT EXISTS getParentId (emailUser char(30)) 
+CREATE FUNCTION getParentId (emailUser char(30)) 
 	RETURNS INT
 BEGIN
   DECLARE pid int;
@@ -68,7 +68,7 @@ BEGIN
   RETURN pid;
 END;
 
-CREATE FUNCTION IF NOT EXISTS getElderId (emailUser char(30)) 
+CREATE FUNCTION getElderId (emailUser char(30)) 
 	RETURNS INT
 BEGIN
   DECLARE eid int;
@@ -79,7 +79,7 @@ BEGIN
 END;
 
 
-CREATE FUNCTION IF NOT EXISTS getTeacherId(emailTeacher char(30)) 
+CREATE FUNCTION getTeacherId(emailTeacher char(30)) 
   RETURNS int
 BEGIN
   DECLARE tid int;
@@ -89,7 +89,7 @@ BEGIN
   RETURN tid;
 END;
 
-CREATE FUNCTION IF NOT EXISTS isGroupHaveElder(_grp int) RETURNS bool
+CREATE FUNCTION isGroupHaveElder(_grp int) RETURNS bool
 BEGIN
 	IF EXISTS (
 		SELECT * FROM `users` u
