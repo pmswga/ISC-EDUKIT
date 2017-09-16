@@ -8,24 +8,24 @@ DROP PROCEDURE IF EXISTS getAllTraffic;
 
 DELIMITER //
 
-CREATE PROCEDURE IF NOT EXISTS addTrafficEntry(student_email char(30), date_visit date, cph int, cah int)
+CREATE PROCEDURE addTrafficEntry(student_email char(30), date_visit date, cph int, cah int)
 BEGIN
 	INSERT INTO `student_traffic` (`id_student`, `date_visit`, `count_passed_hours`, `count_all_hours`) VALUES (getUserId(student_email), date_visit, cph, cah);
 END;
 
-CREATE PROCEDURE IF NOT EXISTS clearTrafficStudent(student_email char(30))
+CREATE PROCEDURE clearTrafficStudent(student_email char(30))
 BEGIN
 	DELETE st FROM `student_traffic` st
 		INNER JOIN `users` u ON st.id_student=u.id_user
 	WHERE u.email=student_email;
 END;
 
-CREATE PROCEDURE IF NOT EXISTS clearAllTraffic()
+CREATE PROCEDURE clearAllTraffic()
 BEGIN
 	DELETE FROM `student_traffic`;
 END;
 
-CREATE PROCEDURE IF NOT EXISTS getTrafficStudent(t_student_email char(30))
+CREATE PROCEDURE getTrafficStudent(t_student_email char(30))
 BEGIN
 	SELECT * 
     FROM `student_traffic`
@@ -33,7 +33,7 @@ BEGIN
     ORDER BY `date_visit`;
 END;
 
-CREATE PROCEDURE IF NOT EXISTS getAllTraffic()
+CREATE PROCEDURE getAllTraffic()
 BEGIN
 	SELECT * FROM `v_Traffic`;
 END;

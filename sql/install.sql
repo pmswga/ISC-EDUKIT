@@ -407,7 +407,7 @@ DROP FUNCTION IF EXISTS ifTrafficFixed;
 
 DELIMITER //
 
-CREATE FUNCTION IF NOT EXISTS isEmailExists(email char(30))
+CREATE FUNCTION isEmailExists(email char(30))
 	RETURNS BOOL
 BEGIN
 	IF EXISTS (SELECT `email` FROM `users` WHERE `email`=email) THEN
@@ -419,7 +419,7 @@ END;
 
 /* Функции для пользователей */
 
-CREATE FUNCTION IF NOT EXISTS getAdminId (emailAdmin char(30))
+CREATE FUNCTION getAdminId (emailAdmin char(30))
 	RETURNS INT
 BEGIN
 	DECLARE aid int;
@@ -429,7 +429,7 @@ BEGIN
 	RETURN aid;
 END;
 
-CREATE FUNCTION IF NOT EXISTS getUserId (emailUser char(30))
+CREATE FUNCTION getUserId (emailUser char(30))
 	RETURNS INT
 BEGIN
 	DECLARE uid int;
@@ -439,7 +439,7 @@ BEGIN
 	RETURN uid;
 END;
 
-CREATE FUNCTION IF NOT EXISTS getStudentId (emailUser char(30)) 
+CREATE FUNCTION getStudentId (emailUser char(30)) 
 	RETURNS INT
 BEGIN
   DECLARE sid int;
@@ -449,7 +449,7 @@ BEGIN
   RETURN sid;
 END;
 
-CREATE FUNCTION IF NOT EXISTS getParentId (emailUser char(30)) 
+CREATE FUNCTION getParentId (emailUser char(30)) 
 	RETURNS INT
 BEGIN
   DECLARE pid int;
@@ -459,7 +459,7 @@ BEGIN
   RETURN pid;
 END;
 
-CREATE FUNCTION IF NOT EXISTS getElderId (emailUser char(30)) 
+CREATE FUNCTION getElderId (emailUser char(30)) 
 	RETURNS INT
 BEGIN
   DECLARE eid int;
@@ -470,7 +470,7 @@ BEGIN
 END;
 
 
-CREATE FUNCTION IF NOT EXISTS getTeacherId(emailTeacher char(30)) 
+CREATE FUNCTION getTeacherId(emailTeacher char(30)) 
   RETURNS int
 BEGIN
   DECLARE tid int;
@@ -480,7 +480,7 @@ BEGIN
   RETURN tid;
 END;
 
-CREATE FUNCTION IF NOT EXISTS isGroupHaveElder(_grp int) RETURNS bool
+CREATE FUNCTION isGroupHaveElder(_grp int) RETURNS bool
 BEGIN
 	IF EXISTS (
 		SELECT * FROM `users` u
@@ -604,35 +604,10 @@ USE `iep`;
 DROP TABLE IF EXISTS `logs`;
 DROP PROCEDURE IF EXISTS writeLog;
 DROP PROCEDURE IF EXISTS readLogs;
-DROP PROCEDURE IF EXISTS compressLogs;
 DROP PROCEDURE IF EXISTS clearLogs;
 
-/*
-	
-	tbl:
-		users
-		admins
-		teachers
-		students
-		parents
-		
-		typeUsers
-		
-		groups
-		news
-		specialty
-		subjects
-		
-		student_traffic
-		relations
-	
-		tests
-		questions
-		answers
-		
-*/
 
-CREATE TABLE IF NOT EXISTS `logs` (
+CREATE TABLE `logs` (
 	id_log int AUTO_INCREMENT PRIMARY KEY,
 	tbl char(255) NOT NULL,
 	msg text NOT NULL,
@@ -641,12 +616,12 @@ CREATE TABLE IF NOT EXISTS `logs` (
 
 DELIMITER //
 
-CREATE PROCEDURE IF NOT EXISTS writeLog(tbl char(255), msg text)
+CREATE PROCEDURE writeLog(tbl char(255), msg text)
 BEGIN
 	INSERT INTO `logs` (`tbl`, `msg`, `date`) VALUES (tbl, msg, NOW());
 END;
 
-CREATE PROCEDURE IF NOT EXISTS readLogs(tabl char(255))
+CREATE PROCEDURE readLogs(tabl char(255))
 BEGIN
 	IF tabl = 'all' THEN 
 		SELECT `id_log` as 'id', `tbl` as 'table', `msg` as 'message', `date` FROM `logs` ORDER BY `id_log`;
@@ -655,12 +630,7 @@ BEGIN
     END IF;
 END;
 
-CREATE PROCEDURE IF NOT EXISTS compressLogs()
-BEGIN
-
-END;
-
-CREATE PROCEDURE IF NOT EXISTS clearLogs(tabl char(255))
+CREATE PROCEDURE clearLogs(tabl char(255))
 BEGIN
 	IF tabl = 'all' THEN 
 		DELETE FROM `logs`;
@@ -669,7 +639,7 @@ BEGIN
     END IF;
 END;
 
-CREATE PROCEDURE IF NOT EXISTS removeLog(log_id int)
+CREATE PROCEDURE removeLog(log_id int)
 BEGIN
 	DELETE FROM `logs` WHERE `id_log`=log_id;
 END;
@@ -1239,7 +1209,7 @@ DROP PROCEDURE IF EXISTS addGroup;
 DROP PROCEDURE IF EXISTS removeGroup;
 DROP PROCEDURE IF EXISTS changeDescriptionGroup;
 DROP PROCEDURE IF EXISTS changeSpecGroup;
-DROP PROCEDURE IF EXISTS upCourse;
+/*DROP PROCEDURE IF EXISTS upCourse;*/
 DROP PROCEDURE IF EXISTS getAllGroups;
 
 DELIMITER //
@@ -1263,7 +1233,7 @@ CREATE PROCEDURE changeSpecGroup(grp_id int, new_spec_id int)
 BEGIN
 	UPDATE `groups` SET `spec_id`=new_spec_id WHERE `grp`=grp_id;
 END;
-
+/*
 CREATE PROCEDURE upCourse(grp_id int)
 BEGIN
 	DECLARE course int;
@@ -1279,7 +1249,7 @@ BEGIN
 		UPDATE `groups` SET `description`=@new_number WHERE `grp`=grp_id;
 	END IF;
 END;
-
+*/
 CREATE PROCEDURE getAllGroups()
 BEGIN
   SELECT * FROM `v_Groups`;
@@ -1311,15 +1281,14 @@ BEGIN
 	INSERT INTO `news` (`caption`, `content`, `id_author`, `date_publication`) VALUES (n_caption, n_content, getTeacherId(emailTeacher), n_date);
 END;
 
-
 CREATE PROCEDURE addAdminNews(n_caption char(255), n_content text, emailTeacher char(30), n_date date)
 BEGIN
 	INSERT INTO `admin_news` (`caption`, `content`, `id_author`, `date_publication`) VALUES (n_caption, n_content, getAdminId(emailTeacher), n_date);
 END;
 
-CREATE PROCEDURE removeAdminNews(id_news INT(11))
+CREATE PROCEDURE removeAdminNews(news_id int)
 BEGIN
-	DELETE FROM `admin_news` WHERE `id_news`=id_news;
+	DELETE FROM `admin_news` WHERE `id_news`=news_id;
 END;
 
 CREATE PROCEDURE removeNews(id_news INT)
@@ -1419,17 +1388,17 @@ DROP PROCEDURE IF EXISTS deleteChangedSchedulePair;
 
 DELIMITER //
 
-CREATE PROCEDURE IF NOT EXISTS addScheduleEntry(grp int, d int, pair int, subj1 int, subj2 int)
+CREATE PROCEDURE addScheduleEntry(grp int, d int, pair int, subj1 int, subj2 int)
 BEGIN
   INSERT INTO `schedule` (`id_grp`, `_day`, `pair`, `subj_1`, `subj_2`) VALUES (grp, d, pair, subj1, subj2);
 END;
 
-CREATE PROCEDURE IF NOT EXISTS addChangeSchedule(g int, d datetime, p int, s int)
+CREATE PROCEDURE addChangeSchedule(g int, d datetime, p int, s int)
 BEGIN
 	INSERT INTO `changed_schedule` (`id_grp`, `_day`, `pair`, `subject`) VALUES (g, d, p, s);
 END;
 
-CREATE PROCEDURE IF NOT EXISTS getScheduleGroup(grp int)
+CREATE PROCEDURE getScheduleGroup(grp int)
 BEGIN
 	SELECT s._day, 
 		g.description as 'group',
@@ -1446,7 +1415,7 @@ BEGIN
 	ORDER BY s._day, s.pair;
 END;
 
-CREATE PROCEDURE IF NOT EXISTS getChangeScheduleGroup(grp int)
+CREATE PROCEDURE getChangeScheduleGroup(grp int)
 BEGIN
   SELECT s._day, 
 		 g.description as 'group',
@@ -1461,7 +1430,7 @@ BEGIN
   ORDER BY s.pair;
 END;
 
-CREATE PROCEDURE IF NOT EXISTS getAllScheduleGroup()
+CREATE PROCEDURE getAllScheduleGroup()
 BEGIN  
 	SELECT s._day, 
 		g.description as 'group',
@@ -1477,7 +1446,7 @@ BEGIN
 	ORDER BY s._day, s.pair;
 END;
 
-CREATE PROCEDURE IF NOT EXISTS getAllChangedSchedule()
+CREATE PROCEDURE getAllChangedSchedule()
 BEGIN
   SELECT s._day, 
 		 g.description as 'group',
@@ -1862,24 +1831,24 @@ DROP PROCEDURE IF EXISTS getAllTraffic;
 
 DELIMITER //
 
-CREATE PROCEDURE IF NOT EXISTS addTrafficEntry(student_email char(30), date_visit date, cph int, cah int)
+CREATE PROCEDURE addTrafficEntry(student_email char(30), date_visit date, cph int, cah int)
 BEGIN
 	INSERT INTO `student_traffic` (`id_student`, `date_visit`, `count_passed_hours`, `count_all_hours`) VALUES (getUserId(student_email), date_visit, cph, cah);
 END;
 
-CREATE PROCEDURE IF NOT EXISTS clearTrafficStudent(student_email char(30))
+CREATE PROCEDURE clearTrafficStudent(student_email char(30))
 BEGIN
 	DELETE st FROM `student_traffic` st
 		INNER JOIN `users` u ON st.id_student=u.id_user
 	WHERE u.email=student_email;
 END;
 
-CREATE PROCEDURE IF NOT EXISTS clearAllTraffic()
+CREATE PROCEDURE clearAllTraffic()
 BEGIN
 	DELETE FROM `student_traffic`;
 END;
 
-CREATE PROCEDURE IF NOT EXISTS getTrafficStudent(t_student_email char(30))
+CREATE PROCEDURE getTrafficStudent(t_student_email char(30))
 BEGIN
 	SELECT * 
     FROM `student_traffic`
@@ -1887,7 +1856,7 @@ BEGIN
     ORDER BY `date_visit`;
 END;
 
-CREATE PROCEDURE IF NOT EXISTS getAllTraffic()
+CREATE PROCEDURE getAllTraffic()
 BEGIN
 	SELECT * FROM `v_Traffic`;
 END;

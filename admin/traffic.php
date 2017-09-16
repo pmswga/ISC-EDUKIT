@@ -1,10 +1,5 @@
 <?php
 	require_once "start.php";
-	require_once "ini.class.php";
-  
-  $ini = new INI("file");
-  $ini->addValue("Section", "var", "value");
-  $ini->toFile();
   
   use IEP\Managers\UserManager;
   use IEP\Structures\User;
