@@ -4,7 +4,7 @@ DROP PROCEDURE IF EXISTS addGroup;
 DROP PROCEDURE IF EXISTS removeGroup;
 DROP PROCEDURE IF EXISTS changeDescriptionGroup;
 DROP PROCEDURE IF EXISTS changeSpecGroup;
-DROP PROCEDURE IF EXISTS upCourse;
+/*DROP PROCEDURE IF EXISTS upCourse;*/
 DROP PROCEDURE IF EXISTS getAllGroups;
 
 DELIMITER //
@@ -28,7 +28,7 @@ CREATE PROCEDURE changeSpecGroup(grp_id int, new_spec_id int)
 BEGIN
 	UPDATE `groups` SET `spec_id`=new_spec_id WHERE `grp`=grp_id;
 END;
-
+/*
 CREATE PROCEDURE upCourse(grp_id int)
 BEGIN
 	DECLARE course int;
@@ -44,7 +44,7 @@ BEGIN
 		UPDATE `groups` SET `description`=@new_number WHERE `grp`=grp_id;
 	END IF;
 END;
-
+*/
 CREATE PROCEDURE getAllGroups()
 BEGIN
   SELECT * FROM `v_Groups`;
