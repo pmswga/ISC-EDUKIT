@@ -1,23 +1,7 @@
-<!DOCTYPE html>
-<html lang="ru">
-	<head>
-		<title>Мой аккаунт</title>
-		<meta charset="UTF-8">
-		<link rel="stylesheet" type="text/css" href="css/boostrap/bootstrap.css">
-		<link rel="stylesheet" type="text/css" href="css/main.css">
-		<script type="text/javascript" src="js/jquery.js"></script>
-		<script type="text/javascript" src="js/bootstrap.js"></script>
-		<style>
-			
-			h1, h2, h3, h4, h5, h6{
-				text-align: center;
-			}
-			
-		</style>
-	</head>
-	<body>
+{assign var=title value="Личный кабинет"}
+{include file="html/begin.tpl"}
 		<div class="container-fluid">
-			{include file="users/menu.tpl"}
+			{include file="user_menu.tpl"}
 			<div class="row" style="padding: 15px;">
 				<div class="col-md-8">
           <div class="row">
@@ -293,5 +277,4 @@
     
     </script>
     
-	</body>
-</html>
+{include file="html/end.tpl"}

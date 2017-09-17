@@ -1,7 +1,7 @@
 {assign var=title value="Личный кабинет"}
 {include file="html/begin.tpl"}
 		<div class="container-fluid">
-      {include file='users/menu.tpl'}
+      {include file='user_menu.tpl'}
 			<div class="row" style="padding: 15px;">
 				<div class="col-md-8">
 					<h2>Мои дети</h2>

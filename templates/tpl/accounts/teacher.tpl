@@ -1,25 +1,5 @@
-<!DOCTYPE html>
-<html lang="ru">
-	<head>
-		<title>Мой аккаунт</title>
-		<meta charset="UTF-8">
-		<link rel="stylesheet" type="text/css" href="css/boostrap/bootstrap.css">
-		<script type="text/javascript" src="js/jquery.js"></script>
-		<script type="text/javascript" src="js/bootstrap.js"></script>
-		<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
-		<style>
-			
-			h1, h2{
-				text-align: center;
-			}
-			
-			th {
-				text-align: center;
-			}
-			
-		</style>
-	</head>
-	<body>
+{assign var=title value="Личный кабинет"}
+{include file="html/begin.tpl"}
 		<div class="container-fluid">
 			{include file="users/menu.tpl"}
 			<div class="row" style="padding: 15px;">
@@ -286,6 +266,4 @@
 			CKEDITOR.replace("news");
       
 		</script>
-		
-	</body>
-</html>
+{include file="html/end.tpl"}

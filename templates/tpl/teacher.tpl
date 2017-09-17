@@ -26,4 +26,8 @@
       </div>
     </div>
   </div>
+  {if $user == NULL}
+    {include file='modals/reg_student.tpl'}
+    {include file='modals/auth.tpl'}
+  {/if}
 {include file='html/end.tpl'}
