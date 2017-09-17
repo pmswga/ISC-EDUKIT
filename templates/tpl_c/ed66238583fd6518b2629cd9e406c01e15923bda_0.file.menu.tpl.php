@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-08-19 12:36:42
+/* Smarty version 3.1.29, created on 2017-09-17 21:34:40
   from "C:\OpenServer\domains\EDUKIT\templates\tpl\guest\menu.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_599806aa5a2df4_55573824',
+  'unifunc' => 'content_59bec040262911_40980586',
   'file_dependency' => 
   array (
     'ed66238583fd6518b2629cd9e406c01e15923bda' => 
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_599806aa5a2df4_55573824 ($_smarty_tpl) {
+function content_59bec040262911_40980586 ($_smarty_tpl) {
 ?>
 <div class="row">
 	<div class="col-md-12">

@@ -1,10 +1,14 @@
 <?php
 	require_once "start.php";
   
-	if (isset($_SESSION['user'])) {
-		$CT->Show("users/index.tpl");
-	} else {
-    $CT->Show("guest/index.tpl");
-	}
+  use IEP\Structures\User;
+  
+	if (isset($_SESSION['user']) &&
+      $_SESSION['user'] instanceof User
+  ) {
+    $CT->assign("user", $_SESSION['user']);
+  }
+	
+  $CT->Show("index.tpl");
   
 ?>

@@ -1,16 +1,16 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-08-08 14:01:15
-  from "C:\OpenServer\domains\EDUKIT\templates\tpl\reg_student.tpl" */
+/* Smarty version 3.1.29, created on 2017-09-17 21:34:40
+  from "C:\OpenServer\domains\EDUKIT\templates\tpl\modals\reg_student.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_598999fbbd1e51_33610893',
+  'unifunc' => 'content_59bec0402a1121_83838649',
   'file_dependency' => 
   array (
-    '9b27743b7d6d892c1071a27a9e44f5402e05819a' => 
+    'd6426d9cd5f1d4f9c4360b49c02863a69c35c3c6' => 
     array (
-      0 => 'C:\\OpenServer\\domains\\EDUKIT\\templates\\tpl\\reg_student.tpl',
+      0 => 'C:\\OpenServer\\domains\\EDUKIT\\templates\\tpl\\modals\\reg_student.tpl',
       1 => 1494347732,
       2 => 'file',
     ),
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_598999fbbd1e51_33610893 ($_smarty_tpl) {
+function content_59bec0402a1121_83838649 ($_smarty_tpl) {
 ?>
 <div class="modal fade" id="reg">
   <div class="modal-dialog">

@@ -1,21 +1,5 @@
-<!DOCTYPE html>
-<html lang="ru">
-	<head>
-		<title>Мой аккаунт</title>
-		<meta charset="UTF-8">
-		<link rel="stylesheet" type="text/css" href="css/boostrap/bootstrap.css">
-		<link rel="stylesheet" type="text/css" href="css/main.css">
-		<script type="text/javascript" src="js/jquery.js"></script>
-		<script type="text/javascript" src="js/bootstrap.js"></script>
-		<style>
-			
-			h1, h2, h3, h4, h5, h6{
-				text-align: center;
-			}
-			
-		</style>
-	</head>
-	<body>
+{assign var=title value="Личный кабинет"}
+{include file="../html/begin.tpl"}
 		<div class="container-fluid">
 			{include file="users/menu.tpl"}
 			<div class="row" style="padding: 15px;">
@@ -45,8 +29,8 @@
                             </tr>
                             {foreach from=$data item=entry}
                               <tr>
-                                <td>{$entry['pair']}</td>
-                                <td>{$entry['subject']}</td>
+                                <td><p>{$entry['pair']}</p></td>
+                                <td><p>{$entry['subject']}</p></td>
                               </tr>
                             {/foreach}
                           </tbody>
@@ -56,8 +40,6 @@
                   </div>
                 </div>
               {/foreach}
-            {else}
-              <h3 align="center">Изменений нет</h3>
             {/if}
             {if $schedules != NULL}
               {foreach from=$schedules key=grp item=schedule}
@@ -84,12 +66,12 @@
                             </tr>
                             {foreach from=$data item=entry}
                               <tr>
-                                <td>{$entry['pair']}</td>
+                                <td><p>{$entry['pair']}</p></td>
                                 {if $entry['subj_1'] == $entry['subj_2']}
-                                  <td colspan="2">{$entry['subj_1']}</td>
+                                  <td colspan="2"><p>{$entry['subj_1']}</p></td>
                                 {else}
-                                  <td>{$entry['subj_1']}</td>
-                                  <td>{$entry['subj_2']}</td>
+                                  <td><p>{$entry['subj_1']}</p></td>
+                                  <td><p>{$entry['subj_2']}</p></td>
                                 {/if}
                               </tr>
                             {/foreach}
@@ -101,7 +83,7 @@
                 </div>
               {/foreach}
             {else}
-              <h3 align="center">Расписания нет</h3>
+              <h3 align="center">Расписание составлено</h3>
             {/if}
 					</div>
 				</div>
@@ -151,7 +133,7 @@
 										<table class="table table-bordered">
 											{foreach from=$sogroups item=it}
 												<tr>
-                          <td>{$i}</td>
+                          <td><p>{$i}</p></td>
                           <td>{$it['sn']} {$it['fn']}</td>
                         </tr>
                         {$i = $i + 1}
@@ -166,7 +148,6 @@
 					</div>
 				</div>
 			</div>
-			<hr>
 			<div class="row" style="padding: 15px;">
 				<div class="col-md-8">
 					<h2>Посещаемость</h2>
@@ -182,10 +163,10 @@
                   </tr>
                   {foreach from=$traffic item=traffic_entry}
                     <tr>
-                      <td>{$traffic_entry['date_visit']|date_format:'d.m.Y'}</td>
-                      <td>{$traffic_entry['count_all_hours']/2}</td>
-                      <td>{$traffic_entry['count_passed_hours']/2}</td>
-                      <td>{($traffic_entry['count_all_hours']-$traffic_entry['count_passed_hours'])/2}</td>
+                      <td><p>{$traffic_entry['date_visit']|date_format:'d.m.Y'}</p></td>
+                      <td><p>{$traffic_entry['count_all_hours']/2}</p></td>
+                      <td><p>{$traffic_entry['count_passed_hours']/2}</p></td>
+                      <td><p>{($traffic_entry['count_all_hours']-$traffic_entry['count_passed_hours'])/2}</p></td>
                     </tr>
                   {/foreach}
                 </tbody>
@@ -197,7 +178,7 @@
 				</div>
 				<div class="col-md-4">
 					<div class="panel-group" id="tests">
-						<div class="panel panel-warning">
+						<div class="panel panel-primary">
 							<div class="panel-heading">
 								<h4 class="panel-title"><a data-toggle="collapse" data-parent="#tests" href="#s_tests">Доступные тесты</a></h4>
 							</div>
@@ -267,5 +248,4 @@
     
     </script>
     
-	</body>
-</html>
+{include file="../html/end.tpl"}

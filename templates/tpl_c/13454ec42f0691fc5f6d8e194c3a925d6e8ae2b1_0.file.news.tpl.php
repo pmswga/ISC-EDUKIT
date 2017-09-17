@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-08-12 15:06:18
+/* Smarty version 3.1.29, created on 2017-09-17 21:48:26
   from "C:\OpenServer\domains\EDUKIT\templates\tpl\users\news.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_598eef3aaa89f7_88069250',
+  'unifunc' => 'content_59bec37a8570c5_11461037',
   'file_dependency' => 
   array (
     '13454ec42f0691fc5f6d8e194c3a925d6e8ae2b1' => 
@@ -22,7 +22,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
     'file:html/end.tpl' => 1,
   ),
 ),false)) {
-function content_598eef3aaa89f7_88069250 ($_smarty_tpl) {
+function content_59bec37a8570c5_11461037 ($_smarty_tpl) {
 if (!is_callable('smarty_modifier_date_format')) require_once 'C:\\OpenServer\\domains\\EDUKIT\\engine\\smarty\\plugins\\modifier.date_format.php';
 if (!is_callable('smarty_modifier_truncate')) require_once 'C:\\OpenServer\\domains\\EDUKIT\\engine\\smarty\\plugins\\modifier.truncate.php';
 $_smarty_tpl->tpl_vars["title"] = new Smarty_Variable("Новости", null);

@@ -1,7 +1,13 @@
 {assign var="title" value="Новости"}
 {include file='html/begin.tpl'}
 		<div class="container-fluid">
-			{include file='guest/menu.tpl'}
+      
+      {if $user != NULL}
+        {include file='blocks/user_menu.tpl'}
+      {else}
+        {include file='blocks/guest_menu.tpl'}
+      {/if}
+    
 			<div class="row">
 				<div class="col-md-12">
 					<div id="content" class="container">
@@ -14,11 +20,13 @@
 											<header>
 												<h1>{$one_news->getCaption()}</h1>
 											</header>
-											<article>
-												<p>{$one_news->getContent()}</p>
+											<article style="padding: 25px;">
+												{nocache}
+													{$one_news->getContent()|truncate:500}
+												{/nocache}
 											</article>
 											<hr>
-											<p><b>Автор:</b> {$one_news->getAuthor()}</p>
+											<p>Автор: {$one_news->getAuthor()}</p>
 										</aside>
 									{/foreach}
 								</aside>
@@ -28,4 +36,5 @@
 				</div>
 			</div>
 		</div>
+		
 {include file='html/end.tpl'}

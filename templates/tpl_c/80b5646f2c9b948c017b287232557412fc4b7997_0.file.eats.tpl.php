@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-08-18 13:02:52
+/* Smarty version 3.1.29, created on 2017-09-17 21:43:29
   from "C:\OpenServer\domains\EDUKIT\templates\tpl\blocks\schedule\eats.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_5996bb4c77ec06_51845672',
+  'unifunc' => 'content_59bec251c85789_63920048',
   'file_dependency' => 
   array (
     '80b5646f2c9b948c017b287232557412fc4b7997' => 
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_5996bb4c77ec06_51845672 ($_smarty_tpl) {
+function content_59bec251c85789_63920048 ($_smarty_tpl) {
 ?>
 <table id="schedule_lunchs" class="table table-bordered">
   <thead>

@@ -1,50 +1,34 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-09-16 09:43:00
+/* Smarty version 3.1.29, created on 2017-09-17 21:37:56
   from "C:\OpenServer\domains\EDUKIT\templates\tpl\accounts\student.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_59bcc7f46e60b1_84624128',
+  'unifunc' => 'content_59bec10459f8f4_95195692',
   'file_dependency' => 
   array (
     '2ff7ebb86c93a5f54bc7d29a079fd7580315f41c' => 
     array (
       0 => 'C:\\OpenServer\\domains\\EDUKIT\\templates\\tpl\\accounts\\student.tpl',
-      1 => 1505544175,
+      1 => 1505673475,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
+    'file:../html/begin.tpl' => 1,
     'file:users/menu.tpl' => 1,
+    'file:../html/end.tpl' => 1,
   ),
 ),false)) {
-function content_59bcc7f46e60b1_84624128 ($_smarty_tpl) {
+function content_59bec10459f8f4_95195692 ($_smarty_tpl) {
 if (!is_callable('smarty_modifier_date_format')) require_once 'C:\\OpenServer\\domains\\EDUKIT\\engine\\smarty\\plugins\\modifier.date_format.php';
+$_smarty_tpl->tpl_vars['title'] = new Smarty_Variable("Личный кабинет", null);
+$_smarty_tpl->ext->_updateScope->updateScope($_smarty_tpl, 'title', 0);
+$_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:../html/begin.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
-<!DOCTYPE html>
-<html lang="ru">
-	<head>
-		<title>Мой аккаунт</title>
-		<meta charset="UTF-8">
-		<link rel="stylesheet" type="text/css" href="css/boostrap/bootstrap.css">
-		<link rel="stylesheet" type="text/css" href="css/main.css">
-		<?php echo '<script'; ?>
- type="text/javascript" src="js/jquery.js"><?php echo '</script'; ?>
->
-		<?php echo '<script'; ?>
- type="text/javascript" src="js/bootstrap.js"><?php echo '</script'; ?>
->
-		<style>
-			
-			h1, h2, h3, h4, h5, h6{
-				text-align: center;
-			}
-			
-		</style>
-	</head>
-	<body>
+
 		<div class="container-fluid">
 			<?php $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:users/menu.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
@@ -116,10 +100,10 @@ $_smarty_tpl->tpl_vars['entry']->_loop = true;
 $__foreach_entry_2_saved_local_item = $_smarty_tpl->tpl_vars['entry'];
 ?>
                               <tr>
-                                <td><?php echo $_smarty_tpl->tpl_vars['entry']->value['pair'];?>
-</td>
-                                <td><?php echo $_smarty_tpl->tpl_vars['entry']->value['subject'];?>
-</td>
+                                <td><p><?php echo $_smarty_tpl->tpl_vars['entry']->value['pair'];?>
+</p></td>
+                                <td><p><?php echo $_smarty_tpl->tpl_vars['entry']->value['subject'];?>
+</p></td>
                               </tr>
                             <?php
 $_smarty_tpl->tpl_vars['entry'] = $__foreach_entry_2_saved_local_item;
@@ -153,8 +137,6 @@ if ($__foreach_schedule_0_saved_key) {
 $_smarty_tpl->tpl_vars['grp'] = $__foreach_schedule_0_saved_key;
 }
 ?>
-            <?php } else { ?>
-              <h3 align="center">Изменений нет</h3>
             <?php }?>
             <?php if ($_smarty_tpl->tpl_vars['schedules']->value != NULL) {?>
               <?php
@@ -221,16 +203,16 @@ $_smarty_tpl->tpl_vars['entry']->_loop = true;
 $__foreach_entry_5_saved_local_item = $_smarty_tpl->tpl_vars['entry'];
 ?>
                               <tr>
-                                <td><?php echo $_smarty_tpl->tpl_vars['entry']->value['pair'];?>
-</td>
+                                <td><p><?php echo $_smarty_tpl->tpl_vars['entry']->value['pair'];?>
+</p></td>
                                 <?php if ($_smarty_tpl->tpl_vars['entry']->value['subj_1'] == $_smarty_tpl->tpl_vars['entry']->value['subj_2']) {?>
-                                  <td colspan="2"><?php echo $_smarty_tpl->tpl_vars['entry']->value['subj_1'];?>
-</td>
+                                  <td colspan="2"><p><?php echo $_smarty_tpl->tpl_vars['entry']->value['subj_1'];?>
+</p></td>
                                 <?php } else { ?>
-                                  <td><?php echo $_smarty_tpl->tpl_vars['entry']->value['subj_1'];?>
-</td>
-                                  <td><?php echo $_smarty_tpl->tpl_vars['entry']->value['subj_2'];?>
-</td>
+                                  <td><p><?php echo $_smarty_tpl->tpl_vars['entry']->value['subj_1'];?>
+</p></td>
+                                  <td><p><?php echo $_smarty_tpl->tpl_vars['entry']->value['subj_2'];?>
+</p></td>
                                 <?php }?>
                               </tr>
                             <?php
@@ -266,7 +248,7 @@ $_smarty_tpl->tpl_vars['grp'] = $__foreach_schedule_3_saved_key;
 }
 ?>
             <?php } else { ?>
-              <h3 align="center">Расписания нет</h3>
+              <h3 align="center">Расписание составлено</h3>
             <?php }?>
 					</div>
 				</div>
@@ -335,8 +317,8 @@ $_smarty_tpl->tpl_vars['it']->_loop = true;
 $__foreach_it_6_saved_local_item = $_smarty_tpl->tpl_vars['it'];
 ?>
 												<tr>
-                          <td><?php echo $_smarty_tpl->tpl_vars['i']->value;?>
-</td>
+                          <td><p><?php echo $_smarty_tpl->tpl_vars['i']->value;?>
+</p></td>
                           <td><?php echo $_smarty_tpl->tpl_vars['it']->value['sn'];?>
  <?php echo $_smarty_tpl->tpl_vars['it']->value['fn'];?>
 </td>
@@ -360,7 +342,6 @@ $_smarty_tpl->tpl_vars['it'] = $__foreach_it_6_saved_item;
 					</div>
 				</div>
 			</div>
-			<hr>
 			<div class="row" style="padding: 15px;">
 				<div class="col-md-8">
 					<h2>Посещаемость</h2>
@@ -387,14 +368,14 @@ $_smarty_tpl->tpl_vars['traffic_entry']->_loop = true;
 $__foreach_traffic_entry_7_saved_local_item = $_smarty_tpl->tpl_vars['traffic_entry'];
 ?>
                     <tr>
-                      <td><?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['traffic_entry']->value['date_visit'],'d.m.Y');?>
-</td>
-                      <td><?php echo $_smarty_tpl->tpl_vars['traffic_entry']->value['count_all_hours']/2;?>
-</td>
-                      <td><?php echo $_smarty_tpl->tpl_vars['traffic_entry']->value['count_passed_hours']/2;?>
-</td>
-                      <td><?php echo ($_smarty_tpl->tpl_vars['traffic_entry']->value['count_all_hours']-$_smarty_tpl->tpl_vars['traffic_entry']->value['count_passed_hours'])/2;?>
-</td>
+                      <td><p><?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['traffic_entry']->value['date_visit'],'d.m.Y');?>
+</p></td>
+                      <td><p><?php echo $_smarty_tpl->tpl_vars['traffic_entry']->value['count_all_hours']/2;?>
+</p></td>
+                      <td><p><?php echo $_smarty_tpl->tpl_vars['traffic_entry']->value['count_passed_hours']/2;?>
+</p></td>
+                      <td><p><?php echo ($_smarty_tpl->tpl_vars['traffic_entry']->value['count_all_hours']-$_smarty_tpl->tpl_vars['traffic_entry']->value['count_passed_hours'])/2;?>
+</p></td>
                     </tr>
                   <?php
 $_smarty_tpl->tpl_vars['traffic_entry'] = $__foreach_traffic_entry_7_saved_local_item;
@@ -412,7 +393,7 @@ $_smarty_tpl->tpl_vars['traffic_entry'] = $__foreach_traffic_entry_7_saved_item;
 				</div>
 				<div class="col-md-4">
 					<div class="panel-group" id="tests">
-						<div class="panel panel-warning">
+						<div class="panel panel-primary">
 							<div class="panel-heading">
 								<h4 class="panel-title"><a data-toggle="collapse" data-parent="#tests" href="#s_tests">Доступные тесты</a></h4>
 							</div>
@@ -525,6 +506,6 @@ $_smarty_tpl->tpl_vars['test'] = $__foreach_test_9_saved_item;
     <?php echo '</script'; ?>
 >
     
-	</body>
-</html><?php }
+<?php $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:../html/end.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+}
 }

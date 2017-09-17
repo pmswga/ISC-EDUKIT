@@ -1,50 +1,34 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-08-20 11:59:50
+/* Smarty version 3.1.29, created on 2017-09-17 21:42:55
   from "C:\OpenServer\domains\EDUKIT\templates\tpl\accounts\parent.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_59994f8698c178_10222447',
+  'unifunc' => 'content_59bec22fd97236_94112664',
   'file_dependency' => 
   array (
     'e8e891118e6960f9c82d9d52346fbe0021f50f4b' => 
     array (
       0 => 'C:\\OpenServer\\domains\\EDUKIT\\templates\\tpl\\accounts\\parent.tpl',
-      1 => 1503219589,
+      1 => 1505673775,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
+    'file:html/begin.tpl' => 1,
     'file:users/menu.tpl' => 1,
+    'file:html/end.tpl' => 1,
   ),
 ),false)) {
-function content_59994f8698c178_10222447 ($_smarty_tpl) {
+function content_59bec22fd97236_94112664 ($_smarty_tpl) {
 if (!is_callable('smarty_modifier_date_format')) require_once 'C:\\OpenServer\\domains\\EDUKIT\\engine\\smarty\\plugins\\modifier.date_format.php';
+$_smarty_tpl->tpl_vars['title'] = new Smarty_Variable("Личный кабинет", null);
+$_smarty_tpl->ext->_updateScope->updateScope($_smarty_tpl, 'title', 0);
+$_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:html/begin.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
-<!DOCTYPE html>
-<html lang="ru">
-	<head>
-		<title>Мой аккаунт</title>
-		<meta charset="UTF-8">
-		<link rel="stylesheet" type="text/css" href="css/boostrap/bootstrap.css">
-		<link rel="stylesheet" type="text/css" href="css/main.css">
-		<?php echo '<script'; ?>
- type="text/javascript" src="js/jquery.js"><?php echo '</script'; ?>
->
-		<?php echo '<script'; ?>
- type="text/javascript" src="js/bootstrap.js"><?php echo '</script'; ?>
->
-		<style>
-			
-			h1, h2{
-				text-align: center;
-			}
-			
-		</style>
-	</head>
-	<body>
+
 		<div class="container-fluid">
       <?php $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:users/menu.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
@@ -129,10 +113,12 @@ $__foreach_child_0_saved_local_item = $_smarty_tpl->tpl_vars['child'];
                             <div class="panel panel-primary">
                               <div class="panel-heading">
                                 <h4 class="panel-title">
-                                  <a data-toggle="collapse" href="#record">Результаты тестирования</a>
+                                  <a data-toggle="collapse" href="#record_<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
+">Результаты тестирования</a>
                                 </h4>
                               </div>
-                              <div class="panel-collapse collapse" id="record">
+                              <div class="panel-collapse collapse" id="record_<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
+">
                                 <div class="panel-body">
                                   <div class="row">
                                     <div class="col-md-12">
@@ -172,7 +158,7 @@ $_smarty_tpl->tpl_vars['test'] = $__foreach_test_1_saved_item;
 ?>
                                         </table>
                                       <?php } else { ?>
-                                          <h3>Пока что пройденные тестов не было</h3>
+                                          <h3>Результатов тестирования нет</h3>
                                       <?php }?>
                                     </div>
                                   </div>
@@ -317,7 +303,6 @@ $_smarty_tpl->tpl_vars['child'] = $__foreach_child_0_saved_item;
     
     <?php echo '</script'; ?>
 >
-    
-	</body>
-</html><?php }
+<?php $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:html/end.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+}
 }

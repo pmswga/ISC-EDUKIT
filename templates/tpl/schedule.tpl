@@ -1,7 +1,13 @@
 {assign var="title" value="Расписание"}
 {include file='html/begin.tpl'}
 <div class="container-fluid">
-  {include file='users/menu.tpl'}
+  
+  {if $user != NULL}  
+    {include file='blocks/user_menu.tpl'}
+  {else}
+    {include file='blocks/guest_menu.tpl'}
+  {/if}
+
   <div class="row">
     <div class="col-md-12">
       <div class="container-fluid">
@@ -18,8 +24,8 @@
               <li id="7"><a>ВС</a></li>
             </ul>
           </nav>
-          {include "../blocks/schedule/calls.tpl"}
-          {include "../blocks/schedule/eats.tpl"}
+          {include "blocks/schedule/calls.tpl"}
+          {include "blocks/schedule/eats.tpl"}
         </div>
         <div class="col-md-9">
           <form name="selectGroupForm" class="form-inline" method="POST">

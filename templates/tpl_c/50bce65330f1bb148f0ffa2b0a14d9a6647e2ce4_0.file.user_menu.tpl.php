@@ -1,16 +1,16 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-09-17 21:37:35
-  from "C:\OpenServer\domains\EDUKIT\templates\tpl\users\menu.tpl" */
+/* Smarty version 3.1.29, created on 2017-09-17 22:22:29
+  from "C:\OpenServer\domains\EDUKIT\templates\tpl\blocks\user_menu.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_59bec0ef5c9bf2_27586779',
+  'unifunc' => 'content_59becb755fce08_82627652',
   'file_dependency' => 
   array (
-    'caf86887c52e70e51b812627c4e9d55e8cdd878c' => 
+    '50bce65330f1bb148f0ffa2b0a14d9a6647e2ce4' => 
     array (
-      0 => 'C:\\OpenServer\\domains\\EDUKIT\\templates\\tpl\\users\\menu.tpl',
+      0 => 'C:\\OpenServer\\domains\\EDUKIT\\templates\\tpl\\blocks\\user_menu.tpl',
       1 => 1493399107,
       2 => 'file',
     ),
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_59bec0ef5c9bf2_27586779 ($_smarty_tpl) {
+function content_59becb755fce08_82627652 ($_smarty_tpl) {
 ?>
 <div class="row">
 	<div class="col-md-12">

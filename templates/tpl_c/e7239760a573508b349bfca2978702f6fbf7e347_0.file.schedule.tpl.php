@@ -1,30 +1,31 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-09-17 21:43:29
-  from "C:\OpenServer\domains\EDUKIT\templates\tpl\users\schedule.tpl" */
+/* Smarty version 3.1.29, created on 2017-09-17 22:26:38
+  from "C:\OpenServer\domains\EDUKIT\templates\tpl\schedule.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_59bec251c23ce6_64489563',
+  'unifunc' => 'content_59becc6e863238_80061318',
   'file_dependency' => 
   array (
-    '2d99988f044f5e6c74ec563121085986c8b4c78b' => 
+    'e7239760a573508b349bfca2978702f6fbf7e347' => 
     array (
-      0 => 'C:\\OpenServer\\domains\\EDUKIT\\templates\\tpl\\users\\schedule.tpl',
-      1 => 1505544160,
+      0 => 'C:\\OpenServer\\domains\\EDUKIT\\templates\\tpl\\schedule.tpl',
+      1 => 1505676397,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
     'file:html/begin.tpl' => 1,
-    'file:users/menu.tpl' => 1,
-    'file:../blocks/schedule/calls.tpl' => 1,
-    'file:../blocks/schedule/eats.tpl' => 1,
+    'file:blocks/user_menu.tpl' => 1,
+    'file:blocks/guest_menu.tpl' => 1,
+    'file:blocks/schedule/calls.tpl' => 1,
+    'file:blocks/schedule/eats.tpl' => 1,
     'file:html/end.tpl' => 1,
   ),
 ),false)) {
-function content_59bec251c23ce6_64489563 ($_smarty_tpl) {
+function content_59becc6e863238_80061318 ($_smarty_tpl) {
 if (!is_callable('smarty_modifier_date_format')) require_once 'C:\\OpenServer\\domains\\EDUKIT\\engine\\smarty\\plugins\\modifier.date_format.php';
 $_smarty_tpl->tpl_vars["title"] = new Smarty_Variable("Расписание", null);
 $_smarty_tpl->ext->_updateScope->updateScope($_smarty_tpl, "title", 0);
@@ -32,8 +33,16 @@ $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:html/begin.t
 ?>
 
 <div class="container-fluid">
-  <?php $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:users/menu.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+  
+  <?php if ($_smarty_tpl->tpl_vars['user']->value != NULL) {?>  
+    <?php $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:blocks/user_menu.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
+
+  <?php } else { ?>
+    <?php $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:blocks/guest_menu.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?>
+
+  <?php }?>
 
   <div class="row">
     <div class="col-md-12">
@@ -51,10 +60,10 @@ $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:html/begin.t
               <li id="7"><a>ВС</a></li>
             </ul>
           </nav>
-          <?php $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:../blocks/schedule/calls.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+          <?php $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:blocks/schedule/calls.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 
-          <?php $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:../blocks/schedule/eats.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+          <?php $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:blocks/schedule/eats.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 
         </div>

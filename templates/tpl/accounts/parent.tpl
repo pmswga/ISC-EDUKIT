@@ -1,21 +1,5 @@
-<!DOCTYPE html>
-<html lang="ru">
-	<head>
-		<title>Мой аккаунт</title>
-		<meta charset="UTF-8">
-		<link rel="stylesheet" type="text/css" href="css/boostrap/bootstrap.css">
-		<link rel="stylesheet" type="text/css" href="css/main.css">
-		<script type="text/javascript" src="js/jquery.js"></script>
-		<script type="text/javascript" src="js/bootstrap.js"></script>
-		<style>
-			
-			h1, h2{
-				text-align: center;
-			}
-			
-		</style>
-	</head>
-	<body>
+{assign var=title value="Личный кабинет"}
+{include file="html/begin.tpl"}
 		<div class="container-fluid">
       {include file='users/menu.tpl'}
 			<div class="row" style="padding: 15px;">
@@ -77,10 +61,10 @@
                             <div class="panel panel-primary">
                               <div class="panel-heading">
                                 <h4 class="panel-title">
-                                  <a data-toggle="collapse" href="#record">Результаты тестирования</a>
+                                  <a data-toggle="collapse" href="#record_{$i}">Результаты тестирования</a>
                                 </h4>
                               </div>
-                              <div class="panel-collapse collapse" id="record">
+                              <div class="panel-collapse collapse" id="record_{$i}">
                                 <div class="panel-body">
                                   <div class="row">
                                     <div class="col-md-12">
@@ -100,7 +84,7 @@
                                           {/foreach}
                                         </table>
                                       {else}
-                                          <h3>Пока что пройденные тестов не было</h3>
+                                          <h3>Результатов тестирования нет</h3>
                                       {/if}
                                     </div>
                                   </div>
@@ -205,6 +189,4 @@
       $("[data-toggle='popover']").popover();
     
     </script>
-    
-	</body>
-</html>
+{include file="html/end.tpl"}

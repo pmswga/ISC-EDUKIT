@@ -1,29 +1,29 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-09-17 21:48:23
-  from "C:\OpenServer\domains\EDUKIT\templates\tpl\users\teacher.tpl" */
+/* Smarty version 3.1.29, created on 2017-09-17 22:22:45
+  from "C:\OpenServer\domains\EDUKIT\templates\tpl\teacher.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_59bec377a94a05_32862126',
+  'unifunc' => 'content_59becb850f7500_16419004',
   'file_dependency' => 
   array (
-    'c15617859f60580c1ba71f1b2a2d2e58de9fba1d' => 
+    'a711ec592296e305404720168f4e08771c1c9624' => 
     array (
-      0 => 'C:\\OpenServer\\domains\\EDUKIT\\templates\\tpl\\users\\teacher.tpl',
-      1 => 1505674103,
+      0 => 'C:\\OpenServer\\domains\\EDUKIT\\templates\\tpl\\teacher.tpl',
+      1 => 1505676164,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
     'file:html/begin.tpl' => 1,
-    'file:users/menu.tpl' => 1,
-    'file:guest/menu.tpl' => 1,
+    'file:blocks/user_menu.tpl' => 1,
+    'file:blocks/guest_menu.tpl' => 1,
     'file:html/end.tpl' => 1,
   ),
 ),false)) {
-function content_59bec377a94a05_32862126 ($_smarty_tpl) {
+function content_59becb850f7500_16419004 ($_smarty_tpl) {
 $_smarty_tpl->tpl_vars["title"] = new Smarty_Variable("Преподаватели", null);
 $_smarty_tpl->ext->_updateScope->updateScope($_smarty_tpl, "title", 0);
 $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:html/begin.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
@@ -31,13 +31,12 @@ $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:html/begin.t
 
   <div class="container-fluid">
   
-  
     <?php if ($_smarty_tpl->tpl_vars['user']->value != NULL) {?>
-      <?php $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:users/menu.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+      <?php $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:blocks/user_menu.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 
     <?php } else { ?>
-      <?php $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:guest/menu.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+      <?php $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:blocks/guest_menu.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 
     <?php }?>

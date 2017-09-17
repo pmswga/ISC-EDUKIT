@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-08-18 13:02:32
+/* Smarty version 3.1.29, created on 2017-09-17 21:43:29
   from "C:\OpenServer\domains\EDUKIT\templates\tpl\blocks\schedule\calls.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_5996bb38036cd4_55652790',
+  'unifunc' => 'content_59bec251c66376_19783179',
   'file_dependency' => 
   array (
     'f1ab4f5e59a47bacde46cbe80c53663a47228a0e' => 
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_5996bb38036cd4_55652790 ($_smarty_tpl) {
+function content_59bec251c66376_19783179 ($_smarty_tpl) {
 ?>
 <table id="schedule_rings" class="table table-bordered">
   <thead>

@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-08-08 14:01:23
+/* Smarty version 3.1.29, created on 2017-09-17 21:37:35
   from "C:\OpenServer\domains\EDUKIT\templates\tpl\users\index.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_59899a03b7dbe2_11731769',
+  'unifunc' => 'content_59bec0ef5930e7_13287378',
   'file_dependency' => 
   array (
     '6e5645ca25e3e90c994bb9f2561398f48362b4f9' => 
@@ -22,7 +22,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
     'file:html/end.tpl' => 1,
   ),
 ),false)) {
-function content_59899a03b7dbe2_11731769 ($_smarty_tpl) {
+function content_59bec0ef5930e7_13287378 ($_smarty_tpl) {
 $_smarty_tpl->tpl_vars["title"] = new Smarty_Variable("Информационно-образовательный портал", null);
 $_smarty_tpl->ext->_updateScope->updateScope($_smarty_tpl, "title", 0);
 $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:html/begin.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);

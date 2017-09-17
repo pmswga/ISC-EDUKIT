@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-08-23 15:40:33
+/* Smarty version 3.1.29, created on 2017-09-17 21:38:49
   from "C:\OpenServer\domains\EDUKIT\templates\tpl\reg_parent.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_599d77c18f6751_07830756',
+  'unifunc' => 'content_59bec139cdf421_68714334',
   'file_dependency' => 
   array (
     'c8dbaa1d78cf31b6d6f8715305b5852859db6e6c' => 
@@ -21,7 +21,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
     'file:html/end.tpl' => 1,
   ),
 ),false)) {
-function content_599d77c18f6751_07830756 ($_smarty_tpl) {
+function content_59bec139cdf421_68714334 ($_smarty_tpl) {
 $_smarty_tpl->tpl_vars["title"] = new Smarty_Variable("Регистрация родителя", null);
 $_smarty_tpl->ext->_updateScope->updateScope($_smarty_tpl, "title", 0);
 $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:html/begin.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
