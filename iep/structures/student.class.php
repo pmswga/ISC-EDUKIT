@@ -20,9 +20,9 @@
   
 	class Student extends User
 	{
-		private $home_address;
-		private $cell_phone;
-		private $group;
+		private $home_address;     ///< Домашний адрес
+		private $cell_phone;       ///< Сотовый телефон
+		private $group;            ///< Группа
     
     /*!
       \param[in] $user         - Объект класса User
@@ -41,6 +41,7 @@
 		}
     
     /*!
+      \brief Возвращает домашний адрес
       \return Домашний адрес
     */
     
@@ -50,6 +51,7 @@
 		}
     
     /*!
+      \brief Возвращает сотовый телефон
       \return Сотовый телефон
     */
 		
@@ -59,6 +61,7 @@
 		}
     
     /*!
+      \brief Возвращает группу
       \return Группу
       \note Объект класса Group
     */

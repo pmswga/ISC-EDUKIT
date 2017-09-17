@@ -270,11 +270,12 @@
       \param[in] $grp     - Идентификатор группы
       \param[in] $day     - День недели
       \param[in] $pair    - Пара
-      \param[in] $subject - Идентфикатор предмета
+      \param[in] $subj_1 - Идентфикатор предмета, который на нечётной неделе
+      \param[in] $subj_2 - Идентфикатор предмета, который на чётной неделе
       \return TRUE - успешно, FALSE - ошибка
     */
     
-    public function changePair(string $grp, int $day, int $pair, int $subj_1, int $subj_2) : bool
+    public function changePair(int $grp, int $day, int $pair, int $subj_1, int $subj_2) : bool
     {
       $change_query = $this->dbc()->prepare("UPDATE `schedule`     SET `subj_1`=:s1, `subj_2`=:s2      WHERE `id_grp`=:g AND `pair`=:p AND `_day`=:d");
       $change_query->bindValue(":g", $grp);
@@ -294,7 +295,8 @@
       \param[in] $subject - Идентфикатор предмета
       \return TRUE - успешно, FALSE - ошибка
     */
-    public function changeChangedPair(string $grp, string $day, int $pair, int $subject) : bool
+    
+    public function changeChangedPair(int $grp, string $day, int $pair, int $subject) : bool
     {
       $change_query = $this->dbc()->prepare("UPDATE `changed_schedule`     SET `subject`=:s     WHERE `id_grp`=:g AND `pair`=:p AND `_day`=:d");
       $change_query->bindValue(":g", $grp);

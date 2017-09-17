@@ -5,6 +5,7 @@ var searchData=
   ['addanswer',['addAnswer',['../class_i_e_p_1_1_managers_1_1_test_manager.html#a4472da203f55f7177e9f4fc49f829e36',1,'IEP::Managers::TestManager']]],
   ['addchangeschedule',['addChangeSchedule',['../class_i_e_p_1_1_managers_1_1_schedule_manager.html#a551dee3082f961f214727d0288ed5b4b',1,'IEP::Managers::ScheduleManager']]],
   ['addquestion',['addQuestion',['../class_i_e_p_1_1_managers_1_1_test_manager.html#ac65c9c144cd75aeee14875428ce12aa2',1,'IEP::Managers::TestManager']]],
+  ['adminexists',['adminExists',['../class_i_e_p_1_1_managers_1_1_user_manager.html#a8e961da391b6849109aec42bc9b1b6e6',1,'IEP::Managers::UserManager']]],
   ['authentification',['authentification',['../class_i_e_p_1_1_managers_1_1_user_manager.html#a8fb7e7fde1ddc7817df738a26fc1e75e',1,'IEP::Managers::UserManager']]],
   ['authentificationadmin',['authentificationAdmin',['../class_i_e_p_1_1_managers_1_1_user_manager.html#abd99551240a9f2a7c2fdba7c451f03b7',1,'IEP::Managers::UserManager']]]
 ];

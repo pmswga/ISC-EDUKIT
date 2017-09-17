@@ -29,7 +29,7 @@
 				$CT->assign("user", $user);
 				$CT->assign("tests", $TM->getTestsForGroup($user->getGroup()->getGroupID()));
         
-        $traffic = $UM->query("call getTrafficStudent(:s_email)", [":s_email" => $user->getEmail()]);
+        $traffic = $TRM->getStudentTraffic($user->getEmail());
 				
         $CT->assign("traffic", $traffic);
         $CT->assign("completedTests", $TM->getStudentTests($user->getEmail()));
@@ -206,6 +206,9 @@
         $CT->assign("user", $user);
 				$CT->assign("tests", $TM->getTestsForGroup($user->getGroup()->getGroupID()));
         $CT->assign("traffic", $traffic);
+        
+				$CT->assign("schedules", $SHM->getScheduleGroup($user->getGroup()->getGroupID()));
+        $CT->assign("changed_schedules", $SHM->getChangeScheduleGroup($user->getGroup()->getGroupID()));
         
         if (!empty($_POST['commitTrafficButton'])) {
           $count_pairs = $_POST['count_pairs'];

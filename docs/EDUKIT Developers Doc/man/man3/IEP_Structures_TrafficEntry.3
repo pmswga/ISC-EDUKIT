@@ -1,0 +1,209 @@
+.TH "TrafficEntry" 3 "Вс 17 Сен 2017" "Version 1.0" "EDUKIT Developers" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+TrafficEntry \- Запись об посещамости  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include 'iep/structures/trafficentry\&.class\&.php'\fP
+.SS "Открытые члены"
+
+.in +1c
+.ti -1c
+.RI "\fB__construct\fP (string $student_email, string $date_visit, int $count_passed_pair, int $count_all_pair)"
+.br
+.ti -1c
+.RI "\fBsetTrafficID\fP (int $id)"
+.br
+.RI "Задаёт идентификатор записи об посещамости "
+.ti -1c
+.RI "\fBgetTrafficID\fP ()"
+.br
+.RI "Возвращает идентификатор посещамости "
+.ti -1c
+.RI "\fBgetStudentEmail\fP ()"
+.br
+.RI "Возвращает электронную почту студента "
+.ti -1c
+.RI "\fBgetDateVisit\fP ()"
+.br
+.RI "Возвращает дату посещения колледжа "
+.ti -1c
+.RI "\fBgetCountPassedPair\fP ()"
+.br
+.RI "Возвращает кол-во посещённых пар "
+.ti -1c
+.RI "\fBgetCountAllPair\fP ()"
+.br
+.RI "Возвращает всего кол-во пар "
+.in -1c
+.SS "Закрытые данные"
+
+.in +1c
+.ti -1c
+.RI "\fB$id\fP"
+.br
+.RI "Идентификатор записи об посещамости "
+.ti -1c
+.RI "\fB$email\fP"
+.br
+.RI "Электронная почта студента "
+.ti -1c
+.RI "\fB$date_visit\fP"
+.br
+.RI "Дата посещения "
+.ti -1c
+.RI "\fB$count_passed_pair\fP"
+.br
+.RI "Кол-во посещённых пар "
+.ti -1c
+.RI "\fB$count_all_pair\fP"
+.br
+.RI "Общее кол-во пар "
+.in -1c
+.SH "Подробное описание"
+.PP 
+Запись об посещамости 
+
+
+.PP
+\fBАвтор:\fP
+.RS 4
+pmswga 
+.RE
+.PP
+\fBВерсия:\fP
+.RS 4
+1\&.0 
+.RE
+.PP
+
+.SH "Конструктор(ы)"
+.PP 
+.SS "__construct (string $student_email, string $date_visit, int $count_passed_pair, int $count_all_pair)"
+
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$student_email\fP - Электронная почта студента 
+.br
+\fI$date_visit\fP - Дата посещения 
+.br
+\fI$count_passed_pair\fP - Кол-во посещённых пар 
+.br
+\fI$count_all_pair\fP - Общее кол-во пар 
+.RE
+.PP
+
+.SH "Методы"
+.PP 
+.SS "getCountAllPair ()"
+
+.PP
+Возвращает всего кол-во пар 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Общее кол-во пар 
+.RE
+.PP
+\fBПредупреждения:\fP
+.RS 4
+Возвращает кол-во часов, а не пар\&. Чтобы получить кол-во пар, нужно поделить часы на 2 
+.RE
+.PP
+
+.SS "getCountPassedPair ()"
+
+.PP
+Возвращает кол-во посещённых пар 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Кол-во посещённых пар 
+.RE
+.PP
+\fBПредупреждения:\fP
+.RS 4
+Возвращает кол-во часов, а не пар\&. Чтобы получить кол-во пар, нужно поделить часы на 2 
+.RE
+.PP
+
+.SS "getDateVisit ()"
+
+.PP
+Возвращает дату посещения колледжа 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Дата посещения 
+.RE
+.PP
+\fBНеобходимо сделать\fP
+.RS 4
+Возвращать сразу отформатированную строку через функцию date() в формате 'd\&.m\&.Y H:i:s' 
+.RE
+.PP
+
+.SS "getStudentEmail ()"
+
+.PP
+Возвращает электронную почту студента 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Электронная почта студента 
+.RE
+.PP
+
+.SS "getTrafficID ()"
+
+.PP
+Возвращает идентификатор посещамости 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Идентификатор посещамости 
+.RE
+.PP
+
+.SS "setTrafficID (int $id)"
+
+.PP
+Задаёт идентификатор записи об посещамости 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$id\fP - Идентификатор записи об посещамости 
+.RE
+.PP
+
+.SH "Поля"
+.PP 
+.SS "$count_all_pair\fC [private]\fP"
+
+.PP
+Общее кол-во пар 
+.SS "$count_passed_pair\fC [private]\fP"
+
+.PP
+Кол-во посещённых пар 
+.SS "$date_visit\fC [private]\fP"
+
+.PP
+Дата посещения 
+.SS "$email\fC [private]\fP"
+
+.PP
+Электронная почта студента 
+.SS "$id\fC [private]\fP"
+
+.PP
+Идентификатор записи об посещамости 
+
+.SH "Автор"
+.PP 
+Автоматически создано Doxygen для EDUKIT Developers из исходного текста\&.

@@ -32,10 +32,10 @@
   {
     
     /*!
-      \brief
-      \param[in]
-      \note
-      \return
+      \brief Проверяет, существует ли такой администратор в базей данных
+      \param[in] $user - администратор
+      \note Объект класса User
+      \return TRUE - успешно, FALSE - ошибка
     */
     
     public function adminExists(User $user) : bool
@@ -59,10 +59,10 @@
     }
     
     /*!
-      \brief
-      \param[in]
-      \note
-      \return
+      \brief Проверяет, существует ли такой пользователь в базей данных
+      \param[in] $user - пользователь
+      \note Объект класса User
+      \return TRUE - успешно, FALSE - ошибка
     */
     
     public function userExists(User $user) : bool

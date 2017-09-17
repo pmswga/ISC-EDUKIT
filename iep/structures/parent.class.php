@@ -19,13 +19,13 @@
   
 	class Parent_ extends User
 	{
-		private $age;
-		private $education;
-		private $work_place;
-		private $post;
-		private $home_phone;
-		private $cell_phone;
-    private $childs;
+		private $age;           ///< Возраст
+		private $education;     ///< Образование
+		private $work_place;    ///< Место работы
+		private $post;          ///< Должность
+		private $home_phone;    ///< Домашний телефон
+		private $cell_phone;    ///< Сотовый телефон
+    private $childs;        ///< Дети
 		
     /*!
       \param[in] - $user       - Объект типа класса User
@@ -59,6 +59,7 @@
 		}
     
     /*!
+      \brief Возвращает возраст
       \return Возраст
     */
 		
@@ -68,6 +69,7 @@
 		}
     
     /*!
+      \brief Возвращает образование родителя
       \return Образование
       \note К примеру, высшее или среднее
     */
@@ -78,6 +80,7 @@
 		}
     
     /*!
+      \brief Возвращает место работы
       \return Место работы
     */
 		
@@ -87,6 +90,7 @@
 		}
     
     /*!
+      \brief Возвращает должность
       \return Должность
     */
 		
@@ -96,6 +100,7 @@
 		}
     
     /*!
+      \brief Возвращает домашний телефон
       \return Домашний телефон
     */
 		
@@ -105,6 +110,7 @@
 		}
     
     /*!
+      \brief Возвращает сотовый телефон
       \return Сотовый телефон
     */
 		
@@ -114,6 +120,7 @@
 		}
     
     /*!
+      \brief Возвращает детей
       \return Массив с объектами класса Student
     */
     
@@ -123,6 +130,7 @@
 		}
 		
     /*!
+      \brief Задаёт детей
       \param[in] $childs - дети
       \note Массив с объектами класса Student
     */

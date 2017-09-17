@@ -1,0 +1,219 @@
+.TH "TestQuestion" 3 "Вс 17 Сен 2017" "Version 1.0" "EDUKIT Developers" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+TestQuestion \- Класс описывает вопрос к тесту  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include 'iep/structures/testquestion\&.php'\fP
+.SS "Открытые члены"
+
+.in +1c
+.ti -1c
+.RI "\fB__construct\fP (string $question, string $r_answer, array $answers=array())"
+.br
+.ti -1c
+.RI "\fBsetQuestionID\fP (int $id)"
+.br
+.RI "Задаёт идентификатор вопроса "
+.ti -1c
+.RI "\fBgetQuestionID\fP ()"
+.br
+.RI "Возвращает идентификатор вопроса "
+.ti -1c
+.RI "\fBgetQuestion\fP ()"
+.br
+.RI "Возвращает вопрос "
+.ti -1c
+.RI "\fBsetAnswers\fP (array $answers)"
+.br
+.RI "Задаёт ответы на вопрос "
+.ti -1c
+.RI "\fBgetAnswers\fP ()"
+.br
+.RI "Возвращает все ответы на вопрос "
+.ti -1c
+.RI "\fBgetRAnswer\fP ()"
+.br
+.RI "Возвращает правильный ответ на вопрос "
+.in -1c
+.SS "Закрытые данные"
+
+.in +1c
+.ti -1c
+.RI "\fB$id\fP"
+.br
+.RI "Идентификатор вопроса "
+.ti -1c
+.RI "\fB$question\fP"
+.br
+.RI "Вопрос "
+.ti -1c
+.RI "\fB$answers\fP"
+.br
+.RI "Ответы "
+.ti -1c
+.RI "\fB$r_answer\fP"
+.br
+.RI "Правильный ответ "
+.in -1c
+.SH "Подробное описание"
+.PP 
+Класс описывает вопрос к тесту 
+
+
+.PP
+\fBАвтор:\fP
+.RS 4
+pmswga 
+.RE
+.PP
+\fBВерсия:\fP
+.RS 4
+1\&.0 
+.RE
+.PP
+
+.SH "Конструктор(ы)"
+.PP 
+.SS "__construct (string $question, string $r_answer, array $answers = \fCarray()\fP)"
+
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$question\fP - Вопрос 
+.br
+\fI$r_answer\fP - Правильный ответ 
+.br
+\fI$answers\fP - Ответы 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+См\&. формат свойства $this->answers 
+.RE
+.PP
+
+.SH "Методы"
+.PP 
+.SS "getAnswers ()"
+
+.PP
+Возвращает все ответы на вопрос 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Ответы на вопрос 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Ассоциативный массив 
+.RE
+.PP
+
+.SS "getQuestion ()"
+
+.PP
+Возвращает вопрос 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Вопрос 
+.RE
+.PP
+
+.SS "getQuestionID ()"
+
+.PP
+Возвращает идентификатор вопроса 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Идентификатор вопроса 
+.RE
+.PP
+
+.SS "getRAnswer ()"
+
+.PP
+Возвращает правильный ответ на вопрос 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Правильный ответ 
+.RE
+.PP
+
+.SS "setAnswers (array $answers)"
+
+.PP
+Задаёт ответы на вопрос 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Ответы 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Ассоциативный массив 
+.RE
+.PP
+
+.SS "setQuestionID (int $id)"
+
+.PP
+Задаёт идентификатор вопроса 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$id\fP - Идентификатор вопроса 
+.RE
+.PP
+
+.SH "Поля"
+.PP 
+.SS "$answers\fC [private]\fP"
+
+.PP
+Ответы 
+.PP
+\fBЗаметки:\fP
+.RS 4
+Представляет собой ассоциативный массив в формате 
+.PP
+.nf
+$answers = array(
+  [0] => array(
+    "id_answer" => ,
+    "answer"    => 
+  ),
+  \&.\&.\&.
+);
+
+.fi
+.PP
+ 
+.RE
+.PP
+
+.SS "$id\fC [private]\fP"
+
+.PP
+Идентификатор вопроса 
+.SS "$question\fC [private]\fP"
+
+.PP
+Вопрос 
+.SS "$r_answer\fC [private]\fP"
+
+.PP
+Правильный ответ 
+
+.SH "Автор"
+.PP 
+Автоматически создано Doxygen для EDUKIT Developers из исходного текста\&.

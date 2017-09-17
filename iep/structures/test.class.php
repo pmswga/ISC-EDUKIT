@@ -22,7 +22,7 @@
       \note Объект класса Subject
     */
     
-		private $subject;     
+		private $subject;     ///< Предмет, привязанный к тесту
 		private $author;      ///< Электронная почта преподавателя
     
     /*!
@@ -31,7 +31,7 @@
       \note Массив с объектами класса TestQuestion
     */
     
-		private $questions;
+		private $questions;   ///< Вопросы
     
     /*!
       \var $for_groups
@@ -109,16 +109,6 @@
 		public function getCaption() : string
 		{
 			return $this->caption;
-		}
-    
-    /*!
-      \brief Задаёт автора теста
-      \param[in] $author - Электронная почта преподавателя
-    */
-    
-		public function setAuthor($author)
-		{
-			$this->author_name = $author_name;
 		}
     
     /*!

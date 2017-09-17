@@ -45,6 +45,21 @@
     }
     
     /*!
+      \brief Возвращает информацию об посещамости студента
+      \param[in] $student_email - электронная почта студента
+      \return Массив с записями об посещамости
+    */
+    
+    public function getStudentTraffic(string $student_email) : array
+    {
+      if (!empty($student_email)) {        
+        return $this->query("call getTrafficStudent(:s_email)", [":s_email" => $student_email]);
+      } else {
+        return array();
+      }
+    }
+    
+    /*!
       \brief Удаляет запись об посещамости студента
       \param[in] $traffic_entry - 
       \warning Ожидает реализации

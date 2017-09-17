@@ -96,6 +96,8 @@ $(function() {
 <tr class="memitem:a7b1c72a30304df086fe5a73b354cff0e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_e_p_1_1_managers_1_1_news_manager.html#a7b1c72a30304df086fe5a73b354cff0e">addAdminNews</a> ($news)</td></tr>
 <tr class="memdesc:a7b1c72a30304df086fe5a73b354cff0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Добавление новой новости администратором  <a href="#a7b1c72a30304df086fe5a73b354cff0e">Подробнее...</a><br /></td></tr>
 <tr class="separator:a7b1c72a30304df086fe5a73b354cff0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e2da9a8b0d1a59cd99677843cd0c9a5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_e_p_1_1_managers_1_1_news_manager.html#a6e2da9a8b0d1a59cd99677843cd0c9a5">getAdminNewsByID</a> (int $news_id)</td></tr>
+<tr class="separator:a6e2da9a8b0d1a59cd99677843cd0c9a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac01a92730618c66a5878abb480125c31"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_e_p_1_1_managers_1_1_news_manager.html#ac01a92730618c66a5878abb480125c31">getNews</a> (string $teacher_email)</td></tr>
 <tr class="memdesc:ac01a92730618c66a5878abb480125c31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Возвращает все новости опубликованные преподавателем  <a href="#ac01a92730618c66a5878abb480125c31">Подробнее...</a><br /></td></tr>
 <tr class="separator:ac01a92730618c66a5878abb480125c31"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -111,6 +113,9 @@ $(function() {
 <tr class="memitem:a443d52f702863af038eaba9dbb67ad16"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_e_p_1_1_managers_1_1_news_manager.html#a443d52f702863af038eaba9dbb67ad16">changeContentNews</a> (int $news_id, string $new_conent)</td></tr>
 <tr class="memdesc:a443d52f702863af038eaba9dbb67ad16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Изменяет содержимое новости  <a href="#a443d52f702863af038eaba9dbb67ad16">Подробнее...</a><br /></td></tr>
 <tr class="separator:a443d52f702863af038eaba9dbb67ad16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9d34f6ad6920ecc20799c0737750d68"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_e_p_1_1_managers_1_1_news_manager.html#ac9d34f6ad6920ecc20799c0737750d68">removeAdminNews</a> (int $news_id)</td></tr>
+<tr class="memdesc:ac9d34f6ad6920ecc20799c0737750d68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Удаляет новость, добавленную администратором  <a href="#ac9d34f6ad6920ecc20799c0737750d68">Подробнее...</a><br /></td></tr>
+<tr class="separator:ac9d34f6ad6920ecc20799c0737750d68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a493a1a956355d69a1832edb5397b9a62"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_e_p_1_1_managers_1_1_news_manager.html#a493a1a956355d69a1832edb5397b9a62">remove</a> ($news_id)</td></tr>
 <tr class="memdesc:a493a1a956355d69a1832edb5397b9a62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Возвращает все опубликованные новости  <a href="#a493a1a956355d69a1832edb5397b9a62">Подробнее...</a><br /></td></tr>
 <tr class="separator:a493a1a956355d69a1832edb5397b9a62"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -308,6 +313,24 @@ $(function() {
 
 </div>
 </div>
+<a id="a6e2da9a8b0d1a59cd99677843cd0c9a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e2da9a8b0d1a59cd99677843cd0c9a5">&#9670;&nbsp;</a></span>getAdminNewsByID()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getAdminNewsByID </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>$news_id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="aabd1809d328ac10aea2205362b193fee"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aabd1809d328ac10aea2205362b193fee">&#9670;&nbsp;</a></span>getAllNews()</h2>
 
@@ -384,13 +407,40 @@ $(function() {
 
 </div>
 </div>
+<a id="ac9d34f6ad6920ecc20799c0737750d68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9d34f6ad6920ecc20799c0737750d68">&#9670;&nbsp;</a></span>removeAdminNews()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">removeAdminNews </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>$news_id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Удаляет новость, добавленную администратором </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">$news_id</td><td>- Идентификатор новости </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>TRUE - успешно, FALSE - ошибка </dd></dl>
+
+</div>
+</div>
 <hr/>Объявления и описания членов класса находятся в файле:<ul>
 <li>iep/managers/<a class="el" href="nm_8class_8php.html">nm.class.php</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по EDUKIT Developers. Последние изменения: Пт 25 Авг 2017 00:29:55. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по EDUKIT Developers. Последние изменения: Вс 17 Сен 2017 13:49:45. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

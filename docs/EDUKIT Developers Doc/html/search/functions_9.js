@@ -1,7 +1,7 @@
 var searchData=
 [
   ['setanswers',['setAnswers',['../class_i_e_p_1_1_structures_1_1_student_test.html#ae8b4db7a344e3e347c5ec6cf688149b6',1,'IEP\Structures\StudentTest\setAnswers()'],['../class_i_e_p_1_1_structures_1_1_test_question.html#ae8b4db7a344e3e347c5ec6cf688149b6',1,'IEP\Structures\TestQuestion\setAnswers()']]],
-  ['setauthor',['setAuthor',['../class_i_e_p_1_1_structures_1_1_news.html#afde85a369fc83b442db3cf5c6ac31d4a',1,'IEP\Structures\News\setAuthor()'],['../class_i_e_p_1_1_structures_1_1_test.html#afde85a369fc83b442db3cf5c6ac31d4a',1,'IEP\Structures\Test\setAuthor()']]],
+  ['setauthor',['setAuthor',['../class_i_e_p_1_1_structures_1_1_news.html#afde85a369fc83b442db3cf5c6ac31d4a',1,'IEP::Structures::News']]],
   ['setcaption',['setCaption',['../class_i_e_p_1_1_structures_1_1_news.html#a329fd4838e2ea58036de67ee48e67297',1,'IEP::Structures::News']]],
   ['setchild',['setChild',['../class_i_e_p_1_1_managers_1_1_user_manager.html#a3980a2fdf7db8c73796a046b0b0ccf32',1,'IEP::Managers::UserManager']]],
   ['setchilds',['setChilds',['../class_i_e_p_1_1_structures_1_1_parent__.html#ad002023f2c3c29f2176983fde281df32',1,'IEP::Structures::Parent_']]],

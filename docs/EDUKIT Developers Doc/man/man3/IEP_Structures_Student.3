@@ -1,0 +1,146 @@
+.TH "Student" 3 "Вс 17 Сен 2017" "Version 1.0" "EDUKIT Developers" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Student \- Класс описывающий сущность Студент  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include 'iep/structures/student\&.class\&.php'\fP
+.PP
+Базовые классы:\fBUser\fP\&.
+.SS "Открытые члены"
+
+.in +1c
+.ti -1c
+.RI "\fB__construct\fP (\fBUser\fP $user, string $home_address, string $cell_phone, $group)"
+.br
+.ti -1c
+.RI "\fBgetHomeAddress\fP ()"
+.br
+.RI "Возвращает домашний адрес "
+.ti -1c
+.RI "\fBgetCellPhone\fP ()"
+.br
+.RI "Возвращает сотовый телефон "
+.ti -1c
+.RI "\fBgetGroup\fP ()"
+.br
+.RI "Возвращает группу "
+.in -1c
+.SS "Закрытые данные"
+
+.in +1c
+.ti -1c
+.RI "\fB$home_address\fP"
+.br
+.RI "Домашний адрес "
+.ti -1c
+.RI "\fB$cell_phone\fP"
+.br
+.RI "Сотовый телефон "
+.ti -1c
+.RI "\fB$group\fP"
+.br
+.RI "Группа "
+.in -1c
+.SS "Дополнительные унаследованные члены"
+.SH "Подробное описание"
+.PP 
+Класс описывающий сущность Студент 
+
+
+.PP
+\fBАвтор:\fP
+.RS 4
+pmswga 
+.RE
+.PP
+\fBВерсия:\fP
+.RS 4
+1\&.0 
+.RE
+.PP
+
+.SH "Конструктор(ы)"
+.PP 
+.SS "__construct (\fBUser\fP $user, string $home_address, string $cell_phone,  $group)"
+
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$user\fP - Объект класса \fBUser\fP 
+.br
+\fI$home_address\fP - Домашний адрес 
+.br
+\fI$cell_phone\fP - Сотовый телефон 
+.br
+\fI$group\fP - Группа 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Объект класса \fBGroup\fP 
+.RE
+.PP
+
+.SH "Методы"
+.PP 
+.SS "getCellPhone ()"
+
+.PP
+Возвращает сотовый телефон 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Сотовый телефон 
+.RE
+.PP
+
+.SS "getGroup ()"
+
+.PP
+Возвращает группу 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Группу 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Объект класса \fBGroup\fP 
+.RE
+.PP
+
+.SS "getHomeAddress ()"
+
+.PP
+Возвращает домашний адрес 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Домашний адрес 
+.RE
+.PP
+
+.SH "Поля"
+.PP 
+.SS "$cell_phone\fC [private]\fP"
+
+.PP
+Сотовый телефон 
+.SS "$group\fC [private]\fP"
+
+.PP
+Группа 
+.SS "$home_address\fC [private]\fP"
+
+.PP
+Домашний адрес 
+
+.SH "Автор"
+.PP 
+Автоматически создано Doxygen для EDUKIT Developers из исходного текста\&.

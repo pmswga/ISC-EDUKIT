@@ -5,7 +5,7 @@
   /*!
     
     \class StudentTest studenttest.class.php "iep/structures/studenttest.class.php"
-    \brief Класс описывающий сущность результатов теста
+    \brief Класс описывающий сущность результатов теста, которые будут отображаться в личном кабинете
     \author pmswga
     \version 1.0
     
@@ -13,14 +13,14 @@
    
   class StudentTest
   {
-    private $id_test;
-    private $test_author;
-    private $student;
-    private $caption;
-    private $subject;
-    private $date_pass;
-    private $mark;
-    private $answers;
+    private $id_test;         ///< Идентификатор теста
+    private $test_author;     ///< Автор теста
+    private $student;         ///< Студент, который проходит тест
+    private $caption;         ///< Заголовок теста
+    private $subject;         ///< Предмет
+    private $date_pass;       ///< Дата сдачи
+    private $mark;            ///< Оценка
+    private $answers;         ///< Ответы
     
     /*!
       \param[in] $student   - Email студента
@@ -42,6 +42,7 @@
     }
     
     /*!
+      \brief Задаёт идентификатор теста
       \param[in] $id - Идентификатор пройденного теста
     */
     
@@ -51,6 +52,7 @@
     }
     
     /*!
+      \brief Возвращает идентификатор теста
       \return Идентификатор пройденного теста
     */
     
@@ -60,6 +62,7 @@
     }
 
     /*!
+      \brief Задаёт автора теста
       \param[in] $test_author - Автор теста
       \note Формат "Фамилия И.О."
     */
@@ -70,6 +73,7 @@
     }
     
     /*!
+      \brief Возвращает автора теста
       \return Автора теста
       \note Формат "Фамилия И.О."
     */
@@ -80,6 +84,7 @@
     }
     
     /*!
+      \brief Возвращает электронную почту студента, который прошёл тест
       \return Email студента
     */
     
@@ -89,6 +94,7 @@
     }
     
     /*!
+      \brief Возвращает название теста
       \return Название теста
     */
     
@@ -98,6 +104,7 @@
     }
     
     /*!
+      \brief Возвращает предмет студента
       \return Предмет
     */
     
@@ -107,6 +114,7 @@
     }
     
     /*!
+      \brief Возвращает дату сдачи теста
       \return Дату сдачи теста
     */
     
@@ -116,6 +124,7 @@
     }
     
     /*!
+      \brief Возвращает оценку за тест
       \return Оценку за тест
     */
     
@@ -125,6 +134,7 @@
     }
     
     /*!
+      \brief Задаёт ответы студента
       \param[in] $answers - массив с ответами
       \note Формат массива [[question, answer], [question, answer], ...]
     */
@@ -135,6 +145,7 @@
     }
     
     /*!
+      \brief Возвращает ответы студента
       \return Массив с ответами
       \note Формат массива [[question, answer], [question, answer], ...]
     */

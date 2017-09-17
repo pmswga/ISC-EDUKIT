@@ -1,0 +1,267 @@
+.TH "Parent_" 3 "Вс 17 Сен 2017" "Version 1.0" "EDUKIT Developers" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Parent_ \- Класс для хранения данных об родителе  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include 'iep/structures/parent\&.class\&.php'\fP
+.PP
+Базовые классы:\fBUser\fP\&.
+.SS "Открытые члены"
+
+.in +1c
+.ti -1c
+.RI "\fB__construct\fP (\fBUser\fP $user, int $age, string $education, string $work_place, string $post, string $home_phone, string $cell_phone)"
+.br
+.ti -1c
+.RI "\fBgetAge\fP ()"
+.br
+.RI "Возвращает возраст "
+.ti -1c
+.RI "\fBgetEducation\fP ()"
+.br
+.RI "Возвращает образование родителя "
+.ti -1c
+.RI "\fBgetWorkPlace\fP ()"
+.br
+.RI "Возвращает место работы "
+.ti -1c
+.RI "\fBgetPost\fP ()"
+.br
+.RI "Возвращает должность "
+.ti -1c
+.RI "\fBgetHomePhone\fP ()"
+.br
+.RI "Возвращает домашний телефон "
+.ti -1c
+.RI "\fBgetCellPhone\fP ()"
+.br
+.RI "Возвращает сотовый телефон "
+.ti -1c
+.RI "\fBgetChilds\fP ()"
+.br
+.RI "Возвращает детей "
+.ti -1c
+.RI "\fBsetChilds\fP (array $childs)"
+.br
+.RI "Задаёт детей "
+.in -1c
+.SS "Закрытые данные"
+
+.in +1c
+.ti -1c
+.RI "\fB$age\fP"
+.br
+.RI "Возраст "
+.ti -1c
+.RI "\fB$education\fP"
+.br
+.RI "Образование "
+.ti -1c
+.RI "\fB$work_place\fP"
+.br
+.RI "Место работы "
+.ti -1c
+.RI "\fB$post\fP"
+.br
+.RI "Должность "
+.ti -1c
+.RI "\fB$home_phone\fP"
+.br
+.RI "Домашний телефон "
+.ti -1c
+.RI "\fB$cell_phone\fP"
+.br
+.RI "Сотовый телефон "
+.ti -1c
+.RI "\fB$childs\fP"
+.br
+.RI "Дети "
+.in -1c
+.SS "Дополнительные унаследованные члены"
+.SH "Подробное описание"
+.PP 
+Класс для хранения данных об родителе 
+
+
+.PP
+\fBАвтор:\fP
+.RS 4
+pmswga 
+.RE
+.PP
+\fBВерсия:\fP
+.RS 4
+1\&.0
+.RE
+.PP
+Данный класс содержит в себе информацию об родителе 
+.SH "Конструктор(ы)"
+.PP 
+.SS "__construct (\fBUser\fP $user, int $age, string $education, string $work_place, string $post, string $home_phone, string $cell_phone)"
+
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$user\fP - Объект типа класса \fBUser\fP 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Необходим для хранения основной информации
+.RE
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$age\fP - Возраст 
+.br
+\fI$education\fP - Образование 
+.br
+\fI$work_place\fP - Место работы 
+.br
+\fI$post\fP - Должность 
+.br
+\fI$home_phone\fP - Домашний телефон 
+.br
+\fI$cell_phone\fP - Сотовый телефон 
+.RE
+.PP
+
+.SH "Методы"
+.PP 
+.SS "getAge ()"
+
+.PP
+Возвращает возраст 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Возраст 
+.RE
+.PP
+
+.SS "getCellPhone ()"
+
+.PP
+Возвращает сотовый телефон 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Сотовый телефон 
+.RE
+.PP
+
+.SS "getChilds ()"
+
+.PP
+Возвращает детей 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Массив с объектами класса \fBStudent\fP 
+.RE
+.PP
+
+.SS "getEducation ()"
+
+.PP
+Возвращает образование родителя 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Образование 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+К примеру, высшее или среднее 
+.RE
+.PP
+
+.SS "getHomePhone ()"
+
+.PP
+Возвращает домашний телефон 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Домашний телефон 
+.RE
+.PP
+
+.SS "getPost ()"
+
+.PP
+Возвращает должность 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Должность 
+.RE
+.PP
+
+.SS "getWorkPlace ()"
+
+.PP
+Возвращает место работы 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Место работы 
+.RE
+.PP
+
+.SS "setChilds (array $childs)"
+
+.PP
+Задаёт детей 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$childs\fP - дети 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Массив с объектами класса \fBStudent\fP 
+.RE
+.PP
+
+.SH "Поля"
+.PP 
+.SS "$age\fC [private]\fP"
+
+.PP
+Возраст 
+.SS "$cell_phone\fC [private]\fP"
+
+.PP
+Сотовый телефон 
+.SS "$childs\fC [private]\fP"
+
+.PP
+Дети 
+.SS "$education\fC [private]\fP"
+
+.PP
+Образование 
+.SS "$home_phone\fC [private]\fP"
+
+.PP
+Домашний телефон 
+.SS "$post\fC [private]\fP"
+
+.PP
+Должность 
+.SS "$work_place\fC [private]\fP"
+
+.PP
+Место работы 
+
+.SH "Автор"
+.PP 
+Автоматически создано Doxygen для EDUKIT Developers из исходного текста\&.

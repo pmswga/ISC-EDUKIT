@@ -19,21 +19,18 @@
 	class Group
 	{
     
-    private $id;
-		private $number;
-		private $spec;
-    private $year_education;
-		private $is_budget;
+    private $id;               ///< Идентификатор группы
+		private $number;           ///< Номер
+		private $spec;             ///< Специальность
+    private $year_education;   ///< Год обучения
+		private $is_budget;        ///< Тип группы (1 - бюджетная, 0 - коммерческая)
     
     /*!
       \param[in] $number         - название группы
-      
       \param[in] $spec           - специальность
       \note Представляет собой объект класса Specialty
-      
       \param[in] $year_education - год выпуска
       \note Указывается в формате [год]/[год]
-      
       \param[in] $is_budget      - тип группы 
       \note 1 - бюджетная, 0 - коммерческая
     */
@@ -84,6 +81,7 @@
     }
     
     /*!
+      \brief Задаёт идентификатор группе
       \param[in] $id - идентификатор группы
       \note Идентификатор берётся из базы данных
     */
@@ -94,6 +92,7 @@
     }
     
     /*!
+      \brief Возвращает идентификатор группы
       \return Идентификатор группы
       \note Далее идентификатор используется для манипуляций с данными в базе данных
     */
@@ -104,6 +103,7 @@
     }
     
     /*!
+      \brief Возвращает номер группы
       \return Название группы
     */
     
@@ -113,6 +113,7 @@
 		}
     
     /*!
+      \brief Возвращает специальность
       \return Объект типа Specialty
     */
 		
@@ -122,7 +123,8 @@
 		}
 		
     /*!
-      \return Возвращает год обучения
+      \brief Возвращает год обучения
+      \return Год обучения
     */
     
     public function getYearEducation() : string
@@ -131,7 +133,8 @@
     }
         
     /*!
-      \return Возвращает статус группы
+      \brief Возвращает тип группы
+      \return Тип группы
     */
     
 		public function getStatus() : int

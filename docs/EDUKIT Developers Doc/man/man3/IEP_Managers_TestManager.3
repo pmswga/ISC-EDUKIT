@@ -1,0 +1,577 @@
+.TH "TestManager" 3 "Вс 17 Сен 2017" "Version 1.0" "EDUKIT Developers" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+TestManager \- Менеджер для работы с тестами  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include 'iep/managers/tm\&.class\&.php'\fP
+.PP
+Базовые классы:\fBIEP\fP\&.
+.SS "Открытые члены"
+
+.in +1c
+.ti -1c
+.RI "\fBadd\fP ($test)"
+.br
+.RI "Добавляет новый тест "
+.ti -1c
+.RI "\fBgetTestsForGroup\fP (int $grp)"
+.br
+.RI "Возвращает все тесты доступные группе "
+.ti -1c
+.RI "\fBgetTest\fP (int $test_id)"
+.br
+.RI "Возвращает тест по его идентификатору "
+.ti -1c
+.RI "\fBgetTests\fP (string $teacher_email)"
+.br
+.RI "Возвращает все тесты, созданные преподавателем "
+.ti -1c
+.RI "\fBgetAllTests\fP ()"
+.br
+.RI "Возвращает все созданные тесты "
+.ti -1c
+.RI "\fBisGroupForTest\fP (int $test_id, int $grp_id)"
+.br
+.RI "Проверяет привязанность группы к тесту "
+.ti -1c
+.RI "\fBaddQuestion\fP (int $test_id, \fBTestQuestion\fP $question)"
+.br
+.RI "Добавляет новый вопрос в тест "
+.ti -1c
+.RI "\fBaddAnswer\fP (int $question_id, string $answer)"
+.br
+.RI "Добавляет ответ к вопросу "
+.ti -1c
+.RI "\fBgetAnswers\fP (int $question_id)"
+.br
+.RI "Возвращает все ответы на вопрос "
+.ti -1c
+.RI "\fBchangeCaptionTest\fP (int $test_id, string $test_caption)"
+.br
+.RI "Изменяет заголовок к тесту "
+.ti -1c
+.RI "\fBchangeSubjectTest\fP (int $test_id, int $subject_id)"
+.br
+.RI "Изменяет предмет, по которому идёт тестирование "
+.ti -1c
+.RI "\fBchangeCaptionQuestion\fP (int $question_id, string $new_caption)"
+.br
+.RI "Изменяет заголовок вопроса "
+.ti -1c
+.RI "\fBchangeRAnswerQuestion\fP (int $question_id, string $new_RAnswer)"
+.br
+.RI "Изменяет правильный ответ на вопрос "
+.ti -1c
+.RI "\fBchangeCaptionAnswer\fP (int $answer_id, string $new_answer)"
+.br
+.RI "Изменяет ответ на вопрос "
+.ti -1c
+.RI "\fBsetGroup\fP (int $test_id, int $test_grp)"
+.br
+.RI "Назначает группу на тест "
+.ti -1c
+.RI "\fBunsetGroup\fP (int $test_id, int $test_grp)"
+.br
+.RI "Снимает группу с теста "
+.ti -1c
+.RI "\fBremoveQuestion\fP (int $question_id)"
+.br
+.RI "Удаляет вопрос "
+.ti -1c
+.RI "\fBremoveAnswer\fP (int $answer_id)"
+.br
+.RI "Удаляет ответ на вопрос "
+.ti -1c
+.RI "\fBputStudentAnswer\fP (\fBStudentAnswer\fP $student_answer)"
+.br
+.RI "Записывает результаты прохождения теста "
+.ti -1c
+.RI "\fBgetStudentAnswers\fP (int $student_test_id)"
+.br
+.RI "Возвращает все ответы к пройденному тесту "
+.ti -1c
+.RI "\fBgetStudentTest\fP (string $student_email, int $student_test)"
+.br
+.RI "Возвращает тест, пройденный студентом "
+.ti -1c
+.RI "\fBgetStudentTests\fP (string $student_email)"
+.br
+.RI "Возвращает все пройденные тесты "
+.ti -1c
+.RI "\fBremove\fP ($test_id)"
+.br
+.RI "Удаляет тест "
+.in -1c
+.SH "Подробное описание"
+.PP 
+Менеджер для работы с тестами 
+
+
+.PP
+\fBАвтор:\fP
+.RS 4
+pmswga 
+.RE
+.PP
+\fBВерсия:\fP
+.RS 4
+1\&.0 
+.RE
+.PP
+
+.SH "Методы"
+.PP 
+.SS "add ( $test)"
+
+.PP
+Добавляет новый тест 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$test\fP - Тест 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Объект класса Test 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+TRUE - успешно, FALSE - ошибка 
+.RE
+.PP
+
+.SS "addAnswer (int $question_id, string $answer)"
+
+.PP
+Добавляет ответ к вопросу 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$question_id\fP - Идентификатор вопроса 
+.br
+\fI$answer\fP - Ответ 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+TRUE - успешно, FALSE - ошибка 
+.RE
+.PP
+
+.SS "addQuestion (int $test_id, \fBTestQuestion\fP $question)"
+
+.PP
+Добавляет новый вопрос в тест 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$test_id\fP - Идентификатор теста 
+.br
+\fI$question\fP - Вопрос 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Объект класса TestQuestion 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+TRUE - успешно, FALSE - ошибка 
+.RE
+.PP
+
+.SS "changeCaptionAnswer (int $answer_id, string $new_answer)"
+
+.PP
+Изменяет ответ на вопрос 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$answer_id\fP - Идентификатор ответа 
+.br
+\fI$new_answer\fP - Новый ответ 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+TRUE - успешно, FALSE - ошибка 
+.RE
+.PP
+
+.SS "changeCaptionQuestion (int $question_id, string $new_caption)"
+
+.PP
+Изменяет заголовок вопроса 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$question_id\fP - Идентификатор теста 
+.br
+\fI$new_caption\fP - Новый заголовок вопроса 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+TRUE - успешно, FALSE - ошибка 
+.RE
+.PP
+
+.SS "changeCaptionTest (int $test_id, string $test_caption)"
+
+.PP
+Изменяет заголовок к тесту 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$test_id\fP - Идентификатор теста 
+.br
+\fI$test_caption\fP - Новый заголовок теста 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+TRUE - успешно, FALSE - ошибка 
+.RE
+.PP
+
+.SS "changeRAnswerQuestion (int $question_id, string $new_RAnswer)"
+
+.PP
+Изменяет правильный ответ на вопрос 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$question_id\fP - Идентификатор теста 
+.br
+\fI$new_RAnswer\fP - Новый правильный ответ 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+TRUE - успешно, FALSE - ошибка 
+.RE
+.PP
+
+.SS "changeSubjectTest (int $test_id, int $subject_id)"
+
+.PP
+Изменяет предмет, по которому идёт тестирование 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$test_id\fP - Идентификатор теста 
+.br
+\fI$subject_id\fP - Идентификатор предмета 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+TRUE - успешно, FALSE - ошибка 
+.RE
+.PP
+
+.SS "getAllTests ()"
+
+.PP
+Возвращает все созданные тесты 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Тесты 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Массив с объектами класса Test 
+.RE
+.PP
+
+.SS "getAnswers (int $question_id)"
+
+.PP
+Возвращает все ответы на вопрос 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$question_id\fP - Идентификатор теста 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+Ответы 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Ассоциативнный массив 
+.RE
+.PP
+
+.SS "getStudentAnswers (int $student_test_id)"
+
+.PP
+Возвращает все ответы к пройденному тесту 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$student_test_id\fP - Идентификатор пройденного теста 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+Ответы студента 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Ассоциативнный массив 
+.RE
+.PP
+
+.SS "getStudentTest (string $student_email, int $student_test)"
+
+.PP
+Возвращает тест, пройденный студентом 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$student_email\fP - Электронная почта студента 
+.br
+\fI$student_test\fP - Идентификатор пройденного теста 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+Результат пройденного теста 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Объект класса StudentTest 
+.RE
+.PP
+
+.SS "getStudentTests (string $student_email)"
+
+.PP
+Возвращает все пройденные тесты 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$student_email\fP - Электронная почта студента 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+Пройденные тесты 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Массив с объектами класса StudentTest 
+.RE
+.PP
+
+.SS "getTest (int $test_id)"
+
+.PP
+Возвращает тест по его идентификатору 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$test_id\fP - Идентификатор теста 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+Тест 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Объект класса Test 
+.RE
+.PP
+
+.SS "getTests (string $teacher_email)"
+
+.PP
+Возвращает все тесты, созданные преподавателем 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$teacher_email\fP - Электронная почта преподавателя 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+Тесты 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Массив с объектами класса Test 
+.RE
+.PP
+
+.SS "getTestsForGroup (int $grp)"
+
+.PP
+Возвращает все тесты доступные группе 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$grp\fP - Идентификатор группы 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+Тесты 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Массив с объектами класса Test 
+.RE
+.PP
+
+.SS "isGroupForTest (int $test_id, int $grp_id)"
+
+.PP
+Проверяет привязанность группы к тесту 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$test_id\fP - Идентификатор теста 
+.br
+\fI$grp_id\fP - Идентификатор группы 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+TRUE, FALSE 
+.RE
+.PP
+\fBПредупреждения:\fP
+.RS 4
+Возвращает не bool, а int 
+.RE
+.PP
+
+.SS "putStudentAnswer (\fBStudentAnswer\fP $student_answer)"
+
+.PP
+Записывает результаты прохождения теста 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$student_answer\fP - ответы студента 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Объект класса StudentAnswer 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+TRUE - успешно, FALSE - ошибка 
+.RE
+.PP
+
+.SS "remove ( $test_id)"
+
+.PP
+Удаляет тест 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$test_id\fP - Идентификатор теста 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+TRUE - успешно, FALSE - ошибка 
+.RE
+.PP
+
+.SS "removeAnswer (int $answer_id)"
+
+.PP
+Удаляет ответ на вопрос 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$answer_id\fP - Идентификатор ответа 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+TRUE - успешно, FALSE - ошибка 
+.RE
+.PP
+
+.SS "removeQuestion (int $question_id)"
+
+.PP
+Удаляет вопрос 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$question_id\fP - Идентификатор вопроса 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+TRUE - успешно, FALSE - ошибка 
+.RE
+.PP
+
+.SS "setGroup (int $test_id, int $test_grp)"
+
+.PP
+Назначает группу на тест 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$test_id\fP - Идентификатор теста 
+.br
+\fI$test_grp\fP - Идентификатор группы 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+TRUE - успешно, FALSE - ошибка 
+.RE
+.PP
+
+.SS "unsetGroup (int $test_id, int $test_grp)"
+
+.PP
+Снимает группу с теста 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$test_id\fP - Идентификатор теста 
+.br
+\fI$test_grp\fP - Идентификатор группы 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+TRUE - успешно, FALSE - ошибка 
+.RE
+.PP
+
+
+.SH "Автор"
+.PP 
+Автоматически создано Doxygen для EDUKIT Developers из исходного текста\&.

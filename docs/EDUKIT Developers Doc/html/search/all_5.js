@@ -1,6 +1,7 @@
 var searchData=
 [
   ['getadminnews',['getAdminNews',['../class_i_e_p_1_1_managers_1_1_news_manager.html#aa13decd1ffcccfeb1ca82a2725dec749',1,'IEP::Managers::NewsManager']]],
+  ['getadminnewsbyid',['getAdminNewsByID',['../class_i_e_p_1_1_managers_1_1_news_manager.html#a6e2da9a8b0d1a59cd99677843cd0c9a5',1,'IEP::Managers::NewsManager']]],
   ['getage',['getAge',['../class_i_e_p_1_1_structures_1_1_parent__.html#aa45b65846565bea3073f766710582a3f',1,'IEP::Structures::Parent_']]],
   ['getalladmins',['getAllAdmins',['../class_i_e_p_1_1_managers_1_1_user_manager.html#aab9db607fd1b1029e30698b5fd2eba74',1,'IEP::Managers::UserManager']]],
   ['getallchangedschedule',['getAllChangedSchedule',['../class_i_e_p_1_1_managers_1_1_schedule_manager.html#adb7bf63e9a7acfbdd66ad0f11131c44f',1,'IEP::Managers::ScheduleManager']]],
@@ -65,6 +66,7 @@ var searchData=
   ['getstudentemail',['getStudentEmail',['../class_i_e_p_1_1_structures_1_1_traffic_entry.html#a023569c214e44482b467c67e82a52409',1,'IEP::Structures::TrafficEntry']]],
   ['getstudenttest',['getStudentTest',['../class_i_e_p_1_1_managers_1_1_test_manager.html#a09714c6090db861a54fe5444a1ea3973',1,'IEP::Managers::TestManager']]],
   ['getstudenttests',['getStudentTests',['../class_i_e_p_1_1_managers_1_1_test_manager.html#ad661a313b9693703657fb447c9c1593d',1,'IEP::Managers::TestManager']]],
+  ['getstudenttraffic',['getStudentTraffic',['../class_i_e_p_1_1_managers_1_1_traffic_manager.html#a03c2885a4e2bc89309f82bdd74b727bc',1,'IEP::Managers::TrafficManager']]],
   ['getsubject',['getSubject',['../class_i_e_p_1_1_structures_1_1_student_answer.html#a7ec8f5b794ded8f3c0df9afd96c8233c',1,'IEP\Structures\StudentAnswer\getSubject()'],['../class_i_e_p_1_1_structures_1_1_student_test.html#a7ec8f5b794ded8f3c0df9afd96c8233c',1,'IEP\Structures\StudentTest\getSubject()'],['../class_i_e_p_1_1_structures_1_1_test.html#a7ec8f5b794ded8f3c0df9afd96c8233c',1,'IEP\Structures\Test\getSubject()']]],
   ['getsubjectid',['getSubjectID',['../class_i_e_p_1_1_structures_1_1_subject.html#ad4cf1af584de43a4bf53df7635758e21',1,'IEP::Structures::Subject']]],
   ['getsubjects',['getSubjects',['../class_i_e_p_1_1_managers_1_1_subject_manager.html#a4a65dfeaadea86219f068f15715be8d8',1,'IEP\Managers\SubjectManager\getSubjects()'],['../class_i_e_p_1_1_structures_1_1_teacher.html#af976af67c94935c7d509d444522c5657',1,'IEP\Structures\Teacher\getSubjects()']]],

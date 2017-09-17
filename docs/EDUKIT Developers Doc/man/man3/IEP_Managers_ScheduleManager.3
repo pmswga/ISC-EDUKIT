@@ -1,0 +1,378 @@
+.TH "ScheduleManager" 3 "Вс 17 Сен 2017" "Version 1.0" "EDUKIT Developers" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ScheduleManager \- Менеджер для работы с расписанием  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include 'iep/managers/shm\&.class\&.php'\fP
+.PP
+Базовые классы:\fBIEP\fP\&.
+.SS "Открытые члены"
+
+.in +1c
+.ti -1c
+.RI "\fBadd\fP ($schedule)"
+.br
+.RI "Добавление новой записи о расписании "
+.ti -1c
+.RI "\fBaddChangeSchedule\fP ($schedule)"
+.br
+.RI "Добавление новой записи об изменениях в расписании "
+.ti -1c
+.RI "\fBgetAllScheduleGroup\fP ()"
+.br
+.RI "Возвращает расписание всех групп "
+.ti -1c
+.RI "\fBgetScheduleGroup\fP (int $grp)"
+.br
+.RI "Возвращает расписание группы "
+.ti -1c
+.RI "\fBgetAllChangedSchedule\fP ()"
+.br
+.RI "Возвращает изменения во всех группах "
+.ti -1c
+.RI "\fBgetChangeScheduleGroup\fP (int $grp)"
+.br
+.RI "Возвращает изменения в расписании группы "
+.ti -1c
+.RI "\fBchangePair\fP (int $grp, int $day, int $pair, int $subj_1, int $subj_2)"
+.br
+.RI "Изменяет предмет "
+.ti -1c
+.RI "\fBchangeChangedPair\fP (int $grp, string $day, int $pair, int $subject)"
+.br
+.RI "Изменяет предмет в изменениях в расписании "
+.ti -1c
+.RI "\fBdeleteChangedPair\fP (int $grp)"
+.br
+.RI "Удаляет записи об изменениях в расписании "
+.ti -1c
+.RI "\fBremove\fP ($schedule)"
+.br
+.RI "Удаление записи о расписании "
+.in -1c
+.SS "Закрытые члены"
+
+.in +1c
+.ti -1c
+.RI "\fBintToDay\fP (int $day)"
+.br
+.RI "Форматирует числовое представление дня недели в строку "
+.in -1c
+.SH "Подробное описание"
+.PP 
+Менеджер для работы с расписанием 
+
+
+.PP
+\fBАвтор:\fP
+.RS 4
+pmswga 
+.RE
+.PP
+\fBВерсия:\fP
+.RS 4
+1\&.0
+.RE
+.PP
+Задачи менеджера:
+.IP "1." 4
+
+.PP
+
+.SH "Методы"
+.PP 
+.SS "add ( $schedule)"
+
+.PP
+Добавление новой записи о расписании 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$schedule\fP - Запись о расписании 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Ассоциативный массив в формате 
+.PP
+.nf
+$schedule_entry = array(
+  "group"   => ,
+  "day"     => ,
+  "pair"    => ,
+  "subject" => 
+);
+
+.fi
+.PP
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+TRUE - успешно, FALSE - ошибка 
+.RE
+.PP
+
+.SS "addChangeSchedule ( $schedule)"
+
+.PP
+Добавление новой записи об изменениях в расписании 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$schedule\fP - Запись об изменениях в расписании 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Ассоциативный массив в формате 
+.PP
+.nf
+$schedule_entry = array(
+  "group"   => ,
+  "day"     => ,
+  "pair"    => ,
+  "subject" => 
+);
+
+.fi
+.PP
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+TRUE - успешно, FALSE - ошибка 
+.RE
+.PP
+
+.SS "changeChangedPair (int $grp, string $day, int $pair, int $subject)"
+
+.PP
+Изменяет предмет в изменениях в расписании 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$grp\fP - Идентификатор группы 
+.br
+\fI$day\fP - День недели 
+.br
+\fI$pair\fP - Пара 
+.br
+\fI$subject\fP - Идентфикатор предмета 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+TRUE - успешно, FALSE - ошибка 
+.RE
+.PP
+
+.SS "changePair (int $grp, int $day, int $pair, int $subj_1, int $subj_2)"
+
+.PP
+Изменяет предмет 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$grp\fP - Идентификатор группы 
+.br
+\fI$day\fP - День недели 
+.br
+\fI$pair\fP - Пара 
+.br
+\fI$subj_1\fP - Идентфикатор предмета, который на нечётной неделе 
+.br
+\fI$subj_2\fP - Идентфикатор предмета, который на чётной неделе 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+TRUE - успешно, FALSE - ошибка 
+.RE
+.PP
+
+.SS "deleteChangedPair (int $grp)"
+
+.PP
+Удаляет записи об изменениях в расписании 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$grp\fP - Идентификатор группы 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+TRUE - успешно, FALSE - ошибка 
+.RE
+.PP
+
+.SS "getAllChangedSchedule ()"
+
+.PP
+Возвращает изменения во всех группах 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Изменения в расписании 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Ассоциативный массив в формате 
+.PP
+.nf
+$schedule = array(
+  "П-304" => array(
+    "2017-09-02 00:00:00" => array(
+      [0] => array(
+        [_day]    => ,
+        [group]   => ,
+        [id_grp]  => ,
+        [pair]    => ,
+        [subject] => 
+      ),
+      \&.\&.\&.
+    )
+    \&.\&.\&.
+  ),
+  \&.\&.\&.
+);
+
+.fi
+.PP
+ 
+.RE
+.PP
+
+.SS "getAllScheduleGroup ()"
+
+.PP
+Возвращает расписание всех групп 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Расписание 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Ассоциативный массив в формате 
+.PP
+.nf
+$schedule = array(
+  "П-304" => array(
+    "ПН" => array(
+      [0] => array(
+        [_day]    => ,
+        [group]   => ,
+        [id_grp]  => ,
+        [pair]    => ,
+        [subject] => 
+      ),
+      \&.\&.\&.
+    )
+    \&.\&.\&.
+  ),
+  \&.\&.\&.
+);
+
+.fi
+.PP
+ 
+.RE
+.PP
+
+.SS "getChangeScheduleGroup (int $grp)"
+
+.PP
+Возвращает изменения в расписании группы 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$grp\fP - Идентификатор 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+Расписание 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Ассоциативный массив 
+.RE
+.PP
+
+.SS "getScheduleGroup (int $grp)"
+
+.PP
+Возвращает расписание группы 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$grp\fP - Идентификатор 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+Расписание 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Ассоциативный массив 
+.RE
+.PP
+
+.SS "intToDay (int $day)\fC [private]\fP"
+
+.PP
+Форматирует числовое представление дня недели в строку 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$day\fP - Номер дня недели 
+.RE
+.PP
+\fBВозвращает:\fP
+.RS 4
+Строковое представление дня недели 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+1 - ПН, 2 - ВТ, 3 - СР, 4 - ЧТ, 5 - ПТ, 6 - СБ 
+.RE
+.PP
+
+.SS "remove ( $schedule)"
+
+.PP
+Удаление записи о расписании 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$schedule\fP - Запись о расписании 
+.RE
+.PP
+\fBПредупреждения:\fP
+.RS 4
+Ожидает реализации 
+.RE
+.PP
+\fBОшибка\fP
+.RS 4
+Хз, с начала времён тут 
+.RE
+.PP
+
+
+.SH "Автор"
+.PP 
+Автоматически создано Doxygen для EDUKIT Developers из исходного текста\&.

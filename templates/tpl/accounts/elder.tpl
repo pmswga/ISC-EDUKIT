@@ -22,8 +22,8 @@
 				<div class="col-md-8">
           <div class="row">
             <div class="col-md-12">
-              <h2>Отметка посещаемости</h2>
               {if $sogroups != NULL}
+                <h2>Отметка посещаемости</h2>
                 <form name="commitTrafficForm" method="POST">
                   <table class="table table-bordered">
                     <thead>
@@ -53,14 +53,96 @@
                     </tfoot>
                   </table>
                 </form>
-              {else}
-                <h4>Вы уже отметили посещаемость</h4>
               {/if}
             </div>
           </div>
 					<div class="row">
             <div class="col-md-12">
-              <h2>Моё расписание</h2>
+              <div class="panel-group" id="scheduleGroups">
+                  <h2>Моё расписание</h2>
+                {if $changed_schedules != NULL}
+                  {foreach from=$changed_schedules key=grp item=schedule}
+                    <div class="panel panel-warning">
+                      <div class="panel-heading">
+                        <h4 class="panel-title">
+                          <a data-toggle="collapse">
+                            Изменения для {$grp}
+                          </a>
+                        </h4>
+                      </div>
+                      <div id="{$grp}" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                          {foreach from=$schedule key=day item=data}
+                            <table class="table table-hover">
+                              <thead>
+                                <h3>{$day|date_format:'d.m.Y (l)'}</h3>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <th>Пара</th>
+                                  <th>Предмет</th>
+                                </tr>
+                                {foreach from=$data item=entry}
+                                  <tr>
+                                    <td>{$entry['pair']}</td>
+                                    <td>{$entry['subject']}</td>
+                                  </tr>
+                                {/foreach}
+                              </tbody>
+                            </table>
+                          {/foreach}
+                        </div>
+                      </div>
+                    </div>
+                  {/foreach}
+                {else}
+                  <h3 align="center">Изменений нет</h3>
+                {/if}
+                {if $schedules != NULL}
+                  {foreach from=$schedules key=grp item=schedule}
+                    <div class="panel panel-success">
+                      <div class="panel-heading">
+                        <h4 class="panel-title">
+                          <a data-toggle="collapse">
+                            Основное расписание для {$grp}
+                          </a>
+                        </h4>
+                      </div>
+                      <div id="{$grp}" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                          {foreach from=$schedule key=day item=data}
+                            <table class="table table-hover">
+                              <thead>
+                                <h3>{$day}</h3>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <th>Пара</th>
+                                  <th>Нижняя неделя</th>
+                                  <th>Верхняя неделя</th>
+                                </tr>
+                                {foreach from=$data item=entry}
+                                  <tr>
+                                    <td>{$entry['pair']}</td>
+                                    {if $entry['subj_1'] == $entry['subj_2']}
+                                      <td colspan="2">{$entry['subj_1']}</td>
+                                    {else}
+                                      <td>{$entry['subj_1']}</td>
+                                      <td>{$entry['subj_2']}</td>
+                                    {/if}
+                                  </tr>
+                                {/foreach}
+                              </tbody>
+                            </table>
+                          {/foreach}
+                        </div>
+                      </div>
+                    </div>
+                  {/foreach}
+                {else}
+                  <h3 align="center">Расписания нет</h3>
+                {/if}
+              </div>
             </div>
           </div>
 				</div>
@@ -106,27 +188,24 @@
 					<h2>Моя посещаемость</h2>
           <div id="student_traffic">
             {if $traffic != NULL}
-              {foreach from=$traffic item=traffic_entry}
-                <div class="cube" 
-                  data-toggle="popover" 
-                  data-placement="top"                  
-                  data-html="true"                  
-                  title="{$traffic_entry['date_visit']|date_format:'d.m.Y'}" 
-                  data-content="
-                    <table class='table table-border'>
-                      <tr>
-                        <td>Пар</td>
-                        <td>Посещено</td>
-                        <td>Пропущено</td>
-                      </tr>
-                      <tr>
-                        <td>{$traffic_entry['count_all_hours']/2}</td>
-                        <td>{$traffic_entry['count_passed_hours']/2}</td>
-                        <td>{($traffic_entry['count_all_hours']-$traffic_entry['count_passed_hours'])/2}</td>
-                      </tr>
-                    </table>">
-                </div>
-              {/foreach}
+              <table class="table table-border">
+                <tbody>
+                  <tr>
+                    <th>Дата</th>
+                    <th>Всего пар</th>
+                    <th>Посещено</th>
+                    <th>Пропущено</th>
+                  </tr>
+                  {foreach from=$traffic item=traffic_entry}
+                    <tr>
+                      <td>{$traffic_entry['date_visit']|date_format:'d.m.Y'}</td>
+                      <td>{$traffic_entry['count_all_hours']/2}</td>
+                      <td>{$traffic_entry['count_passed_hours']/2}</td>
+                      <td>{($traffic_entry['count_all_hours']-$traffic_entry['count_passed_hours'])/2}</td>
+                    </tr>
+                  {/foreach}
+                </tbody>
+              </table>
             {else}
               <h3>Похоже, что вы вообще не посещали колледж...</h3>
             {/if}

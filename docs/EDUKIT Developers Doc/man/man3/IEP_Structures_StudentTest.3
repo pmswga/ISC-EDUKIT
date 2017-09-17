@@ -1,0 +1,315 @@
+.TH "StudentTest" 3 "Вс 17 Сен 2017" "Version 1.0" "EDUKIT Developers" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+StudentTest \- Класс описывающий сущность результатов теста, которые будут отображаться в личном кабинете  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include 'iep/structures/studenttest\&.class\&.php'\fP
+.SS "Открытые члены"
+
+.in +1c
+.ti -1c
+.RI "\fB__construct\fP (string $student, string $caption, string $subject, string $date_pass, int $mark)"
+.br
+.ti -1c
+.RI "\fBsetTestID\fP (int $id)"
+.br
+.RI "Задаёт идентификатор теста "
+.ti -1c
+.RI "\fBgetTestID\fP ()"
+.br
+.RI "Возвращает идентификатор теста "
+.ti -1c
+.RI "\fBsetTestAuthor\fP (string $test_author)"
+.br
+.RI "Задаёт автора теста "
+.ti -1c
+.RI "\fBgetTestAuthor\fP ()"
+.br
+.RI "Возвращает автора теста "
+.ti -1c
+.RI "\fBgetStudent\fP ()"
+.br
+.RI "Возвращает электронную почту студента, который прошёл тест "
+.ti -1c
+.RI "\fBgetCaption\fP ()"
+.br
+.RI "Возвращает название теста "
+.ti -1c
+.RI "\fBgetSubject\fP ()"
+.br
+.RI "Возвращает предмет студента "
+.ti -1c
+.RI "\fBgetDatePass\fP ()"
+.br
+.RI "Возвращает дату сдачи теста "
+.ti -1c
+.RI "\fBgetMark\fP ()"
+.br
+.RI "Возвращает оценку за тест "
+.ti -1c
+.RI "\fBsetAnswers\fP (array $answers)"
+.br
+.RI "Задаёт ответы студента "
+.ti -1c
+.RI "\fBgetAnswers\fP ()"
+.br
+.RI "Возвращает ответы студента "
+.in -1c
+.SS "Закрытые данные"
+
+.in +1c
+.ti -1c
+.RI "\fB$id_test\fP"
+.br
+.RI "Идентификатор теста "
+.ti -1c
+.RI "\fB$test_author\fP"
+.br
+.RI "Автор теста "
+.ti -1c
+.RI "\fB$student\fP"
+.br
+.RI "Студент, который проходит тест "
+.ti -1c
+.RI "\fB$caption\fP"
+.br
+.RI "Заголовок теста "
+.ti -1c
+.RI "\fB$subject\fP"
+.br
+.RI "Предмет "
+.ti -1c
+.RI "\fB$date_pass\fP"
+.br
+.RI "Дата сдачи "
+.ti -1c
+.RI "\fB$mark\fP"
+.br
+.RI "Оценка "
+.ti -1c
+.RI "\fB$answers\fP"
+.br
+.RI "Ответы "
+.in -1c
+.SH "Подробное описание"
+.PP 
+Класс описывающий сущность результатов теста, которые будут отображаться в личном кабинете 
+
+
+.PP
+\fBАвтор:\fP
+.RS 4
+pmswga 
+.RE
+.PP
+\fBВерсия:\fP
+.RS 4
+1\&.0 
+.RE
+.PP
+
+.SH "Конструктор(ы)"
+.PP 
+.SS "__construct (string $student, string $caption, string $subject, string $date_pass, int $mark)"
+
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$student\fP - Email студента 
+.br
+\fI$caption\fP - Название теста 
+.br
+\fI$subject\fP - Предмет 
+.br
+\fI$date_pass\fP - Дата сдачи 
+.br
+\fI$mark\fP - Оценка 
+.RE
+.PP
+
+.SH "Методы"
+.PP 
+.SS "getAnswers ()"
+
+.PP
+Возвращает ответы студента 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Массив с ответами 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Формат массива [[question, answer], [question, answer], \&.\&.\&.] 
+.RE
+.PP
+
+.SS "getCaption ()"
+
+.PP
+Возвращает название теста 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Название теста 
+.RE
+.PP
+
+.SS "getDatePass ()"
+
+.PP
+Возвращает дату сдачи теста 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Дату сдачи теста 
+.RE
+.PP
+
+.SS "getMark ()"
+
+.PP
+Возвращает оценку за тест 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Оценку за тест 
+.RE
+.PP
+
+.SS "getStudent ()"
+
+.PP
+Возвращает электронную почту студента, который прошёл тест 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Email студента 
+.RE
+.PP
+
+.SS "getSubject ()"
+
+.PP
+Возвращает предмет студента 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Предмет 
+.RE
+.PP
+
+.SS "getTestAuthor ()"
+
+.PP
+Возвращает автора теста 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Автора теста 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Формат 'Фамилия И\&.О\&.' 
+.RE
+.PP
+
+.SS "getTestID ()"
+
+.PP
+Возвращает идентификатор теста 
+.PP
+\fBВозвращает:\fP
+.RS 4
+Идентификатор пройденного теста 
+.RE
+.PP
+
+.SS "setAnswers (array $answers)"
+
+.PP
+Задаёт ответы студента 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$answers\fP - массив с ответами 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Формат массива [[question, answer], [question, answer], \&.\&.\&.] 
+.RE
+.PP
+
+.SS "setTestAuthor (string $test_author)"
+
+.PP
+Задаёт автора теста 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$test_author\fP - Автор теста 
+.RE
+.PP
+\fBЗаметки:\fP
+.RS 4
+Формат 'Фамилия И\&.О\&.' 
+.RE
+.PP
+
+.SS "setTestID (int $id)"
+
+.PP
+Задаёт идентификатор теста 
+.PP
+\fBАргументы:\fP
+.RS 4
+\fI$id\fP - Идентификатор пройденного теста 
+.RE
+.PP
+
+.SH "Поля"
+.PP 
+.SS "$answers\fC [private]\fP"
+
+.PP
+Ответы 
+.SS "$caption\fC [private]\fP"
+
+.PP
+Заголовок теста 
+.SS "$date_pass\fC [private]\fP"
+
+.PP
+Дата сдачи 
+.SS "$id_test\fC [private]\fP"
+
+.PP
+Идентификатор теста 
+.SS "$mark\fC [private]\fP"
+
+.PP
+Оценка 
+.SS "$student\fC [private]\fP"
+
+.PP
+Студент, который проходит тест 
+.SS "$subject\fC [private]\fP"
+
+.PP
+Предмет 
+.SS "$test_author\fC [private]\fP"
+
+.PP
+Автор теста 
+
+.SH "Автор"
+.PP 
+Автоматически создано Doxygen для EDUKIT Developers из исходного текста\&.
