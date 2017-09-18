@@ -13,12 +13,12 @@ DROP PROCEDURE IF EXISTS clearAllNews;
 
 DELIMITER //
 
-CREATE PROCEDURE addNews(n_caption char(255), n_content text, emailTeacher char(30), n_date date)
+CREATE PROCEDURE addNews(n_caption char(255), n_content text, emailTeacher char(30), n_date datetime)
 BEGIN
 	INSERT INTO `news` (`caption`, `content`, `id_author`, `date_publication`) VALUES (n_caption, n_content, getTeacherId(emailTeacher), n_date);
 END;
 
-CREATE PROCEDURE addAdminNews(n_caption char(255), n_content text, emailTeacher char(30), n_date date)
+CREATE PROCEDURE addAdminNews(n_caption char(255), n_content text, emailTeacher char(30), n_date datetime)
 BEGIN
 	INSERT INTO `admin_news` (`caption`, `content`, `id_author`, `date_publication`) VALUES (n_caption, n_content, getAdminId(emailTeacher), n_date);
 END;

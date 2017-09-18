@@ -76,10 +76,7 @@
           var data = $.parseJSON(replay);
           
           $("[name='caption']").attr("value", data.caption);
-          
-          var dp = new Date(data.date_publication);
-          
-          $("[name='dp']").attr("value", dp.toLocaleTimeString());
+          $("[name='dp']").attr("value", data.date_publication);
           $("[name='news_id']").attr("value", data.id_news);
           
         }

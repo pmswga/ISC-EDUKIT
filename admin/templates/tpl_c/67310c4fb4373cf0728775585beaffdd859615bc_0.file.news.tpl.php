@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-09-02 13:51:22
+/* Smarty version 3.1.29, created on 2017-09-18 23:06:55
   from "C:\OpenServer\domains\EDUKIT\admin\templates\tpl\news.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_59aa8d2a9dac86_79438824',
+  'unifunc' => 'content_59c0275f5be785_13085674',
   'file_dependency' => 
   array (
     '67310c4fb4373cf0728775585beaffdd859615bc' => 
     array (
       0 => 'C:\\OpenServer\\domains\\EDUKIT\\admin\\templates\\tpl\\news.tpl',
-      1 => 1504349482,
+      1 => 1505765214,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
     'file:html/end.tpl' => 1,
   ),
 ),false)) {
-function content_59aa8d2a9dac86_79438824 ($_smarty_tpl) {
+function content_59c0275f5be785_13085674 ($_smarty_tpl) {
 if (!is_callable('smarty_modifier_date_format')) require_once 'C:\\OpenServer\\domains\\EDUKIT\\engine\\smarty\\plugins\\modifier.date_format.php';
 $_smarty_tpl->tpl_vars["title"] = new Smarty_Variable("EDUKIT | Новости", null);
 $_smarty_tpl->ext->_updateScope->updateScope($_smarty_tpl, "title", 0);
@@ -135,10 +135,7 @@ $_smarty_tpl->tpl_vars['one_news'] = $__foreach_one_news_0_saved_item;
           var data = $.parseJSON(replay);
           
           $("[name='caption']").attr("value", data.caption);
-          
-          var dp = new Date(data.date_publication);
-          
-          $("[name='dp']").attr("value", dp.toLocaleTimeString());
+          $("[name='dp']").attr("value", data.date_publication);
           $("[name='news_id']").attr("value", data.id_news);
           
         }

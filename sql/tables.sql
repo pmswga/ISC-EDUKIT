@@ -146,7 +146,7 @@ CREATE TABLE IF NOT EXISTS `news` (
 	caption char(255) NOT NULL,
 	content text NOT NULL,
 	id_author int NOT NULL,
-	date_publication date NOT NULL,
+	date_publication datetime NOT NULL,
 	INDEX (id_author),
 	CONSTRAINT nc_caption CHECK(caption <> ''),
 	CONSTRAINT nc_content CHECK(content <> '')
@@ -248,7 +248,7 @@ CREATE TABLE IF NOT EXISTS `admin_news` (
 	caption char(255) NOT NULL,
 	content text NOT NULL,
 	id_author int NOT NULL,
-	date_publication date NOT NULL,
+	date_publication datetime NOT NULL,
 	INDEX (id_author),
 	CONSTRAINT nc_caption CHECK(caption <> ''),
 	CONSTRAINT nc_content CHECK(content <> '')

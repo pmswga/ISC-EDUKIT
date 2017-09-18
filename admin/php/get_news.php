@@ -10,10 +10,11 @@
   if ($news_id > 0) {
   
 		$NM = new NewsManager($DB);
-    $news = $NM->getAdminNewsByID($news_id);
+    $news = $NM->getAdminNewsByID($news_id)[0];
+    $news["date_publication"] = date_format(new DateTime($news["date_publication"]), "d.m.Y H:i:s");
     
     if (!empty($news)) {
-      echo json_encode($news[0]);
+      echo json_encode($news);
     } else {
       echo "error";
     }

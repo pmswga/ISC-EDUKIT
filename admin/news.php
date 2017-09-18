@@ -29,17 +29,15 @@
         $new_news = new News($data['caption'], $data['content'], $data['email'], $data['dp']);
         
         if ($NM->addAdminNews($new_news)) {
-          CTools::Message("All good");
+          CTools::Message("Новость успешно добавлена");
         } else {
-          CTools::Message("All Bad");
+          CTools::Message("Произошла ошибка при добавлении новости");
         }
         
         CTools::Redirect("news.php");
       
       } else {
         $news_id = $_POST['new_id'];
-        
-        
       }
       
 		}
@@ -48,7 +46,21 @@
 			$data = CForm::getData(["caption", "content", "email", "dp"]);
       $data['dp'] = date_format(new DateTime($data['dp']), "Y-m-d");
       
+      $id_news = $_POST['news_id'];
       
+      $change_query = $NM->dbc()->prepare("UPDATE `admin_news` SET `content`=:new_content, `caption`=:new_caption WHERE `id_news`=:id_news");
+      
+      $change_query->bindValue(":id_news", $id_news);
+      $change_query->bindValue(":new_content", $data['content']);
+      $change_query->bindValue(":new_caption", $data['caption']);
+      
+      if ($change_query->execute()) {
+        CTools::Message("Новость была успешно изменена");
+      } else {
+        CTools::Message("Ошибка при изменении новости");
+      }
+      
+      CTools::redirect("news.php");
     }
 		
 		if (!empty($_POST['removeNewsButton'])) {
