@@ -1,8 +1,7 @@
 <?php
 	require_once $_SERVER['DOCUMENT_ROOT']."/start.php";
     
-	if(!empty($_POST['authorizateButton']))
-	{
+	if (!empty($_POST['signInButton'])) {
 		$email = htmlspecialchars($_POST['email']);
 		$password = md5(htmlspecialchars($_POST['password']));
 		
@@ -16,6 +15,8 @@
       
 		CTools::Redirect($_SERVER['HTTP_REFERER']);
 	}
-	else CTools::Redirect($_SERVER['HTTP_REFERER']);
+	else {
+		CTools::Redirect($_SERVER['HTTP_REFERER']);
+	} 
 	
 ?>

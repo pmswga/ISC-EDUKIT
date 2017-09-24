@@ -7,7 +7,7 @@ var date = new Date;
 var day = date.getDay();
 
 if (day != 0) {
-  document.getElementById(day).setAttribute("class", "active");
+  document.getElementById(day).setAttribute("class", "ui active button");
 } else {
-  document.getElementById("7").setAttribute("class", "active");
+  document.getElementById("7").setAttribute("class", "ui active button");
 }

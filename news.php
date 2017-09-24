@@ -1,15 +1,9 @@
 <?php
 	require_once "start.php";
 	
-  use IEP\Structures\User;
-  
-	$newsByDate = array();
+	use IEP\Structures\User;
 	
-	foreach ($NM->getAllNews() as $one_news) {
-		$newsByDate[$one_news->getDatePublication()][] = $one_news;
-	}
-	
-	$CT->assign("newsByDate", array_reverse($newsByDate));
+	$CT->assign("news", $NM->getAllNews());
   
 	if (isset($_SESSION['user']) &&
       $_SESSION['user'] instanceof User

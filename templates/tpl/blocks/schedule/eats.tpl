@@ -1,17 +1,21 @@
-<table id="schedule_lunchs" class="table table-bordered">
+<table id="schedule_lunchs" class="ui table striped">
   <thead>
-     <td colspan="2"><h4>Обеды</h4></td>
+    <tr>
+      <th colspan="2"><h4>Обеды</h4></th>
+    </tr>
   </thead>
-  <tr>
-    <td>1 смена (11:40 - 12:10) </td>
-    <td> 1, 2 этаж старого здания</td>
-  </tr>
-  <tr>
-    <td>2 смена (12:30 - 12:50) </td>
-    <td> 1 этаж нового здания, 3 этаж старого здания</td>
-  </tr>
-  <tr>
-    <td>3 смена (13:20 - 13:40) </td>
-    <td> 3, 4 этаж нового здания</td>
-  </tr>
+  <tbody>
+    <tr>
+      <td>11:40 - 12:10</td>
+      <td> 1, 2 этаж старого здания</td>
+    </tr>
+    <tr>
+      <td>12:30 - 12:50</td>
+      <td> 1 этаж нового здания, 3 этаж старого здания</td>
+    </tr>
+    <tr>
+      <td>13:20 - 13:40</td>
+      <td> 3, 4 этаж нового здания</td>
+    </tr>
+  </tbody>
 </table>

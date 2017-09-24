@@ -1,133 +1,169 @@
 {assign var="title" value="Расписание"}
 {include file='html/begin.tpl'}
-  <div class="container-fluid">
-    
-    {if $user != NULL}  
-      {include file='blocks/user_menu.tpl'}
-    {else}
-      {include file='blocks/guest_menu.tpl'}
-    {/if}
-
+  <div class="ui stackable grid">
     <div class="row">
-      <div class="col-md-12">
-        <div class="container-fluid">
-          <div id="rings" class="col-md-3">
-            <h2>Расписание</h2>
-            <nav id="nowDay" class="text-center">
-              <ul class="pagination pagination-sm">
-                <li id="1"><a>ПН</a></li>
-                <li id="2"><a>ВТ</a></li>
-                <li id="3"><a>СР</a></li>
-                <li id="4"><a>ЧТ</a></li>
-                <li id="5"><a>ПТ</a></li>
-                <li id="6"><a>СБ</a></li>
-                <li id="7"><a>ВС</a></li>
-              </ul>
-            </nav>
-            {include "blocks/schedule/calls.tpl"}
-            {include "blocks/schedule/eats.tpl"}
-          </div>
-          <div class="col-md-9">
-            <form name="selectGroupForm" class="form-inline" method="POST">
-              <div class="form-group">
-                <label>Группа: </label>
-                <select name="group" class="form-control">
-                  {foreach from=$groups item=group}
-                    <option value="{$group->getGroupID()}">{$group->getNumberGroup()}</option>
-                  {/foreach}
-                </select>
+      <div class="three wide column">
+          {if $user != NULL}
+            {include file='blocks/user_menu.tpl'}  
+          {else}
+            {include file='blocks/guest_menu.tpl'}
+          {/if}
+      </div>
+      <div class="thirteen wide column">
+        <div class="ui stackable celled grid">
+          <div class="row">
+            <div class="two wide column">
+              <div id="week" class="ui mini statistic">
+                <div class="value">
+                  {$week}
+                </div>
+                <div class="label">
+                  Неделя
+                </div>
               </div>
-              <input type="submit" name="selectGroupButton" value="Показать" class="btn btn-default">
-            </form>
-            <hr>
-            <div class="panel-group" id="scheduleGroups">
-              {if $changed_schedules != NULL}
-                {foreach from=$changed_schedules key=grp item=schedule}
-                  <div class="panel panel-warning">
-                    <div class="panel-heading">
-                      <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#scheduleGroups" href="#{$grp}">
-                          Изменения для {$grp}
-                        </a>
-                      </h4>
-                    </div>
-                    <div id="{$grp}" class="panel-collapse collapse in">
-                      <div class="panel-body">
-                        {foreach from=$schedule key=day item=data}
-                          <table class="table table-hover">
-                            <thead>
-                              <h3>{$day|date_format:'d.m.Y (l)'}</h3>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <th>Пара</th>
-                                <th>Предмет</th>
-                              </tr>
-                              {foreach from=$data item=entry}
-                                <tr>
-                                  <td>{$entry['pair']}</td>
-                                  <td>{$entry['subject']}</td>
-                                </tr>
+            </div>
+            <div class="fourteen wide column">
+              <div id="nowDay" class="ui buttons">
+                <a id="1" class="ui button">ПН</a>
+                <a id="2" class="ui button">ВТ</a>
+                <a id="3" class="ui button">СР</a>
+                <a id="4" class="ui button">ЧТ</a>
+                <a id="5" class="ui button">ПТ</a>
+                <a id="6" class="ui button">СБ</a>
+                <a id="7" class="ui button">ВС</a>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="ten wide column">
+              <div class="ui stackable grid">
+                <div class="row">
+                  <div class="sixteen wide column">
+                    <form name="selectGroupForm" method="POST" class="ui form">
+                      <div class="field">
+                        <div class="ui stackable grid">
+                          <div class="eleven wide column">
+                            <select name="group" class="ui fluid dropdown">
+                              {foreach from=$groups item=group}
+                                <option value="{$group->getGroupID()}">{$group->getNumberGroup()}</option>
                               {/foreach}
-                            </tbody>
-                          </table>
-                        {/foreach}
+                            </select>
+                          </div>
+                          <div class="five wide column">
+                            <input type="submit" name="selectGroupButton" value="Показать расписание" class="ui button">
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                {/foreach}
-              {else}
-                <h3 align="center">Изменений нет</h3>
-              {/if}
-              {foreach from=$schedules key=grp item=schedule}
-                <div class="panel panel-success">
-                  <div class="panel-heading">
-                    <h4 class="panel-title">
-                      <a data-toggle="collapse" data-parent="#scheduleGroups" href="#{$grp}">
-                        Основное расписание для {$grp}
-                      </a>
-                    </h4>
-                  </div>
-                  <div id="{$grp}" class="panel-collapse collapse in">
-                    <div class="panel-body">
-                      {foreach from=$schedule key=day item=data}
-                        <table class="table table-hover">
-                          <thead>
-                            <h3>{$day}</h3>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <th>Пара</th>
-                              <th>Нижняя неделя</th>
-                              <th>Верхняя неделя</th>
-                            </tr>
-                            {foreach from=$data item=entry}
-                              <tr>
-                                <td>{$entry['pair']}</td>
-                                {if $entry['subj_1'] == $entry['subj_2']}
-                                  <td colspan="2">{$entry['subj_1']}</td>
-                                {else}
-                                  <td>{$entry['subj_1']}</td>
-                                  <td>{$entry['subj_2']}</td>
-                                {/if}
-                              </tr>
-                            {/foreach}
-                          </tbody>
-                        </table>
-                      {/foreach}
-                    </div>
+                    </form>
                   </div>
                 </div>
-              {/foreach}
+                <div class="row">
+                  <div class="sixteen wide column">
+                    {if $changed_schedules != NULL}
+                      {foreach from=$changed_schedules key=grp item=schedule}
+                      <div id="groupSchedule" class="ui styled accordion">
+                          <div class="active title">
+                            Изменения
+                          </div>
+                          <div class="active content">
+                            {foreach from=$schedule key=day item=data}
+                              <div class="accordion">
+                                <div class="title">
+                                  <h3>{$day|date_format:"d.m.Y"}</h3>
+                                </div>
+                                <div class="content">
+                                  <table class="ui table bordered">
+                                    <thead>
+                                      <tr>
+                                        <th><h4>Пара</h4></th>
+                                        <th><h4>Нижняя неделя</h4></th>
+                                        <th><h4>Верхняя неделя</h4></th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {foreach from=$data item=entry}
+                                        <tr>
+                                          <td>{$entry['pair']}</td>
+                                          {if $entry['subj_1'] == $entry['subj_2']}
+                                            <td colspan="2">{$entry['subj_1']}</td>
+                                          {else}
+                                            <th>{$entry['subj_1']}</th>
+                                            <th>{$entry['subj_2']}</th>
+                                          {/if}
+                                        </tr>
+                                      {/foreach}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            {/foreach}
+                          </div>
+                        </div>
+                      {/foreach}
+                    {/if}
+                    {if $schedules != NULL}
+                      {foreach from=$schedules key=grp item=schedule}
+                        <div id="groupSchedule" class="ui styled accordion">
+                          <div class="active title">
+                            Основное расписание для {$grp}
+                          </div>
+                          <div class="active content">
+                            {foreach from=$schedule key=day item=data}
+                              <div class="accordion">
+                                <div class="title">
+                                  <h3>{$day}</h3>
+                                </div>
+                                <div class="content">
+                                  <table class="ui table bordered">
+                                    <thead>
+                                      <tr>
+                                        <th><h4>Пара</h4></th>
+                                        <th><h4>Нижняя неделя</h4></th>
+                                        <th><h4>Верхняя неделя</h4></th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {foreach from=$data item=entry}
+                                        <tr>
+                                          <td>{$entry['pair']}</td>
+                                          {if $entry['subj_1'] == $entry['subj_2']}
+                                            <td colspan="2">{$entry['subj_1']}</td>
+                                          {else}
+                                            <th>{$entry['subj_1']}</th>
+                                            <th>{$entry['subj_2']}</th>
+                                          {/if}
+                                        </tr>
+                                      {/foreach}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            {/foreach}
+                          </div>
+                        </div>
+                      {/foreach}
+                    {/if}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="six wide column">
+              {include "blocks/schedule/calls.tpl"}
+              {include "blocks/schedule/eats.tpl"}
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
   {if $user == NULL}
     {include file='modals/reg_student.tpl'}
     {include file='modals/auth.tpl'}
   {/if}
+  
   <script type="text/javascript" src="js/getDay.js"></script>
+  <script type="text/javascript">
+    $('.ui.accordion').accordion();
+  </script>
 {include file='html/end.tpl'}

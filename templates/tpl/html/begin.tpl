@@ -3,11 +3,9 @@
 	<head>
 		<title>{$title}</title>
 		<meta charset="UTF-8">
-		<link rel="stylesheet" type="text/css" href="css/boostrap/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="css/semantic/semantic.css">
 		<link rel="stylesheet" type="text/css" href="css/main.css">
-		<link rel="stylesheet" type="text/css" href="css/reg.css">
-		<link rel="stylesheet" type="text/css" href="css/teachers.css">
 		<script type="text/javascript" src="js/jquery.js"></script>
-		<script type="text/javascript" src="js/bootstrap.js"></script>
+		<script type="text/javascript" src="js/semantic/semantic.js"></script>
 	</head>
 	<body>

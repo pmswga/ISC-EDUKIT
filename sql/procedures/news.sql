@@ -50,6 +50,11 @@ BEGIN
 	SELECT * FROM `v_News` WHERE `email`=n_author_email;
 END;
 
+CREATE PROCEDURE getAllAdminsNews()
+BEGIN
+	
+END;
+
 CREATE PROCEDURE getAllNews()
 BEGIN
 	(SELECT `id_news`, `caption`, `content`, CONCAT(u.sn, ' ', LEFT(u.fn, 1), '. ', LEFT(u.pt, 1), '.') as author, `date_publication` as dp 
@@ -58,6 +63,7 @@ BEGIN
 	)
 	union all
 	(SELECT `id_news`, `caption`, `content`, `author`, `dp` FROM `v_News`);
+    ORDER BY `dp`;
 END;
 
 CREATE PROCEDURE getAdminNews(author CHAR(255)) /* Для вывода в панели администратора */

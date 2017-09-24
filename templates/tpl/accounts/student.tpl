@@ -1,251 +1,256 @@
 {assign var=title value="Личный кабинет"}
 {include file="../html/begin.tpl"}
-		<div class="container-fluid">
-			{include file="blocks/user_menu.tpl"}
-			<div class="row" style="padding: 15px;">
-				<div class="col-md-8">
-					<div class="panel-group" id="scheduleGroups">
-            {if $changed_schedules != NULL}
-              {foreach from=$changed_schedules key=grp item=schedule}
-                <div class="panel panel-warning">
-                  <div class="panel-heading">
-                    <h4 class="panel-title">
-                      <a data-toggle="collapse">
-                        Изменения для {$grp}
-                      </a>
-                    </h4>
-                  </div>
-                  <div id="{$grp}" class="panel-collapse collapse in">
-                    <div class="panel-body">
-                      {foreach from=$schedule key=day item=data}
-                        <table class="table table-hover">
-                          <thead>
-                            <h3>{$day|date_format:'d.m.Y (l)'}</h3>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <th>Пара</th>
-                              <th>Предмет</th>
-                            </tr>
-                            {foreach from=$data item=entry}
-                              <tr>
-                                <td><p>{$entry['pair']}</p></td>
-                                <td><p>{$entry['subject']}</p></td>
-                              </tr>
-                            {/foreach}
-                          </tbody>
-                        </table>
-                      {/foreach}
-                    </div>
-                  </div>
-                </div>
-              {/foreach}
-            {/if}
-            {if $schedules != NULL}
-              {foreach from=$schedules key=grp item=schedule}
-                <div class="panel panel-success">
-                  <div class="panel-heading">
-                    <h4 class="panel-title">
-                      <a data-toggle="collapse">
-                        Основное расписание для {$grp}
-                      </a>
-                    </h4>
-                  </div>
-                  <div id="{$grp}" class="panel-collapse collapse in">
-                    <div class="panel-body">
-                      {foreach from=$schedule key=day item=data}
-                        <table class="table table-hover">
-                          <thead>
-                            <h3>{$day}</h3>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <th>Пара</th>
-                              <th>Нижняя неделя</th>
-                              <th>Верхняя неделя</th>
-                            </tr>
-                            {foreach from=$data item=entry}
-                              <tr>
-                                <td><p>{$entry['pair']}</p></td>
-                                {if $entry['subj_1'] == $entry['subj_2']}
-                                  <td colspan="2"><p>{$entry['subj_1']}</p></td>
-                                {else}
-                                  <td><p>{$entry['subj_1']}</p></td>
-                                  <td><p>{$entry['subj_2']}</p></td>
-                                {/if}
-                              </tr>
-                            {/foreach}
-                          </tbody>
-                        </table>
-                      {/foreach}
-                    </div>
-                  </div>
-                </div>
-              {/foreach}
-            {else}
-              <h3 align="center">Расписание составлено</h3>
-            {/if}
-					</div>
-				</div>
-				<div class="col-md-4">
-					<fieldset>
-						<legend>Моя информация</legend>
-						<table class="table table-striped">
-							<tr>
-								<td>Фамилия</td>
-								<td>{$user->getSn()}</td>
-							</tr>
-							<tr>
-								<td>Имя</td>
-								<td>{$user->getFn()}</td>
-							</tr>
-							<tr>
-								<td>Отчество</td>
-								<td>{$user->getPt()}</td>
-							</tr>
-							<tr>
-								<td>Email</td>
-								<td>{$user->getEmail()}</td>
-							</tr>
-							<tr>
-								<td>Группа</td>
-								<td>{$user->getGroup()->getNumberGroup()}</td>
-							</tr>
-							<tr>
-								<td>Сотовый телефон</td>
-								<td>{$user->getCellPhone()}</td>
-							</tr>
-							<tr>
-								<td>Адрес</td>
-								<td>{$user->getHomeAddress()|default:"Не указан"}</td>
-							</tr>
-						</table>
-					</fieldset>
-					<div class="panel-group" id="u">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h4 class="panel-title"><a data-toggle="collapse" data-parent="#u" href="#u_teachers">Одногруппники</a></h4>
-							</div>
-							<div id="u_teachers" class="panel-collapse collapse">
-								<div class="panel-body">
-                  {$i = 1}
-									{if $sogroups != NULL}
-										<table class="table table-bordered">
-											{foreach from=$sogroups item=it}
-												<tr>
-                          <td><p>{$i}</p></td>
-                          <td>{$it['sn']} {$it['fn']}</td>
-                        </tr>
-                        {$i = $i + 1}
-											{/foreach}
-										</table>
-									{else}
-										<h4>Ваши одногруппники ещё не зарегистрированны</h4>
-									{/if}
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+	<div class="ui stackable grid">
+    <div class="row">
+      <div class="three wide column">
+				{include file='blocks/user_menu.tpl'}  
 			</div>
-			<div class="row" style="padding: 15px;">
-				<div class="col-md-8">
-					<h2>Посещаемость</h2>
-          <div id="student_traffic">
-            {if $traffic != NULL}
-              <table class="table table-border">
-                <tbody>
-                  <tr>
-                    <th>Дата</th>
-                    <th>Всего пар</th>
-                    <th>Посещено</th>
-                    <th>Пропущено</th>
-                  </tr>
-                  {foreach from=$traffic item=traffic_entry}
-                    <tr>
-                      <td><p>{$traffic_entry['date_visit']|date_format:'d.m.Y'}</p></td>
-                      <td><p>{$traffic_entry['count_all_hours']/2}</p></td>
-                      <td><p>{$traffic_entry['count_passed_hours']/2}</p></td>
-                      <td><p>{($traffic_entry['count_all_hours']-$traffic_entry['count_passed_hours'])/2}</p></td>
-                    </tr>
-                  {/foreach}
-                </tbody>
-              </table>
-            {else}
-              <h3>Похоже, что вы вообще не посещали колледж...</h3>
-            {/if}
-          </div>
+			<div class="thirteen wide column">
+				<div class="ui top attached tabular menu">
+					<a class="item active" data-tab="main">Основное</a>
+					<a class="item" data-tab="sogrous">Одногруппники</a>
+					<a class="item" data-tab="testing">Тестирование</a>
+					<a class="item" data-tab="traffic">Посещаемость</a>
 				</div>
-				<div class="col-md-4">
-					<div class="panel-group" id="tests">
-						<div class="panel panel-primary">
-							<div class="panel-heading">
-								<h4 class="panel-title"><a data-toggle="collapse" data-parent="#tests" href="#s_tests">Доступные тесты</a></h4>
-							</div>
-							<div id="s_tests" class="panel-collapse collapse">
-								<div class="panel-body">
-									{if $tests != NULL}
-										<table class="table table-bordered">
-											<thead>
-												<th>Название</th>
-												<th>Предмет</th>
-												<th>Автор</th>
-											</thead>
-											<tbody>
-												{foreach from=$tests item=test}
-													<tr>
-													<td><a href="student/complete.php?test_id={$test->getTestID()}">{$test->getCaption()}</a></td>
-													<td>{$test->getSubject()->getDescription()}</td>
-													<td>{$test->getAuthor()}</td>
-													</tr>
-												{/foreach}
-											</tbody>
-										</table>
-									{else}
-										<h2>Нету доступных тестов</h2>
-									{/if}
-								</div>
-							</div>
+				<div class="ui bottom attached tab segment active" data-tab="main">
+					<div class="ui stackable grid">
+						<div class="ten wide column">
+							{if $changed_schedules != NULL}
+								{foreach from=$changed_schedules key=grp item=schedule}
+								<div id="groupSchedule" class="ui styled accordion">
+										<div class="active title">
+											Изменения
+										</div>
+										<div class="active content">
+											{foreach from=$schedule key=day item=data}
+												<div class="accordion">
+													<div class="title">
+														<h3>{$day|date_format:"d.m.Y"}</h3>
+													</div>
+													<div class="content">
+														<table class="ui table bordered">
+															<thead>
+																<tr>
+																	<th><h4>Пара</h4></th>
+																	<th><h4>Нижняя неделя</h4></th>
+																	<th><h4>Верхняя неделя</h4></th>
+																</tr>
+															</thead>
+															<tbody>
+																{foreach from=$data item=entry}
+																	<tr>
+																		<td>{$entry['pair']}</td>
+																		{if $entry['subj_1'] == $entry['subj_2']}
+																			<td colspan="2">{$entry['subj_1']}</td>
+																		{else}
+																			<th>{$entry['subj_1']}</th>
+																			<th>{$entry['subj_2']}</th>
+																		{/if}
+																	</tr>
+																{/foreach}
+															</tbody>
+														</table>
+													</div>
+												</div>
+											{/foreach}
+										</div>
+									</div>
+								{/foreach}
+							{/if}
+							<br>
+							{if $schedules != NULL}
+								{foreach from=$schedules key=grp item=schedule}
+									<div id="groupSchedule" class="ui styled accordion">
+										<div class="active title">
+											Основное расписание для {$grp}
+										</div>
+										<div class="active content">
+											{foreach from=$schedule key=day item=data}
+												<div class="accordion">
+													<div class="title">
+														<h3>{$day}</h3>
+													</div>
+													<div class="content">
+														<table class="ui table bordered">
+															<thead>
+																<tr>
+																	<th><h4>Пара</h4></th>
+																	<th><h4>Нижняя неделя</h4></th>
+																	<th><h4>Верхняя неделя</h4></th>
+																</tr>
+															</thead>
+															<tbody>
+																{foreach from=$data item=entry}
+																	<tr>
+																		<td>{$entry['pair']}</td>
+																		{if $entry['subj_1'] == $entry['subj_2']}
+																			<td colspan="2">{$entry['subj_1']}</td>
+																		{else}
+																			<th>{$entry['subj_1']}</th>
+																			<th>{$entry['subj_2']}</th>
+																		{/if}
+																	</tr>
+																{/foreach}
+															</tbody>
+														</table>
+													</div>
+												</div>
+											{/foreach}
+										</div>
+									</div>
+								{/foreach}
+							{/if}
+						</div>
+						<div class="six wide column">
+							<table class="ui table">
+								<thead>
+									<tr>
+										<th colspan="2"><h4>Обо мне</h4></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><div class="ui ribbon label">Фамилия</div></td>
+										<td>{$user->getSn()}</td>
+									</tr>
+									<tr>
+										<td><div class="ui ribbon label">Имя</div></td>
+										<td>{$user->getFn()}</td>
+									</tr>
+									<tr>
+										<td><div class="ui ribbon label">Отчество</div></td>
+										<td>{$user->getPt()}</td>
+									</tr>
+									<tr>
+										<td><div class="ui ribbon label">Email</div></td>
+										<td>{$user->getEmail()}</td>
+									</tr>
+									<tr>
+										<td><div class="ui ribbon label">Группа</div></td>
+										<td>{$user->getGroup()->getNumberGroup()}</td>
+									</tr>
+									<tr>
+										<td><div class="ui ribbon label">Сотовый телефон</div></td>
+										<td>{$user->getCellPhone()}</td>
+									</tr>
+									<tr>
+										<td><div class="ui ribbon label">Адрес</div></td>
+										<td>{$user->getHomeAddress()|default:"Не указан"}</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</div>
-					<div class="panel-group" id="completes_tests">
-						<div class="panel panel-success">
-							<div class="panel-heading">
-								<h4 class="panel-title"><a data-toggle="collapse" data-parent="#completes_tests" href="#c_tests">Пройденные тесты</a></h4>
-							</div>
-							<div id="c_tests" class="panel-collapse collapse">
-								<div class="panel-body">
-									{if $completedTests != NULL}
-										<table class="table table-bordered">
-											<thead>
-												<th>Название</th>
-												<th>Дата сдачи</th>
-											</thead>
-											<tbody>
-												{foreach from=$completedTests item=test}
-                          <tr>
-                            <td><a href="student/test.php?test={$test->getTestID()}">{$test->getCaption()}</a></td>
-                            <td>{$test->getDatePass()|date_format:'d.m.Y H:i:s'}</td>
-                          </tr>
-												{/foreach}
-											</tbody>
-										</table>
-									{else}
-										<h4>Вы ещё не прошли ни одного теста</h4>
-									{/if}
-								</div>
-							</div>
+				</div>
+				<div class="ui bottom attached tab segment" data-tab="sogrous">
+					{if $sogroups != NULL}
+						<div id="teachers" class="ui link cards">
+							{foreach from=$sogroups item=it}
+									<div class="card">
+										<div class="content">
+											<div class="header">{$it['sn']} {$it['fn']}</div>
+											<div class="meta">
+												<a>Одногруппник</a>
+											</div>
+											<div class="description">
+												<a href="mailto:{$it['email']}">{$it['email']}</a>
+											</div>
+										</div>
+									</div>
+							{/foreach}
+						</div>
+					{/if}
+				</div>
+				<div class="ui bottom attached tab segment" data-tab="testing">
+					
+					<div class="ui sackable grid">
+						<div class="ten wide column">
+							{if $tests != NULL}
+								<table class="table table-bordered">
+									<thead>
+										<th>Название</th>
+										<th>Предмет</th>
+										<th>Автор</th>
+									</thead>
+									<tbody>
+										{foreach from=$tests item=test}
+											<tr>
+											<td><a href="student/complete.php?test_id={$test->getTestID()}">{$test->getCaption()}</a></td>
+											<td>{$test->getSubject()->getDescription()}</td>
+											<td>{$test->getAuthor()}</td>
+											</tr>
+										{/foreach}
+									</tbody>
+								</table>
+							{else}
+								<h2>Нету доступных тестов</h2>
+							{/if}
+						</div>
+						<div class="six wide column">
+							{if $completedTests != NULL}
+								<table class="ui table striped">
+									<thead>
+										<tr>
+											<th colspan="2"><h4>Результаты</h4></th>
+										</tr>
+										<tr>
+											<th><h4>Название</h4></th>
+											<th><h4>Дата сдачи</h4></th>
+										</tr>
+									</thead>
+									<tbody id="tests">
+										{foreach from=$completedTests item=test}
+											<tr>
+												<td><a href="student/test.php?test={$test->getTestID()}">{$test->getCaption()}</a></td>
+												<td>{$test->getDatePass()|date_format:'d.m.Y H:i:s'}</td>
+											</tr>
+										{/foreach}
+									</tbody>
+								</table>
+							{else}
+								<h4>Вы ещё не прошли ни одного теста</h4>
+							{/if}
+						</div>
+					</div>
+
+				</div>
+				<div class="ui bottom attached tab segment" data-tab="traffic">
+					<div class="ui stackable grid">
+						<div class="sixteen wide column">
+							{if $traffic != NULL}
+								<table class="ui table striped">
+									<thead>	
+										<tr>
+											<th><h4>Дата</h4></th>
+											<th><h4>Всего пар</h4></th>
+											<th><h4>Посещено</h4></th>
+											<th><h4>Пропущено</h4></th>
+										</tr>
+									</thead>
+									<tbody id="traffic">
+										{foreach from=$traffic item=traffic_entry}
+											<tr>
+												<td>{$traffic_entry['date_visit']|date_format:'d.m.Y'}</td>
+												<td>{$traffic_entry['count_all_hours']/2}</td>
+												<td>{$traffic_entry['count_passed_hours']/2}</td>
+												<td>{($traffic_entry['count_all_hours']-$traffic_entry['count_passed_hours'])/2}</td>
+											</tr>
+										{/foreach}
+									</tbody>
+								</table>
+							{else}
+								<h3>Похоже, что вы вообще не посещали колледж...</h3>
+							{/if}
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-    
-    <script type="text/javascript">
-      
-      $("[data-toggle='tooltip']").tooltip();
-      $("[data-toggle='popover']").popover();
-    
-    </script>
-    
+	</div>
+	<script type="text/javascript">
+		
+		$('.menu .item').tab();
+		$('.ui.accordion').accordion();
+	
+	</script>
 {include file="../html/end.tpl"}

@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-09-17 21:34:40
+/* Smarty version 3.1.29, created on 2017-09-24 11:59:15
   from "C:\OpenServer\domains\EDUKIT\templates\tpl\modals\reg_student.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_59bec0402a1121_83838649',
+  'unifunc' => 'content_59c773e33b53f1_94203510',
   'file_dependency' => 
   array (
     'd6426d9cd5f1d4f9c4360b49c02863a69c35c3c6' => 
     array (
       0 => 'C:\\OpenServer\\domains\\EDUKIT\\templates\\tpl\\modals\\reg_student.tpl',
-      1 => 1494347732,
+      1 => 1506243500,
       2 => 'file',
     ),
   ),
@@ -19,49 +19,41 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_59bec0402a1121_83838649 ($_smarty_tpl) {
+function content_59c773e33b53f1_94203510 ($_smarty_tpl) {
 ?>
-<div class="modal fade" id="reg">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Регистрация студента</h4>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <?php if ($_smarty_tpl->tpl_vars['groups']->value != NULL) {?>
-            <form name="registration" method="POST" action="php/registration.php">
-              <div class="col-md-6">
-                <div id="snDiv" class="form-group">
-                  <label>Фамилия:</label>
-                  <input type="text" name="second_name" class="form-control" required>
-                </div>
-                <div id="fnDiv" class="form-group">
-                  <label>Имя:</label>
-                  <input type="text" name="first_name" class="form-control" required>
-                </div>
-                <div id="ptDiv" class="form-group">
-                  <label>Отчество:</label>
-                  <input type="text" name="patronymic" class="form-control">
-                </div>
-                <div id="emailDiv" class="form-group">
-                  <label>E-mail:</label>
-                  <input type="email" name="email" class="form-control" required>
-                </div>
-                <div id="passwordDiv" class="form-group">
-                  <label>Пароль:</label>
-                  <input type="password" name="password" class="form-control" required>
-                </div>
-                <div id="retryPasswordDiv" class="form-group">
-                  <label>Повторите пароль:</label>
-                  <input type="password" name="retry_password" class="form-control" required>
-                </div>
+<div class="ui modal" id="regStudentModal">
+  <i class="close icon"></i>
+  <div class="header">
+    Регистрация студента
+  </div>
+  <div class="content">
+    <div id="message" class="ui warning message"></div>
+    <?php if ($_smarty_tpl->tpl_vars['groups']->value != NULL) {?>
+      <form name="registrationForm" action="php/registration.php" method="POST"  class="ui form">
+        <div class="ui stackable grid">
+          <div class="row">
+            <div class="four wide column">
+              <div class="field">
+                <label>Фамилия</label>
+                <input type="text" name="second_name" required>
               </div>
-              <div class="col-md-6">
-                <div id="grpDiv" class="form-group">
-                  <label>Группа</label>
-                  <select name="grp" class="form-control" required>
+            </div>
+            <div class="four wide column" required>
+              <div class="field">
+                <label>Имя</label>
+                <input type="text" name="first_name" required>
+              </div>
+            </div>
+            <div class="four wide column">
+              <div class="field">
+                <label>Отчество</label>
+                <input type="text" name="patronymic">
+              </div>
+            </div>
+            <div class="four wide column">
+              <div class="field">
+                <label>Группа</label>
+                <select name="grp" class="form-control" required>
                     <?php
 $_from = $_smarty_tpl->tpl_vars['groups']->value;
 if (!is_array($_from) && !is_object($_from)) {
@@ -85,36 +77,50 @@ $_smarty_tpl->tpl_vars['group'] = $__foreach_group_0_saved_item;
 }
 ?>
                   </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+              <div class="eight wide column">
+                <div class="field">
+                  <label>E-mail</label>
+                  <input type="email" name="email" required>
                 </div>
-                <div id="addressDiv" class="form-group">
-                  <label>Адрес проживания</label>
-                  <input name="home_address" type="text" class="form-control">
+                <div class="field">
+                  <label>Пароль</label>
+                  <input type="password" name="password" required>
                 </div>
-                <div id="cellPhoneDiv" class="form-group">
-                  <label>Сотовый телефон</label>
-                  <input name="cell_phone_child" type="tel" class="form-control" required>
-                </div>
-                <div id="registrationSubmitDiv" class="form-group">
-                  <input type="reset" class="btn btn-md btn-warning">
-                  <input type="submit" name="registrationStudent" class="btn btn-md btn-success" value="Зарегистрироваться">
-                </div>
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <a href="regparent.php">Я родитель</a>
-                    </div>
-                  </div>
+                <div class="field">
+                  <label>Повторите пароль</label>
+                  <input type="password" name="retry_password" required>
                 </div>
               </div>
-            </form>
-          <?php } else { ?>
-            <h1 align="center">Регистрация закрыта</h1>
-          <?php }?>
+            <div class="eight wide column">
+              <div class="field">
+                <label>Адрес проживания</label>
+                <input type="text" name="home_address" required>
+              </div>
+              <div class="field">
+                <label>Сотовый телефон</label>
+                <input type="tel" name="cell_phone_child" required>
+              </div>
+              <div class="field">
+                <label>&nbsp;</label>
+                <div class="ui buttons">
+                  <input type="reset" class="ui orange button">
+                  <a href="regparent.php" class="ui green button">Я родитель</a>
+                  <input type="submit" name="registrationStudent" value="Зарегистрироваться" class="ui primary button">
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+      </form>
+    <?php } else { ?>
+      <h3>Регистрация закрыта</h3>
+    <?php }?>
+  </div>
+</div>
 <?php echo '<script'; ?>
  type="text/javascript" src="js/checkStudentRegForm.js"><?php echo '</script'; ?>
 ><?php }

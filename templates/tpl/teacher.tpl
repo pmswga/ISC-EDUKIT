@@ -1,31 +1,36 @@
 {assign var="title" value="Преподаватели"}
 {include file='html/begin.tpl'}
-  <div class="container-fluid">
-  
-    {if $user != NULL}
-      {include file='blocks/user_menu.tpl'}
-    {else}
-      {include file='blocks/guest_menu.tpl'}
-    {/if}
-  
+  <div class="ui stackable grid">
     <div class="row">
-      <div id="content" class="col-md-12">
-        <div id="teachers">
-          {if $teachers != NULL}
-            {foreach from=$teachers item=teacher}
-              <figure class="teacher">
-                <img width="250" src="img/people.jpg" alt="">
-                <!-- <img src="http://placehold.it/250" alt=""> -->
-                <figcaption>{$teacher->getSn()} {$teacher->getFn()} {$teacher->getPt()}</figcaption>
-              </figure>
-            {/foreach}
+      <div class="three wide column">
+          {if $user != NULL}
+            {include file='blocks/user_menu.tpl'}  
           {else}
-            <h2>Преподаватели ещё не зарегистрированны</h2>
+            {include file='blocks/guest_menu.tpl'}
           {/if}
-        </div>
+      </div>
+      <div class="thirteen wide column">
+        {if $teachers != NULL}
+          <div id="teachers" class="ui link cards">
+            {foreach from=$teachers item=teacher}
+                <div class="card">
+                  <div class="content">
+                    <div class="header">{$teacher->getSn()} {$teacher->getFn()} {$teacher->getPt()}</div>
+                    <div class="meta">
+                      <a>Преподаватель</a>
+                    </div>
+                    <div class="description">
+                      {$teacher->getInfo()}
+                    </div>
+                  </div>
+                </div>
+            {/foreach}
+          </div>
+        {/if}
       </div>
     </div>
   </div>
+
   {if $user == NULL}
     {include file='modals/reg_student.tpl'}
     {include file='modals/auth.tpl'}

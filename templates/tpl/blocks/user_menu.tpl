@@ -1,25 +1,32 @@
-<div class="row">
-	<div class="col-md-12">
-		<nav class="navbar navbar-default" role="navigation">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a href="index.php" class="navbar-brand">УКИТ<!--<img src="img/ukit.png" width="50px" alt="">--></a>
-			</div>
-			<div class="collapse navbar-collapse" id="menu">
-				<ul class="nav navbar-nav pull-right">
-					<li><a href="index.php">Главная</a></li>
-					<li><a href="news.php">Новости</a></li>
-					<li><a href="schedule.php">Расписание</a></li>
-					<li><a href="teachers.php">Преподаватели</a></li>
-					<li><a href="user.php">Профиль</a></li>
-					<li><a href="php/exit.php">Выход</a></li>
-				</ul>
-			</div>
-		</nav>
-	</div>
-</div>
+<section>
+	<figure>
+	<img src="img/ukit.png" width="100%" alt="">
+	</figure>
+</section>
+<nav class="ui left vertical menu" style="width: 100%;">
+	<!-- FIXME: Добавить стили в файл .css -->
+	<a href="index.php" class="item" style="text-align: center;">
+		<i class="main icon"></i>
+		Главная
+	</a>
+	<a href="news.php" class="item">
+		<i class="newspaper icon"></i>
+		Новости
+	</a>
+	<a href="schedule.php" class="item">
+		<i class="calendar icon"></i>
+		Расписание
+	</a>
+	<a href="teachers.php" class="item">
+		<i class="users icon"></i>
+		Преподаватели
+	</a>
+	<a href="user.php" class="item" id="openRegStudentModal">
+		<i class="user icon"></i>
+		Профиль
+	</a>
+	<a href="php/exit.php" class="item" id="openSignInModal">
+		<i class="sign out icon"></i>
+		Выход
+	</a>
+</nav>
