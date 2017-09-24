@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-09-24 15:05:16
+/* Smarty version 3.1.29, created on 2017-09-24 17:10:39
   from "C:\OpenServer\domains\EDUKIT\templates\tpl\accounts\student.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_59c79f7cc42544_30419313',
+  'unifunc' => 'content_59c7bcdf56f829_83246090',
   'file_dependency' => 
   array (
     '2ff7ebb86c93a5f54bc7d29a079fd7580315f41c' => 
     array (
       0 => 'C:\\OpenServer\\domains\\EDUKIT\\templates\\tpl\\accounts\\student.tpl',
-      1 => 1506254715,
+      1 => 1506262238,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
     'file:../html/end.tpl' => 1,
   ),
 ),false)) {
-function content_59c79f7cc42544_30419313 ($_smarty_tpl) {
+function content_59c7bcdf56f829_83246090 ($_smarty_tpl) {
 if (!is_callable('smarty_modifier_date_format')) require_once 'C:\\OpenServer\\domains\\EDUKIT\\engine\\smarty\\plugins\\modifier.date_format.php';
 $_smarty_tpl->tpl_vars['title'] = new Smarty_Variable("Личный кабинет", null);
 $_smarty_tpl->ext->_updateScope->updateScope($_smarty_tpl, 'title', 0);
@@ -351,20 +351,21 @@ $_smarty_tpl->tpl_vars['it'] = $__foreach_it_6_saved_item;
 }
 ?>
 						</div>
+					<?php } else { ?>
+						<h3 align="center">Ваши одногруппники ещё не зарегистрировались</h3>
 					<?php }?>
 				</div>
 				<div class="ui bottom attached tab segment" data-tab="testing">
-					
 					<div class="ui sackable grid">
 						<div class="ten wide column">
 							<?php if ($_smarty_tpl->tpl_vars['tests']->value != NULL) {?>
-								<table class="table table-bordered">
+								<table class="ui table striped">
 									<thead>
-										<th>Название</th>
-										<th>Предмет</th>
-										<th>Автор</th>
+										<th><h4>Название</h4></th>
+										<th><h4>Предмет</h4></th>
+										<th><h4>Автор</h4></th>
 									</thead>
-									<tbody>
+									<tbody class="tests">
 										<?php
 $_from = $_smarty_tpl->tpl_vars['tests']->value;
 if (!is_array($_from) && !is_object($_from)) {

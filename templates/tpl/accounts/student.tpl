@@ -159,20 +159,21 @@
 									</div>
 							{/foreach}
 						</div>
+					{else}
+						<h3 align="center">Ваши одногруппники ещё не зарегистрировались</h3>
 					{/if}
 				</div>
 				<div class="ui bottom attached tab segment" data-tab="testing">
-					
 					<div class="ui sackable grid">
 						<div class="ten wide column">
 							{if $tests != NULL}
-								<table class="table table-bordered">
+								<table class="ui table striped">
 									<thead>
-										<th>Название</th>
-										<th>Предмет</th>
-										<th>Автор</th>
+										<th><h4>Название</h4></th>
+										<th><h4>Предмет</h4></th>
+										<th><h4>Автор</h4></th>
 									</thead>
-									<tbody>
+									<tbody class="tests">
 										{foreach from=$tests item=test}
 											<tr>
 											<td><a href="student/complete.php?test_id={$test->getTestID()}">{$test->getCaption()}</a></td>

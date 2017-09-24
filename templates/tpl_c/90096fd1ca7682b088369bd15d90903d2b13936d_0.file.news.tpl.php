@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-09-24 13:47:56
+/* Smarty version 3.1.29, created on 2017-09-24 16:50:06
   from "C:\OpenServer\domains\EDUKIT\templates\tpl\news.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_59c78d5cb045e2_29269566',
+  'unifunc' => 'content_59c7b80ee1c3f7_86249604',
   'file_dependency' => 
   array (
     '90096fd1ca7682b088369bd15d90903d2b13936d' => 
     array (
       0 => 'C:\\OpenServer\\domains\\EDUKIT\\templates\\tpl\\news.tpl',
-      1 => 1506247806,
+      1 => 1506255342,
       2 => 'file',
     ),
   ),
@@ -25,7 +25,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
     'file:html/end.tpl' => 1,
   ),
 ),false)) {
-function content_59c78d5cb045e2_29269566 ($_smarty_tpl) {
+function content_59c7b80ee1c3f7_86249604 ($_smarty_tpl) {
 if (!is_callable('smarty_modifier_date_format')) require_once 'C:\\OpenServer\\domains\\EDUKIT\\engine\\smarty\\plugins\\modifier.date_format.php';
 if (!is_callable('smarty_modifier_truncate')) require_once 'C:\\OpenServer\\domains\\EDUKIT\\engine\\smarty\\plugins\\modifier.truncate.php';
 $_smarty_tpl->tpl_vars["title"] = new Smarty_Variable("Новости", null);
@@ -50,7 +50,7 @@ $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:html/begin.t
 				<div class="ui stackable grid">
 					<div class="two wide column"></div>
 					<div class="twelve wide column">
-							<?php
+						<?php
 $_from = $_smarty_tpl->tpl_vars['news']->value;
 if (!is_array($_from) && !is_object($_from)) {
 settype($_from, 'array');

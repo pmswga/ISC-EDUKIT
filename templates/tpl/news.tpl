@@ -13,7 +13,7 @@
 				<div class="ui stackable grid">
 					<div class="two wide column"></div>
 					<div class="twelve wide column">
-							{foreach from=$news key=date item=one_news}
+						{foreach from=$news key=date item=one_news}
 							<div class="ui card" style="width: 100%;">
 								<div class="content">
 									<div class="header">

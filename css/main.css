@@ -27,7 +27,7 @@
   text-align: center;
 }
 
-#traffic td, #tests {
+#traffic td, #tests, .tests {
   text-align: center;
 }
 

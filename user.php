@@ -46,10 +46,11 @@
         $user->setTests($TM->getTests($user->getEmail()));
         $user->setNews($NM->getNews($user->getEmail()));
         $user->setSubjects($SM->getSubjects($user->getEmail()));
-				
+        
 				$CT->assign("user", $user);
 				$CT->assign("groups", $GM->getAllGroups());
         $CT->assign("unset_subjects", $SM->getUnsetSubjects($user->getEmail()));
+        $CT->assign("date", date("d.m.Y"));
 				
 				$CT->Show("accounts/teacher.tpl");
 				
@@ -108,23 +109,15 @@
 				}
 				
 				if (!empty($_POST['unsetSubjectButton'])) {
-					$select_subject = $_POST['select_subject'];
-					
-          if (!empty($select_subject)) {
-            $result = true;
-            for ($i = 0; $i < count($select_subject); $i++) {
-              $result *= $SM->unsetSubject($user->getEmail(), $select_subject[$i]);
-            }
-            
-            if ($result) {
-              CTools::Message("Предметы убраны");
-            } else {
-              CTools::Message("Произошла ошибка");
-            }
-            
-            CTools::Redirect("user.php");
+					$subject_id = $_POST['subject'];
+					            
+          if ($SM->unsetSubject($user->getEmail(), $subject_id)) {
+            CTools::Message("Предметы убраны");
+          } else {
+            CTools::Message("Произошла ошибка");
           }
-          
+            
+          CTools::Redirect("user.php");
 				}
 				
 				if (!empty($_POST['addTestButton'])) {
@@ -144,24 +137,15 @@
 				}
 				
 				if (!empty($_POST['removeTestButton'])) {
-					$select_test = $_POST['select_test'];
+					$test_id = $_POST['test'];
           
-          if (!empty($select_test)) {
-            
-            $result = true;
-            for ($i = 0; $i < count($select_test); $i++) {
-              $TM->remove($select_test[$i]);
-            }
-            
-            if ($result) {
-              CTools::Message("Тест удалён");
-            } else {
-              CTools::Message("Произошла ошибка");
-            }
-            
-            CTools::Redirect("user.php");
+          if ($TM->remove($test_id)) {
+            CTools::Message("Тест был удалён");
+          } else {
+            CTools::Message("При удалени теста произошла ошибка");
           }
           
+          CTools::Redirect("user.php");
 				}
 				
 			} break;
