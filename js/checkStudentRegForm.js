@@ -6,8 +6,10 @@ $(document).ready(function(){
     $("#message").hide();
     $("#message").text("");
 
-    var password = $("[name='password']").val();
+    var password = $("[name='passwd']").val();
     var retry_password = $("[name='retry_password']").val();
+
+    alert(password + "  " + password.length);
 
     if ((password.length >= 6)) {
       if (password === retry_password) {

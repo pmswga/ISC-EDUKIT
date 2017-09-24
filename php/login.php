@@ -3,7 +3,7 @@
     
 	if (!empty($_POST['signInButton'])) {
 		$email = htmlspecialchars($_POST['email']);
-		$password = md5(htmlspecialchars($_POST['password']));
+		$password = md5(htmlspecialchars($_POST['passwd']));
 		
 		$user = $UM->authentification($email, $password);
 		if(!empty($user)) {      

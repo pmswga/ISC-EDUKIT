@@ -11,7 +11,7 @@
 			</div>
 			<div class="field">
 				<label>Пароль</label>
-				<input type="password" name="password">
+				<input type="password" name="passwd">
 			</div>
 			<div class="field">
 				<input type="submit" name="signInButton" value="Войти" class="ui primary button">

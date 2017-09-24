@@ -13,12 +13,12 @@
       "first_name", 
       "patronymic", 
       "email", 
-      "password", 
+      "passwd", 
       "home_address", 
       "cell_phone_child", 
       "grp"
     ]);
-		$data['password'] = md5($data['password']);
+		$data['passwd'] = md5($data['passwd']);
 	
     
 		$new_student = new Student(
@@ -27,7 +27,7 @@
 				$data['first_name'], 
 				$data['patronymic'], 
 				$data['email'], 
-				$data['password'],
+				$data['passwd'],
         USER_TYPE_STUDENT
       ), 
 			$data['home_address'], 
