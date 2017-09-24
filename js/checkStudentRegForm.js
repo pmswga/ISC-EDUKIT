@@ -9,7 +9,7 @@ $(document).ready(function(){
     var password = $("[name='password']").val();
     var retry_password = $("[name='retry_password']").val();
 
-    if (password.length >= 6 && retry_password.length >= 6) {
+    if ((password.length >= 6)) {
       if (password === retry_password) {
         return true;
       } else {
