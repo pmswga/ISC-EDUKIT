@@ -170,20 +170,18 @@
           [":e_email" => $user->getEmail()]
         )[0]['result'];
         
-        if ($ifTrafficFixed == 0) {
-          
+        
           $sogroups = $UM->query("SELECT * FROM `v_Students` WHERE `grp`=:grp",
             [":grp" => $user->getGroup()->getNumberGroup()]
           );
           $CT->assign("sogroups", $sogroups);
-          
-        }
         
         $traffic = $UM->query("call getTrafficStudent(:s_email)", [":s_email" => $user->getEmail()]);
 				
         $CT->assign("user", $user);
 				$CT->assign("tests", $TM->getTestsForGroup($user->getGroup()->getGroupID()));
         $CT->assign("traffic", $traffic);
+        $CT->assign("ifTrafficFixed", $ifTrafficFixed);
         
 				$CT->assign("schedules", $SHM->getScheduleGroup($user->getGroup()->getGroupID()));
         $CT->assign("changed_schedules", $SHM->getChangeScheduleGroup($user->getGroup()->getGroupID()));
