@@ -3,7 +3,7 @@
 	<div class="ui stackable grid">
     <div class="row">
       <div class="three wide column">
-				{include file='blocks/user_menu.tpl'}  
+				{include file='blocks/user_menu.tpl'}
 			</div>
 			<div class="thirteen wide column">
 				<div class="ui top attached tabular menu">

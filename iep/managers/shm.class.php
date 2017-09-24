@@ -33,12 +33,12 @@
     {
       switch ($day)
       {
-        case 1: return "ПН"; break;
-        case 2: return "ВТ"; break;
-        case 3: return "СР"; break;
-        case 4: return "ЧТ"; break;
-        case 5: return "ПТ"; break;
-        case 6: return "СБ"; break;
+        case 1: return "Понедельник"; break;
+        case 2: return "Вторник"; break;
+        case 3: return "Среда"; break;
+        case 4: return "Четверг"; break;
+        case 5: return "Пятница"; break;
+        case 6: return "Суббота"; break;
         default: return ""; break;
       }
     }

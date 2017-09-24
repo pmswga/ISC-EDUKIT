@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-09-24 15:05:49
+/* Smarty version 3.1.29, created on 2017-09-24 17:35:31
   from "C:\OpenServer\domains\EDUKIT\templates\tpl\schedule.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_59c79f9da71041_63543104',
+  'unifunc' => 'content_59c7c2b3a00dd6_44575768',
   'file_dependency' => 
   array (
     'e7239760a573508b349bfca2978702f6fbf7e347' => 
     array (
       0 => 'C:\\OpenServer\\domains\\EDUKIT\\templates\\tpl\\schedule.tpl',
-      1 => 1506254748,
+      1 => 1506263730,
       2 => 'file',
     ),
   ),
@@ -27,7 +27,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
     'file:html/end.tpl' => 1,
   ),
 ),false)) {
-function content_59c79f9da71041_63543104 ($_smarty_tpl) {
+function content_59c7c2b3a00dd6_44575768 ($_smarty_tpl) {
 if (!is_callable('smarty_modifier_date_format')) require_once 'C:\\OpenServer\\domains\\EDUKIT\\engine\\smarty\\plugins\\modifier.date_format.php';
 $_smarty_tpl->tpl_vars["title"] = new Smarty_Variable("Расписание", null);
 $_smarty_tpl->ext->_updateScope->updateScope($_smarty_tpl, "title", 0);
@@ -48,7 +48,7 @@ $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:html/begin.t
           <?php }?>
       </div>
       <div class="thirteen wide column">
-        <div class="ui stackable celled grid">
+        <div class="ui stackable grid">
           <div class="row">
             <div class="two wide column">
               <div id="week" class="ui mini statistic">
@@ -63,13 +63,13 @@ $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:html/begin.t
             </div>
             <div class="fourteen wide column">
               <div id="nowDay" class="ui buttons">
-                <a id="1" class="ui button">ПН</a>
-                <a id="2" class="ui button">ВТ</a>
-                <a id="3" class="ui button">СР</a>
-                <a id="4" class="ui button">ЧТ</a>
-                <a id="5" class="ui button">ПТ</a>
-                <a id="6" class="ui button">СБ</a>
-                <a id="7" class="ui button">ВС</a>
+                <a id="1" class="ui red button">ПН</a>
+                <a id="2" class="ui orange button">ВТ</a>
+                <a id="3" class="ui yellow button">СР</a>
+                <a id="4" class="ui green button">ЧТ</a>
+                <a id="5" class="ui teal button">ПТ</a>
+                <a id="6" class="ui blue button">СБ</a>
+                <a id="7" class="ui violet button">ВС</a>
               </div>
             </div>
           </div>
@@ -225,6 +225,7 @@ $_smarty_tpl->tpl_vars['grp'] = $__foreach_schedule_1_saved_key;
 }
 ?>
                     <?php }?>
+                    <br>
                     <?php if ($_smarty_tpl->tpl_vars['schedules']->value != NULL) {?>
                       <?php
 $_from = $_smarty_tpl->tpl_vars['schedules']->value;

@@ -1,6 +1,6 @@
 {assign var="title" value="Информационно-образовательный портал"}
 {include file='html/begin.tpl'}
-  <div class="ui stackable celled grid">
+  <div class="ui stackable grid">
     <div class="row">
       <div class="three wide column">
         {if $user != NULL}

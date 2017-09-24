@@ -10,7 +10,7 @@
           {/if}
       </div>
       <div class="thirteen wide column">
-        <div class="ui stackable celled grid">
+        <div class="ui stackable grid">
           <div class="row">
             <div class="two wide column">
               <div id="week" class="ui mini statistic">
@@ -24,13 +24,13 @@
             </div>
             <div class="fourteen wide column">
               <div id="nowDay" class="ui buttons">
-                <a id="1" class="ui button">ПН</a>
-                <a id="2" class="ui button">ВТ</a>
-                <a id="3" class="ui button">СР</a>
-                <a id="4" class="ui button">ЧТ</a>
-                <a id="5" class="ui button">ПТ</a>
-                <a id="6" class="ui button">СБ</a>
-                <a id="7" class="ui button">ВС</a>
+                <a id="1" class="ui red button">ПН</a>
+                <a id="2" class="ui orange button">ВТ</a>
+                <a id="3" class="ui yellow button">СР</a>
+                <a id="4" class="ui green button">ЧТ</a>
+                <a id="5" class="ui teal button">ПТ</a>
+                <a id="6" class="ui blue button">СБ</a>
+                <a id="7" class="ui violet button">ВС</a>
               </div>
             </div>
           </div>
@@ -101,6 +101,7 @@
                         </div>
                       {/foreach}
                     {/if}
+                    <br>
                     {if $schedules != NULL}
                       {foreach from=$schedules key=grp item=schedule}
                         <div id="groupSchedule" class="ui styled accordion">

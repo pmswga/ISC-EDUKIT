@@ -11,6 +11,10 @@
   padding: 10px;
 }
 
+.ui.styled.accordion {
+  width: 100%;
+}
+
 #week {
   width: 100%;
 }

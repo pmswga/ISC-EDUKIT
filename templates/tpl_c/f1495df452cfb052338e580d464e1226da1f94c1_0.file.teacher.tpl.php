@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-09-24 17:24:35
+/* Smarty version 3.1.29, created on 2017-09-24 17:33:56
   from "C:\OpenServer\domains\EDUKIT\templates\tpl\accounts\teacher.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_59c7c023b00a80_47976784',
+  'unifunc' => 'content_59c7c2547ad635_33644461',
   'file_dependency' => 
   array (
     'f1495df452cfb052338e580d464e1226da1f94c1' => 
     array (
       0 => 'C:\\OpenServer\\domains\\EDUKIT\\templates\\tpl\\accounts\\teacher.tpl',
-      1 => 1506263073,
+      1 => 1506263602,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
     'file:html/end.tpl' => 1,
   ),
 ),false)) {
-function content_59c7c023b00a80_47976784 ($_smarty_tpl) {
+function content_59c7c2547ad635_33644461 ($_smarty_tpl) {
 if (!is_callable('smarty_modifier_date_format')) require_once 'C:\\OpenServer\\domains\\EDUKIT\\engine\\smarty\\plugins\\modifier.date_format.php';
 if (!is_callable('smarty_modifier_truncate')) require_once 'C:\\OpenServer\\domains\\EDUKIT\\engine\\smarty\\plugins\\modifier.truncate.php';
 $_smarty_tpl->tpl_vars['title'] = new Smarty_Variable("Личный кабинет", null);
@@ -115,8 +115,12 @@ $__foreach_one_news_0_saved_local_item = $_smarty_tpl->tpl_vars['one_news'];
 										</div>
 										<hr>
 										<div class="meta">
-											<input type="submit" name="removeNewsButton" value="Удалить" class="ui negative button">
-											<input type="submit" name="removeNewsButton" value="Изменить" class="ui orange button">
+											<form name="removeNewsButton" method="POST">
+												<input type="hidden" name="news" value="<?php echo $_smarty_tpl->tpl_vars['one_news']->value->getNewsID();?>
+">
+												<input type="submit" name="removeNewsButton" value="Удалить" class="ui negative button">
+												<input type="submit" name="changeNewsButton" value="Изменить" class="ui orange button">
+											</form>
 										</div>
 									</div>
 								</div>

@@ -63,8 +63,11 @@
 										</div>
 										<hr>
 										<div class="meta">
-											<input type="submit" name="removeNewsButton" value="Удалить" class="ui negative button">
-											<input type="submit" name="removeNewsButton" value="Изменить" class="ui orange button">
+											<form name="removeNewsButton" method="POST">
+												<input type="hidden" name="news" value="{$one_news->getNewsID()}">
+												<input type="submit" name="removeNewsButton" value="Удалить" class="ui negative button">
+												<input type="submit" name="changeNewsButton" value="Изменить" class="ui orange button">
+											</form>
 										</div>
 									</div>
 								</div>
