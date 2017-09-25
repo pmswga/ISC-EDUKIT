@@ -30,7 +30,7 @@
             <div class="four wide column">
               <div class="field">
                 <label>Группа</label>
-                <select name="grp" class="form-control" required>
+                <select name="grp" required>
                     {foreach from=$groups item=group}
                       <option value="{$group->getGroupID()}">{$group->getNumberGroup()}</option>
                     {/foreach}
@@ -46,7 +46,7 @@
                 </div>
                 <div class="field">
                   <label>Пароль</label>
-                  <input type="password" name="password" required>
+                  <input type="password" name="passwd" required>
                 </div>
                 <div class="field">
                   <label>Повторите пароль</label>
