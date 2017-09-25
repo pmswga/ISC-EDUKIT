@@ -46,7 +46,7 @@
                 </div>
                 <div class="field">
                   <label>Пароль</label>
-                  <input type="password" name="passwd" required>
+                  <input type="password" name="passwd" id="passwd" required>
                 </div>
                 <div class="field">
                   <label>Повторите пароль</label>

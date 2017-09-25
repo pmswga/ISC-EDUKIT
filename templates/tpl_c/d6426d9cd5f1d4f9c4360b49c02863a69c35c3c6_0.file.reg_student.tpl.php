@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-09-25 23:25:24
+/* Smarty version 3.1.29, created on 2017-09-26 00:03:25
   from "C:\OpenServer\domains\EDUKIT\templates\tpl\modals\reg_student.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_59c966343ca497_14343045',
+  'unifunc' => 'content_59c96f1d07c666_21967921',
   'file_dependency' => 
   array (
     'd6426d9cd5f1d4f9c4360b49c02863a69c35c3c6' => 
     array (
       0 => 'C:\\OpenServer\\domains\\EDUKIT\\templates\\tpl\\modals\\reg_student.tpl',
-      1 => 1506371006,
+      1 => 1506373393,
       2 => 'file',
     ),
   ),
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_59c966343ca497_14343045 ($_smarty_tpl) {
+function content_59c96f1d07c666_21967921 ($_smarty_tpl) {
 ?>
 <div class="ui modal" id="regStudentModal">
   <i class="close icon"></i>
@@ -88,7 +88,7 @@ $_smarty_tpl->tpl_vars['group'] = $__foreach_group_0_saved_item;
                 </div>
                 <div class="field">
                   <label>Пароль</label>
-                  <input type="password" name="passwd" required>
+                  <input type="password" name="passwd" id="passwd" required>
                 </div>
                 <div class="field">
                   <label>Повторите пароль</label>

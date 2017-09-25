@@ -17,10 +17,10 @@ $(document).ready(function(){
     $("#message").hide();
     $("#message").text("");
 
-    var password = $("[name='passwd']").val();
+    var pass = $("#passwd").val();
     var retry_password = $("[name='retry_password']").val();
 
-    if (password === retry_password) {
+    if (pass === retry_password) {
       return true;
     } else {
       $("#message").text("Пароли не совпадают");
