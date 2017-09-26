@@ -53,8 +53,7 @@
       CTools::Redirect("notifications.php");
 		}
 		
-	}
-	else {    
+	}	else {    
     CTools::Redirect("login.php");
   } 
 

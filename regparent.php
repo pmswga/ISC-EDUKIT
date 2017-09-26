@@ -15,7 +15,7 @@
 	$CT->assign("studentsByGroup", $studentsByGroup);
 	$CT->Show("reg_parent.tpl");
 	
-	if (!empty($_POST['regParent'])) {
+	if (!empty($_POST['regParentButton'])) {
     
     if (!empty($_POST['isAgree']) && !empty($_POST['isMyChildren'])) {
       $reg_parent_data = CForm::GetData(array(
@@ -74,7 +74,6 @@
     } else {
       CTools::Message("Вы должны принять соглашения");
     }
-    
 		
 	}
 	

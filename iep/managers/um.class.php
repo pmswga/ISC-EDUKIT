@@ -202,6 +202,10 @@
         {
           try
           {
+              echo "<pre>";
+              print_r($user);
+              echo "</pre>";
+              
               $this->dbc()->beginTransaction();
               
               $add_parent_query = $this->dbc()->prepare("call addParent(:sn, :fn, :pt, :email, :paswd, :age, :education, :wp, :post, :hp, :cp)");
