@@ -216,7 +216,7 @@
 							</tbody>
 						</table>
 						{else}
-						<h2>Нету доступных тестов</h2>
+						<h2>Нет доступных тестов</h2>
 						{/if}
 					</div>
 					<div class="six wide column">

@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-09-26 23:27:39
+/* Smarty version 3.1.29, created on 2017-09-27 00:20:58
   from "C:\OpenServer\domains\EDUKIT\templates\tpl\html\begin.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_59cab83bd28516_91182344',
+  'unifunc' => 'content_59cac4bae4d329_75073946',
   'file_dependency' => 
   array (
     '6a9e4c047f0fd098fdc6f74be8cbabca5b226129' => 
     array (
       0 => 'C:\\OpenServer\\domains\\EDUKIT\\templates\\tpl\\html\\begin.tpl',
-      1 => 1506245714,
+      1 => 1506460856,
       2 => 'file',
     ),
   ),
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_59cab83bd28516_91182344 ($_smarty_tpl) {
+function content_59cac4bae4d329_75073946 ($_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,6 +27,7 @@ function content_59cab83bd28516_91182344 ($_smarty_tpl) {
 		<title><?php echo $_smarty_tpl->tpl_vars['title']->value;?>
 </title>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="css/semantic/semantic.css">
 		<link rel="stylesheet" type="text/css" href="css/main.css">
 		<?php echo '<script'; ?>
