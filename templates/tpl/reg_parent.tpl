@@ -231,6 +231,7 @@
 
       if (password === retry_password) {
         msger.hide();
+        return true;
       } else {
         msger.setState("negative");
         msger.setHeader("Ошибка ввода данных");
