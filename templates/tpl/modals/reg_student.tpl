@@ -1,5 +1,4 @@
 <div class="ui modal" id="regStudentModal">
-  <i class="close icon"></i>
   <div class="header">
     Регистрация студента
   </div>

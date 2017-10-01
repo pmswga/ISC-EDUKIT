@@ -9,9 +9,6 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<link href="search/search.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="search/searchdata.js"></script>
-<script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -33,32 +30,14 @@
 </div>
 <!-- end header part -->
 <!-- Создано системой Doxygen 1.8.13 -->
-<script type="text/javascript">
-var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
-</script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
 $(function() {
-  initMenu('',true,false,'search.php','Поиск');
-  $(document).ready(function() { init_search(); });
+  initMenu('',false,false,'search.php','Поиск');
 });
 </script>
 <div id="main-nav"></div>
-<!-- window showing the filter options -->
-<div id="MSearchSelectWindow"
-     onmouseover="return searchBox.OnSearchSelectShow()"
-     onmouseout="return searchBox.OnSearchSelectHide()"
-     onkeydown="return searchBox.OnSearchSelectKey(event)">
-</div>
-
-<!-- iframe showing the search results (closed by default) -->
-<div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
-</div>
-
 <div id="nav-path" class="navpath">
   <ul>
 <li class="navelem"><a class="el" href="namespace_i_e_p.html">IEP</a></li><li class="navelem"><a class="el" href="namespace_i_e_p_1_1_managers.html">Managers</a></li><li class="navelem"><a class="el" href="class_i_e_p_1_1_managers_1_1_group_manager.html">GroupManager</a></li>  </ul>
@@ -99,6 +78,8 @@ $(function() {
 <tr class="memitem:abe41704d8c740dc9d49a7068b77ccec0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_e_p_1_1_managers_1_1_group_manager.html#abe41704d8c740dc9d49a7068b77ccec0">getUnsetGroups</a> (int $test_id)</td></tr>
 <tr class="memdesc:abe41704d8c740dc9d49a7068b77ccec0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Возвращает группы, которые непривязаны к тесту  <a href="#abe41704d8c740dc9d49a7068b77ccec0">Подробнее...</a><br /></td></tr>
 <tr class="separator:abe41704d8c740dc9d49a7068b77ccec0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5963194bd278bcfabe8b8a95a32bcdf9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_e_p_1_1_managers_1_1_group_manager.html#a5963194bd278bcfabe8b8a95a32bcdf9">getGroupsOfCurrentYear</a> ()</td></tr>
+<tr class="separator:a5963194bd278bcfabe8b8a95a32bcdf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33ca91e8876c6c892934d694a76b5551"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_e_p_1_1_managers_1_1_group_manager.html#a33ca91e8876c6c892934d694a76b5551">getAllGroups</a> ()</td></tr>
 <tr class="memdesc:a33ca91e8876c6c892934d694a76b5551"><td class="mdescLeft">&#160;</td><td class="mdescRight">Возвращает все группы  <a href="#a33ca91e8876c6c892934d694a76b5551">Подробнее...</a><br /></td></tr>
 <tr class="separator:a33ca91e8876c6c892934d694a76b5551"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -303,6 +284,23 @@ $(function() {
 
 </div>
 </div>
+<a id="a5963194bd278bcfabe8b8a95a32bcdf9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5963194bd278bcfabe8b8a95a32bcdf9">&#9670;&nbsp;</a></span>getGroupsOfCurrentYear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getGroupsOfCurrentYear </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="abe41704d8c740dc9d49a7068b77ccec0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abe41704d8c740dc9d49a7068b77ccec0">&#9670;&nbsp;</a></span>getUnsetGroups()</h2>
 
@@ -391,7 +389,7 @@ $(function() {
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по EDUKIT Developers. Последние изменения: Вс 17 Сен 2017 13:49:45. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по EDUKIT Developers. Последние изменения: Вс 1 Окт 2017 15:27:07. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

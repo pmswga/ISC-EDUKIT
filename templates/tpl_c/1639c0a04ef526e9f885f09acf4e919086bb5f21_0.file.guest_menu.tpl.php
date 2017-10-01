@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-10-01 12:03:38
+/* Smarty version 3.1.29, created on 2017-10-01 15:02:01
   from "C:\OpenServer\domains\EDUKIT\templates\tpl\blocks\guest_menu.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_59d0af6a9b0387_51000892',
+  'unifunc' => 'content_59d0d939714e70_25771934',
   'file_dependency' => 
   array (
     '1639c0a04ef526e9f885f09acf4e919086bb5f21' => 
     array (
       0 => 'C:\\OpenServer\\domains\\EDUKIT\\templates\\tpl\\blocks\\guest_menu.tpl',
-      1 => 1506249051,
+      1 => 1506859320,
       2 => 'file',
     ),
   ),
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_59d0af6a9b0387_51000892 ($_smarty_tpl) {
+function content_59d0d939714e70_25771934 ($_smarty_tpl) {
 ?>
 <section>
 	<figure>

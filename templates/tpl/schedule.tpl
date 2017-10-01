@@ -3,11 +3,11 @@
   <div class="ui stackable grid">
     <div class="row">
       <div class="three wide column">
-          {if $user != NULL}
-            {include file='blocks/user_menu.tpl'}  
-          {else}
-            {include file='blocks/guest_menu.tpl'}
-          {/if}
+        {if $user != NULL}
+          {include file='blocks/user_menu.tpl'}  
+        {else}
+          {include file='blocks/guest_menu.tpl'}
+        {/if}
       </div>
       <div class="thirteen wide column">
         <div class="ui stackable grid">
@@ -192,7 +192,7 @@
     {include file='modals/reg_student.tpl'}
     {include file='modals/auth.tpl'}
   {/if}
-  
+
   <script type="text/javascript" src="js/getDay.js"></script>
   <script type="text/javascript">
     $('.ui.accordion').accordion();

@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-10-01 12:03:38
+/* Smarty version 3.1.29, created on 2017-10-01 12:55:18
   from "C:\OpenServer\domains\EDUKIT\templates\tpl\modals\auth.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_59d0af6aa31222_91342381',
+  'unifunc' => 'content_59d0bb86d050b1_73300770',
   'file_dependency' => 
   array (
     '67098161189eb3a2ef0b323c490031180a2a9a90' => 
     array (
       0 => 'C:\\OpenServer\\domains\\EDUKIT\\templates\\tpl\\modals\\auth.tpl',
-      1 => 1506267982,
+      1 => 1506851718,
       2 => 'file',
     ),
   ),
@@ -19,10 +19,9 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_59d0af6aa31222_91342381 ($_smarty_tpl) {
+function content_59d0bb86d050b1_73300770 ($_smarty_tpl) {
 ?>
 <div class="ui mini modal" id="signInModal">
-	<i class="close icon"></i>
 	<div class="header">
 		Вход в систему
 	</div>

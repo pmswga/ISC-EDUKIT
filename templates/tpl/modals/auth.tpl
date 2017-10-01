@@ -1,5 +1,4 @@
 <div class="ui mini modal" id="signInModal">
-	<i class="close icon"></i>
 	<div class="header">
 		Вход в систему
 	</div>

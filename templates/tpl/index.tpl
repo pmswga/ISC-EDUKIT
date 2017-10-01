@@ -12,7 +12,7 @@
       <div class="thirteen wide column">
         <h1>Добро пожаловать</h1>
         <hr>
-
+        
       </div>
     </div>
   </div>

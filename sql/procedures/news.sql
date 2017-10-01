@@ -58,7 +58,7 @@ BEGIN
 	)
 	union all
 	(SELECT `id_news`, `caption`, `content`, `author`, `dp` FROM `v_News`)
-    ORDER BY `dp`;
+    ORDER BY `dp` DESC;
 END;
 
 CREATE PROCEDURE getAdminNews(author CHAR(255)) /* Для вывода в панели администратора */

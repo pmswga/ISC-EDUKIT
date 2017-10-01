@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-10-01 12:51:34
+/* Smarty version 3.1.29, created on 2017-10-01 12:55:18
   from "C:\OpenServer\domains\EDUKIT\templates\tpl\modals\reg_student.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_59d0baa606ef05_95176831',
+  'unifunc' => 'content_59d0bb86cddfa2_80459456',
   'file_dependency' => 
   array (
     'd6426d9cd5f1d4f9c4360b49c02863a69c35c3c6' => 
     array (
       0 => 'C:\\OpenServer\\domains\\EDUKIT\\templates\\tpl\\modals\\reg_student.tpl',
-      1 => 1506851493,
+      1 => 1506851679,
       2 => 'file',
     ),
   ),
@@ -19,10 +19,9 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_59d0baa606ef05_95176831 ($_smarty_tpl) {
+function content_59d0bb86cddfa2_80459456 ($_smarty_tpl) {
 ?>
 <div class="ui modal" id="regStudentModal">
-  <i class="close icon"></i>
   <div class="header">
     Регистрация студента
   </div>
