@@ -12,7 +12,7 @@
       <div class="thirteen wide column">
         <div class="ui stackable grid">
           <div class="row">
-            <div class="two wide column">
+            <div class="sixteen wide column">
               <div id="week" class="ui mini statistic">
                 <div class="value">
                   {$week}
@@ -22,15 +22,45 @@
                 </div>
               </div>
             </div>
-            <div class="fourteen wide column">
-              <div id="nowDay" class="ui buttons">
-                <a id="1" class="ui red button">ПН</a>
-                <a id="2" class="ui orange button">ВТ</a>
-                <a id="3" class="ui yellow button">СР</a>
-                <a id="4" class="ui green button">ЧТ</a>
-                <a id="5" class="ui teal button">ПТ</a>
-                <a id="6" class="ui blue button">СБ</a>
-                <a id="7" class="ui violet button">ВС</a>
+          </div>
+          <div class="row">
+            <div class="sixteen wide column">
+              <div class="ui steps">
+                <div class="ui red step button" id="1">
+                  <div class="content">
+                    <a class="ui red button">ПН</a>
+                  </div>
+                </div>
+                <div class="ui orange step button" id="2">
+                  <div class="content">
+                    <a class="ui orange button">ВТ</a>
+                  </div>
+                </div>
+                <div class="ui yellow step button" id="3">
+                  <div class="content">
+                    <a class="ui yellow button">СР</a>
+                  </div>
+                </div>
+                <div class="ui green step button" id="4">
+                  <div class="content">
+                    <a class="ui green button">ЧТ</a>
+                  </div>
+                </div>
+                <div class="ui teal step button" id="5">
+                  <div class="content">
+                    <a class="ui teal button">ПТ</a>
+                  </div>
+                </div>
+                <div class="ui blue step button" id="6">
+                  <div class="content">
+                    <a class="ui blue button">СБ</a>
+                  </div>
+                </div>
+                <div class="ui violet step button" id="7">
+                  <div class="content">
+                    <a class="ui violet button">ВС</a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -115,7 +145,7 @@
                                   <h3>{$day}</h3>
                                 </div>
                                 <div class="content">
-                                  <table class="ui table bordered">
+                                  <table class="ui table celled">
                                     <thead>
                                       <tr>
                                         <th><h4>Пара</h4></th>
@@ -130,8 +160,8 @@
                                           {if $entry['subj_1'] == $entry['subj_2']}
                                             <td colspan="2">{$entry['subj_1']}</td>
                                           {else}
-                                            <th>{$entry['subj_1']}</th>
-                                            <th>{$entry['subj_2']}</th>
+                                            <td>{$entry['subj_1']}</td>
+                                            <td>{$entry['subj_2']}</td>
                                           {/if}
                                         </tr>
                                       {/foreach}

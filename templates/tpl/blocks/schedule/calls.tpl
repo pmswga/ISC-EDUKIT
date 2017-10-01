@@ -1,4 +1,4 @@
-<table id="schedule_rings" class="ui table striped">
+<table id="schedule_rings" class="ui unstackable table">
   <thead>
     <tr>
       <th colspan="2"><h4>Звонки</h4></th>
@@ -9,31 +9,31 @@
     </tr>
   </thead>
   <tr>
-    <th>1</th>
+    <td>1</td>
     <td>8:30 - 10:00</td>
   </tr>
   <tr>
-    <th>2</th>
+    <td>2</td>
     <td>10:10 - 11:40</td>
   </tr>
   <tr>
-    <th>3</th>
+    <td>3</td>
     <td>11:50 - 13:40</td>
   </tr>
   <tr>
-    <th>4</th>
+    <td>4</td>
     <td>13:50 - 15:20</td>
   </tr>
   <tr>
-    <th>5</th>
+    <td>5</td>
     <td>15:30 - 17:00</td>
   </tr>
   <tr>
-    <th>6</th>
+    <td>6</td>
     <td>17:10 - 18:30</td>
   </tr>
   <tr>
-    <th>7</th>
+    <td>7</td>
     <td>18:35 - 20:00</td>
   </tr>
 </table>

@@ -1,4 +1,4 @@
-<table id="schedule_lunchs" class="ui table striped">
+<table id="schedule_lunchs" class="ui table celled">
   <thead>
     <tr>
       <th colspan="2"><h4>Обеды</h4></th>

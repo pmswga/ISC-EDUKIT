@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-09-26 23:27:39
+/* Smarty version 3.1.29, created on 2017-10-01 12:03:38
   from "C:\OpenServer\domains\EDUKIT\templates\tpl\modals\reg_student.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_59cab83bd66d26_54460247',
+  'unifunc' => 'content_59d0af6aa11e27_11910603',
   'file_dependency' => 
   array (
     'd6426d9cd5f1d4f9c4360b49c02863a69c35c3c6' => 
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_59cab83bd66d26_54460247 ($_smarty_tpl) {
+function content_59d0af6aa11e27_11910603 ($_smarty_tpl) {
 ?>
 <div class="ui modal" id="regStudentModal">
   <i class="close icon"></i>

@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-09-26 23:27:39
+/* Smarty version 3.1.29, created on 2017-10-01 12:03:38
   from "C:\OpenServer\domains\EDUKIT\templates\tpl\modals\auth.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_59cab83bd86133_94075785',
+  'unifunc' => 'content_59d0af6aa31222_91342381',
   'file_dependency' => 
   array (
     '67098161189eb3a2ef0b323c490031180a2a9a90' => 
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_59cab83bd86133_94075785 ($_smarty_tpl) {
+function content_59d0af6aa31222_91342381 ($_smarty_tpl) {
 ?>
 <div class="ui mini modal" id="signInModal">
 	<i class="close icon"></i>

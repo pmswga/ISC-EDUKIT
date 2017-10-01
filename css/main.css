@@ -19,10 +19,6 @@
   width: 100%;
 }
 
-#nowDay {
-  width: 100%;
-}
-
 #groupSchedule {
   width: 100%;
 }
@@ -39,6 +35,14 @@ h4 {
   text-align: center;
 }
 
-th {
+.ui.steps {
+  width: 100%;
+}
+
+#schedule_lunchs tr td {
+  text-align: center;
+}
+
+#schedule_rings tr td {
   text-align: center;
 }
