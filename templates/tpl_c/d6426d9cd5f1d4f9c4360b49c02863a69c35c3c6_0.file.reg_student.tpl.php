@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-10-01 12:31:53
+/* Smarty version 3.1.29, created on 2017-10-01 12:51:34
   from "C:\OpenServer\domains\EDUKIT\templates\tpl\modals\reg_student.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_59d0b6099dafe8_24207318',
+  'unifunc' => 'content_59d0baa606ef05_95176831',
   'file_dependency' => 
   array (
     'd6426d9cd5f1d4f9c4360b49c02863a69c35c3c6' => 
     array (
       0 => 'C:\\OpenServer\\domains\\EDUKIT\\templates\\tpl\\modals\\reg_student.tpl',
-      1 => 1506850312,
+      1 => 1506851493,
       2 => 'file',
     ),
   ),
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_59d0b6099dafe8_24207318 ($_smarty_tpl) {
+function content_59d0baa606ef05_95176831 ($_smarty_tpl) {
 ?>
 <div class="ui modal" id="regStudentModal">
   <i class="close icon"></i>
@@ -81,35 +81,41 @@ $_smarty_tpl->tpl_vars['group'] = $__foreach_group_0_saved_item;
             </div>
           </div>
           <div class="row">
-              <div class="eight wide column">
-                <div class="field">
-                  <label>E-mail</label>
-                  <input type="email" name="email" required>
-                </div>
-                <div class="field">
-                  <label>Пароль</label>
-                  <input type="password" name="passwd" id="passwd" required>
-                </div>
-                <div class="field">
-                  <label>Повторите пароль</label>
-                  <input type="password" name="retry_password" required>
-                </div>
+            <div class="eight wide column">
+              <div class="field">
+                <label>E-mail</label>
+                <input type="email" name="email" required>
               </div>
+              <div class="field">
+                <label>Пароль</label>
+                <input type="password" name="passwd" id="passwd" required>
+              </div>
+              <div class="field">
+                <label>Повторите пароль</label>
+                <input type="password" name="retry_password" required>
+              </div>
+            </div>
             <div class="eight wide column">
               <div class="field">
                 <label>Адрес проживания</label>
                 <input type="text" name="home_address" required>
               </div>
               <div class="field">
-                <label>Сотовый телефон</label>
+                <label>Телефон</label>
                 <input type="tel" name="cell_phone_child" required>
               </div>
-              <div class="field">
-                <label>&nbsp;</label>
-                <div class="ui buttons">
-                  <input type="reset" class="ui orange button">
+              <div class="three fields">
+                <div class="field">
+                    <label>&nbsp;</label>
+                    <input type="reset" class="ui orange button">
+                </div>
+                <div class="field">
+                  <label>&nbsp;</label>
                   <a href="regparent.php" class="ui green button">Я родитель</a>
-                  <input type="submit" name="registrationStudent" value="Зарегистрироваться" class="ui primary button">
+                </div>
+                <div class="field">
+                  <label>&nbsp;</label>
+                  <input type="submit" name="registrationStudent" value="Готово" class="ui primary button">
                 </div>
               </div>
             </div>

@@ -46,3 +46,7 @@ h4 {
 #schedule_rings tr td {
   text-align: center;
 }
+
+.three.fields input, a {
+  width: 100%;
+}

@@ -39,35 +39,41 @@
             </div>
           </div>
           <div class="row">
-              <div class="eight wide column">
-                <div class="field">
-                  <label>E-mail</label>
-                  <input type="email" name="email" required>
-                </div>
-                <div class="field">
-                  <label>Пароль</label>
-                  <input type="password" name="passwd" id="passwd" required>
-                </div>
-                <div class="field">
-                  <label>Повторите пароль</label>
-                  <input type="password" name="retry_password" required>
-                </div>
+            <div class="eight wide column">
+              <div class="field">
+                <label>E-mail</label>
+                <input type="email" name="email" required>
               </div>
+              <div class="field">
+                <label>Пароль</label>
+                <input type="password" name="passwd" id="passwd" required>
+              </div>
+              <div class="field">
+                <label>Повторите пароль</label>
+                <input type="password" name="retry_password" required>
+              </div>
+            </div>
             <div class="eight wide column">
               <div class="field">
                 <label>Адрес проживания</label>
                 <input type="text" name="home_address" required>
               </div>
               <div class="field">
-                <label>Сотовый телефон</label>
+                <label>Телефон</label>
                 <input type="tel" name="cell_phone_child" required>
               </div>
-              <div class="field">
-                <label>&nbsp;</label>
-                <div class="ui buttons">
-                  <input type="reset" class="ui orange button">
+              <div class="three fields">
+                <div class="field">
+                    <label>&nbsp;</label>
+                    <input type="reset" class="ui orange button">
+                </div>
+                <div class="field">
+                  <label>&nbsp;</label>
                   <a href="regparent.php" class="ui green button">Я родитель</a>
-                  <input type="submit" name="registrationStudent" value="Зарегистрироваться" class="ui primary button">
+                </div>
+                <div class="field">
+                  <label>&nbsp;</label>
+                  <input type="submit" name="registrationStudent" value="Готово" class="ui primary button">
                 </div>
               </div>
             </div>
