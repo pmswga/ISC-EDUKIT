@@ -5,6 +5,7 @@ DROP PROCEDURE IF EXISTS removeGroup;
 DROP PROCEDURE IF EXISTS changeDescriptionGroup;
 DROP PROCEDURE IF EXISTS changeSpecGroup;
 /*DROP PROCEDURE IF EXISTS upCourse;*/
+DROP PROCEDURE IF EXISTS getGroupsOfCurrentYear;
 DROP PROCEDURE IF EXISTS getAllGroups;
 
 DELIMITER //
@@ -45,6 +46,12 @@ BEGIN
 	END IF;
 END;
 */
+
+CREATE PROCEDURE getGroupsOfCurrentYear()
+BEGIN
+	SELECT * FROM `v_Groups` WHERE `edu_year`=CONCAT(YEAR(NOW()), '/', YEAR(NOW())+1);
+END;
+
 CREATE PROCEDURE getAllGroups()
 BEGIN
   SELECT * FROM `v_Groups`;

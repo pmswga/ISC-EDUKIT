@@ -19,7 +19,7 @@
     $SM = new SubjectManager($DB);
     $SH = new ScheduleManager($DB);
 
-    $CT->assign("groups", $GM->getAllGroups());
+    $CT->assign("groups", $GM->getGroupsOfCurrentYear());
     $CT->assign("subjects", $SM->getAllSubjects());
     $CT->assign("schedules", $SH->getAllScheduleGroup());
     $CT->assign("changedSchedule", $SH->getAllChangedSchedule());

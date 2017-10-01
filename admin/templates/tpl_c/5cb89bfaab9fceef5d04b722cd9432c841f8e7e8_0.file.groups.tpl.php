@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-09-02 12:53:07
+/* Smarty version 3.1.29, created on 2017-10-01 12:24:57
   from "C:\OpenServer\domains\EDUKIT\admin\templates\tpl\groups.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_59aa7f83708773_06777834',
+  'unifunc' => 'content_59d0b469154143_88703034',
   'file_dependency' => 
   array (
     '5cb89bfaab9fceef5d04b722cd9432c841f8e7e8' => 
     array (
       0 => 'C:\\OpenServer\\domains\\EDUKIT\\admin\\templates\\tpl\\groups.tpl',
-      1 => 1504345986,
+      1 => 1506849868,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
     'file:html/end.tpl' => 1,
   ),
 ),false)) {
-function content_59aa7f83708773_06777834 ($_smarty_tpl) {
+function content_59d0b469154143_88703034 ($_smarty_tpl) {
 $_smarty_tpl->tpl_vars["title"] = new Smarty_Variable("EDUKIT | Группы", null);
 $_smarty_tpl->ext->_updateScope->updateScope($_smarty_tpl, "title", 0);
 $_smarty_tpl->smarty->ext->_var->createLocalArrayVariable($_smarty_tpl, 'css_links', null);
@@ -106,10 +106,12 @@ $_smarty_tpl->tpl_vars['group'] = $__foreach_group_0_saved_item;
                     <label>Года обучения</label>
                     <div class="row">
                       <div class="col-md-6">                      
-                        <input type="number" name="edu_year_1" min="2010" value="2010" max="2099" class="form-control">
+                        <input type="number" name="edu_year_1" min="2000" value="<?php echo $_smarty_tpl->tpl_vars['currentYear']->value;?>
+" max="2099" class="form-control">
                       </div>
                       <div class="col-md-6">
-                        <input type="number" name="edu_year_2" min="2010" value="2011" max="2099" class="form-control">
+                        <input type="number" name="edu_year_2" min="2000" value="<?php echo $_smarty_tpl->tpl_vars['currentYear']->value+1;?>
+" max="2099" class="form-control">
                       </div>
                     </div>
                   </div>

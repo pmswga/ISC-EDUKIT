@@ -49,7 +49,7 @@
   
   $SHM = new ScheduleManager($DB);
     
-	$CT->assign("groups", $GM->getAllGroups());
+	$CT->assign("groups", $GM->getGroupsOfCurrentYear());
 	
 	session_start();
 ?>

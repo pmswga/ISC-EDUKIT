@@ -53,10 +53,10 @@
                     <label>Года обучения</label>
                     <div class="row">
                       <div class="col-md-6">                      
-                        <input type="number" name="edu_year_1" min="2010" value="2010" max="2099" class="form-control">
+                        <input type="number" name="edu_year_1" min="2000" value="{$currentYear}" max="2099" class="form-control">
                       </div>
                       <div class="col-md-6">
-                        <input type="number" name="edu_year_2" min="2010" value="2011" max="2099" class="form-control">
+                        <input type="number" name="edu_year_2" min="2000" value="{$currentYear+1}" max="2099" class="form-control">
                       </div>
                     </div>
                   </div>

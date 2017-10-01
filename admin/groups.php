@@ -16,7 +16,8 @@
 		$SPM = new SpecialtyManager($DB);
 		
 		$CT->assign("specialtyes", $SPM->getAllSpecialty());
-		$CT->assign("groups", $GM->getAllGroups());
+    $CT->assign("groups", $GM->getAllGroups());
+    $CT->assign("currentYear", date("Y"));
 		
 		$CT->Show("groups.tpl");
 		

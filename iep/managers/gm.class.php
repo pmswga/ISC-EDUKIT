@@ -117,6 +117,31 @@
       return $unset_groups;
     }
     
+    /*!
+
+    */
+
+    public function getGroupsOfCurrentYear()
+    {
+      $db_groups = $this->query("call getGroupsOfCurrentYear()");
+
+      $groups = array();
+      foreach ($db_groups as $db_group) {
+        $spec = new Specialty(
+          $db_group['spec_code'], 
+          $db_group['spec_descp'], 
+          $db_group['spec_file']
+        );
+        $spec->setSpecialtyID((int)$db_group['spec_id']);
+        
+        $group = new Group($db_group['number'], $spec, $db_group['edu_year'], (int)$db_group['budget']);
+        $group->setGroupID((int)$db_group['id_grp']);
+        
+        $groups[] = $group;
+      }
+
+      return $groups;
+    }
     
     /*!
       \brief Возвращает все группы

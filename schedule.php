@@ -3,7 +3,7 @@
 
   use IEP\Structures\User;
   
-  $groups = $GM->getAllGroups();
+  $groups = $GM->getGroupsOfCurrentYear();
 
   if (!empty($groups)) {
       if (!empty(current($groups))) {
