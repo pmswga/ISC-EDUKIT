@@ -1,4 +1,15 @@
 
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+#teachers_from_history {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
 #menu {
   width: 100%;
 }
