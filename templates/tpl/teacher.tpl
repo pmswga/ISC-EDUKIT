@@ -21,6 +21,14 @@
                     </div>
                     <div class="description">
                       {$teacher->getInfo()}
+                      <br>
+                      <br>
+                      {if $teacher->getSubjects() != NULL}
+                        {foreach from=$teacher->getSubjects() item=subject}
+                          <a class="ui tag label">{$subject->getDescription()}</a>
+                          <br><br>
+                        {/foreach}
+                      {/if}
                     </div>
                   </div>
                 </div>

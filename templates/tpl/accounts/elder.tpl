@@ -319,7 +319,7 @@
                   </tbody>
                   <tfoot>
                     <tr>
-                      <td colspan="2"><input type="submit" name="commitTrafficButton" value="Зафиксировать" class="btn btn-success"></td>
+                      <td colspan="2"><input type="submit" name="commitTrafficButton" value="Зафиксировать" class="ui primary button"></td>
                     </tr>
                   </tfoot>
                 </table>
@@ -344,7 +344,6 @@
 
   $('.menu .item').tab();
   $('.ui.accordion').accordion();
-
 </script>
 
 {include file="html/end.tpl"}

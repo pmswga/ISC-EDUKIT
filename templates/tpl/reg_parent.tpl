@@ -68,7 +68,6 @@
           <div class="row">
             <div class="eight wide column">
               <div class="ui form">
-
                 <div class="field">
                   <label>Фамилия</label>
                   <input type="text" name="sn">
@@ -93,6 +92,7 @@
                   <label>Повторите пароль</label>
                   <input type="password" name="retry_password">
                 </div>
+              <!--
                 <div class="field">
                   <label>Домашний телефон</label>
                   <input type="text" name="home_phone">
@@ -120,6 +120,7 @@
                     <option value="Высшее">Высшее</option>
                   </select>
                 </div>
+              -->
                 <div class="two fields">
                   <div class="field">
                     <div class="ui floated checkbox">
@@ -144,46 +145,49 @@
               </div>
             </div>
             <div class="eight wide column">
-              {foreach from=$studentsByGroup key=group item=student}
-                <div class="ui styled accordion">
-                  <div class="title">
-                    {$group}
-                  </div>
-                  <div class="content">
-                    <table class="ui table bordered">
-                      <thead>
-                        <tr>
-                          <th>
-                            <h4>ФИО</h4>
-                          </th>
-                          <th>
-                            <h4>E-mail</h4>
-                          </th>
-                          <th>
-                            <h4>Выбрать</h4>
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {foreach from=$student item=one_student}
-                        <tr>
-                          <td>{$one_student->getSn()} {$one_student->getFn()} {$one_student->getPt()}</td>
-                          <td>{$one_student->getEmail()}</td>
-                          <td style="text-align: center">
-                            <!-- FIXME: -->
-                            <div class="ui floated checkbox">
-                              <input type="checkbox" value="{$one_student->getEmail()}" name="childs[]" class="form-control">
-                              <label></label>
-                            </div>
-                            </td>
+              <fieldset>
+                <legend><h3>Ваш ребёнок/дети</h3></legend>
+                {foreach from=$studentsByGroup key=group item=student}
+                  <div class="ui styled accordion">
+                    <div class="title">
+                      {$group}
+                    </div>
+                    <div class="content">
+                      <table class="ui table bordered">
+                        <thead>
+                          <tr>
+                            <th>
+                              <h4>ФИО</h4>
+                            </th>
+                            <th>
+                              <h4>E-mail</h4>
+                            </th>
+                            <th>
+                              <h4>Выбрать</h4>
+                            </th>
                           </tr>
-                          {/foreach}
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody>
+                          {foreach from=$student item=one_student}
+                          <tr>
+                            <td>{$one_student->getSn()} {$one_student->getFn()} {$one_student->getPt()}</td>
+                            <td>{$one_student->getEmail()}</td>
+                            <td style="text-align: center">
+                              <!-- FIXME: -->
+                              <div class="ui floated checkbox">
+                                <input type="checkbox" value="{$one_student->getEmail()}" name="childs[]" class="form-control">
+                                <label></label>
+                              </div>
+                              </td>
+                            </tr>
+                            {/foreach}
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
-                </div>
-                <br> 
-              {/foreach}
+                  <br> 
+                {/foreach}
+              </fieldset>
             </div>
           </div>
         </div>

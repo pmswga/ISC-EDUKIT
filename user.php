@@ -48,7 +48,7 @@
         $user->setSubjects($SM->getSubjects($user->getEmail()));
         
 				$CT->assign("user", $user);
-				$CT->assign("groups", $GM->getAllGroups());
+				$CT->assign("groups", $GM->getGroupsOfCurrentYear());
         $CT->assign("unset_subjects", $SM->getUnsetSubjects($user->getEmail()));
         $CT->assign("date", date("d.m.Y"));
 				

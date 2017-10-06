@@ -5,7 +5,7 @@
 			{include file='blocks/user_menu.tpl'}
 		</div>
 		<div class="thirteen wide column">
-			<div class="ui top attached tabular menu">
+			<div class="ui top attached stackable tabular menu">
 				<a class="item active" data-tab="main">Основное</a>
 				<a class="item" data-tab="sogrous">Одногруппники</a>
 				<a class="item" data-tab="testing">Тестирование</a>
@@ -14,98 +14,105 @@
 			<div class="ui bottom attached tab segment active" data-tab="main">
 				<div class="ui stackable grid">
 					<div class="ten wide column">
-						{if $changed_schedules != NULL} {foreach from=$changed_schedules key=grp item=schedule}
-						<div id="groupSchedule" class="ui styled accordion">
-							<div class="active title">
-								Изменения
-							</div>
-							<div class="active content">
-								{foreach from=$schedule key=day item=data}
-								<div class="accordion">
-									<div class="title">
-										<h3>{$day|date_format:"d.m.Y"}</h3>
+						{if $changed_schedules != NULL} 
+							{foreach from=$changed_schedules key=grp item=schedule}
+								<div id="groupSchedule" class="ui styled accordion">
+									<div class="active title">
+										Изменения
 									</div>
-									<div class="content">
-										<table class="ui table bordered">
-											<thead>
-												<tr>
-													<th>
-														<h4>Пара</h4>
-													</th>
-													<th>
-														<h4>Нижняя неделя</h4>
-													</th>
-													<th>
-														<h4>Верхняя неделя</h4>
-													</th>
-												</tr>
-											</thead>
-											<tbody>
-												{foreach from=$data item=entry}
-												<tr>
-													<td>{$entry['pair']}</td>
-													{if $entry['subj_1'] == $entry['subj_2']}
-													<td colspan="2">{$entry['subj_1']}</td>
-													{else}
-													<th>{$entry['subj_1']}</th>
-													<th>{$entry['subj_2']}</th>
-													{/if}
-												</tr>
-												{/foreach}
-											</tbody>
-										</table>
-									</div>
-								</div>
-								{/foreach}
-							</div>
-						</div>
-						{/foreach} {/if}
-						<br> {if $schedules != NULL} {foreach from=$schedules key=grp item=schedule}
-						<div id="groupSchedule" class="ui styled accordion">
-							<div class="active title">
-								Основное расписание для {$grp}
-							</div>
-							<div class="active content">
-								{foreach from=$schedule key=day item=data}
-								<div class="accordion">
-									<div class="title">
-										<h3>{$day}</h3>
-									</div>
-									<div class="content">
-										<table class="ui table bordered">
-											<thead>
-												<tr>
-													<th>
-														<h4>Пара</h4>
-													</th>
-													<th>
-														<h4>Нижняя неделя</h4>
-													</th>
-													<th>
-														<h4>Верхняя неделя</h4>
-													</th>
-												</tr>
-											</thead>
-											<tbody>
-												{foreach from=$data item=entry}
-												<tr>
-													<td>{$entry['pair']}</td>
-													{if $entry['subj_1'] == $entry['subj_2']}
-													<td colspan="2">{$entry['subj_1']}</td>
-													{else}
-													<th>{$entry['subj_1']}</th>
-													<th>{$entry['subj_2']}</th>
-													{/if}
-												</tr>
-												{/foreach}
-											</tbody>
-										</table>
+									<div class="active content">
+										{foreach from=$schedule key=day item=data}
+										<div class="accordion">
+											<div class="title">
+												<h3>{$day|date_format:"d.m.Y"}</h3>
+											</div>
+											<div class="content">
+												<table class="ui table bordered">
+													<thead>
+														<tr>
+															<th>
+																<h4>Пара</h4>
+															</th>
+															<th>
+																<h4>Нижняя неделя</h4>
+															</th>
+															<th>
+																<h4>Верхняя неделя</h4>
+															</th>
+														</tr>
+													</thead>
+													<tbody>
+														{foreach from=$data item=entry}
+														<tr>
+															<td>{$entry['pair']}</td>
+															{if $entry['subj_1'] == $entry['subj_2']}
+															<td colspan="2">{$entry['subj_1']}</td>
+															{else}
+															<th>{$entry['subj_1']}</th>
+															<th>{$entry['subj_2']}</th>
+															{/if}
+														</tr>
+														{/foreach}
+													</tbody>
+												</table>
+											</div>
+										</div>
+										{/foreach}
 									</div>
 								</div>
-								{/foreach}
-							</div>
-						</div>
-						{/foreach} {/if}
+							{/foreach} 
+						{/if}
+						<br>
+						{if $schedules != NULL} 
+							{foreach from=$schedules key=grp item=schedule}
+								<div id="groupSchedule" class="ui styled accordion">
+									<div class="active title">
+										Основное расписание для {$grp}
+									</div>
+									<div class="active content">
+										{foreach from=$schedule key=day item=data}
+										<div class="accordion">
+											<div class="title">
+												<h3>{$day}</h3>
+											</div>
+											<div class="content">
+												<table class="ui table bordered">
+													<thead>
+														<tr>
+															<th>
+																<h4>Пара</h4>
+															</th>
+															<th>
+																<h4>Нижняя неделя</h4>
+															</th>
+															<th>
+																<h4>Верхняя неделя</h4>
+															</th>
+														</tr>
+													</thead>
+													<tbody>
+														{foreach from=$data item=entry}
+														<tr>
+															<td>{$entry['pair']}</td>
+															{if $entry['subj_1'] == $entry['subj_2']}
+															<td colspan="2">{$entry['subj_1']}</td>
+															{else}
+															<th>{$entry['subj_1']}</th>
+															<th>{$entry['subj_2']}</th>
+															{/if}
+														</tr>
+														{/foreach}
+													</tbody>
+												</table>
+											</div>
+										</div>
+										{/foreach}
+									</div>
+								</div>
+							{/foreach} 
+						{else}
+								<h1><i class="massive smile icon"></i>Расписания пока нет</h1>
+						{/if}
 					</div>
 					<div class="six wide column">
 						<table class="ui table">
@@ -216,7 +223,7 @@
 							</tbody>
 						</table>
 						{else}
-						<h2>Нет доступных тестов</h2>
+							<h2><i class="massive smile icon"></i>Нет доступных тестов</h2>
 						{/if}
 					</div>
 					<div class="six wide column">

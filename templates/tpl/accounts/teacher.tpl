@@ -15,7 +15,7 @@
 				<div class="ui bottom attached tab segment active" data-tab="main">
 					<div class="ui stackable grid">
 						<div class="ten wide column">
-							Здесь результаты по пройденным тестам
+							Здесь будут отображаться результаты студентов, которые прошли ваши тесты
 						</div>
 						<div class="six wide column">
 							<table class="ui table">

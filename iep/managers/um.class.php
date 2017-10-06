@@ -10,6 +10,7 @@
   require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/parent.class.php";
   require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/group.class.php";
   require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/specialty.class.php";
+  require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/subject.class.php";
   
   use IEP\Structures\User;
   use IEP\Structures\Teacher;
@@ -17,6 +18,7 @@
   use IEP\Structures\Parent_;
   use IEP\Structures\Group;
   use IEP\Structures\Specialty;
+  use IEP\Structures\Subject;
   
   /*!
     
@@ -545,6 +547,13 @@
       $teachers = array();
       foreach ($db_teachers as $db_teacher) {
         
+        $db_subjects = $this->query("call getSubjects(:teacher_email)", [ ":teacher_email" => $db_teacher['email']]);
+
+        $subjects = array();
+        foreach ($db_subjects as $subject) {
+          $subjects[] = new Subject($subject['description']);
+        }
+
         $teacher = new Teacher(
           new User(
             $db_teacher['sn'],
@@ -557,6 +566,7 @@
           $db_teacher['info']
         );
         
+        $teacher->setSubjects($subjects);
         $teachers[] = $teacher;
       }
       
