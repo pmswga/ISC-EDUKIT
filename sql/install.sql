@@ -149,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `news` (
 	caption char(255) NOT NULL,
 	content text NOT NULL,
 	id_author int NOT NULL,
-	date_publication date NOT NULL,
+	date_publication datetime NOT NULL,
 	INDEX (id_author),
 	CONSTRAINT nc_caption CHECK(caption <> ''),
 	CONSTRAINT nc_content CHECK(content <> '')
@@ -251,7 +251,7 @@ CREATE TABLE IF NOT EXISTS `admin_news` (
 	caption char(255) NOT NULL,
 	content text NOT NULL,
 	id_author int NOT NULL,
-	date_publication date NOT NULL,
+	date_publication datetime NOT NULL,
 	INDEX (id_author),
 	CONSTRAINT nc_caption CHECK(caption <> ''),
 	CONSTRAINT nc_content CHECK(content <> '')
@@ -846,7 +846,7 @@ DROP TRIGGER IF EXISTS uptRAnswer;
 
 DELIMITER //
 
-CREATE TRIGGER IF NOT EXISTS insUser BEFORE INSERT ON `users` FOR EACH ROW
+CREATE TRIGGER insUser BEFORE INSERT ON `users` FOR EACH ROW
 BEGIN
 	IF new.sn = '' OR
 		new.fn = ''  OR
@@ -859,7 +859,7 @@ BEGIN
 END;
 
 
-CREATE TRIGGER IF NOT EXISTS insTypeUser BEFORE INSERT ON `typeUser` FOR EACH ROW
+CREATE TRIGGER insTypeUser BEFORE INSERT ON `typeUser` FOR EACH ROW
 BEGIN
 	IF new.description = '' THEN
 		SIGNAL SQLSTATE '45000' SET
@@ -867,7 +867,7 @@ BEGIN
 	END IF;
 END;
 
-CREATE TRIGGER IF NOT EXISTS insAdmin BEFORE INSERT ON `admins` FOR EACH ROW
+CREATE TRIGGER insAdmin BEFORE INSERT ON `admins` FOR EACH ROW
 BEGIN
 	IF new.sn = ''     OR
 		new.fn = ''     OR
@@ -880,7 +880,7 @@ BEGIN
 	END IF;
 END;
 
-CREATE TRIGGER IF NOT EXISTS insStudent BEFORE INSERT ON `students` FOR EACH ROW
+CREATE TRIGGER insStudent BEFORE INSERT ON `students` FOR EACH ROW
 BEGIN
 	IF new.home_address = '' OR
 		new.cell_phone = ''
@@ -890,7 +890,7 @@ BEGIN
 	END IF;
 END;
 
-CREATE TRIGGER IF NOT EXISTS insGroup BEFORE INSERT ON `groups` FOR EACH ROW
+CREATE TRIGGER insGroup BEFORE INSERT ON `groups` FOR EACH ROW
 BEGIN
 	IF new.description = '' OR
 		new.edu_year = ''
@@ -900,7 +900,7 @@ BEGIN
 	END IF;
 END;
 
-CREATE TRIGGER IF NOT EXISTS insSpecialty BEFORE INSERT ON `specialty` FOR EACH ROW
+CREATE TRIGGER insSpecialty BEFORE INSERT ON `specialty` FOR EACH ROW
 BEGIN
 	IF new.code_spec = ''   OR
 		new.description = '' OR
@@ -911,7 +911,7 @@ BEGIN
 	END IF;
 END;
 
-CREATE TRIGGER IF NOT EXISTS insParent BEFORE INSERT ON `parents` FOR EACH ROW
+CREATE TRIGGER insParent BEFORE INSERT ON `parents` FOR EACH ROW
 BEGIN
 	IF new.education = ''  OR
 		new.work_place = '' OR
@@ -924,7 +924,7 @@ BEGIN
 	END IF;
 END;
 
-CREATE TRIGGER IF NOT EXISTS insRelation BEFORE INSERT ON `relations` FOR EACH ROW
+CREATE TRIGGER insRelation BEFORE INSERT ON `relations` FOR EACH ROW
 BEGIN
 	IF	new.description = ''
 	THEN
@@ -933,7 +933,7 @@ BEGIN
 	END IF;
 END;
 
-CREATE TRIGGER IF NOT EXISTS insTeacher BEFORE INSERT ON `teachers` FOR EACH ROW
+CREATE TRIGGER insTeacher BEFORE INSERT ON `teachers` FOR EACH ROW
 BEGIN
 	IF	new.info = ''
 	THEN
@@ -942,7 +942,7 @@ BEGIN
 	END IF;
 END;
 
-CREATE TRIGGER IF NOT EXISTS insNews BEFORE INSERT ON `news` FOR EACH ROW
+CREATE TRIGGER insNews BEFORE INSERT ON `news` FOR EACH ROW
 BEGIN
 	IF new.caption = '' OR
 		new.content = ''
@@ -952,7 +952,7 @@ BEGIN
 	END IF;
 END;
 
-CREATE TRIGGER IF NOT EXISTS insSubject BEFORE INSERT ON `subjects` FOR EACH ROW
+CREATE TRIGGER insSubject BEFORE INSERT ON `subjects` FOR EACH ROW
 BEGIN
 	IF new.description = ''
 	THEN
@@ -961,7 +961,7 @@ BEGIN
 	END IF;
 END;
 
-CREATE TRIGGER IF NOT EXISTS insTest BEFORE INSERT ON `tests` FOR EACH ROW
+CREATE TRIGGER insTest BEFORE INSERT ON `tests` FOR EACH ROW
 BEGIN
 	IF new.caption = ''
 	THEN
@@ -970,7 +970,7 @@ BEGIN
 	END IF;
 END;
 
-CREATE TRIGGER IF NOT EXISTS insQuestion BEFORE INSERT ON `questions` FOR EACH ROW
+CREATE TRIGGER insQuestion BEFORE INSERT ON `questions` FOR EACH ROW
 BEGIN
 	IF new.question = '' OR
 		new.r_answer = ''
@@ -980,7 +980,7 @@ BEGIN
 	END IF;
 END;
 
-CREATE TRIGGER IF NOT EXISTS insAnswer BEFORE INSERT ON `answers` FOR EACH ROW
+CREATE TRIGGER insAnswer BEFORE INSERT ON `answers` FOR EACH ROW
 BEGIN
 	IF new.answer = ''
 	THEN
@@ -989,7 +989,7 @@ BEGIN
 	END IF;
 END;
 
-CREATE TRIGGER IF NOT EXISTS insStudentTest BEFORE INSERT ON `student_tests` FOR EACH ROW
+CREATE TRIGGER insStudentTest BEFORE INSERT ON `student_tests` FOR EACH ROW
 BEGIN
 	IF new.subject = ''
 	THEN
@@ -998,7 +998,7 @@ BEGIN
 	END IF;
 END;
 
-CREATE TRIGGER IF NOT EXISTS insStudentAnswer BEFORE INSERT ON `student_answers` FOR EACH ROW
+CREATE TRIGGER insStudentAnswer BEFORE INSERT ON `student_answers` FOR EACH ROW
 BEGIN
 	IF new.question = '' OR
 		new.answer = ''
@@ -1008,7 +1008,7 @@ BEGIN
 	END IF;
 END;
 
-CREATE TRIGGER IF NOT EXISTS insStudentTraffic BEFORE INSERT ON `student_traffic` FOR EACH ROW
+CREATE TRIGGER insStudentTraffic BEFORE INSERT ON `student_traffic` FOR EACH ROW
 BEGIN
 	IF
 		(new.count_passed_hours < 0) OR
@@ -1022,7 +1022,7 @@ END;
 
 
 
-CREATE TRIGGER IF NOT EXISTS uptRAnswer AFTER UPDATE ON `questions` FOR EACH ROW
+CREATE TRIGGER uptRAnswer AFTER UPDATE ON `questions` FOR EACH ROW
 BEGIN
 	UPDATE `answers` SET `answer`=new.r_answer WHERE `id_question`=new.id_question AND `answer`=old.r_answer;
 END;
@@ -1210,6 +1210,7 @@ DROP PROCEDURE IF EXISTS removeGroup;
 DROP PROCEDURE IF EXISTS changeDescriptionGroup;
 DROP PROCEDURE IF EXISTS changeSpecGroup;
 /*DROP PROCEDURE IF EXISTS upCourse;*/
+DROP PROCEDURE IF EXISTS getGroupsOfCurrentYear;
 DROP PROCEDURE IF EXISTS getAllGroups;
 
 DELIMITER //
@@ -1250,6 +1251,12 @@ BEGIN
 	END IF;
 END;
 */
+
+CREATE PROCEDURE getGroupsOfCurrentYear()
+BEGIN
+	SELECT * FROM `v_Groups` WHERE `edu_year`=CONCAT(YEAR(NOW()), '/', YEAR(NOW())+1);
+END;
+
 CREATE PROCEDURE getAllGroups()
 BEGIN
   SELECT * FROM `v_Groups`;
@@ -1276,12 +1283,12 @@ DROP PROCEDURE IF EXISTS clearAllNews;
 
 DELIMITER //
 
-CREATE PROCEDURE addNews(n_caption char(255), n_content text, emailTeacher char(30), n_date date)
+CREATE PROCEDURE addNews(n_caption char(255), n_content text, emailTeacher char(30), n_date datetime)
 BEGIN
 	INSERT INTO `news` (`caption`, `content`, `id_author`, `date_publication`) VALUES (n_caption, n_content, getTeacherId(emailTeacher), n_date);
 END;
 
-CREATE PROCEDURE addAdminNews(n_caption char(255), n_content text, emailTeacher char(30), n_date date)
+CREATE PROCEDURE addAdminNews(n_caption char(255), n_content text, emailTeacher char(30), n_date datetime)
 BEGIN
 	INSERT INTO `admin_news` (`caption`, `content`, `id_author`, `date_publication`) VALUES (n_caption, n_content, getAdminId(emailTeacher), n_date);
 END;
@@ -1320,7 +1327,8 @@ BEGIN
 			INNER JOIN `admins` u ON an.id_author=u.id_admin
 	)
 	union all
-	(SELECT `id_news`, `caption`, `content`, `author`, `dp` FROM `v_News`);
+	(SELECT `id_news`, `caption`, `content`, `author`, `dp` FROM `v_News`)
+    ORDER BY `dp` DESC;
 END;
 
 CREATE PROCEDURE getAdminNews(author CHAR(255)) /* Для вывода в панели администратора */
