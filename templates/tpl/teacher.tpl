@@ -1,4 +1,3 @@
-{assign var="title" value="Преподаватели"}
 {include file='html/begin.tpl'}
   <div class="ui stackable grid">
     <div class="row">

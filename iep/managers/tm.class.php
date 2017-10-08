@@ -9,6 +9,8 @@
   require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/subject.class.php";
   require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/group.class.php";
   require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/studenttest.class.php";
+  require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/studentresult.class.php";
+  require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/student.class.php";
   
   use IEP\Managers\IEP;
   use IEP\Structures\Subject;
@@ -18,7 +20,10 @@
   use IEP\Structures\TestQuestion;
   use IEP\Structures\StudentAnswer;
   use IEP\Structures\StudentTest;
-  
+  use IEP\Structures\StudentResult;
+  use IEP\Structures\Student;
+  use IEP\Structures\User;
+
   /*!
     \class TestManager tm.class.php "iep/managers/tm.class.php"
     \extends IEP
@@ -708,6 +713,42 @@
       }
       
       return $student_tests;
+    }
+
+
+    /*!
+
+
+    */
+
+    public function getStudentsResult(string $teacher_email) : array
+    {
+      $db_tests = $this->query("call getTests(:teacher_email)", [":teacher_email" => $teacher_email]);
+
+      $students_result = array();
+      foreach ($db_tests as $db_test) {
+        $students_result[$db_test['caption']] = array();
+        $test_id = $db_test['id_test'];
+
+        $db_groups = $this->query("call getStudentsResultByTest(:test_id)", [":test_id" => $test_id]);
+
+        foreach ($db_groups as $db_group) {
+          $students_result[$db_test['caption']][$db_group['number']] = array();
+          $group_id = $db_group['id_grp'];
+
+          $db_students = $this->query("call getStudentsResultByGroup(:group_id)", [":group_id" => $group_id]);
+
+          foreach ($db_students as $db_student) {
+            
+            
+            
+          }
+
+        }
+
+      }
+      
+      return $students_result;
     }
     
     /*!

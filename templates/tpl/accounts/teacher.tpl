@@ -1,4 +1,3 @@
-{assign var=title value="Личный кабинет"}
 {include file="html/begin.tpl"}
 	<div class="ui stackable grid">
     <div class="row">
@@ -15,7 +14,48 @@
 				<div class="ui bottom attached tab segment active" data-tab="main">
 					<div class="ui stackable grid">
 						<div class="ten wide column">
-							Здесь будут отображаться результаты студентов, которые прошли ваши тесты
+							{if $students_result != NULL}
+								{foreach $students_result as $test_caption => $test}
+									<div class="ui styled accordion">
+										<div class="title">
+											{$test_caption}
+										</div>
+										<div class="content">
+											{foreach $test as $group_caption => $group}
+												<div class="accordion">
+													<div class="title">
+														{$group_caption}
+													</div>
+													<div class="content">
+														<table class="ui table">
+															<thead>
+																<tr>
+																	<th>ФИО</th>
+																	<th>Оценка</th>
+																	<th>Дата сдачи</th>
+																</tr>
+															</thead>
+															<tbody>
+																{foreach $group as $student_result}
+																	<tr>
+																		<td>{$student_result->getEmail()}</td>
+																	</tr>
+																{/foreach}
+															</tbody>
+														</table>
+													</div>
+												</div>
+											{/foreach}
+										</div>
+									</div>
+								{/foreach}
+							{else}
+								<h3 align="center">
+									<i class="massive red bar chart icon"></i>
+									<br>
+									Студенты ещё не проходили ваши тесты
+								</h3>
+							{/if}
 						</div>
 						<div class="six wide column">
 							<table class="ui table">
@@ -49,32 +89,40 @@
 				<div class="ui bottom attached tab segment" data-tab="news">
 					<div class="ui stackable grid">
 						<div class="eight wide column">
-							{foreach from=$user->getNews() key=date item=one_news}
-								<div class="ui card" style="width: 100%;">
-									<div class="content">
-										<div class="header">
-											{$one_news->getCaption()}
-										</div>
-										<div class="meta">
-											{$one_news->getDatePublication()|date_format:"d.m.Y"} 
-										</div>
-										<div class="description">
-											{$one_news->getContent()|truncate:350}
-										</div>
-										<hr>
-										<div class="meta">
-											<form name="removeNewsButton" method="POST">
-												<input type="hidden" name="news" value="{$one_news->getNewsID()}">
-												<input type="submit" name="removeNewsButton" value="Удалить" class="ui negative button">
-												<input type="submit" name="changeNewsButton" value="Изменить" class="ui orange button">
-											</form>
+							{if $user->getNews() != NULL}
+								{foreach from=$user->getNews() key=date item=one_news}
+									<div class="ui card" style="width: 100%;">
+										<div class="content">
+											<div class="header">
+												{$one_news->getCaption()}
+											</div>
+											<div class="meta">
+												{$one_news->getDatePublication()|date_format:"d.m.Y"} 
+											</div>
+											<div class="description">
+												{$one_news->getContent()|truncate:50}
+											</div>
+											<hr>
+											<div class="meta">
+												<form name="removeNewsButton" method="POST">
+													<input type="hidden" name="news" value="{$one_news->getNewsID()}">
+													<input type="submit" name="removeNewsButton" value="Удалить" class="ui negative button">
+													<input type="submit" name="changeNewsButton" value="Изменить" class="ui orange button">
+												</form>
+											</div>
 										</div>
 									</div>
-								</div>
-							{/foreach}
+								{/foreach}
+							{else}
+								<h3 align="center">
+									<i class="massive orange newspaper icon"></i>
+									<br>
+									Вы ещё не публиковали новости
+								</h3>
+							{/if}
 						</div>
 						<div class="eight wide column">
-							<form name="" method="POST" class="ui form">
+							<form name="addNewsForm" method="POST" class="ui form">
 								<div class="field">
 									<label>Заголовок</label>
 									<input type="text" name="caption" required>
@@ -108,7 +156,10 @@
 									<tbody>
 										{foreach from=$user->getSubjects() item=subject}
 											<tr>
-												<td>{$subject->getDescription()}</td>
+												<td>
+													<i class="book icon"></i>
+													{$subject->getDescription()}
+												</td>
 												<td style="text-align: center;"> <!-- FIXME: -->
 													<form name="unsetSubjectForm" method="POST">
 														<input type="hidden" name="subject" value="{$subject->getSubjectID()}">
@@ -120,7 +171,11 @@
 									</tbody>
 								</table>
 							{else}
-								<h2>Выберете предметы</h2>
+								<h3 align="center">
+									<i class="massive yellow book icon"></i>
+									<br>
+									Вы не ведёте ни одного предмета
+								</h3>
 							{/if}
 						</div>
 						<div class="six wide column">
@@ -148,7 +203,7 @@
 										</tbody>
 									</table>
 								{else}
-									<h2 align="center">Пока что нету предметов</h2>
+									<h2 align="center">Пока что нет предметов</h2>
 								{/if}
 								<div class="field">
 									<input type="submit" name="setSubjectButton" value="Вести предмет/предметы" class="ui primary button">
@@ -172,7 +227,10 @@
 									<tbody class="tests">
 										{foreach from=$user->getTests() item=test}
 											<tr>
-												<td><a href="teacher/aboutTest.php?test={$test->getTestID()}">{$test->getCaption()}</a></td>
+												<td>
+													<i class="unordered list icon"></i>
+													<a href="teacher/aboutTest.php?test={$test->getTestID()}">{$test->getCaption()}</a>
+												</td>
 												<td>{$test->getSubject()->getDescription()}</td>
 												<td>
 													<form name="removeTestForm" method="POST">
@@ -185,55 +243,71 @@
 									</tbody>
 								</table>
 							{else}
-								<h2>Добавьте тесты</h2>
+								<h3 align="center">
+									<i class="massive green unordered list icon"></i>
+									<br>
+									Вы ещё не создавали тесты
+								</h3>
 							{/if}
 						</div>
 						<div class="six wide column">
 							<form name="addTestForm" method="POST" class="ui form">
 								<div class="field">
 									<label>Название теста</label>
-									<input type="text" name="caption" class="form-control">
+									<input type="text" name="caption" class="form-control" required>
 								</div>
 								<div class="field">
 									<label>Предмет</label>
 									{if $user->getSubjects() != NULL}                
-										<select name="subject" class="form-control">
+										<select name="subject" class="form-control" required>
 											{foreach from=$user->getSubjects() item=subject}
 												<option value="{$subject->getSubjectID()}">{$subject->getDescription()}</option>
 											{/foreach}
 										</select>
 									{else}
-										<p>Вы не выбрали предметы, которые ведёте</p>
+										<h4 align="center">
+											Предметы ещё не добавлены
+										</h4>
 									{/if}
 								</div>
 								<div class="field">
 									<label>Для групп</label>
-									<table class="ui table striped">
-										<thead>
-											<tr>
-												<th><h4>Группа</h4></th>
-												<th><h4>Специальность</h4></th>
-												<th><h4>Выбрать</h4></th>
-											</tr>
-										</thead>
-										<tbody class="tests">
-											{foreach from=$groups item=group}
+									{if $groups != NULL}
+										<table class="ui table striped">
+											<thead>
 												<tr>
-													<td>{$group->getNumberGroup()} ({$group->getYearEducation()})</td>
-													<td>{$group->getSpec()->getCode()}</td>
-													<td>
-														<div class="ui fitted checkbox">
-															<input type="checkbox" name="select_group[]" value="{$group->getGroupID()}">
-															<label></label>
-														</div>
-													</td>
+													<th><h4>Группа</h4></th>
+													<th><h4>Специальность</h4></th>
+													<th><h4>Выбрать</h4></th>
 												</tr>
-											{/foreach}
-										</tbody>
-									</table>
+											</thead>
+											<tbody class="tests">
+												{foreach from=$groups item=group}
+													<tr>
+														<td>{$group->getNumberGroup()} ({$group->getYearEducation()})</td>
+														<td>{$group->getSpec()->getCode()}</td>
+														<td>
+															<div class="ui fitted checkbox">
+																<input type="checkbox" name="select_group[]" value="{$group->getGroupID()}">
+																<label></label>
+															</div>
+														</td>
+													</tr>
+												{/foreach}
+											</tbody>
+										</table>
+									{else}
+										<h4 align="center">
+											Группы ещё не сформированы
+										</h4>
+									{/if}
 								</div>
 								<div class="field">
-									<input type="submit" name="addTestButton" value="Добавить" class="ui primary button">
+									{if ($user->getSubjects() != NULL) && ($groups != NULL) }
+										<input type="submit" name="addTestButton" value="Добавить" class="ui primary button">
+									{else}
+										<a class="ui primary disabled button">Добавить</a>
+									{/if}
 								</div>
 							</form>
 						</div>
@@ -243,7 +317,6 @@
 		</div>
 	</div>
 
-				
 	<script type="text/javascript">
 		
 		//CKEDITOR.replace("news");

@@ -1,6 +1,7 @@
 <?php
   require_once "start.php";
   require_once "iep/pages/student.page.class.php";
+  require_once "iep/pages/teacher.page.class.php";
   
 	use IEP\Structures\User;
 	use IEP\Structures\News;
@@ -8,6 +9,8 @@
 	use IEP\Structures\OneQuestion;
 	use IEP\Structures\Subject;
   use IEP\Structures\TrafficEntry;
+  use IEP\Pages\StudentPage;
+  use IEP\Pages\TeacherPage;
 	
 	if (isset($_SESSION['user']) &&
       $_SESSION['user'] instanceof User 
@@ -18,130 +21,48 @@
 		{
 			case USER_TYPE_STUDENT:
 			{
-				$sogroups = $UM->query("SELECT * FROM `v_Students` WHERE `grp`=:grp AND `email`!=:email",
-					[":grp" => $user->getGroup()->getNumberGroup(), ":email" => $user->getEmail()]
-				);
-        $elder = $UM->query("SELECT * FROM `v_Elders` WHERE `grp`=:grp",
-          [":grp" => $user->getGroup()->getNumberGroup()]
-        )[0];
+        $StudentPage = new StudentPage("Личный кабинет студента", "accounts/student.tpl");
+				$StudentPage->setData("user", $user);
+				$StudentPage->setData("sogroups", $UM->getSoGroups($user->getGroup()->getGroupID()));
+				$StudentPage->setData("tests", $TM->getTestsForGroup($user->getGroup()->getGroupID()));
+        $StudentPage->setData("traffic", $TRM->getStudentTraffic($user->getEmail()));
+        $StudentPage->setData("completedTests", $TM->getStudentTests($user->getEmail()));
+				$StudentPage->setData("schedules", $SHM->getScheduleGroup($user->getGroup()->getGroupID()));
+        $StudentPage->setData("changed_schedules", $SHM->getChangeScheduleGroup($user->getGroup()->getGroupID()));
         
-        !empty($elder) ? $sogroups[] = $elder : null;
-        
-				$CT->assign("fio", $user->getSn()." ".$user->getFn()." ".$user->getPt());
-				$CT->assign("sogroups", $sogroups);
-				$CT->assign("user", $user);
-				$CT->assign("tests", $TM->getTestsForGroup($user->getGroup()->getGroupID()));
-        
-        $traffic = $TRM->getStudentTraffic($user->getEmail());
-				
-        $CT->assign("traffic", $traffic);
-        $CT->assign("completedTests", $TM->getStudentTests($user->getEmail()));
-        
-				$CT->assign("schedules", $SHM->getScheduleGroup($user->getGroup()->getGroupID()));
-        $CT->assign("changed_schedules", $SHM->getChangeScheduleGroup($user->getGroup()->getGroupID()));
-        
-				$CT->Show("accounts/student.tpl");
+        if (!empty($_POST)) {
+          $StudentPage->callback($_POST);
+          CTools::Redirect("user.php");
+        }
+
+        $CT->assign($StudentPage->data());
+				$CT->Show($StudentPage->template());
 			} break;
 			case USER_TYPE_TEACHER:
 			{
+        $TeacherPage = new TeacherPage("Личный кабинет преподавателя", "accounts/teacher.tpl");
+
         $user->setTests($TM->getTests($user->getEmail()));
         $user->setNews($NM->getNews($user->getEmail()));
         $user->setSubjects($SM->getSubjects($user->getEmail()));
         
-				$CT->assign("user", $user);
-				$CT->assign("groups", $GM->getGroupsOfCurrentYear());
-        $CT->assign("unset_subjects", $SM->getUnsetSubjects($user->getEmail()));
-        $CT->assign("date", date("d.m.Y"));
-				
-				$CT->Show("accounts/teacher.tpl");
-				
-				if (!empty($_POST['addNewsButton'])) {
-					$data = CForm::getData(array("caption", "content", "dp"));
-					
-					$new_news = new News($data['caption'], $data['content'], $user->getEmail(), $data['dp']);
-					
-					if ($NM->add($new_news)) {
-						CTools::Message("Новость опубликована");
-					} else {
-						CTools::Message("Произошла ошибка");
-					}
-					
-					CTools::Redirect("user.php");
-				}
-				
-				if (!empty($_POST['removeNewsButton'])) {
-					$news_id = $_POST['news'];
-            
-          if ($NM->remove($news_id)) {
-            CTools::Message("Новости были удалены");
-          } else {
-            CTools::Message("Произошла ошибка");
-          }
-          
-          CTools::Redirect("user.php");
-				}
+        $TeacherPage->setData("user", $user);
+				$TeacherPage->setData("groups", $GM->getGroupsOfCurrentYear());
+        $TeacherPage->setData("unset_subjects", $SM->getUnsetSubjects($user->getEmail()));
+        $TeacherPage->setData("date", date("d.m.Y"));
+        //$TeacherPage->setData("students_result", $TM->getStudentsResult($user->getEmail()));
+        //FIXME: Исправить всё к чертям собачим
+        //CTools::var_dump($TM->getStudentsResult($user->getEmail()));
         
-				if (!empty($_POST['setSubjectButton'])) {
-					$select_subject = $_POST['select_subject'];
-          
-          if (!empty($select_subject)) {            
-            $result = true;
-            for ($i = 0; $i < count($select_subject); $i++) {
-              $result *= $SM->setSubject($user->getEmail(), $select_subject[$i]);
-            }
-            
-            if ($result) {
-              CTools::Message("Предметы успешно назначены");
-            } else {
-              CTools::Message("Произошла ошибка");
-            }
-            
-            CTools::Redirect("user.php");
-          }
-          
-				}
-				
-				if (!empty($_POST['unsetSubjectButton'])) {
-					$subject_id = $_POST['subject'];
-					            
-          if ($SM->unsetSubject($user->getEmail(), $subject_id)) {
-            CTools::Message("Предметы убраны");
-          } else {
-            CTools::Message("Произошла ошибка");
-          }
-            
+        $TeacherPage->setManagers(["news" => $NM, "subjects" => $SM, "tests" => $TM]);
+        if (!empty($_POST)) {
+          $TeacherPage->callback($_POST);
           CTools::Redirect("user.php");
-				}
-				
-				if (!empty($_POST['addTestButton'])) {
-					$caption = htmlspecialchars($_POST['caption']);
-					$subject = $_POST['subject'];
-					$select_group = $_POST['select_group'] ?? array();
-					
-					$new_test = new Test($caption, $subject, $user->getEmail(), $select_group);
-          
-					if ($TM->add($new_test)) {
-						CTools::Message("Тест успешно создан");
-					} else {
-						CTools::Message("Произошла ошибка");
-					}
-					
-					CTools::Redirect("user.php");
-				}
-				
-				if (!empty($_POST['removeTestButton'])) {
-					$test_id = $_POST['test'];
-          
-          if ($TM->remove($test_id)) {
-            CTools::Message("Тест был удалён");
-          } else {
-            CTools::Message("При удалени теста произошла ошибка");
-          }
-          
-          CTools::Redirect("user.php");
-				}
-				
-			} break;
+        }
+
+        $CT->assign($TeacherPage->data());
+        $CT->Show($TeacherPage->template());
+      } break;
 			case USER_TYPE_PARENT:
 			{
         

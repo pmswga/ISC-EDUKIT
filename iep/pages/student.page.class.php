@@ -11,13 +11,11 @@
 
         public function callback($post)
         {
-            switch ($post) {
+            if (!empty($post['changePasswordButton'])) {
 
-                case $_POST['']:
-                {
+                echo "Change";
 
-                } break;
-                default: return null; break;
+                return;
             }
         }
 

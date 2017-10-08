@@ -1,4 +1,3 @@
-{assign var=title value="Личный кабинет"} {include file="../html/begin.tpl"}
 <div class="ui stackable grid">
 	<div class="row">
 		<div class="three wide column">
@@ -164,6 +163,30 @@
 								</tr>
 							</tbody>
 						</table>
+						<div class="ui styled accordion">
+							<div class="title">
+								Сменить пароль
+							</div>
+							<div class="content">
+								<form name="changePasswordForm" method="POST" class="ui form">
+									<div class="field">
+										<label>Текущий пароль</label>
+										<input type="password" name="old_password" required>
+									</div>
+									<div class="field">
+										<label>Новый пароль</label>
+										<input type="password" name="new_password" required>
+									</div>
+									<div class="field">
+										<label>Повторите пароль</label>
+										<input type="password" name="retry_new_password" required>
+									</div>
+									<div class="field">
+										<input type="submit" name="changePasswordButton" value="Изменить" class="ui orange button">
+									</div>
+								</form>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -173,17 +196,19 @@
 						{if $sogroups != NULL}
 							<div id="teachers" class="ui link cards">
 								{foreach from=$sogroups item=it}
-									<div class="card">
-										<div class="content">
-											<div class="header">{$it['sn']} {$it['fn']}</div>
-											<div class="meta">
-												<a>Одногруппник</a>
-											</div>
-											<div class="description">
-												<a href="mailto:{$it['email']}">{$it['email']}</a>
+									{if $it['email'] != $user->getEmail()}
+										<div class="card">
+											<div class="content">
+												<div class="header">{$it['sn']} {$it['fn']}</div>
+												<div class="meta">
+													<a>Одногруппник</a>
+												</div>
+												<div class="description">
+													<a href="mailto:{$it['email']}">{$it['email']}</a>
+												</div>
 											</div>
 										</div>
-									</div>
+									{/if}
 								{/foreach}
 							</div>
 						{else}

@@ -31,6 +31,9 @@ DROP PROCEDURE IF EXISTS getStudentTest;
 DROP PROCEDURE IF EXISTS getStudentTests;
 DROP PROCEDURE IF EXISTS getStudentAnswers;
 
+DROP PROCEDURE IF EXISTS getStudentsResultByGroup;
+DROP PROCEDURE IF EXISTS getStudentsResultByTest;
+
 DROP FUNCTION IF EXISTS isGroupForTest;
 
 DELIMITER //
@@ -223,6 +226,16 @@ BEGIN
     FROM `student_tests`
     WHERE `id_student`=getStudentId(student_email)
     ORDER BY `caption`;
+END;
+
+CREATE PROCEDURE getStudentsResultByTest(test_id int)
+BEGIN
+    SELECT DISTINCT * FROM v_Groups WHERE id_grp IN (SELECT id_group FROM groups_tests WHERE id_test = test_id);
+END;
+
+CREATE PROCEDURE getStudentsResultByGroup(group_id int)
+BEGIN
+	SELECT * FROM v_Students WHERE grp_id=group_id;
 END;
 
 CREATE PROCEDURE getStudentAnswers(student_test int)

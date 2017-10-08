@@ -689,6 +689,23 @@
       
       return $students;
     }
+
+    /*!
+      \brief
+      \return
+    */
+
+    public function getSoGroups(int $group_id) : array
+    {
+      $sogroups = $this->query("SELECT * FROM `v_Students`", [":grp" => $group_id]);
+      $elder = $this->query("SELECT * FROM `v_Elders` WHERE `grp`=:grp", [":grp" => $group_id])[0];
+      
+      if (!empty($elder)) {
+        $sogroups[] = $elder;
+      }
+
+      return $sogroups;
+    }
     
     /*!
       \brief Назначает старосту
