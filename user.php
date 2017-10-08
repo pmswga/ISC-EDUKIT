@@ -1,6 +1,7 @@
 <?php
   require_once "start.php";
-	
+  require_once "iep/pages/student.page.class.php";
+  
 	use IEP\Structures\User;
 	use IEP\Structures\News;
 	use IEP\Structures\Test;
@@ -9,7 +10,7 @@
   use IEP\Structures\TrafficEntry;
 	
 	if (isset($_SESSION['user']) &&
-      $_SESSION['user'] instanceof User
+      $_SESSION['user'] instanceof User 
   ) {
 		$user = $_SESSION['user'];
 		    
@@ -215,6 +216,8 @@
       } break;
 		}
 	}
-	else CTools::Redirect("index.php");
+	else {
+    CTools::Redirect("index.php");
+  } 
 	
 ?>

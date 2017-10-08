@@ -1,45 +1,41 @@
 <?php
   require_once "start.php";
+  require_once "iep/pages/schedule.page.class.php";
 
   use IEP\Structures\User;
+  use IEP\Pages\SchedulePage;
   
+  $SchedulePage = new SchedulePage("Расписание", "schedule.tpl");
+  $SchedulePage->setData("week", date("W"));
+
   $groups = $GM->getGroupsOfCurrentYear();
 
   if (!empty($groups)) {
-      if (!empty(current($groups))) {
-        setcookie("current_group", current($groups)->getGroupID());
+    if (!empty(current($groups))) {
+      setcookie("current_group", current($groups)->getGroupID());
 
-        if (!empty($_POST['selectGroupButton'])) {
-            setcookie("current_group", $_POST['group']);
-            CTools::Redirect("schedule.php");
-        }
-        
-        if (!empty($_COOKIE['current_group'])) {
-          
-          $data = $SHM->getScheduleGroup($_COOKIE['current_group']);
-          $changed_schedules = $SHM->getChangeScheduleGroup($_COOKIE['current_group']);
-
-          $CT->assign("schedules", $data);
-          $CT->assign("changed_schedules", $changed_schedules);
-
-          $CT->assign("", $SHM->getAllChangedSchedule());
-          $CT->assign("groups", $groups);
-          
-        }
-
+      if (!empty($_POST['selectGroupButton'])) {
+        $SchedulePage->callback($_POST['selectGroupButton']);
       }
-  
+      
+      if (!empty($_COOKIE['current_group'])) {
+        
+        $SchedulePage->setData("schedules", $SHM->getScheduleGroup($_COOKIE['current_group']));
+        $SchedulePage->setData("changed_schedules", $SHM->getChangeScheduleGroup($_COOKIE['current_group']));
+        $SchedulePage->setData("groups", $groups);
+        
+      }
+
+    }
   }
-
-  $CT->assign("week", date("W"));
-
   
   if (isset($_SESSION['user']) &&
       $_SESSION['user'] instanceof User
   ) {
-    $CT->assign("user", $_SESSION['user']);
+    $SchedulePage->setData("user", $_SESSION['user']);
   }
   
-  $CT->Show("schedule.tpl");
+  $CT->assign($SchedulePage->data());
+  $CT->Show($SchedulePage->template());
 
 ?>

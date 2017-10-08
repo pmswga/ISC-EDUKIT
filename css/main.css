@@ -61,3 +61,13 @@ h4 {
 input a {
   width: 100%;
 }
+
+#statistic_on_ninety {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+}
+

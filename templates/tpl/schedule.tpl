@@ -1,4 +1,3 @@
-{assign var="title" value="Расписание"}
 {include file='html/begin.tpl'}
   <div class="ui stackable grid">
     <div class="row">
@@ -106,20 +105,14 @@
                                     <thead>
                                       <tr>
                                         <th><h4>Пара</h4></th>
-                                        <th><h4>Нижняя неделя</h4></th>
-                                        <th><h4>Верхняя неделя</h4></th>
+                                        <th><h4>Предмет</h4></th>
                                       </tr>
                                     </thead>
                                     <tbody>
                                       {foreach from=$data item=entry}
                                         <tr>
                                           <td>{$entry['pair']}</td>
-                                          {if $entry['subj_1'] == $entry['subj_2']}
-                                            <td colspan="2">{$entry['subj_1']}</td>
-                                          {else}
-                                            <th>{$entry['subj_1']}</th>
-                                            <th>{$entry['subj_2']}</th>
-                                          {/if}
+                                          <td>{$entry['subject']}</td>
                                         </tr>
                                       {/foreach}
                                     </tbody>

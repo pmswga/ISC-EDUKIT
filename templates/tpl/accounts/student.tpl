@@ -34,24 +34,16 @@
 																<h4>Пара</h4>
 															</th>
 															<th>
-																<h4>Нижняя неделя</h4>
-															</th>
-															<th>
-																<h4>Верхняя неделя</h4>
+																<h4>Предмет</h4>
 															</th>
 														</tr>
 													</thead>
 													<tbody>
 														{foreach from=$data item=entry}
-														<tr>
-															<td>{$entry['pair']}</td>
-															{if $entry['subj_1'] == $entry['subj_2']}
-															<td colspan="2">{$entry['subj_1']}</td>
-															{else}
-															<th>{$entry['subj_1']}</th>
-															<th>{$entry['subj_2']}</th>
-															{/if}
-														</tr>
+															<tr>
+																<td>{$entry['pair']}</td>
+																<td>{$entry['subject']}</td>
+															</tr>
 														{/foreach}
 													</tbody>
 												</table>
@@ -111,7 +103,11 @@
 								</div>
 							{/foreach} 
 						{else}
-								<h1><i class="massive smile icon"></i>Расписания пока нет</h1>
+							<h3 align="center">
+								<i class="massive red smile icon"></i>
+								<br>
+								Расписания пока нет
+							</h3>
 						{/if}
 					</div>
 					<div class="six wide column">
@@ -191,7 +187,11 @@
 								{/foreach}
 							</div>
 						{else}
-							<h3 align="center">Ваши одногруппники ещё не зарегистрировались</h3>
+							<h3 align="center">
+								<i class="massive orange frown icon"></i>
+								<br>
+								Ваши одногруппники ещё не зарегистрировались
+							</h3>
 						{/if}
 					</div>
 				</div>
@@ -200,30 +200,34 @@
 				<div class="ui stackable grid">
 					<div class="ten wide column">
 						{if $tests != NULL}
-						<table class="ui table striped">
-							<thead>
-								<th>
-									<h4>Название</h4>
-								</th>
-								<th>
-									<h4>Предмет</h4>
-								</th>
-								<th>
-									<h4>Автор</h4>
-								</th>
-							</thead>
-							<tbody class="tests">
-								{foreach from=$tests item=test}
-								<tr>
-									<td><a href="student/complete.php?test_id={$test->getTestID()}">{$test->getCaption()}</a></td>
-									<td>{$test->getSubject()->getDescription()}</td>
-									<td>{$test->getAuthor()}</td>
-								</tr>
-								{/foreach}
-							</tbody>
-						</table>
+							<table class="ui table striped">
+								<thead>
+									<th>
+										<h4>Название</h4>
+									</th>
+									<th>
+										<h4>Предмет</h4>
+									</th>
+									<th>
+										<h4>Автор</h4>
+									</th>
+								</thead>
+								<tbody class="tests">
+									{foreach from=$tests item=test}
+									<tr>
+										<td><a href="student/complete.php?test_id={$test->getTestID()}">{$test->getCaption()}</a></td>
+										<td>{$test->getSubject()->getDescription()}</td>
+										<td>{$test->getAuthor()}</td>
+									</tr>
+									{/foreach}
+								</tbody>
+							</table>
 						{else}
-							<h2><i class="massive smile icon"></i>Нет доступных тестов</h2>
+							<h3 align="center">
+								<i class="massive yellow smile icon"></i>
+								<br>
+								Нет доступных тестов
+							</h3>
 						{/if}
 					</div>
 					<div class="six wide column">
@@ -254,7 +258,11 @@
 								</tbody>
 							</table>
 						{else}
-							<h4>Вы ещё не прошли ни одного теста</h4>
+							<h3 align="center">
+								<i class="massive green frown icon"></i>
+								<br>
+								Вы ещё не прошли ни одного теста
+							</h3>
 						{/if}
 					</div>
 				</div>
@@ -292,7 +300,11 @@
 								</tbody>
 							</table>
 						{else}
-							<h3>Похоже, что вы вообще не посещали колледж...</h3>
+							<h3 align="center">
+								<i class="massive teal meh icon"></i>
+								<br>
+								Похоже, что вы вообще не посещали колледж
+							</h3>
 						{/if}
 					</div>
 				</div>

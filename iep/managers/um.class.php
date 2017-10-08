@@ -74,8 +74,7 @@
         ":passwd" => $user->getPassword(),
         ":user_type" => $user->getUserType()
       ])[0];
-      
-      
+
       if (
         $exists_user['sn'] === $user->getSn() &&
         $exists_user['fn'] === $user->getFn() &&
