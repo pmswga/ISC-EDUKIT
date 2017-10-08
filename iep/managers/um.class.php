@@ -697,8 +697,8 @@
 
     public function getSoGroups(int $group_id) : array
     {
-      $sogroups = $this->query("SELECT * FROM `v_Students`", [":grp" => $group_id]);
-      $elder = $this->query("SELECT * FROM `v_Elders` WHERE `grp`=:grp", [":grp" => $group_id])[0];
+      $sogroups = $this->query("SELECT * FROM `v_Students` WHERE `grp`=:grp_id", [":grp_id" => $group_id]);
+      $elder = $this->query("SELECT * FROM `v_Elders` WHERE `grp`=:grp_id", [":grp_id" => $group_id])[0];
       
       if (!empty($elder)) {
         $sogroups[] = $elder;

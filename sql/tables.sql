@@ -200,13 +200,14 @@ CREATE TABLE IF NOT EXISTS `answers` (
 
 /* Создание таблицы "Ответов студентов на тесты" */
 CREATE TABLE IF NOT EXISTS `student_tests` (
-	id_student_test int AUTO_INCREMENT PRIMARY KEY,
-	id_student int NOT NULL,
+	id_student_test int,
+	id_student int,
 	caption char(255) NOT NULL,
 	subject char(255) NOT NULL,
 	date_pass datetime NOT NULL,
 	mark int,
 	INDEX(id_student),
+    PRIMARY KEY(id_student_test, id_student),
 	CONSTRAINT stc_subject CHECK(subject <> ''),
 	CONSTRAINT stc_mark CHECK((mark >= 2) AND (mark <= 5))
 ) ENGINE = InnoDB CHARACTER SET = UTF8;

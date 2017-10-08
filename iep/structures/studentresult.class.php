@@ -13,7 +13,7 @@
         private $mark;
         private $date;
 
-        public function __construct($student, array $answers, int $mark, string $date)
+        public function __construct(array $student, array $answers, int $mark, string $date)
         {
             $this->student = $student;
             $this->answers = $answers;
@@ -21,11 +21,11 @@
             $this->date = $date;
         }
 
-        public function student()
+        public function student() : array
         {
             return $this->student;
         }
-        
+
         public function answers() : array
         {
             return $this->answers;

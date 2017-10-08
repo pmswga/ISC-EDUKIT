@@ -50,9 +50,8 @@
 				$TeacherPage->setData("groups", $GM->getGroupsOfCurrentYear());
         $TeacherPage->setData("unset_subjects", $SM->getUnsetSubjects($user->getEmail()));
         $TeacherPage->setData("date", date("d.m.Y"));
-        //$TeacherPage->setData("students_result", $TM->getStudentsResult($user->getEmail()));
-        //FIXME: Исправить всё к чертям собачим
-        //CTools::var_dump($TM->getStudentsResult($user->getEmail()));
+        
+        
         
         $TeacherPage->setManagers(["news" => $NM, "subjects" => $SM, "tests" => $TM]);
         if (!empty($_POST)) {

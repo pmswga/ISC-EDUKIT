@@ -203,13 +203,14 @@ CREATE TABLE IF NOT EXISTS `answers` (
 
 /* Создание таблицы "Ответов студентов на тесты" */
 CREATE TABLE IF NOT EXISTS `student_tests` (
-	id_student_test int AUTO_INCREMENT PRIMARY KEY,
-	id_student int NOT NULL,
+	id_student_test int,
+	id_student int,
 	caption char(255) NOT NULL,
 	subject char(255) NOT NULL,
 	date_pass datetime NOT NULL,
 	mark int,
 	INDEX(id_student),
+    PRIMARY KEY(id_student_test, id_student),
 	CONSTRAINT stc_subject CHECK(subject <> ''),
 	CONSTRAINT stc_mark CHECK((mark >= 2) AND (mark <= 5))
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
@@ -346,12 +347,14 @@ ALTER TABLE `answers`          ADD CONSTRAINT R17 FOREIGN KEY(`id_question`)    
 
 
 
+/* Связка таблицы "student_test" с таблицей "tests" */
+ALTER TABLE `student_tests`    ADD CONSTRAINT R18 FOREIGN KEY (`id_student_test`) REFERENCES `tests` (`id_test`) ON UPDATE NO ACTION ON DELETE NO ACTION ;
 
 /* Связка таблицы "student_test" с таблицей "students" */
-ALTER TABLE `student_tests`    ADD CONSTRAINT R18 FOREIGN KEY (`id_student`)      REFERENCES `students` (`id_student`) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE `student_tests`    ADD CONSTRAINT R19 FOREIGN KEY (`id_student`)      REFERENCES `students` (`id_student`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 /* Связка таблицы "student_questions" с таблицей "student-tests" */
-ALTER TABLE `student_answers`  ADD CONSTRAINT R19 FOREIGN KEY (`id_student_test`) REFERENCES `student_tests` (`id_student_test`) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE `student_answers`  ADD CONSTRAINT R20 FOREIGN KEY (`id_student_test`) REFERENCES `student_tests` (`id_student_test`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 
@@ -360,32 +363,32 @@ ALTER TABLE `student_answers`  ADD CONSTRAINT R19 FOREIGN KEY (`id_student_test`
 
 
 /* Связка таблицы "student_traffic" с таблицей "students" */
-ALTER TABLE `student_traffic`  ADD CONSTRAINT R20 FOREIGN KEY (`id_student`)      REFERENCES `students` (`id_student`) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE `student_traffic`  ADD CONSTRAINT R21 FOREIGN KEY (`id_student`)      REFERENCES `students` (`id_student`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 /* Связка таблицы "groups" с таблицей "groups_tests" */
-ALTER TABLE `groups_tests`     ADD CONSTRAINT R21 FOREIGN KEY(`id_group`)         REFERENCES `groups` (`grp`) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE `groups_tests`     ADD CONSTRAINT R22 FOREIGN KEY(`id_group`)         REFERENCES `groups` (`grp`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 /* Связка таблицы "tests" с таблицей "groups_tests" */
-ALTER TABLE `groups_tests`     ADD CONSTRAINT R22 FOREIGN KEY(`id_test`)          REFERENCES `tests` (`id_test`) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE `groups_tests`     ADD CONSTRAINT R23 FOREIGN KEY(`id_test`)          REFERENCES `tests` (`id_test`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 
 
 
 /* Связка таблицы "schedule" с таблицей "groups" */
-ALTER TABLE `schedule`  ADD CONSTRAINT R23 FOREIGN KEY (`id_grp`)      REFERENCES `groups` (`grp`) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE `schedule`  ADD CONSTRAINT R24 FOREIGN KEY (`id_grp`)      REFERENCES `groups` (`grp`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 /* Связка таблицы "schedule" с таблицей "subjects" */
-ALTER TABLE `schedule`  ADD CONSTRAINT R24 FOREIGN KEY (`subj_1`)      REFERENCES `subjects` (`id_subject`) ON UPDATE CASCADE ON DELETE CASCADE;
-ALTER TABLE `schedule`  ADD CONSTRAINT R25 FOREIGN KEY (`subj_2`)      REFERENCES `subjects` (`id_subject`) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE `schedule`  ADD CONSTRAINT R25 FOREIGN KEY (`subj_1`)      REFERENCES `subjects` (`id_subject`) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE `schedule`  ADD CONSTRAINT R26 FOREIGN KEY (`subj_2`)      REFERENCES `subjects` (`id_subject`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 
 /* Связка таблицы "schedule" с таблицей "groups" */
-ALTER TABLE `changed_schedule`  ADD CONSTRAINT R26 FOREIGN KEY (`id_grp`)      REFERENCES `groups` (`grp`) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE `changed_schedule`  ADD CONSTRAINT R27 FOREIGN KEY (`id_grp`)      REFERENCES `groups` (`grp`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 /* Связка таблицы "schedule" с таблицей "subjects" */
-ALTER TABLE `changed_schedule`  ADD CONSTRAINT R27 FOREIGN KEY (`subject`)      REFERENCES `subjects` (`id_subject`) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE `changed_schedule`  ADD CONSTRAINT R28 FOREIGN KEY (`subject`)      REFERENCES `subjects` (`id_subject`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 /*----------------[functions.sql]----------------*/
 
@@ -1621,6 +1624,9 @@ DROP PROCEDURE IF EXISTS getStudentTest;
 DROP PROCEDURE IF EXISTS getStudentTests;
 DROP PROCEDURE IF EXISTS getStudentAnswers;
 
+DROP PROCEDURE IF EXISTS getStudentsResultByGroup;
+DROP PROCEDURE IF EXISTS getStudentsResultByTest;
+
 DROP FUNCTION IF EXISTS isGroupForTest;
 
 DELIMITER //
@@ -1813,6 +1819,16 @@ BEGIN
     FROM `student_tests`
     WHERE `id_student`=getStudentId(student_email)
     ORDER BY `caption`;
+END;
+
+CREATE PROCEDURE getStudentsResultByTest(test_id int)
+BEGIN
+    SELECT DISTINCT * FROM v_Groups WHERE id_grp IN (SELECT id_group FROM groups_tests WHERE id_test = test_id);
+END;
+
+CREATE PROCEDURE getStudentsResultByGroup(group_id int)
+BEGIN
+	SELECT * FROM v_Students WHERE grp_id=group_id;
 END;
 
 CREATE PROCEDURE getStudentAnswers(student_test int)

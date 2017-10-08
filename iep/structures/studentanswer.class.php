@@ -17,6 +17,7 @@
   
   class StudentAnswer
   {
+    private $test_id;          ///< id преподавательского теста
     private $student;          ///< Студент
     private $answers;          ///< Ответы
     private $subject;          ///< Предмет
@@ -41,8 +42,19 @@
       $this->answers = $answers;
       $this->date = $date;
       $this->mark = $mark;
+      $this->test_id = $test_id;
     }
     
+    public function setTestID(int $test_id)
+    {
+      $this->test_id = $test_id;
+    }
+
+    public function getTestID() : int
+    {
+      return $this->test_id;
+    }
+
     /*!
       \brief Возвращает студента
       \return Студент

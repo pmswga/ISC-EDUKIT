@@ -1,3 +1,4 @@
+{include file="html/begin.tpl"}
 <div class="ui stackable grid">
 	<div class="row">
 		<div class="three wide column">

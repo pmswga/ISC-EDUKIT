@@ -202,9 +202,9 @@ BEGIN
   ORDER BY a.id_answer;
 END;
 
-CREATE PROCEDURE createStudentTest(student_email char(30), subject char(255), t_caption char(255), mark int)
+CREATE PROCEDURE createStudentTest(test_id int, student_email char(30), subject char(255), t_caption char(255), mark int)
 BEGIN
-	INSERT INTO `student_tests` (`id_student`, `subject`, `caption`, `date_pass`, `mark`) VALUES (getStudentId(student_email), subject, t_caption, now(), mark);
+	INSERT INTO `student_tests` (`id_student_test`, `id_student`, `subject`, `caption`, `date_pass`, `mark`) VALUES (test_id, getStudentId(student_email), subject, t_caption, now(), mark);
 END;
 
 CREATE PROCEDURE putStudentAnswer(student_test int, question char(255), answer char(255))

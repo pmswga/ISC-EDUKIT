@@ -50,11 +50,7 @@ h4 {
   width: 100%;
 }
 
-#schedule_lunchs tr td {
-  text-align: center;
-}
-
-#schedule_rings tr td {
+#schedule_lunchs tr td, #passing_test_info tr td, #schedule_rings tr td  {
   text-align: center;
 }
 

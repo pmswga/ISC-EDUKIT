@@ -26,8 +26,7 @@
           $test = $TM->getTest($test_id);
           
           $CT->assign("test", $test);
-          
-          $CT->show("tests/complete.tpl");
+          $CT->show("tests/passing_test.tpl");
           
           if (!empty($_POST['completeTestButton'])) {
             
@@ -37,7 +36,6 @@
             $mark = 0;
             $student_results = array();
             for ($j = 0; $j < count($student_questions); $j++) {
-              
               $student_result["question"] = $student_questions[$j];
               
               $student_result["answer"] = $_POST['answer_'.($j+1)];
@@ -69,6 +67,7 @@
               date("Y-m-d", time()), 
               $mark
             );
+            $new_student_answer->setTestID($test_id);
             
             if ($TM->putStudentAnswer($new_student_answer)) {
               CTools::Message("Результаты записаны");
@@ -77,7 +76,6 @@
             }
             
             CTools::Redirect("../user.php");
-            
           }
           
         } else {

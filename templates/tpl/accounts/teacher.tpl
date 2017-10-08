@@ -15,40 +15,7 @@
 					<div class="ui stackable grid">
 						<div class="ten wide column">
 							{if $students_result != NULL}
-								{foreach $students_result as $test_caption => $test}
-									<div class="ui styled accordion">
-										<div class="title">
-											{$test_caption}
-										</div>
-										<div class="content">
-											{foreach $test as $group_caption => $group}
-												<div class="accordion">
-													<div class="title">
-														{$group_caption}
-													</div>
-													<div class="content">
-														<table class="ui table">
-															<thead>
-																<tr>
-																	<th>ФИО</th>
-																	<th>Оценка</th>
-																	<th>Дата сдачи</th>
-																</tr>
-															</thead>
-															<tbody>
-																{foreach $group as $student_result}
-																	<tr>
-																		<td>{$student_result->getEmail()}</td>
-																	</tr>
-																{/foreach}
-															</tbody>
-														</table>
-													</div>
-												</div>
-											{/foreach}
-										</div>
-									</div>
-								{/foreach}
+								
 							{else}
 								<h3 align="center">
 									<i class="massive red bar chart icon"></i>
@@ -266,7 +233,7 @@
 										</select>
 									{else}
 										<h4 align="center">
-											Предметы ещё не добавлены
+											Вы не ведёте ни одного предмета
 										</h4>
 									{/if}
 								</div>

@@ -586,8 +586,9 @@
       {
         $this->dbc()->beginTransaction();
         
-        $add_student_answer_query = $this->dbc()->prepare("call createStudentTest(:student_email, :subject, :caption, :mark)");
+        $add_student_answer_query = $this->dbc()->prepare("call createStudentTest(:test_id, :student_email, :subject, :caption, :mark)");
         
+        $add_student_answer_query->bindValue(":test_id", $student_answer->getTestID());
         $add_student_answer_query->bindValue(":student_email", $student_answer->getStudent()->getEmail());
         $add_student_answer_query->bindValue(":subject", $student_answer->getSubject());
         $add_student_answer_query->bindValue(":caption", $student_answer->getCaption());
@@ -598,16 +599,13 @@
           $answers = $student_answer->getAnswers();
           
           if (!empty($answers)) {
-            
-						$last_id = $this->query("SELECT LAST_INSERT_ID() as last_id FROM `student_tests`");
-						$last_id = $last_id[0]['last_id'];
-                        
+
             $result = true;
             for ($i = 0; $i < count($answers); $i++) {
               
               $add_answer_query = $this->dbc()->prepare("call putStudentAnswer(:student_test, :question, :answer)");
               
-              $add_answer_query->bindValue(":student_test", $last_id);
+              $add_answer_query->bindValue(":student_test", $student_answer->getTestID());
               $add_answer_query->bindValue(":question", $answers[$i]['question']);
               $add_answer_query->bindValue(":answer", $answers[$i]['answer']);
               
@@ -634,7 +632,7 @@
       }
 			catch(PDOException $e)
 			{
-				$this->dbc()->rollBack();
+        $this->dbc()->rollBack();
 				return false;
 			}
     }
@@ -723,32 +721,7 @@
 
     public function getStudentsResult(string $teacher_email) : array
     {
-      $db_tests = $this->query("call getTests(:teacher_email)", [":teacher_email" => $teacher_email]);
-
-      $students_result = array();
-      foreach ($db_tests as $db_test) {
-        $students_result[$db_test['caption']] = array();
-        $test_id = $db_test['id_test'];
-
-        $db_groups = $this->query("call getStudentsResultByTest(:test_id)", [":test_id" => $test_id]);
-
-        foreach ($db_groups as $db_group) {
-          $students_result[$db_test['caption']][$db_group['number']] = array();
-          $group_id = $db_group['id_grp'];
-
-          $db_students = $this->query("call getStudentsResultByGroup(:group_id)", [":group_id" => $group_id]);
-
-          foreach ($db_students as $db_student) {
-            
-            
-            
-          }
-
-        }
-
-      }
       
-      return $students_result;
     }
     
     /*!
