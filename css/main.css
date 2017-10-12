@@ -11,15 +11,17 @@ body {
 }
 
 #menu {
+  margin-top: 10px;
   width: 100%;
 }
 
-#menu .item:first-child {
+#menu .item {
   text-align: center;
 }
 
 .ui.grid {
-  padding: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .ui.styled.accordion {
@@ -67,3 +69,11 @@ input a {
   margin: 0px;
 }
 
+.left-column {
+  background-color: #0D374E;
+  border-right: 5px solid #EF7E30;
+}
+
+.right-column {
+  
+}
