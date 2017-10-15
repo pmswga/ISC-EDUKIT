@@ -12,8 +12,16 @@
 	require_once $_SERVER['DOCUMENT_ROOT']."/iep/managers/sm.class.php";
 	require_once $_SERVER['DOCUMENT_ROOT']."/iep/managers/nm.class.php";
 	require_once $_SERVER['DOCUMENT_ROOT']."/iep/managers/shm.class.php";
+	require_once $_SERVER['DOCUMENT_ROOT']."/iep/managers/sm.class.php";
 	
-  use IEP\Managers\UserManager;
+  use IEP\Managers\UserManager;;
+  use IEP\Managers\GroupManager;
+  use IEP\Managers\SubjectManager;
+  use IEP\Managers\SpecialtyManager;
+  use IEP\Structures\Student;
+  use IEP\Structures\Parent_;
+  use IEP\Structures\Teacher;
+  use IEP\Structures\Group;
   
 	$CT = new CTemplater("templates/tpl", "templates/tpl_c", "templates/configs", "templates/cache");
   
@@ -52,6 +60,9 @@
   }
   
   $UM = new UserManager($DB);
-  
+  $GM = new GroupManager($DB);
+  $SM = new SubjectManager($DB);
+  $SPM = new SpecialtyManager($DB);
+
 	session_start();
 ?>

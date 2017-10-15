@@ -1,7 +1,7 @@
 {include file='html/begin.tpl'}
   <div class="ui stackable grid">
     <div class="row">
-      <div class="three wide column left-column">
+      <div class="three wide column">
         {if $user != NULL}
           {include file='blocks/user_menu.tpl'}  
         {else}

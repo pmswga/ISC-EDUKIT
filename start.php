@@ -47,7 +47,7 @@
   
   $TRM = new TrafficManager($DB);
   
-  $SHM = new ScheduleManager($DB);
+	$SHM = new ScheduleManager($DB);
     
 	$CT->assign("groups", $GM->getGroupsOfCurrentYear());
 	

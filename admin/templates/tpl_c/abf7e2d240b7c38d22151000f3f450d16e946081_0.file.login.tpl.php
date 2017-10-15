@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-04-28 22:26:58
+/* Smarty version 3.1.29, created on 2017-10-15 11:02:53
   from "C:\OpenServer\domains\EDUKIT\admin\templates\tpl\login.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_590397829925e4_03044119',
+  'unifunc' => 'content_59e3162de811c8_01492393',
   'file_dependency' => 
   array (
     'abf7e2d240b7c38d22151000f3f450d16e946081' => 
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_590397829925e4_03044119 ($_smarty_tpl) {
+function content_59e3162de811c8_01492393 ($_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html>
