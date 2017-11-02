@@ -20,6 +20,8 @@ $(document).ready(function(){
     var pass = $("#passwd").val();
     var retry_password = $("[name='retry_password']").val();
 
+    alert(pass + " ==== " + retry_password);
+
     if (pass === retry_password) {
       return true;
     } else {
