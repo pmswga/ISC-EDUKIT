@@ -6,11 +6,11 @@ USE `iep`;
 /* Создание таблицы "Пользователи" */
 CREATE TABLE IF NOT EXISTS `users` (
 	id_user int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	sn char(30) NOT NULL,
-	fn char(30) NOT NULL,
-	pt char(30) NOT NULL,
-	email char(255) NOT NULL UNIQUE,
-	passwd char(32) NOT NULL,
+	sn varchar(30) NOT NULL,
+	fn varchar(30) NOT NULL,
+	pt varchar(30) NOT NULL,
+	email varchar(255) NOT NULL UNIQUE,
+	passwd varchar(32) NOT NULL,
 	id_type_user int NOT NULL,
 	INDEX (id_type_user),
 	CONSTRAINT uc_sn CHECK(second_name <> ''),
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 */
 CREATE TABLE IF NOT EXISTS `typeUser` (
 	id_type_user int AUTO_INCREMENT PRIMARY KEY,
-	description char(30) NOT NULL UNIQUE,
+	description varchar(30) NOT NULL UNIQUE,
 	CONSTRAINT tuc_desc CHECK(description <> '')
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
@@ -45,11 +45,11 @@ INSERT INTO `typeUser` (`description`) VALUES ('PARENT');
 /* Создание таблицы "Администраторы" */
 CREATE TABLE IF NOT EXISTS `admins` (
 	id_admin int AUTO_INCREMENT PRIMARY KEY,
-	sn char(30) NOT NULL,
-	fn char(30) NOT NULL,
-	pt char(30) NOT NULL,
-	email char(30) UNIQUE,
-	passwd char(32) NOT NULL,
+	sn varchar(30) NOT NULL,
+	fn varchar(30) NOT NULL,
+	pt varchar(30) NOT NULL,
+	email varchar(30) UNIQUE,
+	passwd varchar(32) NOT NULL,
 	CONSTRAINT ac_sn CHECK (sn <> ''),
 	CONSTRAINT ac_fn CHECK (fn <> ''),
 	CONSTRAINT ac_pt CHECK (pt <> ''),
@@ -60,8 +60,8 @@ CREATE TABLE IF NOT EXISTS `admins` (
 /* Создание таблицы "Студенты" */
 CREATE TABLE IF NOT EXISTS `students` (
 	id_student int PRIMARY KEY,
-	home_address char(255) NOT NULL,
-	cell_phone char(12) NOT NULL,
+	home_address varchar(255) NOT NULL,
+	cell_phone varchar(12) NOT NULL,
 	grp int NOT NULL,
 	INDEX (grp),
 	CONSTRAINT sc_ha CHECK(home_address <> ''),
@@ -71,8 +71,8 @@ CREATE TABLE IF NOT EXISTS `students` (
 /* Создание таблицы "Группы" */
 CREATE TABLE IF NOT EXISTS `groups` (
 	grp int AUTO_INCREMENT PRIMARY KEY,
-	description char(10) NOT NULL,
-	edu_year char(10) NOT NULL,
+	description varchar(10) NOT NULL,
+	edu_year varchar(10) NOT NULL,
 	spec_id int NOT NULL,
 	is_budget int NOT NULL,
 	INDEX (spec_id),
@@ -83,9 +83,9 @@ CREATE TABLE IF NOT EXISTS `groups` (
 /* Создание таблицы "Специальности" */
 CREATE TABLE IF NOT EXISTS `specialty` (
 	id_spec int AUTO_INCREMENT PRIMARY KEY,
-	code_spec char(10) NOT NULL UNIQUE,
-	description char(255) NOT NULL,
-	pdf_file char(255) NOT NULL,
+	code_spec varchar(10) NOT NULL UNIQUE,
+	description varchar(255) NOT NULL,
+	pdf_file varchar(255) NOT NULL,
 	CONSTRAINT sc_cs CHECK(code_spec <> ''),
 	CONSTRAINT sc_desc CHECK(description <> ''),
 	CONSTRAINT sc_file CHECK(pdf_file <> '')
@@ -95,11 +95,11 @@ CREATE TABLE IF NOT EXISTS `specialty` (
 CREATE TABLE IF NOT EXISTS `parents` (
 	id_parent int NOT NULL PRIMARY KEY,
 	age int NOT NULL,
-	education char(50) NOT NULL,
-	work_place char(255) NOT NULL,
-	post char(255) NOT NULL,
-	home_phone char(30) NOT NULL,
-	cell_phone char(30) NOT NULL,
+	education varchar(50) NOT NULL,
+	work_place varchar(255) NOT NULL,
+	post varchar(255) NOT NULL,
+	home_phone varchar(30) NOT NULL,
+	cell_phone varchar(30) NOT NULL,
 	CONSTRAINT pc_edu CHECK(education <> ''),
 	CONSTRAINT pc_wp CHECK(work_place <> ''),
 	CONSTRAINT pc_post CHECK(post <> ''),
@@ -122,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `parent_child` (
 /* Создание таблицы "Отношения" */
 CREATE TABLE IF NOT EXISTS `relations` (
 	id_relation int AUTO_INCREMENT PRIMARY KEY,
-	description char(255) NOT NULL,
+	description varchar(255) NOT NULL,
 	CONSTRAINT rc_desc CHECK(description <> '')
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
@@ -143,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `teachers` (
 /* Создание таблицы "Новости" */
 CREATE TABLE IF NOT EXISTS `news` (
 	id_news int AUTO_INCREMENT PRIMARY KEY,
-	caption char(255) NOT NULL,
+	caption varchar(255) NOT NULL,
 	content text NOT NULL,
 	id_author int NOT NULL,
 	date_publication datetime NOT NULL,
@@ -155,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `news` (
 /* Создание таблицы "Предметы" */
 CREATE TABLE IF NOT EXISTS `subjects` (
 	id_subject int AUTO_INCREMENT PRIMARY KEY,
-	description char(255) NOT NULL UNIQUE,
+	description varchar(255) NOT NULL UNIQUE,
 	CONSTRAINT sc_desc CHECK(description <> '')
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
@@ -174,7 +174,7 @@ CREATE TABLE IF NOT EXISTS `tests` (
 	id_teacher int NOT NULL,
 	INDEX(id_subject),
 	INDEX(id_teacher),
-	caption char(255) NOT NULL,
+	caption varchar(255) NOT NULL,
 	CONSTRAINT tc_caption CHECK(caption <> '')
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
@@ -183,8 +183,8 @@ CREATE TABLE IF NOT EXISTS `questions` (
 	id_question int AUTO_INCREMENT PRIMARY KEY,
 	id_test int NOT NULL,
 	INDEX(id_test),
-	question char(255) NOT NULL,
-	r_answer char(255) NOT NULL,
+	question varchar(255) NOT NULL,
+	r_answer varchar(255) NOT NULL,
 	CONSTRAINT qc_question CHECK(question <> ''),
 	CONSTRAINT qc_ranswer CHECK(r_answer <> '')
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
@@ -194,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `answers` (
 	id_answer int AUTO_INCREMENT PRIMARY KEY,
 	id_question int NOT NULL,
 	INDEX(id_question),
-	answer char(255) NOT NULL,
+	answer varchar(255) NOT NULL,
 	CONSTRAINT ac_answer CHECK(answer <> '')
 ) ENGINE = InnoDB CHARACTER SET = UTF8;
 
@@ -202,8 +202,8 @@ CREATE TABLE IF NOT EXISTS `answers` (
 CREATE TABLE IF NOT EXISTS `student_tests` (
 	id_student_test int,
 	id_student int,
-	caption char(255) NOT NULL,
-	subject char(255) NOT NULL,
+	caption varchar(255) NOT NULL,
+	subject varchar(255) NOT NULL,
 	date_pass datetime NOT NULL,
 	mark int,
 	INDEX(id_student),
@@ -217,8 +217,8 @@ CREATE TABLE IF NOT EXISTS `student_tests` (
 CREATE TABLE IF NOT EXISTS `student_answers` (
 	id_student_answer int AUTO_INCREMENT PRIMARY KEY,
 	id_student_test int NOT NULL,
-	question char(255),
-	answer char(255),
+	question varchar(255),
+	answer varchar(255),
 	INDEX (id_student_test),
 	CONSTRAINT sac_question CHECK(question <> ''),
 	CONSTRAINT sac_question CHECK(answer <> '')
@@ -246,7 +246,7 @@ CREATE TABLE IF NOT EXISTS `groups_tests` (
 /* Создание таблицы "Новости-админа" */
 CREATE TABLE IF NOT EXISTS `admin_news` (
 	id_news int AUTO_INCREMENT PRIMARY KEY,
-	caption char(255) NOT NULL,
+	caption varchar(255) NOT NULL,
 	content text NOT NULL,
 	id_author int NOT NULL,
 	date_publication datetime NOT NULL,

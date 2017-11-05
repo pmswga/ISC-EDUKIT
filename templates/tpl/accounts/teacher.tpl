@@ -1,10 +1,11 @@
 {include file="html/begin.tpl"}
-	<div class="ui stackable grid">
+<div class="ui stackable grid">
     <div class="row">
-      <div class="three wide column">
-				{include file='blocks/user_menu.tpl'}  
-			</div>
-			<div class="thirteen wide column">
+		<div class="three wide column">
+			{include file='blocks/user_menu.tpl'}  
+		</div>
+		<div class="thirteen wide column">
+			<br>
 				<div class="ui top attached tabular menu">
 					<a class="item active" data-tab="main">Основное</a>
 					<a class="item" data-tab="news">Новости</a>

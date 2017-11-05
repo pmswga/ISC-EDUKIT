@@ -49,7 +49,7 @@
               </div>
               <div class="field">
                 <label>Повторите пароль</label>
-                <input type="password" name="retry_password" required>
+                <input type="password" name="retry_password" id="retry_passwd" required>
               </div>
             </div>
             <div class="eight wide column">

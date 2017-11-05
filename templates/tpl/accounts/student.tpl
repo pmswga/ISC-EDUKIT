@@ -5,6 +5,7 @@
 			{include file='blocks/user_menu.tpl'}
 		</div>
 		<div class="thirteen wide column">
+			<br>
 			<div class="ui top attached stackable tabular menu">
 				<a class="item active" data-tab="main">Основное</a>
 				<a class="item" data-tab="sogrous">Одногруппники</a>

@@ -6,6 +6,7 @@
 				{include file='blocks/user_menu.tpl'}
 			</div>
 			<div class="thirteen wide column">
+        <br>
         <div class="ui stackble grid">
           <div class="ten wide column">
             {if $childs != NULL}

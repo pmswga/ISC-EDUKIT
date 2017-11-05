@@ -18,9 +18,7 @@ $(document).ready(function(){
     $("#message").text("");
 
     var pass = $("#passwd").val();
-    var retry_password = $("[name='retry_password']").val();
-
-    alert(pass + " ==== " + retry_password);
+    var retry_password = $("#retry_passwd").val();
 
     if (pass === retry_password) {
       return true;
