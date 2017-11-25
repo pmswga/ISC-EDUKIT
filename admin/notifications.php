@@ -1,7 +1,7 @@
 <?php
 	require_once "start.php";
   require_once "../mail/PHPMailerAutoload.php";
-	
+			
   use IEP\Structures\User;
   
 	if (isset($_SESSION['admin']) && 
@@ -11,6 +11,15 @@
 		
 		$UM = new IEP\Managers\UserManager($DB);
 		$Notificator = new PHPMailer;
+		$Notificator->CharSet = 'UTF-8';
+		$Notificator->isSMTP();
+		
+		$Notificator->Host = "smtp.gmail.com";
+		$Notificator->Port = 587;
+		$Notificator->SMTPSecure = "tls";
+		$Notificator->SMTPAuth = true;
+		$Notificator->Username = "s.basyrov@mgutm.ru";
+		$Notificator->Password = "42CjyRbh";
 		
 		$CT->assign("parents", $UM->getAllParents());
     $CT->assign("students", $UM->getAllStudentsElders());
