@@ -22,7 +22,7 @@ fieldset {
   text-align: center;
 }
 
-#menu {
+.ui.vertical.menu {
   width: 100%;
 }
 

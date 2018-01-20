@@ -14,7 +14,7 @@
         </fieldset>
       </div>
       <div class="three wide column">
-        <div id="menu" class="ui vertical menu">
+        <div class="ui vertical menu">
           <a class="item">Добавить студента</a>
           <a class="item">Добавить преподавателя</a>
           <a class="item">Назначить старосту</a>
@@ -23,10 +23,21 @@
     </div>
     <div class="row">
       <div class="thirteen wide column">
-        <img>
+        <fieldset>
+          <legend>Предметы</legend>
+          {include file="new/subjects.tpl"}
+        </fieldset>
       </div>
       <div class="three wide column">
-        <img>
+        <form name="addSubjectForm" method="POST" class="ui form">
+          <div class="field">
+            <label>Название</label>
+            <input type="text" name="descp">
+          </div>
+          <div class="field">
+            <input type="submit" name="addSubjectButton" value="Добавить" class="ui primary button">
+          </div>
+        </form>
       </div>
     </div>
   </div>
