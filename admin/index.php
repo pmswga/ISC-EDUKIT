@@ -25,7 +25,7 @@
         $CT->assign("specialty", $SPM->getAllSpecialty());
         $CT->assign("studentsByGroup", $studentsByGroup);
 
-
+/*
         if (!empty($_POST['removeSubjectButton'])) {
             $subjects = $_POST['subjects'];
 
@@ -52,7 +52,7 @@
                 CTools::Message("Не удалось добавить предмет");
             }
         }
-
+*/
 
         $CT->Show("index.tpl");
     } else {

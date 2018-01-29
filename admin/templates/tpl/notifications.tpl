@@ -1,6 +1,22 @@
 {assign var="title" value="EDUKIT | Оповещения"}
 {$js_links[] = "../ckeditor/ckeditor.js"}
 {include file="html/begin.tpl"}
+
+  <div class="ui internally celled grid">
+    <div class="row">
+      <div class="two wide column">
+        {include file="html/menu.tpl"}
+      </div>
+      <div class="fourteen wide column">
+        
+      </div>
+    </div>
+  </div>
+
+{*
+  
+  
+
 	<div class="container-fluid">
 		{include file="html/menu.tpl"}
 		<form name="sendNotificationForm" method="POST" enctype="multipart/form-data">
@@ -63,7 +79,7 @@
 			</div>
 		</form>
 	</div>
-	
+	*}
 	<script type="text/javascript">
 		
 		CKEDITOR.replace("notification_message");

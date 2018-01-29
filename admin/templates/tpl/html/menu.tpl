@@ -1,29 +1,16 @@
-<div class="row">
-  <div class="col-md-12">
-    <nav class="navbar navbar-default" role="navigation">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-      </div>
-      <div class="collapse navbar-collapse" id="menu">
-        <ul class="nav navbar-nav pull-right">
-          <li><a href="index.php">Главная</a></li>
-          <li><a href="users.php">Пользователи</a></li>
-          <li><a href="groups.php">Группы</a></li>
-          <li><a href="specialty.php">Специальности</a></li>
-          <li><a href="news.php">Новости</a></li>
-          <li><a href="subjects.php">Предметы</a></li>
-          <li><a href="schedule.php">Расписание</a></li>
-          <li><a href="notifications.php">Оповещения</a></li>
-          <li><a href="traffic.php">Посещаемость</a></li>
-          <li><a href="settings.php">Настройки</a></li>
-          <li><a href="php/logout.php">Выход</a></li>
-        </ul>
-      </div>
-    </nav>
+<div class="ui vertical menu">
+  <div class="item">
+      <img src="../img/ukit.png" width="100%" alt="">
   </div>
+  <a href="index.php" class="item">Главная</a>
+  <a href="users.php" class="item">Пользователи</a>
+  <a href="groups.php" class="item">Группы</a>
+  <a href="specialty.php" class="item">Специальности</a>
+  <a href="news.php" class="item">Новости</a>
+  <a href="subjects.php" class="item">Предметы</a>
+  <a href="schedule.php" class="item">Расписание</a>
+  <a href="notifications.php" class="item">Оповещения</a>
+  <a href="traffic.php" class="item">Посещаемость</a>
+  <a href="settings.php" class="item">Настройки</a>
+  <a href="php/logout.php" class="item">Выход</a>
 </div>

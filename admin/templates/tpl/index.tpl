@@ -1,5 +1,20 @@
 {assign var="title" value="EDUKIT | Главная"}
 {include file="html/begin.tpl"}
+  <div class="ui tow columns internally celled grid">
+    <div class="row">
+      <div class="two wide column">
+        {include file="html/menu.tpl"}
+      </div>
+      <div class="fourteen wide column">
+        {include file="new/statistic.tpl"}
+        <hr>
+        <h1>Добро пожаловать</h1>
+        <p></p>
+      </div>
+    </div>
+  </div>
+    
+{*
   <div class="ui internally celled grid">
     <div class="row">
       <div class="sixteen wide column">
@@ -41,7 +56,7 @@
       </div>
     </div>
   </div>
-
+*}
   <script type="text/javascript">
 
     $('.ui.accordion').accordion();

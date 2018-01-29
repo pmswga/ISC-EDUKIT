@@ -1,6 +1,25 @@
 {assign var="title" value="EDUKIT | Пользователи"}
 {$css_links[] = "vt.css"}
 {include file="html/begin.tpl"}
+  <div class="ui internally celled grid">
+    <div class="row">
+      <div class="two wide column">
+        {include file="html/menu.tpl"}
+      </div>
+      <div class="fourteen wide column">
+          {include file="new/users.tpl"}
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+  
+    $('.ui.accordion').accordion();
+    $('.menu .item').tab();
+
+  </script>
+{*
+
+
   <div class="container-fluid">
     {include file="html/menu.tpl"}
     <div class="row">
@@ -253,4 +272,5 @@
       </div>
     </div>
   </div>
+  *}
 {include file="html/end.tpl"}

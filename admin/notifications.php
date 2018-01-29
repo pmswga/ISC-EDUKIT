@@ -18,8 +18,8 @@
 		$Notificator->Port = 587;
 		$Notificator->SMTPSecure = "tls";
 		$Notificator->SMTPAuth = true;
-		$Notificator->Username = "s.basyrov@mgutm.ru";
-		$Notificator->Password = "42CjyRbh";
+		$Notificator->Username = "elguseva@mgkit.ru";
+		$Notificator->Password = "vaz2115i";
 		
 		$CT->assign("parents", $UM->getAllParents());
     $CT->assign("students", $UM->getAllStudentsElders());
