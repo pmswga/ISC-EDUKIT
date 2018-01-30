@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
   $("#message").hide();
 
   $("[name='passwd']").on("change", function() {
