@@ -1,6 +1,44 @@
 {assign var="title" value="EDUKIT | Предметы"}
 {$css_links[] = "vt.css"}
 {include file="html/begin.tpl"}
+<div class="ui tow columns internally celled grid">
+    <div class="row">
+      <div class="two wide column">
+        {include file="html/menu.tpl"}
+      </div>
+      <div class="fourteen wide column">
+        {if $subjects != NULL}            
+          <table class="ui table">
+            <thead>
+              <tr>
+                <th>Название предмета</th>
+                <th>Выбрать</th>
+              </tr>
+            </thead>
+            <tbody>
+              {foreach from=$subjects item=subject}
+                <tr>
+                  <td>{$subject->getDescription()}</td>
+                  <td>
+                    <div class="ui checkbox">
+                      <input type="checkbox" name="select_subject[]" value="{$subject->getSubjectID()}">
+                      <label></label>
+                    </div>
+                  </td>
+                </tr>
+              {/foreach}  
+            </tbody>
+          </table>
+        {else}
+          <h2>Добавьте предметы</h2>
+        {/if}
+      </div>
+    </div>
+  </div>
+{*
+
+
+  
   <div class="container-fluid">
     {include file="html/menu.tpl"}
     <div class="row">
@@ -8,22 +46,6 @@
         <div class="row">
           <form name="changeSpecialtyForm" method="POST">
             <div class="col-md-8">
-              {if $subjects != NULL}            
-                <table class="table table-bordered">
-                  <tr>
-                    <th>Название предмета</th>
-                    <th>Выбрать</th>
-                  </tr>      
-                  {foreach from=$subjects item=subject}
-                    <tr>
-                      <td>{$subject->getDescription()}</td>
-                      <td><input type="checkbox" name="select_subject[]" value="{$subject->getSubjectID()}" class="form-control"></td>
-                    </tr>
-                  {/foreach}
-                </table>
-              {else}
-                <h2>Добавьте предметы</h2>
-              {/if}
             </div>
             <div class="col-md-4">
               <input type="submit" name="removeSubjectButton" value="Удалить" class="btn btn-danger btn-block">
@@ -46,4 +68,5 @@
       </div>
     </div>
   </div>
-{include file="html/end.tpl"}
+  *}
+  {include file="html/end.tpl"}

@@ -1,6 +1,51 @@
 {assign var="title" value="EDUKIT | Группы"}
 {$css_links[] = "vt.css"}
 {include file="html/begin.tpl"}
+  <div class="ui internally celled grid">
+    <div class="row">
+      <div class="two wide column">
+        {include file="html/menu.tpl"}
+      </div>
+      <div class="fourteen wide column">
+        <table class="ui table">
+          <thead>
+            <tr>
+              <th>Группа</th>
+              <th>Специальность</th>
+              <th>Года обучения</th>
+              <th>Тип</th>
+              <th>Выбрать</th>
+            </tr>
+          </thead>
+          <tbody>
+            {foreach from=$groups item=group}
+              <tr>
+                <td><p>{$group->getNumberGroup()}</p></td>
+                <td><p>{$group->getCode()}</p></td>
+                <td><p>{$group->getYearEducation()}</p></td>
+                <td>
+                  <p>
+                    {if $group->getStatus() == 1}
+                      Бюджетная
+                    {elseif $group->getStatus() == 0}
+                      Коммерческая
+                    {/if}
+                  </p>
+                </td>
+                <td>
+                  <div class="ui checkbox">
+                    <input type="checkbox" name="select_grp[]" value="{$group->getGroupID()}" class="form-control">
+                    <label></label>
+                  </div>
+                </td>
+              </tr>
+            {/foreach}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{*
   <div class="container-fluid">
     {include file="html/menu.tpl"}
     <div class="row">
@@ -86,4 +131,6 @@
       </div>
     </div>
   </div>
+  *}
+  
 {include file="html/end.tpl"}

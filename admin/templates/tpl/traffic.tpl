@@ -1,99 +1,59 @@
 {assign var="title" value="EDUKIT | Посещаемость"}
 {include file="html/begin.tpl"}
-    <div class="container-fluid">
-      {include file="html/menu.tpl"}
-      <div class="row">
-        <div class="col-md-6">
-          <fieldset>
-            <legend>Посещаемость студента</legend>
-            <div id="student_traffic">
-              {if $traffic != NULL}
-                <table class="table table-bordered">
-                  <tbody>
-                    <tr>
-                      <th>Дата</th>
-                      <th>Всего пар</th>
-                      <th>Посещено</th>
-                      <th>Пропущено</th>
-                    </tr>
-                    {foreach from=$traffic item=traffic_entry}
-                      <tr>
-                        <td>{$traffic_entry['date_visit']|date_format:'d.m.Y'}</td>
-                        <td>{$traffic_entry['count_all_hours']/2}</td>
-                        <td>{$traffic_entry['count_passed_hours']/2}</td>
-                        <td>{($traffic_entry['count_all_hours']-$traffic_entry['count_passed_hours'])/2}</td>
-                      </tr>
-                    {/foreach}
-                  </tbody>
-                </table>
-              {else}
-                <h3 align="center">Выберете студента, чтобы просмотреть его посещаемость</h3>
-              {/if}
+  <div class="ui tow columns internally celled grid">
+    <div class="row">
+      <div class="two wide column">
+        {include file="html/menu.tpl"}
+      </div>
+      <div class="fourteen wide column">
+        {if $studentsByGroup != NULL}
+          <form name="" method="POST" class="ui form">
+            <div class="field">
+              <select name="student">
+                  <option>Не выбран</option>
+                  {foreach from=$studentsByGroup key=group item=student}
+                    <optgroup label="{$group}">
+                        {foreach from=$student item=one_student}
+                          <option>{$one_student->getSn()} {$one_student->getFn()} {$one_student->getPt()}</option>
+                        {/foreach}
+                    </optgroup>
+                  {/foreach}
+              </select>
             </div>
-          </fieldset>
-        </div>
-        <div class="col-md-6">
-          {if $studentsByGroup != NULL}            
-            <div class="panel-group" id="views_users">
-              <div class="panel panel-primary">
-                <div class="panel-heading">
-                  <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#views_users" href="#view_students">Студенты</a>
-                  </h4>
+            <div class="field">
+              <fieldset>
+                <legend>Посещаемость студента</legend>
+                <div id="student_traffic">
+                  {if $traffic != NULL}
+                    <table class="table table-bordered">
+                      <tbody>
+                        <tr>
+                          <th>Дата</th>
+                          <th>Всего пар</th>
+                          <th>Посещено</th>
+                          <th>Пропущено</th>
+                        </tr>
+                        {foreach from=$traffic item=traffic_entry}
+                        <tr>
+                          <td>{$traffic_entry['date_visit']|date_format:'d.m.Y'}</td>
+                          <td>{$traffic_entry['count_all_hours']/2}</td>
+                          <td>{$traffic_entry['count_passed_hours']/2}</td>
+                          <td>{($traffic_entry['count_all_hours']-$traffic_entry['count_passed_hours'])/2}</td>
+                        </tr>
+                        {/foreach}
+                      </tbody>
+                    </table>
+                  {else}
+                    <h3 align="center">Выберете студента, чтобы просмотреть его посещаемость</h3>
+                  {/if}
                 </div>
-                <div id="view_students" class="panel-collapse collapse-in">
-                  <div class="panel-body">
-                    {foreach from=$studentsByGroup key=group item=student}
-                      <div class="panel-group">
-                        <div class="panel panel-success">
-                          <div class="panel-heading">
-                            <h4 class="panel-title">
-                              <a data-toggle="collapse" href="#{$group}">{$group}</a>
-                            </h4>
-                          </div>
-                          <div id="{$group}" class="panel-collapse collapse">
-                            <div class="panel-body"><table class="table table-bordered">
-                              <table class="table table-bordered">
-                                <tr>
-                                  <th>ФИО</th>
-                                  <th>E-mail</th>
-                                  <th>Выбрать</th>
-                                </tr>
-                                {foreach from=$student item=one_student}
-                                  <tr>
-                                    <td>{$one_student->getSn()} {$one_student->getFn()} {$one_student->getPt()}</td>
-                                    <td>{$one_student->getEmail()}</td>
-                                    <td>
-                                      <form name="setChildsForm" method="POST">
-                                        <input type="hidden" name="emailStudent" value="{$one_student->getEmail()}">
-                                        <input type="submit" name="selectStudent" value="Выбрать" class="btn btn-primary">
-                                      </form>
-                                    </td>
-                                  </tr>
-                                {/foreach}
-                              </table>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    {/foreach}
-                  </div>
-                </div>
-              </div>
+              </fieldset>
             </div>
-          {else}
-            <h3 align="center">Студенты не зарегистрированы</h3>
-          {/if}
-        </div>
+          </form>
+        {else}
+          <h3 align="center">Студенты не зарегистрированы</h3>
+        {/if}
       </div>
     </div>
-    
-    
-    <script type="text/javascript">
-      
-      $("[data-toggle='tooltip']").tooltip();
-      $("[data-toggle='popover']").popover();
-    
-    </script>
-    
+  </div>
 {include file="html/end.tpl"}

@@ -1,5 +1,44 @@
 {assign var="title" value="EDUKIT | Специальности"}
 {include file="html/begin.tpl"}
+  <div class="ui tow columns internally celled grid">
+    <div class="row">
+      <div class="two wide column">
+        {include file="html/menu.tpl"}
+      </div>
+      <div class="fourteen wide column">
+        {if $specialtyes != NULL}                  
+          <table class="ui table">
+            <thead>
+              
+              <tr>
+                <th>Код специальности</th>
+                <th>Описание</th>
+                <th>Файл специальности</th>
+                <th>Выбрать</th>
+              </tr>
+            </thead>
+            <tbody>
+              {foreach from=$specialtyes item=specialty}
+                <tr>
+                  <td><p>{$specialty->getCode()}</p></td>
+                  <td><p>{$specialty->getDescription()}</p></td>
+                  <td><a href="pdfs/{$specialty->getFilename()}" download>{$specialty->getFilename()}</a></td>
+                  <td><input type="checkbox" name="select_spec[]" value="{$specialty->getSpecialtyID()}" class="form-control"></td>
+                </tr>
+              {/foreach}
+            </tbody>
+          </table>
+        {else}
+          <h1 align="center">Специальности не добавлены</h1>
+        {/if}
+      </div>
+    </div>
+  </div>
+    
+
+{*
+  
+  
   <form name="changeSpecialtyForm" method="POST" enctype="multipart/form-data">
     <div class="container-fluid">
       {include file="html/menu.tpl"}
@@ -7,26 +46,6 @@
         <div class="col-md-12">
           <div class="row">
             <div class="col-md-8">
-              {if $specialtyes != NULL}                  
-                <table class="table table-bordered">
-                  <tr>
-                    <th>Код специальности</th>
-                    <th>Описание</th>
-                    <th>Файл специальности</th>
-                    <th>Выбрать</th>
-                  </tr>
-                  {foreach from=$specialtyes item=specialty}
-                    <tr>
-                      <td><p>{$specialty->getCode()}</p></td>
-                      <td><p>{$specialty->getDescription()}</p></td>
-                      <td><a href="pdfs/{$specialty->getFilename()}" download>{$specialty->getFilename()}</a></td>
-                      <td><input type="checkbox" name="select_spec[]" value="{$specialty->getSpecialtyID()}" class="form-control"></td>
-                    </tr>
-                  {/foreach}
-                </table>
-              {else}
-                <h1 align="center">Специальности не добавлены</h1>
-              {/if}
             </div>
             <div class="col-md-4">
               <!--<input type="submit" name="editSpecialtyButton" value="Изменить" class="btn btn-warning btn-block">-->
@@ -68,4 +87,5 @@
       </div>
     </div>
   </form>
+  *}
 {include file="html/end.tpl"}

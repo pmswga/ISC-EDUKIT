@@ -1,6 +1,44 @@
 {assign var="title" value="EDUKIT | Новости"}
 {$js_links[] = "../ckeditor/ckeditor.js"}
 {include file="html/begin.tpl"}
+<div class="ui tow columns internally celled grid">
+    <div class="row">
+      <div class="two wide column">
+        {include file="html/menu.tpl"}
+      </div>
+      <div class="fourteen wide column">
+          {if $news == NULL}          
+            <table class="ui table">
+              <thead>
+                <tr>
+                  <th>Заголовок</th>
+                  <th>Автор</th>
+                  <th>Дата публикации</th>
+                  <th>Выбрать</th>
+                </tr>    
+              </thead>
+              <tbody>
+                {foreach from=$news item=one_news}
+                  <tr>
+                    <td><a href="#{$one_news->getNewsID()}" class="one_news">{$one_news->getCaption()}</a></td>
+                    <td><p>{$one_news->getAuthor()}</p></td>
+                    <td><p>{$one_news->getDatePublication()|date_format:'d.m.Y h:i:s'}</p></td>
+                    <td><input type="checkbox" name="select_news[]" value="{$one_news->getNewsID()}" class="form-control"></td>
+                  </tr>
+                {/foreach}
+              </tbody>
+            </table>
+          {else}
+            <h3 align="center">Новостей нет</h3>
+          {/if}
+      </div>
+    </div>
+  </div>
+
+
+{*
+  
+  
   <form name="removeNewsForm" method="POST">
     <div class="container-fluid">
       {include file="html/menu.tpl"}
@@ -85,5 +123,6 @@
     });
     
   </script>
-  
+  *}
+
 {include file="html/end.tpl"}
