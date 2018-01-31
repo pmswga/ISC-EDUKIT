@@ -7,31 +7,58 @@
         {include file="html/menu.tpl"}
       </div>
       <div class="fourteen wide column">
-        {if $subjects != NULL}            
-          <table class="ui table">
-            <thead>
-              <tr>
-                <th>Название предмета</th>
-                <th>Выбрать</th>
-              </tr>
-            </thead>
-            <tbody>
-              {foreach from=$subjects item=subject}
-                <tr>
-                  <td>{$subject->getDescription()}</td>
-                  <td>
-                    <div class="ui checkbox">
-                      <input type="checkbox" name="select_subject[]" value="{$subject->getSubjectID()}">
-                      <label></label>
+        <form name="subjectsForm" method="POST" class="ui form">
+          <div class="two fields">
+            <div class="field">
+              <div class="ui styled accordion">
+                <div class="active title">
+                  Добавить предмет
+                </div>
+                <div class="active content">
+                  <div class="ui form">
+                    <div class="field">
+                      <label>Наименование предмета</label>
+                      <input type="text" name="subject">
                     </div>
-                  </td>
-                </tr>
-              {/foreach}  
-            </tbody>
-          </table>
-        {else}
-          <h2>Добавьте предметы</h2>
-        {/if}
+                    <div class="field">
+                      <input type="submit" name="addSubjectButton" value="Добавить" class="ui positive button">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <input type="submit" name="removeSubjectButton" value="Удалить" class="ui negative button">
+            </div>
+          </div>
+          <div class="field">
+            {if $subjects != NULL}            
+              <table class="ui table">
+                <thead>
+                  <tr>
+                    <th>Название предмета</th>
+                    <th>Выбрать</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {foreach from=$subjects item=subject}
+                    <tr>
+                      <td>{$subject->getDescription()}</td>
+                      <td>
+                        <div class="ui checkbox">
+                          <input type="checkbox" name="select_subject[]" value="{$subject->getSubjectID()}">
+                          <label></label>
+                        </div>
+                      </td>
+                    </tr>
+                  {/foreach}  
+                </tbody>
+              </table>
+            {else}
+              <h2>Добавьте предметы</h2>
+            {/if}
+          </div>
+        </form>
       </div>
     </div>
   </div>
