@@ -7,34 +7,73 @@
         {include file="html/menu.tpl"}
       </div>
       <div class="fourteen wide column">
-          {if $news == NULL}          
-            <table class="ui table">
-              <thead>
-                <tr>
-                  <th>Заголовок</th>
-                  <th>Автор</th>
-                  <th>Дата публикации</th>
-                  <th>Выбрать</th>
-                </tr>    
-              </thead>
-              <tbody>
-                {foreach from=$news item=one_news}
-                  <tr>
-                    <td><a href="#{$one_news->getNewsID()}" class="one_news">{$one_news->getCaption()}</a></td>
-                    <td><p>{$one_news->getAuthor()}</p></td>
-                    <td><p>{$one_news->getDatePublication()|date_format:'d.m.Y h:i:s'}</p></td>
-                    <td><input type="checkbox" name="select_news[]" value="{$one_news->getNewsID()}" class="form-control"></td>
-                  </tr>
-                {/foreach}
-              </tbody>
-            </table>
-          {else}
-            <h3 align="center">Новостей нет</h3>
-          {/if}
+        <form name="addNewsForm" method="POST" class="ui form">
+          <div class="ui grid">
+            <div class="row">
+              <div class="sixteen wide column">
+                <fieldset>
+                  <legend>Опубликовать новость</legend>
+                  <div class="field">
+                    <label>Заголовок</label>
+                    <input type="text" name="caption" class="form-control">
+                  </div>
+                  <div class="field">
+                    <label>Содержание</label>
+                    <textarea id="cont" name="content" rows="15" class="form-control"></textarea>
+                  </div>
+                  <div class="field">
+                    <label>Автор</label>
+                    <input type="hidden" name="email" value="{$user->getEmail()}">
+                    <p>{$user->getEmail()}</p>
+                  </div>
+                  <div class="field">
+                    <label>Дата</label>
+                    <input type="datetime" name="dp" value="{$date}" readonly>
+                  </div>
+                  <div class="field">
+                    <input type="hidden" name="news_id">
+                    <input type="submit" name="addNewsButton" value="Добавить" class="ui primary button">
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+            <div class="row">
+              <div class="sixteen wide column">
+                {if $news != NULL}          
+                  <table class="ui table">
+                    <thead>
+                      <tr>
+                        <th>Заголовок</th>
+                        <th>Автор</th>
+                        <th>Дата публикации</th>
+                        <th>Выбрать</th>
+                      </tr>    
+                    </thead>
+                    <tbody>
+                      {foreach from=$news item=one_news}
+                        <tr>
+                          <td><a href="#{$one_news->getNewsID()}" class="one_news">{$one_news->getCaption()}</a></td>
+                          <td><p>{$one_news->getAuthor()}</p></td>
+                          <td><p>{$one_news->getDatePublication()|date_format:'d.m.Y h:i:s'}</p></td>
+                          <td><input type="checkbox" name="select_news[]" value="{$one_news->getNewsID()}" class="form-control"></td>
+                        </tr>
+                      {/foreach}
+                    </tbody>
+                  </table>
+                {else}
+                  <h3 align="center">Новостей нет</h3>
+                {/if}
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
 
+  <script type="text/javascript">
+    var editor = CKEDITOR.replace("content");
+  </script>
 
 {*
   
@@ -69,32 +108,6 @@
           <input type="submit" name="changeNewsButton" value="Изменить" class="btn btn-warning btn-block">
           <input type="submit" name="removeNewsButton" value="Удалить" class="btn btn-danger btn-block">
           <br>
-          <fieldset>
-            <legend>Новая новость</legend>
-            <form name="addNewsForm" method="POST">
-              <div class="form-group">
-                <label>Заголовок</label>
-                <input type="text" name="caption" class="form-control">
-              </div>
-              <div class="form-group">
-                <label>Содержание</label>
-                <textarea id="cont" name="content" rows="15" class="form-control"></textarea>
-              </div>
-              <div class="form-group">
-                <label>Автор</label>
-                <input type="hidden" name="email" value="{$user->getEmail()}">
-                <p>{$user->getEmail()}</p>
-              </div>
-              <div class="form-group">
-                <label>Дата</label>
-                <input type="datetime" name="dp" value="{$date}" class="form-control">
-              </div>
-              <div class="form-group">
-                <input type="hidden" name="news_id">
-                <input type="submit" name="addNewsButton" value="Добавить" class="btn btn-primary pull-right">
-              </div>
-            </form>
-          </fieldset>
         </div>
       </div>
     </div>
