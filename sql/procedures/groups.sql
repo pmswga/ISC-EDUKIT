@@ -49,7 +49,7 @@ END;
 
 CREATE PROCEDURE getGroupsOfCurrentYear()
 BEGIN
-	SELECT * FROM `v_Groups` WHERE `edu_year`=CONCAT(YEAR(NOW()), '/', YEAR(NOW())+1);
+	SELECT * FROM `v_Groups` WHERE `edu_year` LIKE CONCAT('%', YEAR(NOW()), '%');
 END;
 
 CREATE PROCEDURE getAllGroups()

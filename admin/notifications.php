@@ -59,7 +59,7 @@
 				CTools::Message($Notificator->ErrorInfo);
 			}
       
-      CTools::Redirect("notifications.php");
+      //CTools::Redirect("notifications.php");
 		}
 		
 	}	else {    

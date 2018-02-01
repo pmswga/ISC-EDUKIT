@@ -2,7 +2,7 @@
   Script for join all sql files
 #>
 
-$path = read-host -Prompt "¬ведите путь к sql файлам"
+$path = read-host -Prompt "Enter path to sql files"
 
 if ((test-path -path $path) -eq 1) {
     set-location $path
@@ -14,7 +14,17 @@ if ((test-path -path $path) -eq 1) {
 
         $sql_files = get-childitem *.sql
         
-        $files = @($sql_files[5], $sql_files[0], $sql_files[1], $sql_files[4], $sql_files[2], $sql_files[3], $sql_files[6], $sql_files[7], $sql_files[8])
+        $files = @(
+          $sql_files[5], 
+          $sql_files[0], 
+          $sql_files[1], 
+          $sql_files[4], 
+          $sql_files[2], 
+          $sql_files[3], 
+          $sql_files[6], 
+          $sql_files[7], 
+          $sql_files[8]
+        )
 
         foreach ($file in $files) {
           
