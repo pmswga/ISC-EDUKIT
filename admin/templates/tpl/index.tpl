@@ -11,6 +11,7 @@
           <a class="active item" data-tab="admins"><i class="users icon"></i>Администраторы</a>
           <a class="item" data-tab="data"><i class="bar chart icon"></i>Данные</a>
           <a class="item" data-tab="logs"><i class="book icon"></i>Журнал событий</a>
+          <a class="item" data-tab="info"><i class="circle question icon"></i>Справка</a>
         </div>
         <div class="ui bottom attached active tab segment" data-tab="admins">
           <form name="addAdminForm" method="POST" class="ui form">
@@ -149,60 +150,80 @@
           </div>
         </div>
         <div class="ui bottom attached tab segment" data-tab="logs"><!--  FIXME: Переделать в страницу с пагинацией -->
-            <form name="deleteLogsForm" method="POST" class="ui form">
-              <div class="ui internally celled grid">
-                <div class="row">
-                  <div class="twelve wide column">
-                    <table class="ui table">
-                      <thead>
-                          <tr>
-                            <th>№</th>
-                            <th>Сообщение</th>
-                            <th>Дата</th>
-                            <th>Выбрать</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                        {foreach from=$logs item=log}
-                          <tr>
-                              <td>{$log['id']}</td>
-                              <td>{$log['message']}</td>
-                              <td>{$log['date']|date_format:"%d.%m.%Y"}</td>
-                              <td>
-                                <div class="ui checkbox">
-                                  <input type="checkbox" name="logs[]" value="{$log['id']}" >
-                                  <label for=""></label>
-                                </div>
-                              </td>
-                          </tr>
-                        {/foreach}
-                      </tbody>
-                    </table>
+          <form name="deleteLogsForm" method="POST" class="ui form">
+            <div class="ui internally celled grid">
+              <div class="row">
+                <div class="twelve wide column">
+                  <table class="ui table">
+                    <thead>
+                        <tr>
+                          <th>№</th>
+                          <th>Сообщение</th>
+                          <th>Дата</th>
+                          <th>Выбрать</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      {foreach from=$logs item=log}
+                        <tr>
+                            <td>{$log['id']}</td>
+                            <td>{$log['message']}</td>
+                            <td>{$log['date']|date_format:"%d.%m.%Y"}</td>
+                            <td>
+                              <div class="ui checkbox">
+                                <input type="checkbox" name="logs[]" value="{$log['id']}" >
+                                <label for=""></label>
+                              </div>
+                            </td>
+                        </tr>
+                      {/foreach}
+                    </tbody>
+                  </table>
+                </div>
+                <div class="four wide column">
+                  <div class="field">
+                    <label>Тип записей</label>
+                    <select name="typeLogs">
+                      <optgroup label="По пользователям">
+                        <option value="0">Преподаватели</option>
+                        <option value="1">Студенты</option>
+                        <option value="2">Старосты</option>
+                        <option value="3">Родители</option>
+                      </optgroup>
+                      <optgroup label="По остальному">
+                        <option value="4">Специальности</option>
+                        <option value="5">Группы</option>
+                        <option value="6">Предметы</option>
+                        <option value="7">Новости</option>
+                      </optgroup>
+                    </select>
                   </div>
-                  <div class="four wide column">
-                    <div class="field">
-                      <label>Период</label>
-                      <div class="two fields">
-                        <div class="field">
-                          <label>С</label>
-                          <input type="date">
-                        </div>
-                        <div class="field">
-                          <label>По</label>
-                          <input type="date">
-                        </div>
+                  <div class="field">
+                    <label>Период записей</label>
+                    <div class="two fields">
+                      <div class="field">
+                        <label>С</label>
+                        <input type="date">
+                      </div>
+                      <div class="field">
+                        <label>По</label>
+                        <input type="date">
                       </div>
                     </div>
-                    <div class="field">
-                      <input type="submit" name="viewLogs" value="Показать" class="ui fluid primary button">
-                    </div>
-                    <div class="field">
-                      <input type="submit" name="deleteLogsButton" value="Удалить" class="ui fluid red button">
-                    </div>
+                  </div>
+                  <div class="field">
+                    <input type="submit" name="viewLogs" value="Показать" class="ui fluid primary button">
+                  </div>
+                  <div class="field">
+                    <input type="submit" name="deleteLogsButton" value="Удалить" class="ui fluid red button">
                   </div>
                 </div>
               </div>
-            </form>
+            </div>
+          </form>
+        </div>
+        <div class="ui bottom attached tab segment" data-tab="info">
+
         </div>
       </div>
     </div>

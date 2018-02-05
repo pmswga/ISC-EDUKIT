@@ -95,7 +95,8 @@
     public function getLogs() : array
     {
       $logs = $this->DBC->query("call readLogs('all')")->fetchAll(\PDO::FETCH_ASSOC);
-      
+      $logs = array_reverse($logs);
+
       return $logs;
     }
     

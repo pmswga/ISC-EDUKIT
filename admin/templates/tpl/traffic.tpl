@@ -8,8 +8,8 @@
       <div class="fourteen wide column">
         {if $studentsByGroup != NULL}
           <form name="" method="POST" class="ui form">
-            <div class="field">
-              <select name="student">
+            <div classs="field">
+              <select name="student" class="ui fluid">
                   <option>Не выбран</option>
                   {foreach from=$studentsByGroup key=group item=student}
                     <optgroup label="{$group}">
@@ -19,6 +19,10 @@
                     </optgroup>
                   {/foreach}
               </select>
+            </div>
+            <br>
+            <div class="field">
+              <input type="submit" name="selectStudent" value="Выбрать" class="ui fluid primary button">
             </div>
             <div class="field">
               <fieldset>
