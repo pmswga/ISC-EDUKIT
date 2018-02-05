@@ -7,13 +7,15 @@
     </div>
     <div class="fourteen wide column">
         <div class="ui top attached tabular menu">
-            <a class="active item" data-tab="teachers">Основное</a>
-            <a class="item" data-tab="students">Изменения</a>
+            <a class="active item" data-tab="mainSchedule">Основное</a>
+            <a class="item" data-tab="changeSchedule">Изменения</a>
         </div>
-        <div class="ui bottom attached active tab segment" data-tab="teachers">
+        <div class="ui bottom attached active tab segment" data-tab="mainSchedule">
           <div class="ui grid">
             <div class="row">
-              <div class="eight wide column">
+              <div class="twelve wide column">
+                {if $schedule != null}
+
                   {foreach from=$schedules key=grp item=schedule}
                     {$day_number = 1}
                     <div class="ui styled accordion">
@@ -78,8 +80,11 @@
                       </div>
                     </div>
                   {/foreach}
+                {else}
+                  <h3 align="center">Расписания нет</h3>
+                {/if}
               </div>
-              <div class="eight wide column">
+              <div class="four wide column">
                 <fieldset>
                   <legend>Назначить пару</legend>
                   <form name="addScheduleEntryForm" method="POST" class="ui form">
@@ -141,8 +146,125 @@
             </div>
           </div>
         </div>
-        <div class="ui bottom attached tab segment" data-tab="students">
-          
+        <div class="ui bottom attached tab segment" data-tab="changeSchedule">
+          <div class="ui grid">
+            <div class="row">
+              <div class="twelve wide column">
+                {if $changedSchedule != NULL}
+                  {foreach from=$changedSchedule key=grp item=schedule}
+                    {$day_number = 1}
+                    <div class="ui styled accordion">
+                      <div class="title">
+                        {$grp}
+                      </div>
+                      <div class="content">
+                        {foreach from=$schedule key=day item=data}
+                          <form name="changeChangedScheduleForm" method="POST" class="ui form">
+                            <input type="hidden" name="group" value="{$data[0]['id_grp']}">
+                            <input type="hidden" name="day" value="{$day|date_format:'Y-m-d'}">
+                            <table class="ui fixed table">
+                              <thead>
+                                <tr>
+                                  <th colspan="2">{$day|date_format:'d.m.Y (l)'}</th>
+                                  <tr>
+                                    <th>Пара</th>
+                                    <th>Предмет</th>
+                                  </tr>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {$i = 1}
+                                {foreach from=$data item=entry}
+                                  <tr>
+                                    <td>{$entry['pair']}</td>
+                                    <td>
+                                      <select class="form-control" name="pair_{$i}">
+                                        <option value="0">{$entry['subject']}</option>
+                                        {foreach from=$subjects item=$subject}
+                                          {if $entry['subject'] != $subject->getDescription()}
+                                            <option value="{$subject->getSubjectID()}">
+                                              {$subject->getDescription()}
+                                            </option>
+                                          {/if}
+                                        {/foreach}
+                                      </select>
+                                    </td>
+                                  </tr>
+                                  {$i = $i + 1}
+                                {/foreach}
+                              </tbody>
+                            </table>
+                            <input type="submit" name="changeChangedScheduleButton" value="Изменить" class="ui orange button">
+                          </form>
+                          {$day_number = $day_number + 1}
+                        {/foreach}
+                      </div>
+                    </div>
+                  {/foreach}
+                {else}
+                  <h3 align="center">Изменений нет</h3>
+                {/if}
+              </div>
+              <div class="four wide column">
+                <fieldset>
+                  <legend>Задать изменения в расписании</legend>
+                  <form name="setChangeScheduleForm" method="POST" class="ui form">
+                    <div class="field">
+                      <label>Дата</label>
+                      <input type="date" name="day">
+                    </div>
+                    <div class="field">
+                      <label>Группа</label>
+                      <select name="group">
+                        {foreach from=$groups item=group}
+                          <option value="{$group->getGroupID()}">{$group->getNumberGroup()}</option>
+                        {/foreach}
+                      </select>
+                    </div>
+                    <div class="field">
+                      <label>Пара</label>
+                      <select name="pair">
+                        <option value="1">1 пара</option>
+                        <option value="2">2 пара</option>
+                        <option value="3">3 пара</option>
+                        <option value="4">4 пара</option>
+                        <option value="5">5 пара</option>
+                        <option value="6">6 пара</option>
+                        <option value="7">7 пара</option>
+                      </select>
+                    </div>
+                    <div class="field">
+                      <label>Предмет</label>
+                      <select name="subject" class="form-control">
+                        {foreach from=$subjects item=subject}
+                        <option value="{$subject->getSubjectID()}">{$subject->getDescription()}</option>
+                        {/foreach}
+                      </select>
+                    </div>
+                    <div class="field">
+                      <input type="submit" name="setChangeScheduleButton" value="Поставить изменения" class="ui primary button">
+                    </div>
+                  </form>
+                </fieldset>
+                <fieldset>
+                  <legend>Удалить изменения группы</legend>
+                  <form name="deleteChangedScheduleForm" method="POST" class="ui form">
+                    <div class="field">
+                      <label>Группа</label>
+                      <select name="group">
+                        {foreach from=$groups item=group}
+                          <option value="{$group->getGroupID()}">{$group->getNumberGroup()}</option>
+                        {/foreach}
+                      </select>
+                    </div>
+                    <div class="field">
+                      <input type="submit" name="deleteChangedScheduleButton" value="Удалить" class="ui primary button">
+                    </div>
+                  </form>
+                </fieldset>
+              </div>
+            </div>
+          </div>
         </div>
     </div>
   </div>
@@ -174,126 +296,6 @@
           <div class="tab-pane" id="changed">
             <br>
             <div class="row">
-              <div class="col-md-8">
-                <div class="panel-group" id="scheduleChangesGroups">
-                  {if $changedSchedule != NULL}
-                  {$group_n = 1}
-                  {foreach from=$changedSchedule key=grp item=schedule}
-                  {$day_number = 1}
-                  <div class="panel panel-default">
-                    <div class="panel-heading">
-                      <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#scheduleChangesGroups" href="#change_{$group_n}">
-                          {$grp}
-                        </a>
-                      </h4>
-                    </div>
-                    <div id="change_{$group_n}" class="panel-collapse collapse">
-                      <div class="panel-body">
-                        {foreach from=$schedule key=day item=data}
-                        <form name="changeChangedScheduleForm" method="POST">
-                          <input type="hidden" name="group" value="{$data[0]['id_grp']}">
-                          <input type="hidden" name="day" value="{$day|date_format:'Y-m-d'}">
-                          <table class="table table-hover">
-                            <thead>
-                              <h3>{$day|date_format:'d.m.Y (l)'}</h3>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <th>Пара</th>
-                                <th>Предмет</th>
-                              </tr>
-                              {$i = 1}
-                              {foreach from=$data item=entry}
-                              <tr>
-                                <td>{$entry['pair']}</td>
-                                <td>
-                                  <select class="form-control" name="pair_{$i}">
-                                    <option value="0">{$entry['subject']}</option>
-                                    {foreach from=$subjects item=$subject}
-                                    {if $entry['subject'] != $subject->getDescription()}
-                                    <option value="{$subject->getSubjectID()}">
-                                      {$subject->getDescription()}
-                                    </option>
-                                    {/if}
-                                    {/foreach}
-                                  </select>
-                                </td>
-                              </tr>
-                              {$i = $i + 1}
-                              {/foreach}
-                            </tbody>
-                          </table>
-                          <input type="submit" name="changeChangedScheduleButton" value="Изменить" class="btn btn-sm btn-warning">
-                        </form>
-                        {$day_number = $day_number + 1}
-                        {/foreach}
-                      </div>
-                    </div>
-                  </div>
-                  {$group_n = $group_n + 1}
-                  {/foreach}
-                  {else}
-                  <h3 align="center">Изменений нет</h3>
-                  {/if}
-                </div>
-              </div>
-              <div class="col-md-4">
-                <fieldset>
-                  <legend>Задать изменения в расписании</legend>
-                  <form name="setChangeScheduleForm" method="POST">
-                    <div class="form-group">
-                      <label>Дата</label>
-                      <input type="datetime" name="day" value="{$date_now}" class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label>Группа</label>
-                      <select name="group" class="form-control">
-                        {foreach from=$groups item=group}
-                        <option value="{$group->getGroupID()}">{$group->getNumberGroup()}</option>
-                        {/foreach}
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label>Пара</label>
-                      <select name="pair" class="form-control">
-                        <option value="1">1 пара</option>
-                        <option value="2">2 пара</option>
-                        <option value="3">3 пара</option>
-                        <option value="4">4 пара</option>
-                        <option value="5">5 пара</option>
-                        <option value="6">6 пара</option>
-                        <option value="7">7 пара</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label>Предмет</label>
-                      <select name="subject" class="form-control">
-                        {foreach from=$subjects item=subject}
-                        <option value="{$subject->getSubjectID()}">{$subject->getDescription()}</option>
-                        {/foreach}
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <input type="submit" name="setChangeScheduleButton" value="Поставить изменения" class="btn btn-primary">
-                    </div>
-                  </form>
-                </fieldset>
-                <fieldset>
-                  <legend>Удалить изменения группы</legend>
-                  <form name="deleteChangedScheduleForm" method="POST">
-                    <div class="form-group">
-                      <label>Группа</label>
-                      <select name="group" class="form-control">
-                        {foreach from=$groups item=group}
-                        <option value="{$group->getGroupID()}">{$group->getNumberGroup()}</option>
-                        {/foreach}
-                      </select>
-                    </div>
-                    <input type="submit" name="deleteChangedScheduleButton" value="Удалить все изменения" class="btn btn-danger">
-                  </form>
-                </fieldset>
-              </div>
             </div>
           </div>
         </div>

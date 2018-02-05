@@ -1,21 +1,10 @@
 
-table tr th{
+.ui.table tr th{
   text-align: center;
-}
-
-table tr td  *  {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
 }
 
 h4 {
   text-align: center;
-}
-
-fieldset {
-  height: 100%;
 }
 
 .header {
@@ -26,7 +15,6 @@ fieldset {
   width: 100%;
 }
 
-
 .ui.styled.accordion {
-  
+  width: 100%; 
 }

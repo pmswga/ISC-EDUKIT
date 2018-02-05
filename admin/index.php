@@ -1,62 +1,92 @@
 <?php
 	require_once "start.php";
-
-    use IEP\Structures\User;
-    use IEP\Structures\Subject;
-
+	
+	use IEP\Managers\UserManager;
+	use IEP\Structures\User;
+	
 	if (isset($_SESSION['admin']) && 
-     ($_SESSION['admin'] instanceof User) &&
-     $UM->adminExists($_SESSION['admin'])
-    ) {
-        $all_students = $UM->getAllStudentsElders();
-        $studentsByGroup = array();
-        for ($i = 0; $i < count($all_students); $i++) {
-            $key = $all_students[$i]->getGroup()->getNumberGroup()." (".$all_students[$i]->getGroup()->getYearEducation().")";
-            $studentsByGroup[$key][] = $all_students[$i];
-        }
+    ($_SESSION['admin'] instanceof User) &&
+    $UM->adminExists($_SESSION['admin'])
+  ) {
+		
+		$UM = new UserManager($DB);
+		
+    $CT->assign("groups", $GM->getAllGroups());
+    $CT->assign("subjects", $SM->getAllSubjects());
+    $CT->assign("teachers", $UM->getAllTeachers());
+    $CT->assign("students", $UM->getAllStudents());
+    $CT->assign("elders", $UM->getAllElders());
+    $CT->assign("parents", $UM->getAllParents());
+    $CT->assign("allUsers", $UM->getAllUsers());
+    $CT->assign("specialty", $SPM->getAllSpecialty());
+		$CT->assign("admins", $UM->getAllAdmins());
+		$CT->assign("logs", $UM->getLogs());
     
-        $CT->assign("groups", $GM->getAllGroups());
-        $CT->assign("subjects", $SM->getAllSubjects());
-        $CT->assign("teachers", $UM->getAllTeachers());
-        $CT->assign("students", $UM->getAllStudents());
-        $CT->assign("elders", $UM->getAllElders());
-        $CT->assign("parents", $UM->getAllParents());
-        $CT->assign("allUsers", $UM->getAllUsers());
-        $CT->assign("specialty", $SPM->getAllSpecialty());
-        $CT->assign("studentsByGroup", $studentsByGroup);
-
-/*
-        if (!empty($_POST['removeSubjectButton'])) {
-            $subjects = $_POST['subjects'];
-
-            $result = true;
-            foreach ($subjects as $subject) {
-                $result *= $SM->remove($subject);
-            }
-
-            if ($result) {
-                CTools::Message("Выбранные предметы были удалены");
-                CTools::Redirect("index.php");
-            } else {
-                CTools::Message("Произошла ошибка при удалении предметов");
-            }
-        }
-
-        if (!empty($_POST['addSubjectButton'])) {
-            $descp = htmlspecialchars($_POST['descp']);
-
-            if ($SM->add(new Subject($descp))) {
-                CTools::Message("Предмет успешно добавлен");
-                CTools::Redirect("index.php");
-            } else {
-                CTools::Message("Не удалось добавить предмет");
-            }
-        }
-*/
-
-        $CT->Show("index.tpl");
-    } else {
-        CTools::Redirect("login.php");
+		$CT->Show("index.tpl");
+		
+		if (!empty($_POST['addAdminButton'])) {
+			$data = CForm::getData(["sn", "fn", "pt", "email", "paswd", "info"]);
+			$data['paswd'] = md5($data['paswd']);
+			
+			$new_admin = new User(
+				$data['sn'], 
+				$data['fn'], 
+				$data['pt'], 
+				$data['email'], 
+				$data['paswd'], 
+				0
+			);
+			
+			if ($UM->add($new_admin)) {
+        CTools::Message("Добавлен новый администратор");
+			} else {
+        CTools::Message("Ошибка при добавлении");
+      }
+			
+      CTools::Redirect("index.php");
+		}
+    
+    if (!empty($_POST['deleteAdminsButton'])) {
+      $admins = $_POST['admins'];
+      
+      $result = true;
+      for ($i = 0; $i < count($admins); $i++) {
+        $result *= $UM->removeAdmin($admins[$i]);
+      }
+      
+      if ($result) {
+        CTools::Message("Удалены");
+      } else {
+        CTools::Message("Произошла ошибка");
+      }
+      
+      CTools::Redirect("index.php");
     }
+    
+    if (!empty($_POST['deleteLogsButton'])) {
+      $logs = $_POST['logs'];
+      
+      if (!empty($logs)) {
+        $result = true;
+        for ($i = 0; $i < count($logs); $i++) {
+          $result *= $UM->removeLogs($logs[$i]);
+        }
+        
+        if ($result) {
+          CTools::Message("Удалены");
+        } else {
+          CTools::Message("Произошла ошибка");
+        }
+        
+      } else {
+        CTools::Message("Вы не выбрали записи для удаления");
+      }
 
+      CTools::Redirect("index.php");
+    }
+		
+	}	else {
+    CTools::Redirect("login.php");
+  }
+  
 ?>

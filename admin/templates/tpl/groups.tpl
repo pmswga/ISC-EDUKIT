@@ -10,52 +10,7 @@
         <form name="" method="POST" class="ui form">
           <div class="ui grid">
             <div class="row">
-              <div class="eight wide column">
-                <fieldset>
-                  <legend>Новая группа</legend>
-                  <form name="addGroupForm" method="POST">
-                    <div class="field">
-                      <label>Наименование</label>
-                      <input type="text" name="group" class="form-control">
-                    </div>
-                    <div class="field">
-                      <label>Год обучения</label>
-                      <div class="two fields">
-                        <div class="field">
-                          <input type="number" name="edu_year_1" min="2000" value="{$currentYear}" max="2099" class="form-control">
-                        </div>
-                        <div class="field">
-                          <input type="number" name="edu_year_2" min="2000" value="{$currentYear+1}" max="2099" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="field">
-                      <label>Специальность</label>
-                      <select name="spec" class="form-control">
-                        {foreach from=$specialtyes item=specialty}
-                          <option value="{$specialty->getSpecialtyID()}">{$specialty->getCode()} {$specialty->getDescription()}</option>
-                        {/foreach}
-                      </select>
-                    </div>
-                    <div class="field">
-                      <label>Тип</label>
-                      <select name="payment" class="form-control">
-                        <option value="1">Бюджетная</option>
-                        <option value="0">Коммерческая</option>
-                      </select>
-                    </div>
-                    <div class="field">
-                      <input type="submit" name="addGroupButton" value="Добавить" class="ui primary button">
-                    </div>
-                  </form>
-                </fieldset>
-              </div>
-              <div class="eight wide column">
-                <input type="submit" name="removeGroupButton" value="Удалить" class="ui red button">
-              </div>
-            </div>
-            <div class="row">
-              <div class="sixteen wide column">
+              <div class="ten wide column">
                 <table class="ui fixed table">
                   <thead>
                     <tr>
@@ -91,6 +46,48 @@
                     {/foreach}
                   </tbody>
                 </table>
+              </div>
+              <div class="six wide column">
+                <input type="submit" name="removeGroupButton" value="Удалить" class="ui fluid red button">
+                <br>
+                <fieldset>
+                  <legend>Новая группа</legend>
+                  <form name="addGroupForm" method="POST">
+                    <div class="field">
+                      <label>Наименование</label>
+                      <input type="text" name="group">
+                    </div>
+                    <div class="field">
+                      <label>Год обучения</label>
+                      <div class="two fields">
+                        <div class="field">
+                          <input type="number" name="edu_year_1" min="2000" value="{$currentYear}" max="2099" class="form-control">
+                        </div>
+                        <div class="field">
+                          <input type="number" name="edu_year_2" min="2000" value="{$currentYear+1}" max="2099" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label>Специальность</label>
+                      <select name="spec">
+                        {foreach from=$specialtyes item=specialty}
+                          <option value="{$specialty->getSpecialtyID()}">{$specialty->getCode()} {$specialty->getDescription()}</option>
+                        {/foreach}
+                      </select>
+                    </div>
+                    <div class="field">
+                      <label>Тип</label>
+                      <select name="payment">
+                        <option value="1">Бюджетная</option>
+                        <option value="0">Коммерческая</option>
+                      </select>
+                    </div>
+                    <div class="field">
+                      <input type="submit" name="addGroupButton" value="Добавить" class="ui primary button">
+                    </div>
+                  </form>
+                </fieldset>
               </div>
             </div>
           </div>

@@ -1,99 +1,59 @@
 {assign var="title" value="EDUKIT | Предметы"}
-{$css_links[] = "vt.css"}
 {include file="html/begin.tpl"}
-<div class="ui tow columns internally celled grid">
+<form name="subjectsForm" method="POST" class="ui form">
+  <div class="ui tow columns internally celled grid">
     <div class="row">
       <div class="two wide column">
         {include file="html/menu.tpl"}
       </div>
       <div class="fourteen wide column">
-        <form name="subjectsForm" method="POST" class="ui form">
-          <div class="two fields">
-            <div class="field">
-              <div class="ui styled accordion">
-                <div class="active title">
-                  Добавить предмет
-                </div>
-                <div class="active content">
-                  <div class="ui form">
-                    <div class="field">
-                      <label>Наименование предмета</label>
-                      <input type="text" name="subject">
-                    </div>
-                    <div class="field">
-                      <input type="submit" name="addSubjectButton" value="Добавить" class="ui positive button">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="field">
-              <input type="submit" name="removeSubjectButton" value="Удалить" class="ui negative button">
-            </div>
-          </div>
-          <div class="field">
-            {if $subjects != NULL}            
-              <table class="ui table">
-                <thead>
-                  <tr>
-                    <th>Название предмета</th>
-                    <th>Выбрать</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {foreach from=$subjects item=subject}
+        <div class="ui grid">
+          <div class="row">
+            <div class="ten wide column">
+              {if $subjects != NULL}
+                <table class="ui flex table">
+                  <thead>
                     <tr>
-                      <td>{$subject->getDescription()}</td>
-                      <td>
-                        <div class="ui checkbox">
-                          <input type="checkbox" name="select_subject[]" value="{$subject->getSubjectID()}">
-                          <label></label>
-                        </div>
-                      </td>
+                      <th>Название предмета</th>
+                      <th>Выбрать</th>
                     </tr>
-                  {/foreach}  
-                </tbody>
-              </table>
-            {else}
-              <h2>Добавьте предметы</h2>
-            {/if}
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-{*
-
-
-  
-  <div class="container-fluid">
-    {include file="html/menu.tpl"}
-    <div class="row">
-      <div class="col-md-12">
-        <div class="row">
-          <form name="changeSpecialtyForm" method="POST">
-            <div class="col-md-8">
+                  </thead>
+                  <tbody>
+                    {foreach from=$subjects item=subject}
+                      <tr>
+                        <td>{$subject->getDescription()}</td>
+                        <td>
+                          <div class="ui checkbox">
+                            <input type="checkbox" name="select_subject[]" value="{$subject->getSubjectID()}">
+                            <label></label>
+                          </div>
+                        </td>
+                      </tr>
+                    {/foreach}  
+                  </tbody>
+                </table>
+              {else}
+                <h2>Добавьте предметы</h2>
+              {/if}
             </div>
-            <div class="col-md-4">
-              <input type="submit" name="removeSubjectButton" value="Удалить" class="btn btn-danger btn-block">
+            <div class="six wide column">
+              <input type="submit" name="removeSubjectButton" value="Удалить" class="ui fluid red button">
               <br>
               <fieldset>
-                <legend>Добавить новый предмет</legend>
-                <form name="addSubjectForm" method="POST">
-                  <div class="form-group">
-                    <label>Название предмета</label>
-                    <input type="text" name="subject" maxlength="255" class="form-control">
-                  </div>
-                  <div class="form-group">
-                    <input type="submit" name="addSubjectButton" value="Добавить" class="btn btn-primary">
-                  </div>
-                </form>
+                <legend>Добавить предмет</legend>
+                <div class="field">
+                  <label>Наименование предмета</label>
+                  <input type="text" name="subject">
+                </div>
+                <div class="field">
+                  <input type="submit" name="addSubjectButton" value="Добавить" class="ui positive button">
+                </div>
               </fieldset>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  *}
-  {include file="html/end.tpl"}
+</form>
+{include file="html/end.tpl"}
