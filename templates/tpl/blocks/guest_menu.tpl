@@ -5,7 +5,7 @@
 	<a href="news.php" class="item">
 		<div class="ui grid">
 			<div class="two wide column">
-				<i class="big newspaper icon"></i>
+				<i class="newspaper icon"></i>
 			</div>
 			<div class="fourteen wide column">
 				Новости
@@ -15,7 +15,7 @@
 	<a href="schedule.php" class="item">
 		<div class="ui grid">
 			<div class="two wide column">
-				<i class="big calendar icon"></i>
+				<i class="calendar icon"></i>
 			</div>
 			<div class="fourteen wide column">
 				Расписание
@@ -25,7 +25,7 @@
 	<a href="teachers.php" class="item">
 		<div class="ui grid">
 			<div class="two wide column">
-				<i class="big users icon"></i>
+				<i class="users icon"></i>
 			</div>
 			<div class="fourteen wide column">
 				Преподаватели
@@ -35,7 +35,7 @@
 	<a href="#" class="item" id="openRegStudentModal">
 		<div class="ui grid">
 			<div class="two wide column">
-				<i class="big add user icon"></i>
+				<i class="add user icon"></i>
 			</div>
 			<div class="fourteen wide column">
 				Регистрация
@@ -45,7 +45,7 @@
 	<a href="#" class="item" id="openSignInModal">
 		<div class="ui grid">
 			<div class="two wide column">
-				<i class="big sign in icon"></i>
+				<i class="sign in icon"></i>
 			</div>
 			<div class="fourteen wide column">
 				Вход
@@ -54,11 +54,13 @@
 	</a>
 </nav>
 <!-- FIXME: -->
+{*
 <div class="actions" style="text-align: center;">
 	<a href="docs/EUD/index.html" class="ui button orange">
 		Руководство пользователя
 	</a>
 </div>
+*}
 <script type="text/javascript">
 
 	$("#openRegStudentModal").on("click", function() {
