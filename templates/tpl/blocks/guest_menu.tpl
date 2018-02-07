@@ -1,37 +1,56 @@
 <nav id="menu" class="ui left vertical menu">
-	<a href="index.php" class="item">
-		<i class="main icon"></i>
-		Главная
-	</a>
+	<div class="item">
+		<a href="index.php"><img src="../img/ukit.png" width="100%" alt=""></a>
+	</div>
 	<a href="news.php" class="item">
-		<p>
-			<i class="huge newspaper icon"></i>
-		</p>
-		<label for="">Новости</label>
+		<div class="ui grid">
+			<div class="two wide column">
+				<i class="big newspaper icon"></i>
+			</div>
+			<div class="fourteen wide column">
+				Новости
+			</div>
+		</div>
 	</a>
 	<a href="schedule.php" class="item">
-		<p>
-			<i class="huge calendar icon"></i>
-		</p>
-		<label for="">Расписание</label>
+		<div class="ui grid">
+			<div class="two wide column">
+				<i class="big calendar icon"></i>
+			</div>
+			<div class="fourteen wide column">
+				Расписание
+			</div>
+		</div>
 	</a>
 	<a href="teachers.php" class="item">
-		<p>
-			<i class="huge users icon"></i>
-		</p>
-		<label for="">Преподаватели</label>
+		<div class="ui grid">
+			<div class="two wide column">
+				<i class="big users icon"></i>
+			</div>
+			<div class="fourteen wide column">
+				Преподаватели
+			</div>
+		</div>
 	</a>
 	<a href="#" class="item" id="openRegStudentModal">
-		<p>
-			<i class="huge add user icon"></i>
-		</p>
-		<label for="">Регистрация</label>
+		<div class="ui grid">
+			<div class="two wide column">
+				<i class="big add user icon"></i>
+			</div>
+			<div class="fourteen wide column">
+				Регистрация
+			</div>
+		</div>
 	</a>
 	<a href="#" class="item" id="openSignInModal">
-		<p>
-			<i class="huge sign in icon"></i>
-		</p>
-		<label for="">Вход</label>
+		<div class="ui grid">
+			<div class="two wide column">
+				<i class="big sign in icon"></i>
+			</div>
+			<div class="fourteen wide column">
+				Вход
+			</div>
+		</div>
 	</a>
 </nav>
 <!-- FIXME: -->

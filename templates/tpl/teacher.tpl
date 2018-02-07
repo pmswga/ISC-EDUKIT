@@ -1,5 +1,5 @@
 {include file='html/begin.tpl'}
-  <div class="ui stackable grid">
+  <div class="ui stackable internally celled grid">
     <div class="row">
       <div class="three wide column">
           {if $user != NULL}

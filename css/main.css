@@ -56,10 +56,6 @@ h4 {
   text-align: center;
 }
 
-input a {
-  width: 100%;
-}
-
 #statistic_on_ninety {
   display: flex;
   justify-content: space-around;
@@ -72,8 +68,4 @@ input a {
 .left-column {
   background-color: #0D374E;
   border-right: 5px solid #EF7E30;
-}
-
-.right-column {
-  
 }

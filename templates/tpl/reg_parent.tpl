@@ -56,7 +56,7 @@
 </script>
 
 <form name="regParentForm" method="POST">
-  <div class="ui stackable grid">
+  <div class="ui stackable internally celled grid">
     <div class="row">
       <div class="three wide column">
         {include file='blocks/guest_menu.tpl'}
