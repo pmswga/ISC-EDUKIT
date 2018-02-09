@@ -1,27 +1,20 @@
-<section>
-	<figure>
-	<img src="img/ukit.png" width="100%" alt="">
-	</figure>
-</section>
 <nav class="ui left vertical menu" style="width: 100%;">
-	<!-- FIXME: Добавить стили в файл .css -->
-	<a href="index.php" class="item" style="text-align: center;">
-		<i class="main icon"></i>
-		Главная
-	</a>
-	<a href="news.php" class="item">
+	<div class="item">
+		<a href="index.php"><img src="../img/ukit.png" width="100%" alt=""></a>
+	</div>
+	<a href="news.php" class="item" id="newsPage">
 		<i class="newspaper icon"></i>
 		Новости
 	</a>
-	<a href="schedule.php" class="item">
+	<a href="schedule.php" class="item" id="schedulePage">
 		<i class="calendar icon"></i>
 		Расписание
 	</a>
-	<a href="teachers.php" class="item">
+	<a href="teachers.php" class="item" id="teacherPage">
 		<i class="users icon"></i>
 		Преподаватели
 	</a>
-	<a href="user.php" class="item" id="profile">
+	<a href="user.php" class="item" id="profilePage">
 		<i class="user icon"></i>
 		Профиль
 	</a>
