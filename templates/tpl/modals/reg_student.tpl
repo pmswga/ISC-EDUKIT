@@ -72,7 +72,7 @@
                 </div>
                 <div class="field">
                   <label>&nbsp;</label>
-                  <input type="submit" name="registrationStudent" value="Готово" class="ui primary button">
+                  <input type="submit" name="registrationStudent" value="Готово" id="sendData" class="ui primary button">
                 </div>
               </div>
             </div>
