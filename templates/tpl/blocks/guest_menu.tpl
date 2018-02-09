@@ -32,7 +32,7 @@
 			</div>
 		</div>
 	</a>
-	<a href="#" class="item" id="openRegStudentModal">
+	<a href="#openedRegStudentModal" class="item" id="openRegStudentModal">
 		<div class="ui grid">
 			<div class="two wide column">
 				<i class="add user icon"></i>
@@ -42,7 +42,7 @@
 			</div>
 		</div>
 	</a>
-	<a href="#" class="item" id="openSignInModal">
+	<a href="#openedSignInModal" class="item" id="openSignInModal">
 		<div class="ui grid">
 			<div class="two wide column">
 				<i class="sign in icon"></i>
