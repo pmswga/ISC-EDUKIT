@@ -1,6 +1,6 @@
 <nav id="menu" class="ui left vertical menu">
 	<div class="item">
-		<a href="index.php"><img src="../img/ukit.png" width="100%" alt=""></a>
+		<a href="index.php" id="mainPage"><img src="../img/ukit.png" width="100%" alt=""></a>
 	</div>
 	<a href="news.php" class="item" id="newsPage">
 		<div class="ui grid">
