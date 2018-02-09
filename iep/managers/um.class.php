@@ -145,8 +145,7 @@
                     return false;
                   }
                   
-                } 
-                else {
+                } else {
                   return $this->dbc()->commit();
                 }
                 
@@ -159,9 +158,7 @@
               return false;
             }
             
-          }
-          catch(PDOException $e)
-          {
+          } catch(PDOException $e) {
             $this->dbc()->rollBack();
             return false;
           }
@@ -184,17 +181,17 @@
             $add_student_query->bindValue(":grp", $user->getGroup());
             
 						$result = $add_student_query->execute();
-						
+            
+
 						if ($result) {
-              return $this->dbc()->commit();
-						} else {			
+              $this->dbc()->commit();
+              return true;
+            } else {			
               $this->dbc()->rollBack();
               return false;
 						}
 						
-          }
-          catch(PDOException $e)
-          {
+          } catch(PDOException $e) {
             $this->dbc()->rollBack();
             return false;
           }

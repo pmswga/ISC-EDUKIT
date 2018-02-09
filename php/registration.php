@@ -35,10 +35,15 @@
       $data['grp']
 		);
     
-    if($UM->add($new_student)) CTools::Message("Регистрация прошла успешно");
-		else CTools::Message("При регистрации произошла ошибка");
+    if($UM->add($new_student)) {
+			CTools::Message("Регистрация прошла успешно");
+		} else {
+			CTools::Message("При регистрации произошла ошибка");
+		}
+		
 		
 		CTools::Redirect($_SERVER['HTTP_REFERER']);
+	} else {
+		CTools::Redirect($_SERVER['HTTP_REFERER']);
 	}
-	else CTools::Redirect($_SERVER['HTTP_REFERER']);
 ?>
