@@ -21,11 +21,11 @@
 		<i class="users icon"></i>
 		Преподаватели
 	</a>
-	<a href="user.php" class="item" id="openRegStudentModal">
+	<a href="user.php" class="item" id="profile">
 		<i class="user icon"></i>
 		Профиль
 	</a>
-	<a href="php/exit.php" class="item" id="openSignInModal">
+	<a href="php/exit.php" class="item" id="exit">
 		<i class="sign out icon"></i>
 		Выход
 	</a>
