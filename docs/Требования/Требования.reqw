@@ -1,0 +1,235 @@
+{
+  "id": "База данных колледжа",
+  "documents": [
+    {
+      "id": "DBC",
+      "guid": "15172cca-b768-4bc5-9af0-ed864fe1dd2f",
+      "name": "Требования к базе данных колледжа",
+      "lastId": 6,
+      "createdOn": "2018-04-04T07:58:29.954Z",
+      "createdBy": {
+        "name": "Сергей",
+        "email": "pmswga@gmail.com",
+        "company": ""
+      },
+      "lastChangedOn": "2018-04-12T12:06:23.795Z",
+      "lastChangedBy": {
+        "name": "Sergey",
+        "email": "pmswga@gmail.com",
+        "company": ""
+      },
+      "data": [
+        {
+          "id": "1",
+          "guid": "c6f13388-06c0-4758-baa5-9a8c07d755b1",
+          "heading": "Модули системы",
+          "history": [
+            {
+              "affectedNodeId": "#",
+              "changedBy": {
+                "company": "",
+                "email": "pmswga@gmail.com",
+                "name": "Сергей"
+              },
+              "changedOn": "2018-04-04T07:58:32.497Z",
+              "docId": "DBC",
+              "structureAction": "Create"
+            },
+            {
+              "attributesChanged": {
+                "heading": null
+              },
+              "changedBy": {
+                "company": "",
+                "email": "pmswga@gmail.com",
+                "name": "Sergey"
+              },
+              "changedOn": "2018-04-04T21:03:28.009Z"
+            }
+          ],
+          "children": [
+            {
+              "id": "2",
+              "guid": "ebd59b30-f768-4cfd-a645-4bf8b11af19e",
+              "heading": "Приёмная комиссия",
+              "history": [
+                {
+                  "affectedNodeId": "1",
+                  "changedBy": {
+                    "company": "",
+                    "email": "pmswga@gmail.com",
+                    "name": "Sergey"
+                  },
+                  "changedOn": "2018-04-04T21:03:27.969Z",
+                  "docId": "DBC",
+                  "structureAction": "Create"
+                },
+                {
+                  "attributesChanged": {
+                    "heading": null
+                  },
+                  "changedBy": {
+                    "company": "",
+                    "email": "pmswga@gmail.com",
+                    "name": "Sergey"
+                  },
+                  "changedOn": "2018-04-04T21:03:35.427Z"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3",
+          "guid": "5619428f-21f2-4d65-b499-c2db4f29c2d8",
+          "heading": "Требования к данным",
+          "history": [
+            {
+              "affectedNodeId": "#",
+              "changedBy": {
+                "company": "",
+                "email": "pmswga@gmail.com",
+                "name": "Sergey"
+              },
+              "changedOn": "2018-04-12T12:04:35.216Z",
+              "docId": "DBC",
+              "structureAction": "Create"
+            },
+            {
+              "attributesChanged": {
+                "heading": null
+              },
+              "changedBy": {
+                "company": "",
+                "email": "pmswga@gmail.com",
+                "name": "Sergey"
+              },
+              "changedOn": "2018-04-12T12:04:46.897Z"
+            }
+          ],
+          "children": [
+            {
+              "id": "4",
+              "guid": "a5822ff6-4245-424b-821c-1a16c80ace4a",
+              "heading": "Информация о студенте",
+              "history": [
+                {
+                  "affectedNodeId": "3",
+                  "changedBy": {
+                    "company": "",
+                    "email": "pmswga@gmail.com",
+                    "name": "Sergey"
+                  },
+                  "changedOn": "2018-04-12T12:04:50.593Z",
+                  "docId": "DBC",
+                  "structureAction": "Create"
+                },
+                {
+                  "attributesChanged": {
+                    "heading": null
+                  },
+                  "changedBy": {
+                    "company": "",
+                    "email": "pmswga@gmail.com",
+                    "name": "Sergey"
+                  },
+                  "changedOn": "2018-04-12T12:04:57.179Z"
+                }
+              ],
+              "children": [
+                {
+                  "id": "5",
+                  "guid": "cdab1b3e-4c8e-4bb3-8ed7-692fa538fdc8",
+                  "heading": "Базовая информация",
+                  "text": "<ul><li>Фамилия</li><li>Имя</li><li>Отчество</li><li>Пол</li><li>Дата рождения</li><li>Социальный статус</li></ul>",
+                  "history": [
+                    {
+                      "affectedNodeId": "4",
+                      "changedBy": {
+                        "company": "",
+                        "email": "pmswga@gmail.com",
+                        "name": "Sergey"
+                      },
+                      "changedOn": "2018-04-12T12:04:59.502Z",
+                      "docId": "DBC",
+                      "structureAction": "Create"
+                    },
+                    {
+                      "attributesChanged": {
+                        "heading": null,
+                        "text": null
+                      },
+                      "changedBy": {
+                        "company": "",
+                        "email": "pmswga@gmail.com",
+                        "name": "Sergey"
+                      },
+                      "changedOn": "2018-04-12T12:05:16.214Z"
+                    },
+                    {
+                      "attributesChanged": {
+                        "text": "<ul><li>Фамилия</li><li>Имя</li><li>Отчество</li><li>Пол</li><li>Дата рождения</li></ul>"
+                      },
+                      "changedBy": {
+                        "company": "",
+                        "email": "pmswga@gmail.com",
+                        "name": "Sergey"
+                      },
+                      "changedOn": "2018-04-12T12:06:23.788Z"
+                    }
+                  ]
+                },
+                {
+                  "id": "6",
+                  "guid": "f4bebbcd-8f75-439b-9605-4dc2da166eb6",
+                  "heading": "Учебная информация",
+                  "text": "<ul><li>Тип оплаты обучения</li><li>Предыдущее образование</li><li>Документы об образовании</li><li>Группа</li><li>Специальность</li><li>Год поступления</li><li>Год окончания</li><li>Учебный статус</li></ul>",
+                  "history": [
+                    {
+                      "affectedNodeId": "4",
+                      "changedBy": {
+                        "company": "",
+                        "email": "pmswga@gmail.com",
+                        "name": "Sergey"
+                      },
+                      "changedOn": "2018-04-12T12:05:20.395Z",
+                      "docId": "DBC",
+                      "structureAction": "Create"
+                    },
+                    {
+                      "attributesChanged": {
+                        "heading": null,
+                        "text": null
+                      },
+                      "changedBy": {
+                        "company": "",
+                        "email": "pmswga@gmail.com",
+                        "name": "Sergey"
+                      },
+                      "changedOn": "2018-04-12T12:06:15.988Z"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "attributes": {
+      },
+      "view": {
+      }
+    }
+  ],
+  "traceability": {
+    "reference": {
+      "name": "Reference",
+      "source": "References",
+      "target": "Referenced by"
+    }
+  },
+  "metadata": {
+    "format": "2.3",
+    "saveHistory": true
+  }
+}
