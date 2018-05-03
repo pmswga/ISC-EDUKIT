@@ -1,286 +1,514 @@
-DROP DATABASE IF EXISTS `iep`;
-CREATE DATABASE IF NOT EXISTS `iep` CHARACTER SET utf8 COLLATE utf8_general_ci;
+DROP DATABASE IF EXISTS `edukit`;
+CREATE DATABASE IF NOT EXISTS `edukit` CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-USE `iep`;
-
-/* Создание таблицы "Пользователи" */
-CREATE TABLE IF NOT EXISTS `users` (
-	id_user int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	sn varchar(30) NOT NULL,
-	fn varchar(30) NOT NULL,
-	pt varchar(30) NOT NULL,
-	email varchar(255) NOT NULL UNIQUE,
-	passwd varchar(32) NOT NULL,
-	id_type_user int NOT NULL,
-	INDEX (id_type_user),
-	CONSTRAINT uc_sn CHECK(second_name <> ''),
-	CONSTRAINT uc_fn CHECK(first_name <> ''),
-	CONSTRAINT uc_pt CHECK(patronymic <> ''),
-	CONSTRAINT uc_email CHECK(email <> ''),
-	CONSTRAINT uc_password CHECK(password <> '')
-) ENGINE = InnoDB	 CHARACTER SET = UTF8;
-
-/*
-	
-	Создание таблицы `typeUser`
-	
-	И добавление следующих типов пользователей:
-		1 - TEACHER
-		2 - ELDER
-		3 - STUDNET
-		4 - PARENT
-	
-*/
-CREATE TABLE IF NOT EXISTS `typeUser` (
-	id_type_user int AUTO_INCREMENT PRIMARY KEY,
-	description varchar(30) NOT NULL UNIQUE,
-	CONSTRAINT tuc_desc CHECK(description <> '')
-) ENGINE = InnoDB CHARACTER SET = UTF8;
-
-INSERT INTO `typeUser` (`description`) VALUES ('TEACHER');
-INSERT INTO `typeUser` (`description`) VALUES ('ELDER');
-INSERT INTO `typeUser` (`description`) VALUES ('STUDENT');
-INSERT INTO `typeUser` (`description`) VALUES ('PARENT');
-
-/* Создание таблицы "Администраторы" */
-CREATE TABLE IF NOT EXISTS `admins` (
-	id_admin int AUTO_INCREMENT PRIMARY KEY,
-	sn varchar(30) NOT NULL,
-	fn varchar(30) NOT NULL,
-	pt varchar(30) NOT NULL,
-	email varchar(30) UNIQUE,
-	passwd varchar(32) NOT NULL,
-	CONSTRAINT ac_sn CHECK (sn <> ''),
-	CONSTRAINT ac_fn CHECK (fn <> ''),
-	CONSTRAINT ac_pt CHECK (pt <> ''),
-	CONSTRAINT ac_email CHECK (email <> ''),
-	CONSTRAINT ac_passwd CHECK (passwd <> '')
-) ENGINE = InnoDB CHARACTER SET = UTF8;
-
-/* Создание таблицы "Студенты" */
-CREATE TABLE IF NOT EXISTS `students` (
-	id_student int PRIMARY KEY,
-	home_address varchar(255) NOT NULL,
-	cell_phone varchar(12) NOT NULL,
-	grp int NOT NULL,
-	INDEX (grp),
-	CONSTRAINT sc_ha CHECK(home_address <> ''),
-	CONSTRAINT sc_cp CHECK(cell_phone <> '')
-) ENGINE = InnoDB CHARACTER SET = UTF8;
-
-/* Создание таблицы "Группы" */
-CREATE TABLE IF NOT EXISTS `groups` (
-	grp int AUTO_INCREMENT PRIMARY KEY,
-	description varchar(10) NOT NULL,
-	edu_year varchar(10) NOT NULL,
-	spec_id int NOT NULL,
-	is_budget int NOT NULL,
-	INDEX (spec_id),
-	CONSTRAINT gc_desc CHECK(description <> ''),
-	CONSTRAINT gc_year CHECK(edu_year <> '')
-) ENGINE = InnoDB CHARACTER SET = UTF8;
-
-/* Создание таблицы "Специальности" */
-CREATE TABLE IF NOT EXISTS `specialty` (
-	id_spec int AUTO_INCREMENT PRIMARY KEY,
-	code_spec varchar(10) NOT NULL UNIQUE,
-	description varchar(255) NOT NULL,
-	pdf_file varchar(255) NOT NULL,
-	CONSTRAINT sc_cs CHECK(code_spec <> ''),
-	CONSTRAINT sc_desc CHECK(description <> ''),
-	CONSTRAINT sc_file CHECK(pdf_file <> '')
-) ENGINE = InnoDB CHARACTER SET = UTF8;
-
-/* Создание таблицы "Родители" */
-CREATE TABLE IF NOT EXISTS `parents` (
-	id_parent int NOT NULL PRIMARY KEY,
-	age int NOT NULL,
-	education varchar(50) NOT NULL,
-	work_place varchar(255) NOT NULL,
-	post varchar(255) NOT NULL,
-	home_phone varchar(30) NOT NULL,
-	cell_phone varchar(30) NOT NULL,
-	CONSTRAINT pc_edu CHECK(education <> ''),
-	CONSTRAINT pc_wp CHECK(work_place <> ''),
-	CONSTRAINT pc_post CHECK(post <> ''),
-	CONSTRAINT pc_home_phone CHECK (home_phone <> ''),
-	CONSTRAINT pc_cell_phone CHECK (cell_phone <> ''),
-	CONSTRAINT pc_age CHECK (age > 0)
-) ENGINE = InnoDB CHARACTER SET = UTF8;
-
-/* Создание таблицы "Родитель-ребёнок" */
-CREATE TABLE IF NOT EXISTS `parent_child` (
-	id_parent int NOT NULL,
-	id_children int NOT NULL,
-	id_type_relation int NOT NULL,
-	INDEX (id_children),
-	INDEX (id_type_relation),
-	PRIMARY KEY (id_parent, id_children),
-	CONSTRAINT pcc_tr CHECK(id_type_relation <> NULL AND id_type_relation > 0)
-) ENGINE = InnoDB CHARACTER SET = UTF8;
-
-/* Создание таблицы "Отношения" */
-CREATE TABLE IF NOT EXISTS `relations` (
-	id_relation int AUTO_INCREMENT PRIMARY KEY,
-	description varchar(255) NOT NULL,
-	CONSTRAINT rc_desc CHECK(description <> '')
-) ENGINE = InnoDB CHARACTER SET = UTF8;
-
-INSERT INTO `relations` (`description`) VALUES ('Мама');
-INSERT INTO `relations` (`description`) VALUES ('Папа');
-INSERT INTO `relations` (`description`) VALUES ('Бабушка');
-INSERT INTO `relations` (`description`) VALUES ('Дедушка');
-INSERT INTO `relations` (`description`) VALUES ('Отчим');
-INSERT INTO `relations` (`description`) VALUES ('Не определён');
-
-/* Создание таблицы "Преподаватели" */
-CREATE TABLE IF NOT EXISTS `teachers` (
-	id_teacher int NOT NULL PRIMARY KEY,
-	info TEXT NOT NULL,
-	CONSTRAINT tc_info CHECK(info <> NULL)
-) ENGINE = InnoDB CHARACTER SET = UTF8;
-
-/* Создание таблицы "Новости" */
-CREATE TABLE IF NOT EXISTS `news` (
-	id_news int AUTO_INCREMENT PRIMARY KEY,
-	caption varchar(255) NOT NULL,
-	content text NOT NULL,
-	id_author int NOT NULL,
-	date_publication datetime NOT NULL,
-	INDEX (id_author),
-	CONSTRAINT nc_caption CHECK(caption <> ''),
-	CONSTRAINT nc_content CHECK(content <> '')
-) ENGINE = InnoDB CHARACTER SET = UTF8;
-
-/* Создание таблицы "Предметы" */
-CREATE TABLE IF NOT EXISTS `subjects` (
-	id_subject int AUTO_INCREMENT PRIMARY KEY,
-	description varchar(255) NOT NULL UNIQUE,
-	CONSTRAINT sc_desc CHECK(description <> '')
-) ENGINE = InnoDB CHARACTER SET = UTF8;
-
-/* Создание таблицы "Преподаватели-предметы" */
-CREATE TABLE IF NOT EXISTS `teacher_subjects` (
-	id_teacher int NOT NULL,
-	id_subject int NOT NULL,
-	INDEX (id_subject),
-	PRIMARY KEY (id_teacher, id_subject)
-) ENGINE = InnoDB CHARACTER SET = UTF8;
-
-/* Создание таблицы "Тесты" */
-CREATE TABLE IF NOT EXISTS `tests` (
-	id_test int AUTO_INCREMENT PRIMARY KEY,
-	id_subject int NOT NULL,
-	id_teacher int NOT NULL,
-	INDEX(id_subject),
-	INDEX(id_teacher),
-	caption varchar(255) NOT NULL,
-	CONSTRAINT tc_caption CHECK(caption <> '')
-) ENGINE = InnoDB CHARACTER SET = UTF8;
-
-/* Создание таблицы "Вопросы" */
-CREATE TABLE IF NOT EXISTS `questions` (
-	id_question int AUTO_INCREMENT PRIMARY KEY,
-	id_test int NOT NULL,
-	INDEX(id_test),
-	question varchar(255) NOT NULL,
-	r_answer varchar(255) NOT NULL,
-	CONSTRAINT qc_question CHECK(question <> ''),
-	CONSTRAINT qc_ranswer CHECK(r_answer <> '')
-) ENGINE = InnoDB CHARACTER SET = UTF8;
-
-/* Создание таблицы "Ответы" */
-CREATE TABLE IF NOT EXISTS `answers` (
-	id_answer int AUTO_INCREMENT PRIMARY KEY,
-	id_question int NOT NULL,
-	INDEX(id_question),
-	answer varchar(255) NOT NULL,
-	CONSTRAINT ac_answer CHECK(answer <> '')
-) ENGINE = InnoDB CHARACTER SET = UTF8;
-
-/* Создание таблицы "Ответов студентов на тесты" */
-CREATE TABLE IF NOT EXISTS `student_tests` (
-	id_student_test int,
-	id_student int,
-	caption varchar(255) NOT NULL,
-	subject varchar(255) NOT NULL,
-	date_pass datetime NOT NULL,
-	mark int,
-	INDEX(id_student),
-    PRIMARY KEY(id_student_test, id_student),
-	CONSTRAINT stc_subject CHECK(subject <> ''),
-	CONSTRAINT stc_mark CHECK((mark >= 2) AND (mark <= 5))
-) ENGINE = InnoDB CHARACTER SET = UTF8;
+USE `edukit`;
 
 
-/* Создание таблицы "Ответы студентов" */
-CREATE TABLE IF NOT EXISTS `student_answers` (
-	id_student_answer int AUTO_INCREMENT PRIMARY KEY,
-	id_student_test int NOT NULL,
-	question varchar(255),
-	answer varchar(255),
-	INDEX (id_student_test),
-	CONSTRAINT sac_question CHECK(question <> ''),
-	CONSTRAINT sac_question CHECK(answer <> '')
-) ENGINE = InnoDB CHARACTER SET = UTF8;
 
-/* Создание таблицы "Посещаемости" */
-CREATE TABLE IF NOT EXISTS `student_traffic` (
-  id_traffic int AUTO_INCREMENT PRIMARY KEY,
-  id_student int NOT NULL,
-  date_visit date NOT NULL,
-  count_passed_hours int NOT NULL,
-  count_all_hours int NOT NULL,
-  INDEX(id_student),
-  CONSTRAINT stc_cph CHECK (count_passed_hours >= 0 AND count_passed_hours <= count_all_hours),
-  CONSTRAINT stc_cah CHECK (count_all_hours > 0)
-) ENGINE = InnoDB CHARACTER SET = UTF8;
+CREATE TABLE ListSex
+(
+	id_sex               INTEGER NOT NULL,
+	caption              VARCHAR(20) NOT NULL,
+	PRIMARY KEY (id_sex)
+);
 
-/* Создание таблицы "Группы-тесты" */
-CREATE TABLE IF NOT EXISTS `groups_tests` (
-	id_test int NOT NULL,
-	id_group int NOT NULL,
-  PRIMARY KEY(id_test, id_group)
-) ENGINE = InnoDB CHARACTER SET = UTF8;
 
-/* Создание таблицы "Новости-админа" */
-CREATE TABLE IF NOT EXISTS `admin_news` (
-	id_news int AUTO_INCREMENT PRIMARY KEY,
-	caption varchar(255) NOT NULL,
-	content text NOT NULL,
-	id_author int NOT NULL,
-	date_publication datetime NOT NULL,
-	INDEX (id_author),
-	CONSTRAINT nc_caption CHECK(caption <> ''),
-	CONSTRAINT nc_content CHECK(content <> '')
-) ENGINE = InnoDB CHARACTER SET = UTF8;
 
-/* Создание таблицы "Расписание" */
-/*
+CREATE TABLE ListSocialStatus
+(
+	id_social_status     INTEGER NOT NULL,
+	caption              VARCHAR(4000) NOT NULL,
+	PRIMARY KEY (id_social_status)
+);
 
-    1 - ПН
-    2 - ВТ
-    3 - СР
-    4 - ЧТ
-    5 - ПТ
-    6 - СБ
-    
-    Всего пар от 1 до 7
 
-*/
-CREATE TABLE IF NOT EXISTS `schedule` (
-  id_grp int,
-  _day int,
-  pair int,
-  subj_1 int NOT NULL,
-  subj_2 int NOT NULL,
-  PRIMARY KEY(id_grp, pair, _day)
-) ENGINE = InnoDB CHARACTER SET = UTF8;
 
-CREATE TABLE IF NOT EXISTS `changed_schedule` (
-  id_grp int,
-  _day datetime,
-  pair int,
-  subject int NOT NULL,
-  PRIMARY KEY(id_grp, pair, _day)
-) ENGINE = InnoDB CHARACTER SET = UTF8;
+CREATE TABLE ListCitizenship
+(
+	id_citizenship       INTEGER NOT NULL,
+	caption              VARCHAR(20) NOT NULL,
+	PRIMARY KEY (id_citizenship)
+);
+
+
+
+CREATE TABLE StudentGeneralInformation
+(
+	second_name          VARCHAR(4000) NOT NULL,
+	first_name           VARCHAR(4000) NOT NULL,
+	patronymic           VARCHAR(4000) NOT NULL,
+	id_sex               INTEGER NOT NULL,
+	date_birthday        DATE NOT NULL,
+	id_social_status     INTEGER NOT NULL,
+	actual_address       VARCHAR(4000) NOT NULL,
+	id_student_general_information INTEGER NOT NULL,
+	id_citizenship       INTEGER NOT NULL,
+	reg_address          VARCHAR(20) NOT NULL,
+	reg_2_address        VARCHAR(20) NOT NULL,
+	PRIMARY KEY (id_student_general_information),
+	FOREIGN KEY R_1 (id_sex) REFERENCES ListSex (id_sex)
+		ON DELETE CASCADE,
+	FOREIGN KEY R_3 (id_social_status) REFERENCES ListSocialStatus (id_social_status)
+		ON DELETE CASCADE,
+	FOREIGN KEY R_13 (id_citizenship) REFERENCES ListCitizenship (id_citizenship)
+		ON DELETE CASCADE
+);
+
+
+
+CREATE TABLE StudentMilitrayInformation
+(
+	military_commissariat_full_caption VARCHAR(4000) NOT NULL,
+	military_commissariat_adress VARCHAR(4000) NOT NULL,
+	is_served            boolean NOT NULL,
+	id_student_general_information INTEGER NOT NULL,
+	military_commissariat_short_caption VARCHAR(20) NOT NULL,
+	PRIMARY KEY (id_student_general_information),
+	FOREIGN KEY R_12 (id_student_general_information) REFERENCES StudentGeneralInformation (id_student_general_information)
+		ON DELETE CASCADE
+);
+
+
+
+CREATE TABLE CollegeInformation
+(
+	id_college_information INTEGER NOT NULL,
+	full_name            varchar(255) NOT NULL,
+	short_name           varchar(255) NOT NULL,
+	address              varchar(255) NOT NULL,
+	PRIMARY KEY (id_college_information)
+);
+
+
+
+CREATE TABLE ListEducationStatus
+(
+	id_education_status  INTEGER NOT NULL,
+	caption              VARCHAR(4000) NOT NULL,
+	PRIMARY KEY (id_education_status)
+);
+
+
+
+CREATE TABLE StudentAttendance
+(
+	id_student_attendance INTEGER NOT NULL,
+	attendance_date      DATE NOT NULL,
+	count_pair           INTEGER NOT NULL,
+	count_pass           INTEGER NOT NULL,
+	id_student_general_information INTEGER NULL,
+	PRIMARY KEY (id_student_attendance),
+	FOREIGN KEY R_42 (id_student_general_information) REFERENCES StudentGeneralInformation (id_student_general_information)
+);
+
+
+
+CREATE TABLE EducationGroup
+(
+	id_group             INTEGER NOT NULL,
+	caption              VARCHAR(4000) NOT NULL,
+	education_year       INTEGER NOT NULL,
+	PRIMARY KEY (id_group)
+);
+
+
+
+CREATE TABLE EducationSpecialty
+(
+	id_specialty         INTEGER NOT NULL,
+	code                 VARCHAR(4000) NOT NULL,
+	spec_file            BLOB NOT NULL,
+	PRIMARY KEY (id_specialty)
+);
+
+
+
+CREATE TABLE ListPaymentType
+(
+	id_payment_type      INTEGER NOT NULL,
+	caption              varchar(255) NOT NULL,
+	PRIMARY KEY (id_payment_type)
+);
+
+
+
+CREATE TABLE ListEducationForm
+(
+	id_education_form    INTEGER NOT NULL,
+	caption              VARCHAR(20) NOT NULL,
+	PRIMARY KEY (id_education_form)
+);
+
+
+
+CREATE TABLE StudentCurrStudyInformation
+(
+	id_payment_type      INTEGER NOT NULL,
+	id_group             INTEGER NOT NULL,
+	id_specialty         INTEGER NOT NULL,
+	id_student_general_information INTEGER NOT NULL,
+	receipt_year         INTEGER NOT NULL,
+	graduation_year      INTEGER NOT NULL,
+	id_education_status  INTEGER NULL,
+	id_education_form    INTEGER NULL,
+	student_ticket_number INTEGER NOT NULL,
+	PRIMARY KEY (id_student_general_information),
+	FOREIGN KEY R_4 (id_group) REFERENCES EducationGroup (id_group)
+		ON DELETE CASCADE,
+	FOREIGN KEY R_5 (id_specialty) REFERENCES EducationSpecialty (id_specialty)
+		ON DELETE CASCADE,
+	FOREIGN KEY R_23 (id_payment_type) REFERENCES ListPaymentType (id_payment_type),
+	FOREIGN KEY R_11 (id_student_general_information) REFERENCES StudentGeneralInformation (id_student_general_information)
+		ON DELETE CASCADE,
+	FOREIGN KEY R_24 (id_education_status) REFERENCES ListEducationStatus (id_education_status),
+	FOREIGN KEY R_25 (id_education_form) REFERENCES ListEducationForm (id_education_form)
+);
+
+
+
+CREATE TABLE ListContactType
+(
+	id_contact_type      INTEGER NOT NULL,
+	caption              VARCHAR(4000) NOT NULL,
+	PRIMARY KEY (id_contact_type)
+);
+
+
+
+CREATE TABLE StudentContactInformation
+(
+	id_person_contact    INTEGER NOT NULL,
+	id_contact_type      INTEGER NOT NULL,
+	value                varchar(255) NOT NULL,
+	comment              varchar(255) NULL,
+	id_student_general_information INTEGER NOT NULL,
+	PRIMARY KEY (id_person_contact),
+	FOREIGN KEY R_6 (id_contact_type) REFERENCES ListContactType (id_contact_type)
+		ON DELETE CASCADE,
+	FOREIGN KEY R_9 (id_student_general_information) REFERENCES StudentGeneralInformation (id_student_general_information)
+		ON DELETE CASCADE
+);
+
+
+
+CREATE TABLE ListEducationPair
+(
+	id_education_pair    INTEGER NOT NULL,
+	number_pair          INTEGER NOT NULL,
+	text_pair            VARCHAR(20) NOT NULL,
+	time_start           VARCHAR(20) NOT NULL,
+	time_end             VARCHAR(20) NOT NULL,
+	PRIMARY KEY (id_education_pair)
+);
+
+
+
+CREATE TABLE EducationSubject
+(
+	id_education_subject INTEGER NOT NULL,
+	full_caption         VARCHAR(20) NOT NULL,
+	short_caption        VARCHAR(20) NOT NULL,
+	PRIMARY KEY (id_education_subject)
+);
+
+
+
+CREATE TABLE IEPScheduleChange
+(
+	id_schedule_change   INTEGER NOT NULL,
+	change_day           DATE NOT NULL,
+	id_education_pair    INTEGER NULL,
+	id_education_subject INTEGER NULL,
+	id_group             INTEGER NULL,
+	PRIMARY KEY (id_schedule_change),
+	FOREIGN KEY R_52 (id_education_pair) REFERENCES ListEducationPair (id_education_pair),
+	FOREIGN KEY R_53 (id_education_subject) REFERENCES EducationSubject (id_education_subject),
+	FOREIGN KEY R_55 (id_group) REFERENCES EducationGroup (id_group)
+);
+
+
+
+CREATE TABLE AdmissionPlan
+(
+	id_admission_plan    INTEGER NOT NULL,
+	id_specialty         INTEGER NOT NULL,
+	admission_year       INTEGER NOT NULL,
+	count_person         INTEGER NOT NULL,
+	PRIMARY KEY (id_admission_plan),
+	FOREIGN KEY R_21 (id_specialty) REFERENCES EducationSpecialty (id_specialty)
+);
+
+
+
+CREATE TABLE ListSubjectAttestationType
+(
+	id_subject_attestation_type INTEGER NOT NULL,
+	caption              VARCHAR(20) NOT NULL,
+	PRIMARY KEY (id_subject_attestation_type)
+);
+
+
+
+CREATE TABLE EducationStatement
+(
+	id_education_statement INTEGER NOT NULL,
+	chairman_cyclic_comission VARCHAR(20) NOT NULL,
+	deputy_education_part VARCHAR(20) NOT NULL,
+	id_subject_attestation_type INTEGER NULL,
+	PRIMARY KEY (id_education_statement),
+	FOREIGN KEY R_50 (id_subject_attestation_type) REFERENCES ListSubjectAttestationType (id_subject_attestation_type)
+);
+
+
+
+CREATE TABLE ListMarkType
+(
+	id_mark_type         INTEGER NOT NULL,
+	number_mark          INTEGER NOT NULL,
+	text_mark            VARCHAR(20) NOT NULL,
+	full_mark_caption    VARCHAR(20) NOT NULL,
+	short_mark_caption   VARCHAR(20) NOT NULL,
+	PRIMARY KEY (id_mark_type)
+);
+
+
+
+CREATE TABLE EducationStatementResult
+(
+	id_education_statement_result INTEGER NOT NULL,
+	id_education_statement INTEGER NULL,
+	id_student_general_information INTEGER NULL,
+	id_mark_type         INTEGER NULL,
+	PRIMARY KEY (id_education_statement_result),
+	FOREIGN KEY R_48 (id_education_statement) REFERENCES EducationStatement (id_education_statement),
+	FOREIGN KEY R_49 (id_student_general_information) REFERENCES StudentGeneralInformation (id_student_general_information),
+	FOREIGN KEY R_51 (id_mark_type) REFERENCES ListMarkType (id_mark_type)
+);
+
+
+
+CREATE TABLE ListEducationDay
+(
+	id_education_day     INTEGER NOT NULL,
+	number_day           INTEGER NOT NULL,
+	text_day             VARCHAR(20) NOT NULL,
+	text_short_day       VARCHAR(20) NOT NULL,
+	PRIMARY KEY (id_education_day)
+);
+
+
+
+CREATE TABLE IEPScheduleGeneral
+(
+	id_education_schedule_general INTEGER NOT NULL,
+	id_education_pair    INTEGER NULL,
+	id_education_day     INTEGER NULL,
+	id_education_subject INTEGER NULL,
+	id_group             INTEGER NULL,
+	PRIMARY KEY (id_education_schedule_general),
+	FOREIGN KEY R_43 (id_education_pair) REFERENCES ListEducationPair (id_education_pair),
+	FOREIGN KEY R_44 (id_education_day) REFERENCES ListEducationDay (id_education_day),
+	FOREIGN KEY R_45 (id_education_subject) REFERENCES EducationSubject (id_education_subject),
+	FOREIGN KEY R_47 (id_education_subject) REFERENCES EducationSubject (id_education_subject),
+	FOREIGN KEY R_54 (id_group) REFERENCES EducationGroup (id_group)
+);
+
+
+
+CREATE TABLE IEPScheduleCourse
+(
+	id_scheudle_course   INTEGER NOT NULL,
+	id_education_day     INTEGER NULL,
+	time_start           VARCHAR(20) NOT NULL,
+	time_end             VARCHAR(20) NOT NULL,
+	course               VARCHAR(20) NOT NULL,
+	PRIMARY KEY (id_scheudle_course),
+	FOREIGN KEY R_56 (id_education_day) REFERENCES ListEducationDay (id_education_day)
+);
+
+
+
+CREATE TABLE ListAcademicLeaveReason
+(
+	id_academic_leave_reason INTEGER NOT NULL,
+	caption              VARCHAR(20) NOT NULL,
+	PRIMARY KEY (id_academic_leave_reason)
+);
+
+
+
+CREATE TABLE StudentEventAcademicLeave
+(
+	id_student_event_academic_leave INTEGER NOT NULL,
+	out_date             DATE NOT NULL,
+	in_date              DATE NOT NULL,
+	order_number         VARCHAR(20) NOT NULL,
+	order_date           DATE NOT NULL,
+	id_student_general_information INTEGER NULL,
+	id_academic_leave_reason INTEGER NULL,
+	PRIMARY KEY (id_student_event_academic_leave),
+	FOREIGN KEY R_39 (id_student_general_information) REFERENCES StudentGeneralInformation (id_student_general_information),
+	FOREIGN KEY R_40 (id_academic_leave_reason) REFERENCES ListAcademicLeaveReason (id_academic_leave_reason)
+);
+
+
+
+CREATE TABLE ListEducationType
+(
+	id_education_type    INTEGER NOT NULL,
+	caption              VARCHAR(20) NOT NULL,
+	PRIMARY KEY (id_education_type)
+);
+
+
+
+CREATE TABLE ListParentRelation
+(
+	id_relation          INTEGER NOT NULL,
+	caption              VARCHAR(20) NOT NULL,
+	PRIMARY KEY (id_relation)
+);
+
+
+
+CREATE TABLE StudentFamilyInformation
+(
+	id_student_family_information INTEGER NOT NULL,
+	second_name          VARCHAR(20) NOT NULL,
+	id_student_general_information INTEGER NULL,
+	first_name           VARCHAR(20) NOT NULL,
+	patronymic           VARCHAR(20) NOT NULL,
+	date_birthday        DATE NOT NULL,
+	id_sex               INTEGER NULL,
+	id_education_type    INTEGER NULL,
+	work_place           VARCHAR(20) NOT NULL,
+	work_post            VARCHAR(20) NOT NULL,
+	home_phone           VARCHAR(20) NOT NULL,
+	cell_phone           VARCHAR(20) NOT NULL,
+	actual_address       VARCHAR(20) NOT NULL,
+	id_relation          INTEGER NULL,
+	PRIMARY KEY (id_student_family_information),
+	FOREIGN KEY R_27 (id_student_general_information) REFERENCES StudentGeneralInformation (id_student_general_information),
+	FOREIGN KEY R_28 (id_sex) REFERENCES ListSex (id_sex),
+	FOREIGN KEY R_29 (id_education_type) REFERENCES ListEducationType (id_education_type),
+	FOREIGN KEY R_30 (id_relation) REFERENCES ListParentRelation (id_relation)
+);
+
+
+
+CREATE TABLE JournalCall
+(
+	id_journal_call      INTEGER NOT NULL,
+	id_student_family_information INTEGER NULL,
+	reason               VARCHAR(20) NOT NULL,
+	theme                VARCHAR(20) NOT NULL,
+	call_date            DATE NOT NULL,
+	PRIMARY KEY (id_journal_call),
+	FOREIGN KEY R_38 (id_student_family_information) REFERENCES StudentFamilyInformation (id_student_family_information)
+);
+
+
+
+CREATE TABLE IEPNews
+(
+	id_iep_news          INTEGER NOT NULL,
+	title                VARCHAR(20) NOT NULL,
+	content              VARCHAR(20) NOT NULL,
+	PRIMARY KEY (id_iep_news)
+);
+
+
+
+CREATE TABLE ListUserType
+(
+	id_user_type         INTEGER NOT NULL,
+	caption              VARCHAR(20) NOT NULL,
+	PRIMARY KEY (id_user_type)
+);
+
+
+
+CREATE TABLE IEPAccount
+(
+	id_iep_account       INTEGER NOT NULL,
+	email                VARCHAR(20) NOT NULL,
+	passwd               VARCHAR(20) NOT NULL,
+	id_user_type         INTEGER NULL,
+	PRIMARY KEY (id_iep_account),
+	FOREIGN KEY R_37 (id_user_type) REFERENCES ListUserType (id_user_type)
+);
+
+
+
+CREATE TABLE ListReferenceType
+(
+	id_reference_type    INTEGER NOT NULL,
+	caption              VARCHAR(20) NOT NULL,
+	PRIMARY KEY (id_reference_type)
+);
+
+
+
+CREATE TABLE JournalReference
+(
+	id_journal_reference INTEGER NOT NULL,
+	id_student_general_information INTEGER NULL,
+	id_reference_type    INTEGER NULL,
+	reason               VARCHAR(20) NOT NULL,
+	date_issue           DATE NOT NULL,
+	PRIMARY KEY (id_journal_reference),
+	FOREIGN KEY R_35 (id_student_general_information) REFERENCES StudentGeneralInformation (id_student_general_information),
+	FOREIGN KEY R_36 (id_reference_type) REFERENCES ListReferenceType (id_reference_type)
+);
+
+
+
+CREATE TABLE ListDocumentType
+(
+	id_document_type     INTEGER NOT NULL,
+	caption              VARCHAR(20) NOT NULL,
+	PRIMARY KEY (id_document_type)
+);
+
+
+
+CREATE TABLE StudentDocumentInformation
+(
+	id_student_document_information INTEGER NOT NULL,
+	serial               VARCHAR(20) NOT NULL,
+	number               VARCHAR(20) NOT NULL,
+	date_issue           DATE NOT NULL,
+	issued_by            VARCHAR(20) NOT NULL,
+	id_document_type     INTEGER NULL,
+	id_student_general_information INTEGER NULL,
+	code                 VARCHAR(20) NOT NULL,
+	PRIMARY KEY (id_student_document_information),
+	FOREIGN KEY R_31 (id_document_type) REFERENCES ListDocumentType (id_document_type),
+	FOREIGN KEY R_32 (id_student_general_information) REFERENCES StudentGeneralInformation (id_student_general_information)
+);
+
+
+
+CREATE TABLE ListPreviousEducationType
+(
+	id_previous_education_type INTEGER NOT NULL,
+	caption              VARCHAR(20) NOT NULL,
+	PRIMARY KEY (id_previous_education_type)
+);
+
+
+
+CREATE TABLE StudentPrevStudyInformation
+(
+	id_previous_education_type INTEGER NULL,
+	id_student_prev_study_information INTEGER NOT NULL,
+	serial_number        VARCHAR(20) NOT NULL,
+	number               VARCHAR(20) NOT NULL,
+	date_issue           DATE NOT NULL,
+	issued_by            VARCHAR(20) NOT NULL,
+	file_scan            BLOB NOT NULL,
+	PRIMARY KEY (id_student_prev_study_information),
+	FOREIGN KEY R_26 (id_previous_education_type) REFERENCES ListPreviousEducationType (id_previous_education_type)
+);
+
+
