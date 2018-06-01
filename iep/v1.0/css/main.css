@@ -1,0 +1,73 @@
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+#teachers_from_history {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+#menu {
+  margin-top: 10px;
+  width: 100%;
+}
+
+#menu .item {
+  text-align: left;
+  vertical-align: middle;
+  font-size: 16px;
+}
+
+.ui.grid {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.ui.styled.accordion {
+  width: 100%;
+}
+
+#week {
+  width: 100%;
+}
+
+#groupSchedule {
+  width: 100%;
+}
+
+#groupSchedule table tr td {
+  text-align: center;
+}
+
+#traffic td, #tests, .tests {
+  text-align: center;
+}
+
+h4 {
+  text-align: center;
+}
+
+.ui.steps {
+  width: 100%;
+}
+
+#schedule_lunchs tr td, #passing_test_info tr td, #schedule_rings tr td  {
+  text-align: center;
+}
+
+#statistic_on_ninety {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+}
+
+.left-column {
+  background-color: #0D374E;
+  border-right: 5px solid #EF7E30;
+}
