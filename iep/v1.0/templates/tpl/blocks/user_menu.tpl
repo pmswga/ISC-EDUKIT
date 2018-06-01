@@ -1,6 +1,6 @@
 <nav class="ui left vertical menu" style="width: 100%;">
 	<div class="item">
-		<a href="index.php"><img src="../img/ukit.png" width="100%" alt=""></a>
+		<a href="index.php" id="mainPage"><img src="/iep/v1.0/img/ukit.png" width="100%" alt=""></a>
 	</div>
 	<a href="news.php" class="item" id="newsPage">
 		<i class="newspaper icon"></i>
