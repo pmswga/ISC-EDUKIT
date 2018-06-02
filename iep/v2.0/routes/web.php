@@ -12,12 +12,20 @@
 */
 
 Auth::routes();
-Route::group(["/"], function () {
+
+Route::get('/', 'IndexController@index')->name('index');
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+Route::group(['prefix' => 'student', 'namespace' => 'Student'], function () {
 
     Route::get('/', function () {
-        return view('welcome');
+        return view('student.index');
     });
-
-    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/info', function () {
+        return "This is student personal info";
+    });
 
 });
