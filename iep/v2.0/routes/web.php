@@ -14,6 +14,12 @@
 Auth::routes();
 
 Route::get('/', 'IndexController@index')->name('index');
+Route::get('/history', 'HistoryPageController@index')->name('history');
+Route::get('/teachers', 'TeacherPageController@index')->name('teachers');
+Route::get('/news', 'NewsPageController@index')->name('news');
+Route::get('/main-schedule', 'MainSchedulePageController@index')->name('main-schedule');
+Route::get('/change-schedule', 'ChangeSchedulePageController@index')->name('change-schedule');
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 

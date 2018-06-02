@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1 align="center">Добро пожаловать</h1>
+                <h2>Новости</h2>
             </div>
         </div>
     </div>
