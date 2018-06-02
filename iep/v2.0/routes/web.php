@@ -23,6 +23,14 @@ Route::get('/change-schedule', 'ChangeSchedulePageController@index')->name('chan
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
+
+    Route::get('/', 'AdminPageController@index')->name('admin');
+    Route::resource('/news', 'NewsController', ['as' => 'admin']);
+
+});
+
 Route::group(['prefix' => 'student', 'namespace' => 'Student'], function () {
 
     Route::get('/', 'StudentController@index')->name('student.index');
