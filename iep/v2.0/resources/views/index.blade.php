@@ -83,6 +83,7 @@
                 </div>
 
                 <div class="links">
+                    <a href="{{ route('student.index') }}">Студент</a>
                     <a href="#">История</a>
                     <a href="#">Новости</a>
                     <a href="#">Расписание</a>

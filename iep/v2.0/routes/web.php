@@ -21,11 +21,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'student', 'namespace' => 'Student'], function () {
 
-    Route::get('/', function () {
-        return view('student.index');
-    });
-    Route::get('/info', function () {
-        return "This is student personal info";
-    });
+    Route::get('/', 'StudentController@index')->name('student.index');
+    Route::get('/info', 'StudentController@info')->name('student.info');
+
 
 });
