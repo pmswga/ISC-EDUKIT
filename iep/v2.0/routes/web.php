@@ -29,6 +29,19 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
 });
 
+Route::group(['prefix' => 'director', 'namespace' => 'Director', 'middleware' => ['auth', 'isDirector']], function () {
+    
+    Route::get('/', 'DirectorPageController@index')->name('director.index');
+    
+});
+
+Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => ['auth', 'isTeacher']], function () {
+
+    Route::get('/', 'TeacherController@index')->name('teacher.index');
+    Route::get('/info', 'TeacherController@info')->name('teacher.info');
+
+});
+
 Route::group(['prefix' => 'student', 'namespace' => 'Student', 'middleware' => ['auth', 'isStudent']], function () {
 
     Route::get('/', 'StudentController@index')->name('student.index');
@@ -36,9 +49,16 @@ Route::group(['prefix' => 'student', 'namespace' => 'Student', 'middleware' => [
 
 });
 
-Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => ['auth', 'isTeacher']], function () {
+Route::group(['prefix' => 'elder', 'namespace' => 'Teacher', 'middleware' => ['auth', 'isElder']], function () {
 
-    Route::get('/', 'TeacherController@index')->name('teacher.index');
-    Route::get('/info', 'TeacherController@info')->name('teacher.info');
+    Route::get('/', 'ElderPageController@index')->name('elder.index');
+    
+
+});
+
+Route::group(['prefix' => 'elder', 'namespace' => 'Teacher', 'middleware' => ['auth', 'isParent']], function () {
+
+    Route::get('/', 'ParentPageController@index')->name('parent.index');
+    
 
 });
