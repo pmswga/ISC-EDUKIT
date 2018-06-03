@@ -22,7 +22,7 @@ Route::get('/news', 'NewsPageController@index')->name('news');
 Route::get('/main-schedule', 'MainSchedulePageController@index')->name('main-schedule');
 Route::get('/change-schedule', 'ChangeSchedulePageController@index')->name('change-schedule');
 
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin']], function () {
 
     Route::get('/', 'AdminPageController@index')->name('admin');
     Route::resource('/news', 'NewsController', ['as' => 'admin']);
@@ -37,15 +37,15 @@ Route::group(['prefix' => 'director', 'namespace' => 'Director', 'middleware' =>
 
 Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => ['auth', 'isTeacher']], function () {
 
-    Route::get('/', 'TeacherController@index')->name('teacher.index');
-    Route::get('/info', 'TeacherController@info')->name('teacher.info');
+    Route::get('/', 'TeacherPageController@index')->name('teacher.index');
+    Route::get('/settings', 'TeacherPageController@settings')->name('teacher.settings');
 
 });
 
 Route::group(['prefix' => 'student', 'namespace' => 'Student', 'middleware' => ['auth', 'isStudent']], function () {
 
-    Route::get('/', 'StudentController@index')->name('student.index');
-    Route::get('/info', 'StudentController@info')->name('student.info');
+    Route::get('/', 'StudentPageController@index')->name('student.index');
+    Route::get('/settings', 'StudentPageController@settings')->name('student.settings');
 
 });
 

@@ -3,8 +3,8 @@
     namespace IEP\Pages;
 
     require_once "page.class.php";
-	require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/news.class.php";
-	require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/test.class.php";
+	require_once $_SERVER['DOCUMENT_ROOT']."/iep/v1.0/iep/structures/news.class.php";
+	require_once $_SERVER['DOCUMENT_ROOT']."/iep/v1.0/iep/structures/test.class.php";
 
     use IEP\Pages\Page;
     use IEP\Structures\News;

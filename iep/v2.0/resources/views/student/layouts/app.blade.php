@@ -36,18 +36,21 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
+                        <li><a href="#">Одногруппники</a></li>
                         <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown"  role="button" aria-expanded="false" aria-haspopup="true" v-pre>Тесты<span class="caret"></span></a>
+                            <a class="dropdown-toggle" data-toggle="dropdown"  role="button" aria-expanded="false" aria-haspopup="true" v-pre>Тесты  <span class="caret"></span></a>
+
                             <ul class="dropdown-menu">
-                                <li><a href="#">Создать</a></li>
-                                <li><a href="#">Просмотреть</a></li>
+                                <li><a href="#">Доступные</a></li>
+                                <li><a href="#">Пройденные</a></li>
                             </ul>
                         </li>
+                        <li><a href="#">Посещаемость</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
-						<li><a href="{{ route('teacher.settings') }}">Настройки</a></li>
+						<li><a href="{{ route('student.settings') }}">Настройки</a></li>
 						<li>
 							<a href="{{ route('logout') }}"
 								onclick="event.preventDefault();

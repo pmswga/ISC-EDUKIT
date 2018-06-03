@@ -1,5 +1,5 @@
 <?php
-	require_once $_SERVER['DOCUMENT_ROOT']."/start.php";
+	require_once $_SERVER['DOCUMENT_ROOT']."/iep/v1.0/start.php";
     
 	if (!empty($_POST['signInButton'])) {
 		$email = htmlspecialchars($_POST['email']);

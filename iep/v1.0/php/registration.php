@@ -1,5 +1,5 @@
 <?php
-	require_once $_SERVER['DOCUMENT_ROOT']."/start.php";
+	require_once $_SERVER['DOCUMENT_ROOT']."/iep/v1.0/start.php";
 	require_once $_SERVER['DOCUMENT_ROOT']."/engine/cform.php";
 	require_once $_SERVER['DOCUMENT_ROOT']."/iep/structures/student.class.php";
 	
