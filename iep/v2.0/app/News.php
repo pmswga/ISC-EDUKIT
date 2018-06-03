@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class News extends Model
 {
 
-    protected $fillable = ['caption', 'content'];
+    protected $fillable = ['title', 'description', 'content', 'id_author'];
 
 }

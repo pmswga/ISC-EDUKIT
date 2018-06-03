@@ -18,13 +18,22 @@
                         <tr>
                             <th>Название</th>
                             <th>Содержание</th>
+                            <th class="text-right">Действие</th>
                         </tr>
                     </thead>
                     <tbody>
             			@forelse ($news_list as $news)
             				<tr>
-            					<td>{{ $news->caption }}</td>
+            					<td>{{ $news->title }}</td>
             					<td>{{ $news->content }}</td>
+                                <td>
+                                    <form onsubmit="return confirm('Удалить?');" action="{{ route('admin.news.destroy', $news) }}" method="POST">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        {{ csrf_field() }}
+
+                                        <button type="submit" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                    </form>
+                                </td>
             				</tr>
             			@empty
             				<tr>
@@ -61,13 +70,20 @@
 
                   <div class="form-group">
                       <label>Заголовок</label>
-                      <input type="text" name="caption" class="form-control">
+                      <input type="text" name="title" class="form-control">
+                  </div>
+
+                  <div class="form-group">
+                      <label>Краткое описание</label>
+                      <textarea name="description" class="form-control"></textarea>
                   </div>
 
                   <div class="form-group">
                       <label>Содержание</label>
                       <textarea name="content" class="form-control"></textarea>
                   </div>
+
+                  <input type="hidden" name="id_author" value="1">
               </div>
               <div class="modal-footer">
                   <input type="submit" class="btn btn-primary" value="Опубликовать">

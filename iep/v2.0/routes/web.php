@@ -13,16 +13,14 @@
 
 Auth::routes();
 
+
+
 Route::get('/', 'IndexController@index')->name('index');
 Route::get('/history', 'HistoryPageController@index')->name('history');
 Route::get('/teachers', 'TeacherPageController@index')->name('teachers');
 Route::get('/news', 'NewsPageController@index')->name('news');
 Route::get('/main-schedule', 'MainSchedulePageController@index')->name('main-schedule');
 Route::get('/change-schedule', 'ChangeSchedulePageController@index')->name('change-schedule');
-
-
-Route::get('/home', 'HomeController@index')->name('home');
-
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
@@ -31,10 +29,16 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
 });
 
-Route::group(['prefix' => 'student', 'namespace' => 'Student'], function () {
+Route::group(['prefix' => 'student', 'namespace' => 'Student', 'middleware' => ['auth', 'isStudent']], function () {
 
     Route::get('/', 'StudentController@index')->name('student.index');
     Route::get('/info', 'StudentController@info')->name('student.info');
 
+});
+
+Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => ['auth', 'isTeacher']], function () {
+
+    Route::get('/', 'TeacherController@index')->name('teacher.index');
+    Route::get('/info', 'TeacherController@info')->name('teacher.info');
 
 });
