@@ -36,17 +36,7 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        <li><a href="{{ route('history') }}">История</a></li>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown"  role="button" aria-expanded="false" aria-haspopup="true" v-pre>Расписание  <span class="caret"></span></a>
-
-                            <ul class="dropdown-menu">
-                                <li><a href="{{ route('main-schedule') }}">Основное</a></li>
-                                <li><a href="{{ route('change-schedule') }}">Изменения</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="{{ route('news') }}">Новости</a></li>
-                        <li><a href="{{ route('teachers') }}">Перподаватели</a></li>
+                        <li><a href="{{ route('teacher.info') }}">Моя информация</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

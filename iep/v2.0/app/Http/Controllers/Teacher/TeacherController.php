@@ -11,4 +11,10 @@ class TeacherController extends Controller
     {
         return view('teacher.index');
     }
+
+    public function info()
+    {
+        return view('teacher.info');
+    }
+
 }
