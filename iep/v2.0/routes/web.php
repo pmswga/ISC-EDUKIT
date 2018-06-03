@@ -49,14 +49,14 @@ Route::group(['prefix' => 'student', 'namespace' => 'Student', 'middleware' => [
 
 });
 
-Route::group(['prefix' => 'elder', 'namespace' => 'Teacher', 'middleware' => ['auth', 'isElder']], function () {
+Route::group(['prefix' => 'elder', 'namespace' => 'Elder', 'middleware' => ['auth', 'isElder']], function () {
 
     Route::get('/', 'ElderPageController@index')->name('elder.index');
     
 
 });
 
-Route::group(['prefix' => 'elder', 'namespace' => 'Teacher', 'middleware' => ['auth', 'isParent']], function () {
+Route::group(['prefix' => 'parent', 'namespace' => 'Parent', 'middleware' => ['auth', 'isParent']], function () {
 
     Route::get('/', 'ParentPageController@index')->name('parent.index');
     
