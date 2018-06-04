@@ -15,9 +15,9 @@ class NewsController extends Controller
      */
     public function index()
     {
-        return view('admin.news', [
-            'news_list' => News::paginate(5)]
-        );
+        return view('admin.news.news', [
+            'news_list' => News::paginate(10)
+        ]);
     }
 
     /**

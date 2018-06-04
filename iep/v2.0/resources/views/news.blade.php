@@ -18,21 +18,36 @@
 							<input type="date" class="form-control">
 						</div>
 						<div class="form-group">
-							<input type="submit" class="btn btn-primary" value="Показать">
+							<input type="submit" class="btn btn-primary btn-block" value="Показать">
 						</div>
 					</form>
 				</fieldset>
 			</div>
             <div class="col-md-8">
-                <h2>Новости</h2>
+                <fieldset>
+                    <legend>Страница новостей</legend>
+                    {{ $news_list->links() }}
+                </fieldset>
 				@foreach ($news_list as $news)
-					
-					{{ $news->title }}
-				
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    {{ $news->title }}
+                                </h4>
+                            </div>
+                            <div class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    {{ $news->content }}
+                                </div>
+                                <div class="panel-footer">
+                                    Дата: 01.01.2017, Автор: Администратор
+                                </div>
+                            </div>
+                        </div>
+                    </diV>
+
 				@endforeach
-				
-					{{ $news_list->links() }}
-				
             </div>
         </div>
     </div>
