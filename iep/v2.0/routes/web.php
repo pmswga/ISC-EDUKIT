@@ -24,7 +24,7 @@ Route::get('/change-schedule', 'ChangeSchedulePageController@index')->name('chan
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin']], function () {
 
-    Route::get('/', 'AdminPageController@index')->name('admin');
+    Route::get('/', 'AdminPageController@index')->name('admin.index');
     Route::resource('/news', 'NewsController', ['as' => 'admin']);
 
 });

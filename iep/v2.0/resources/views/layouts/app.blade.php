@@ -76,6 +76,9 @@
                                             <li><a href="{{ route('student.index') }}">Личный кабинет</a></li>
                                         @break
                                         @case(5)
+                                            <li><a href="{{ route('parent.index') }}">Личный кабинет</a></li>
+                                        @break
+                                        @case(6)
                                             <li><a href="{{ route('admin.index') }}">Личный кабинет</a></li>
                                         @break
                                     @endswitch

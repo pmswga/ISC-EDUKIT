@@ -28,7 +28,7 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('admin') }}">
+                    <a class="navbar-brand" href="{{ route('admin.index') }}">
                         <img src="{{ asset('img/ukit.png') }}" height="100%" alt="">
                     </a>
                 </div>
@@ -48,15 +48,16 @@
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{ Auth::user()->email }} <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu">
+									<li><a href="{{ route('index') }}">На главную</a></li>
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                            Выйти
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
