@@ -22,7 +22,7 @@
             					<td>{{ $news->description }}</td>
                                 <td>
                                     <form onsubmit="return confirm('Удалить?');" action="{{ route('admin.news.destroy', $news) }}" method="POST">
-                                        <input type="hidden" name="_method" value="DELETE">
+                                        {{ method_field('DELETE') }}
                                         {{ csrf_field() }}
 
                                         <button type="submit" class="btn btn-danger">Удалить</button>
