@@ -38,10 +38,10 @@
                             </div>
                             <div class="panel-collapse collapse in">
                                 <div class="panel-body">
-                                    {{ $news->content }}
+                                    {{!! $news->content !!}}
                                 </div>
                                 <div class="panel-footer">
-                                    Дата: {{ date('d.m.Y', strtotime($news->publication_date)) }}, Автор: {{ $news->author()->second_name }}
+                                    Дата: {{ date('d.m.Y', strtotime($news->publication_date)) }}, Автор: {{ $news->author()->second_name." ".$news->author()->first_name." ".$news->author()->patronymic }}
                                 </div>
                             </div>
                         </div>

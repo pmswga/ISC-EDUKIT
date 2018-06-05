@@ -64,7 +64,7 @@
                                 <ul class="dropdown-menu">
                                     @switch(Auth::user()->id_type_user)
                                         @case(1)
-                                            <li><a href="{{ route('admin.index') }}">Личный кабинет</a></li>
+                                            <li><a href="{{ route('director.index') }}">Личный кабинет</a></li>
                                         @break
                                         @case(2)
                                             <li><a href="{{ route('teacher.index') }}">Личный кабинет</a></li>

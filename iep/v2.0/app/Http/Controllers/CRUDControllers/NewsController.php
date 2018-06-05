@@ -6,6 +6,7 @@ use App\News;
 use Illuminate\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class NewsController extends Controller
 {
@@ -14,7 +15,11 @@ class NewsController extends Controller
     {
         switch (\Auth::user()->id_type_user) {
             case 1: {
-                echo "Заведующий отделением";
+                $news = News::where('id_author', \Auth::user()->id);
+
+                return view('director.news.index', [
+                    'news_list' => $news->paginate(10)
+                ]);
             } break;
             case 2: {
                 $news = News::where('id_author', \Auth::user()->id);
@@ -29,6 +34,16 @@ class NewsController extends Controller
                 ]);
             } break;
         }
+    }
+
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'id_author' => 'required|int|max:255',
+            'publication_date' => 'required',
+        ]);
     }
 
     /**
@@ -53,6 +68,12 @@ class NewsController extends Controller
             'title', 'content', 'id_author', 'publication_date'
         ]);
 
+        $validator = $this->validator($data);
+        if ($validator->fails()) {
+            return back()->withErrors($validator);
+        }
+
+        $data['id_author'] = \Auth::user()->id;
         $data['publication_date'] = date('Y-m-d');
 
         News::create($data);

@@ -12,7 +12,6 @@
                         <tr>
                             <th>Название</th>
                             <th>Описание</th>
-                            <th>Автор</th>
                             <th>Дата публикации</th>
                             <th class="text-right">Действие</th>
                         </tr>
@@ -22,7 +21,6 @@
             				<tr>
             					<td>{{ $news->title }}</td>
             					<td>{{ $news->content }}</td>
-            					<td>{{ $news->author()->second_name }}</td>
             					<td>{{ date('d.m.Y', strtotime($news->publication_date)) }}</td>
                                 <td>
                                     {{ $news->id_news }}

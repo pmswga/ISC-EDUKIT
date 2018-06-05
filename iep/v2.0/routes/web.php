@@ -1,16 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Auth::routes();
 
 Route::get('/', 'IndexController@index')->name('index');
@@ -30,6 +19,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
 Route::group(['prefix' => 'director', 'namespace' => 'Director', 'middleware' => ['auth', 'isDirector']], function () {
 
     Route::get('/', 'DirectorPageController@index')->name('director.index');
+    Route::resource('/news', '\App\Http\Controllers\CRUDControllers\NewsController', ['as' => 'director']);
 
 });
 
@@ -52,12 +42,10 @@ Route::group(['prefix' => 'elder', 'namespace' => 'Elder', 'middleware' => ['aut
 
     Route::get('/', 'ElderPageController@index')->name('elder.index');
 
-
 });
 
 Route::group(['prefix' => 'parent', 'namespace' => 'Parent', 'middleware' => ['auth', 'isParent']], function () {
 
     Route::get('/', 'ParentPageController@index')->name('parent.index');
-
 
 });

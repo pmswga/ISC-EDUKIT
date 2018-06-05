@@ -19,5 +19,14 @@ class UsersTableSeeder extends Seeder
             'password'     => bcrypt("admin"),
             'id_type_user' => 6,
 		]);
+
+		DB::table('users')->insert([
+            'second_name'  => "Гусева",
+            'first_name'   => "Елена",
+            'patronymic'   => "Львовна",
+            'email'        => "guseva@edukit.ru",
+            'password'     => bcrypt("password"),
+            'id_type_user' => 1,
+		]);
     }
 }

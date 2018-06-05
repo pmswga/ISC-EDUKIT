@@ -28,7 +28,7 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <a class="navbar-brand" href="{{ route('teacher.index') }}">
                         <img src="{{ asset('img/ukit.png') }}" height="100%" alt="">
                     </a>
                 </div>
@@ -57,18 +57,27 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
-						<li><a href="{{ route('teacher.settings') }}">Настройки</a></li>
-						<li>
-							<a href="{{ route('logout') }}"
-								onclick="event.preventDefault();
-										 document.getElementById('logout-form').submit();">
-								Выйти
-							</a>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                {{ Auth::user()->email }} <span class="caret"></span>
+                            </a>
 
-							<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-								{{ csrf_field() }}
-							</form>
-						</li>
+                            <ul class="dropdown-menu">
+								<li><a href="{{ route('index') }}">На главную</a></li>
+        						<li><a href="{{ route('teacher.settings') }}">Настройки</a></li>
+                                <li>
+                                    <a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+                                        Выйти
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>
