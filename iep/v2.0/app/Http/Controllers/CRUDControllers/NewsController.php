@@ -1,23 +1,34 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\CRUDControllers;
 
 use App\News;
+use Illuminate\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class NewsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        return view('admin.news.news', [
-            'news_list' => News::paginate(10)
-        ]);
+        switch (\Auth::user()->id_type_user) {
+            case 1: {
+                echo "Заведующий отделением";
+            } break;
+            case 2: {
+                $news = News::where('id_author', \Auth::user()->id);
+
+                return view('teacher.news.index', [
+                    'news_list' => $news->paginate(10)
+                ]);
+            } break;
+            case 6: {
+                return view('admin.news.index', [
+                    'news_list' => News::paginate(10)
+                ]);
+            } break;
+        }
     }
 
     /**
@@ -38,8 +49,15 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        News::create($request->all());
-        return redirect()->route('admin.news.index');
+        $data = $request->only([
+            'title', 'content', 'id_author', 'publication_date'
+        ]);
+
+        $data['publication_date'] = date('Y-m-d');
+
+        News::create($data);
+
+        return back();
     }
 
     /**
@@ -85,5 +103,6 @@ class NewsController extends Controller
     public function destroy(News $news)
     {
         $news->delete();
+        return back();
     }
 }

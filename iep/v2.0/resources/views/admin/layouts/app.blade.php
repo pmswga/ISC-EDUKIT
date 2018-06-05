@@ -80,42 +80,9 @@
 
     <!-- Modals -->
 
-    <!-- Modal -->
-    <form action="{{ route('admin.news.store') }}" method="POST">
-        <div class="modal fade" id="addNews" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Название модали</h4>
-              </div>
-              <div class="modal-body">
-                  {{ csrf_field() }}
-
-                  <div class="form-group">
-                      <label>Заголовок</label>
-                      <input type="text" name="title" class="form-control">
-                  </div>
-
-                  <div class="form-group">
-                      <label>Краткое описание</label>
-                      <textarea name="description" class="form-control"></textarea>
-                  </div>
-
-                  <div class="form-group">
-                      <label>Содержание</label>
-                      <textarea name="content" class="form-control"></textarea>
-                  </div>
-
-                  <input type="hidden" name="id_author" value="1">
-              </div>
-              <div class="modal-footer">
-                  <input type="submit" class="btn btn-primary" value="Опубликовать">
-              </div>
-            </div>
-          </div>
-        </div>
-      </form>
+    @component('components/modals/create_news')
+        @slot('route') {{ route('admin.news.store') }} @endslot
+    @endcomponent
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>

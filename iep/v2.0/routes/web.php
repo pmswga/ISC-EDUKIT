@@ -13,8 +13,6 @@
 
 Auth::routes();
 
-
-
 Route::get('/', 'IndexController@index')->name('index');
 Route::get('/history', 'HistoryPageController@index')->name('history');
 Route::get('/teachers', 'TeacherPageController@index')->name('teachers');
@@ -25,19 +23,20 @@ Route::get('/change-schedule', 'ChangeSchedulePageController@index')->name('chan
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin']], function () {
 
     Route::get('/', 'AdminPageController@index')->name('admin.index');
-    Route::resource('/news', 'NewsController', ['as' => 'admin']);
+    Route::resource('/news', '\App\Http\Controllers\CRUDControllers\NewsController', ['as' => 'admin']);
 
 });
 
 Route::group(['prefix' => 'director', 'namespace' => 'Director', 'middleware' => ['auth', 'isDirector']], function () {
-    
+
     Route::get('/', 'DirectorPageController@index')->name('director.index');
-    
+
 });
 
 Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => ['auth', 'isTeacher']], function () {
 
     Route::get('/', 'TeacherPageController@index')->name('teacher.index');
+    Route::resource('/news', '\App\Http\Controllers\CRUDControllers\NewsController', ['as' => 'teacher']);
     Route::get('/settings', 'TeacherPageController@settings')->name('teacher.settings');
 
 });
@@ -52,13 +51,13 @@ Route::group(['prefix' => 'student', 'namespace' => 'Student', 'middleware' => [
 Route::group(['prefix' => 'elder', 'namespace' => 'Elder', 'middleware' => ['auth', 'isElder']], function () {
 
     Route::get('/', 'ElderPageController@index')->name('elder.index');
-    
+
 
 });
 
 Route::group(['prefix' => 'parent', 'namespace' => 'Parent', 'middleware' => ['auth', 'isParent']], function () {
 
     Route::get('/', 'ParentPageController@index')->name('parent.index');
-    
+
 
 });

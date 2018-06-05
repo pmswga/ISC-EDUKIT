@@ -12,6 +12,8 @@
                         <tr>
                             <th>Название</th>
                             <th>Описание</th>
+                            <th>Автор</th>
+                            <th>Дата публикации</th>
                             <th class="text-right">Действие</th>
                         </tr>
                     </thead>
@@ -19,8 +21,11 @@
             			@forelse ($news_list as $news)
             				<tr>
             					<td>{{ $news->title }}</td>
-            					<td>{{ $news->description }}</td>
+            					<td>{{ $news->content }}</td>
+            					<td>{{ $news->author()->second_name }}</td>
+            					<td>{{ date('d.m.Y', strtotime($news->publication_date)) }}</td>
                                 <td>
+                                    {{ $news->id_news }}
                                     <form onsubmit="return confirm('Удалить?');" action="{{ route('admin.news.destroy', $news) }}" method="POST">
                                         {{ method_field('DELETE') }}
                                         {{ csrf_field() }}
@@ -31,7 +36,7 @@
             				</tr>
             			@empty
             				<tr>
-            					<td colspan="2">Новостей нет</td>
+            					<td colspan="5">Новостей нет</td>
             				</tr>
             			@endforelse
                     </tbody>

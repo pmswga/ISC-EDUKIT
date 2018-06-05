@@ -17,7 +17,7 @@ class isElder
     public function handle($request, Closure $next)
     {
         if (\Auth::user()->id_type_user !== 4) {
-            return redirect()->route('index');
+            return back();
         }
 
         return $next($request);

@@ -41,7 +41,7 @@
                                     {{ $news->content }}
                                 </div>
                                 <div class="panel-footer">
-                                    Дата: 01.01.2017, Автор: Администратор
+                                    Дата: {{ date('d.m.Y', strtotime($news->publication_date)) }}, Автор: {{ $news->author()->second_name }}
                                 </div>
                             </div>
                         </div>

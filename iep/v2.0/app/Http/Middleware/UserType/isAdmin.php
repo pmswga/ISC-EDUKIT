@@ -17,7 +17,7 @@ class isAdmin
     public function handle($request, Closure $next)
     {
         if (\Auth::user()->id_type_user !== 6) {
-            return redirect()->route('index');
+            return back();
         }
 
         return $next($request);

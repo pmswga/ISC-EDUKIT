@@ -37,6 +37,16 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                Новости <span class="caret"></span>
+                            </a>
+
+                            <ul class="dropdown-menu">
+    							<li><a href="#" data-toggle="modal" data-target="#addNews">Добавить новость</a></li>
+    							<li><a href="{{ route('teacher.news.index') }}">Просмотр</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown"  role="button" aria-expanded="false" aria-haspopup="true" v-pre>Тесты<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">Создать</a></li>
@@ -66,6 +76,10 @@
 
         @yield('content')
     </div>
+
+    @component('components/modals/create_news')
+        @slot('route') {{ route('teacher.news.store') }} @endslot
+    @endcomponent
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>

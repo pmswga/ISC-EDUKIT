@@ -17,7 +17,7 @@ class isDirector
     public function handle($request, Closure $next)
     {
         if (\Auth::user()->id_type_user !== 1) {
-            return redirect()->route('index');
+            return back();
         }
 
         return $next($request);
