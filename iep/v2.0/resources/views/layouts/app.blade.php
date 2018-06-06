@@ -51,7 +51,6 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
                         @guest
                             <li><a href="{{ route('login') }}">Войти</a></li>
                             <li><a href="{{ route('register') }}">Регистрация</a></li>
