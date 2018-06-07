@@ -18,7 +18,17 @@
 
 
 
+МРКО:
+- http://gym1515sz.mskobr.ru/elektronnye_servisy/idnevnik/gorodskaya_shkol_naya_informacionnaya_sistema_gshis/
 
+1С:
+- https://solutions.1c.ru/catalog/college/buy
+- https://solutions.1c.ru/catalog/asp_spo/features
+- https://solutions.1c.ru/catalog/641.php?mode=features
+- https://solutions.1c.ru/catalog/autochoice/?f%5Bparent_branch_id%5D=31&f%5Bbranch_id%5D=33&f%5Bcountry%5D%5B%5D=203&f%5Bent_type_id%5D%5B%5D=713&f%5Barms%5D=3
+- http://www.1c-college.ru/1c_college/price_list.php
 
+СПО:
+- http://pbprog.ru/products/programs.php?SECTION_ID=118
 
 
