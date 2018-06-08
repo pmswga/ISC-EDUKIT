@@ -1,20 +1,5 @@
-Исследование предметной области
+﻿Исследование предметной области
 
-
-Структура организации:
-- http://www.mgkit.ru/my-forms/struktura-i-organy-upravlenia-obrazovatelnoj-organizaciej
-- http://www.mgutm.ru/about/teachers/dorrer_tatyana_vasilevna.php
-- http://www.mgutm.ru/about/structure.php
-
-
-Определение специальности:
-- https://moeobrazovanie.ru/specialnost.html
-
-Федеральные государственные стандарты:
-- http://www.mgkit.ru/my-forms/obrazovatelnye-standarty
-
-Квалификационные характеристики должностей работников образования:
-- https://rg.ru/2010/10/20/teacher-dok.html	
 
 
 
@@ -27,8 +12,15 @@
 - https://solutions.1c.ru/catalog/641.php?mode=features
 - https://solutions.1c.ru/catalog/autochoice/?f%5Bparent_branch_id%5D=31&f%5Bbranch_id%5D=33&f%5Bcountry%5D%5B%5D=203&f%5Bent_type_id%5D%5B%5D=713&f%5Barms%5D=3
 - http://www.1c-college.ru/1c_college/price_list.php
+- http://1c.ru/rus/partners/solutions/default.jsp
+- http://v8.1c.ru/elo/educational/
 
 СПО:
-- http://pbprog.ru/products/programs.php?SECTION_ID=118
+- http://pbprog.ru/products/programs.php?SECTION_ID=118&ELEMENT_ID=565
+- http://pbprog.ru/products/programs.php?SECTION_ID=118&ELEMENT_ID=420
+- http://pbprog.ru/products/programs.php?SECTION_ID=118&ELEMENT_ID=707
+- http://pbprog.ru/products/programs.php?SECTION_ID=118&ELEMENT_ID=411
 
+СПРУТ:
+- http://int21vek.ru/page.2.html
 
