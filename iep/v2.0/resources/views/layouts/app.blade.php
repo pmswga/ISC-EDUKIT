@@ -15,6 +15,18 @@
 </head>
 <body>
     <div id="app">
+        <div class="ui grid">
+            <div class="row">
+                <div class="sixteen wide column">
+                    <div class="ui menu">
+                        <a class="item" href="{{ route('history') }}">История</a>
+                        <div class="right menu">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">

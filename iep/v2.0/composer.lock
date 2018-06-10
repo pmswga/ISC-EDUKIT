@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "860ab839a1c29dda8a3d7e8c8b82315b",
+    "content-hash": "722cc90147627326e9b86e50f2032ce6",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -956,6 +956,48 @@
                 "random"
             ],
             "time": "2018-04-04T21:24:14+00:00"
+        },
+        {
+            "name": "peter58228/laravel-vue-semantic-ui",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/peter58228/laravel-vue-semantic-ui.git",
+                "reference": "53f5df5f6fb44a04e0ee2fa7d99a192ff0ac20fc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/peter58228/laravel-vue-semantic-ui/zipball/53f5df5f6fb44a04e0ee2fa7d99a192ff0ac20fc",
+                "reference": "53f5df5f6fb44a04e0ee2fa7d99a192ff0ac20fc",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^5.5",
+                "php": ">=7.0"
+            },
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "Peter58228\\VueSemanticUi\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "This is a Maxlab/laravel-vue-semantic-ui clone added support for Laravel 5.5.*",
+            "homepage": "https://github.com/peter58228/laravel-vue-semantic-ui",
+            "keywords": [
+                "laravel",
+                "laravel-edition",
+                "laravel-rad",
+                "laravel-starter-semantic-ui",
+                "laravel-vue-semantic-ui",
+                "laravel5",
+                "semantic-ui",
+                "vue-laravel"
+            ],
+            "time": "2017-11-04T19:06:37+00:00"
         },
         {
             "name": "psr/container",

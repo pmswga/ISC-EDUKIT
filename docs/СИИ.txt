@@ -1,7 +1,4 @@
-﻿Исследование предметной области
-
-
-
+﻿ИССЛЕДОВАНИЕ ПРЕДМЕТНОЙ ОБЛАСТИ {
 
 МРКО:
 - http://gym1515sz.mskobr.ru/elektronnye_servisy/idnevnik/gorodskaya_shkol_naya_informacionnaya_sistema_gshis/
@@ -24,3 +21,49 @@
 СПРУТ:
 - http://int21vek.ru/page.2.html
 
+}
+
+ВЫБОР ИНСТРУМЕНТАЛЬНЫХ СРЕДСТВ {
+
+Проектирование базы данных
+- https://www.mysql.com/products/workbench/
+- https://erwin.com/products/data-modeler/
+- http://highered.mheducation.com/sites/0072942207/student_view0/e_r_assistant.html
+
+Моделирование
+- https://about.draw.io/
+- https://products.office.com/ru-ru/visio/flowchart-software
+- http://staruml.io/
+- https://umbrello.kde.org/
+
+Языки вёрстки:
+- https://www.w3.org/standards/webdesign/htmlcss
+- https://www.w3.org/TR/xhtml1/introduction.html
+- https://www.w3.org/Style/CSS/Overview.en.html
+- https://softwareengineering.stackexchange.com/questions/149839/is-xhtml5-dead-or-is-it-just-an-synonym-of-html5
+
+Фреймворки (КЧ):
+- http://bootstrap-3.ru/index.php
+- https://semantic-ui.com/
+- https://stackshare.io/stackups/bootstrap-vs-material-ui-vs-semantic-ui
+
+
+Фреймворки (СЧ):
+- https://laravel.com/
+- https://www.quora.com/Which-is-the-best-framework-for-PHP
+
+- https://phalconphp.com/ru/
+- https://www.yiiframework.com/
+
+
+- https://stackshare.io/stackups/yii-vs-phalcon-vs-laravel
+
+
+Системы создания документации:
+- https://www.helpndoc.com/
+- https://msdn.microsoft.com/ru-ru/library/windows/desktop/ms669985(v=vs.85).aspx
+- https://docs.microsoft.com/ru-ru/style-guide/welcome/
+
+
+
+}
