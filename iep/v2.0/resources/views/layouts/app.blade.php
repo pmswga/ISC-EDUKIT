@@ -4,14 +4,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title')</title>
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('css/semantic.css') }}" rel="stylesheet">
+    <script src="{{ asset('js/app.js') }}"></script>
+    <!-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> -->
 </head>
 <body>
     <div id="app">
@@ -19,103 +19,77 @@
             <div class="row">
                 <div class="sixteen wide column">
                     <div class="ui menu">
+                        <a class="item" href="{{ url('/') }}">
+                            <img src="{{ asset('img/ukit.png') }}" alt="">
+                        </a>
                         <a class="item" href="{{ route('history') }}">История</a>
-                        <div class="right menu">
-
+                        <div class="ui dropdown item">
+                            Расписание
+                            <i class="dropdown icon"></i>
+                            <div class="menu">
+                                <a class="item" href="{{ route('main-schedule') }}">Основное</a>
+                                <a class="item" href="{{ route('change-schedule') }}">Изменения</a>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
+                        <a class="item" href="{{ route('news') }}">Новости</a>
+                        <a class="item" href="{{ route('teachers') }}">Перподаватели</a>
 
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse" aria-expanded="false">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        <img src="{{ asset('img/ukit.png') }}" height="100%" alt="">
-                    </a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        <li><a href="{{ route('history') }}">История</a></li>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown"  role="button" aria-expanded="false" aria-haspopup="true" v-pre>Расписание  <span class="caret"></span></a>
-
-                            <ul class="dropdown-menu">
-                                <li><a href="{{ route('main-schedule') }}">Основное</a></li>
-                                <li><a href="{{ route('change-schedule') }}">Изменения</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="{{ route('news') }}">Новости</a></li>
-                        <li><a href="{{ route('teachers') }}">Перподаватели</a></li>
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        @guest
-                            <li><a href="{{ route('login') }}">Войти</a></li>
-                            <li><a href="{{ route('register') }}">Регистрация</a></li>
-                        @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                                    {{ Auth::user()->email }} <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu">
-                                    @switch(Auth::user()->id_type_user)
-                                        @case(1)
-                                            <li><a href="{{ route('director.index') }}">Личный кабинет</a></li>
-                                        @break
-                                        @case(2)
-                                            <li><a href="{{ route('teacher.index') }}">Личный кабинет</a></li>
-                                        @break
-                                        @case(3)
-                                            <li><a href="{{ route('student.index') }}">Личный кабинет</a></li>
-                                        @break
-                                        @case(4)
-                                            <li><a href="{{ route('student.index') }}">Личный кабинет</a></li>
-                                        @break
-                                        @case(5)
-                                            <li><a href="{{ route('parent.index') }}">Личный кабинет</a></li>
-                                        @break
-                                        @case(6)
-                                            <li><a href="{{ route('admin.index') }}">Личный кабинет</a></li>
-                                        @break
-                                    @endswitch
-                                    <li>
-                                        <a href="{{ route('logout') }}"
+                        <div class="right menu">
+                            @guest
+                                <a class="item" href="{{ route('login') }}">Войти</a>
+                                <a class="item" href="{{ route('register') }}">Регистрация</a>
+                            @else
+                                <div class="ui dropdown item">
+                                    {{ Auth::user()->email }}
+                                    <i class="dropdown icon"></i>
+                                    <div class="menu">
+                                        @switch(Auth::user()->id_type_user)
+                                            @case(1)
+                                                <a class="item" href="{{ route('director.index') }}">Личный кабинет</a>
+                                            @break
+                                            @case(2)
+                                                <a class="item" href="{{ route('teacher.index') }}">Личный кабинет</a>
+                                            @break
+                                            @case(3)
+                                                <a class="item" href="{{ route('student.index') }}">Личный кабинет</a>
+                                            @break
+                                            @case(4)
+                                                <a class="item" href="{{ route('student.index') }}">Личный кабинет</a>
+                                            @break
+                                            @case(5)
+                                                <a class="item" href="{{ route('parent.index') }}">Личный кабинет</a>
+                                            @break
+                                            @case(6)
+                                                <a class="item" href="{{ route('admin.index') }}">Личный кабинет</a>
+                                            @break
+                                        @endswitch
+                                        <a class="item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                                    document.getElementById('logout-form').submit();">
                                             Выйти
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endguest
-                    </ul>
+                                    </div>
+                                </div>
+                            @endguest
+                        </div>
+                    </div>
                 </div>
             </div>
-        </nav>
-
-        @yield('content')
+            <div class="row">                
+                @yield('content')
+            </div>
+        </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+
+        $('.ui.dropdown').dropdown();
+
+    </script>
+
 </body>
 </html>
