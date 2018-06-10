@@ -25,6 +25,16 @@
 
 ВЫБОР ИНСТРУМЕНТАЛЬНЫХ СРЕДСТВ {
 
+- https://trello.com/home
+- https://www.wunderlist.com/ru/
+- https://planiro.com/ru
+- https://products.office.com/en-us/business/task-management-software
+
+Система контроля версий:
+- https://git-scm.com/
+- https://www.mercurial-scm.org/
+- https://subversion.apache.org/
+
 Проектирование базы данных
 - https://www.mysql.com/products/workbench/
 - https://erwin.com/products/data-modeler/
@@ -45,18 +55,21 @@
 Фреймворки (КЧ):
 - http://bootstrap-3.ru/index.php
 - https://semantic-ui.com/
+- 
 - https://stackshare.io/stackups/bootstrap-vs-material-ui-vs-semantic-ui
 
 
 Фреймворки (СЧ):
 - https://laravel.com/
 - https://www.quora.com/Which-is-the-best-framework-for-PHP
-
 - https://phalconphp.com/ru/
 - https://www.yiiframework.com/
-
-
 - https://stackshare.io/stackups/yii-vs-phalcon-vs-laravel
+
+Среды разработки:
+- https://code.visualstudio.com/
+- https://www.jetbrains.com/phpstorm/
+- http://www.zend.com/en/products/studio
 
 
 Системы создания документации:
