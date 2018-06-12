@@ -11,27 +11,27 @@ class TypeUserTableSeeder extends Seeder
      */
     public function run()
     {
-		DB::table('type_users')->insert([
+		DB::table('ListAccountType')->insert([
 			'caption' => 'Заведующий отделением'
 		]);
 		
-		DB::table('type_users')->insert([
+		DB::table('ListAccountType')->insert([
 			'caption' => 'Преподаватель'
 		]);
 		
-		DB::table('type_users')->insert([
+		DB::table('ListAccountType')->insert([
 			'caption' => 'Студент'
 		]);
 		
-		DB::table('type_users')->insert([
+		DB::table('ListAccountType')->insert([
 			'caption' => 'Староста'
 		]);
 		
-		DB::table('type_users')->insert([
+		DB::table('ListAccountType')->insert([
 			'caption' => 'Родитель'
 		]);
 		
-		DB::table('type_users')->insert([
+		DB::table('ListAccountType')->insert([
 			'caption' => 'Администратор'
 		]);
     }

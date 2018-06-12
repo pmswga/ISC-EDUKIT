@@ -11,22 +11,22 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-		DB::table('users')->insert([
+		DB::table('IEPAccount')->insert([
             'second_name'  => "admin",
             'first_name'   => "admin",
             'patronymic'   => "admin",
             'email'        => "admin@edukit.ru",
-            'password'     => bcrypt("admin"),
-            'id_type_user' => 6,
+            'passwd'     => bcrypt("admin"),
+            'id_account_type' => 6,
 		]);
 
-		DB::table('users')->insert([
+		DB::table('IEPAccount')->insert([
             'second_name'  => "Гусева",
             'first_name'   => "Елена",
             'patronymic'   => "Львовна",
             'email'        => "guseva@edukit.ru",
-            'password'     => bcrypt("password"),
-            'id_type_user' => 1,
+            'passwd'     => bcrypt("password"),
+            'id_account_type' => 1,
 		]);
     }
 }

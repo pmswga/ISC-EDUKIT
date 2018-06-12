@@ -3,6 +3,7 @@
 Auth::routes();
 
 Route::get('/', 'IndexController@index')->name('index');
+Route::resource('/account', 'IEPAccountController');
 Route::get('/history', 'HistoryPageController@index')->name('history');
 Route::get('/teachers', 'TeacherPageController@index')->name('teachers');
 Route::get('/news', 'NewsPageController@index')->name('news');
