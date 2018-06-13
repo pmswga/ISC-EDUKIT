@@ -7,27 +7,24 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 
 class AuthServiceProvider extends ServiceProvider
 {
-    
-    
-    public function boot()
-    {
-        $this->app['auth']->extend('custom',function()
-        {
-    
-            return new CustomUserProvider();
-        });
-    }
+    /**
+     * The policy mappings for the application.
+     *
+     * @var array
+     */
+    protected $policies = [
+        'App\Model' => 'App\Policies\ModelPolicy',
+    ];
 
     /**
-     * Register the application services.
+     * Register any authentication / authorization services.
      *
      * @return void
      */
-    public function register()
+    public function boot()
     {
+        $this->registerPolicies();
+
         //
     }
-
-
-    
 }
