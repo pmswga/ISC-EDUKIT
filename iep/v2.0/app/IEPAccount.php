@@ -18,7 +18,7 @@ class IEPAccount extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'passwd',
+        'name', 'email', 'password',
     ];
 
     /**
@@ -27,6 +27,6 @@ class IEPAccount extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'passwd', 'remember_token',
+        'password', 'remember_token',
     ];
 }

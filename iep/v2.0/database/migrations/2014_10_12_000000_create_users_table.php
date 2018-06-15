@@ -13,8 +13,8 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('IEPAccount', function (Blueprint $table) {
+            $table->increments('id_account');
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
@@ -30,6 +30,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('IEPAccount');
     }
 }
