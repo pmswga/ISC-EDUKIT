@@ -21,7 +21,7 @@
                 <div class="sixteen wide column">
                     <div id="menu" class="ui pointing stackable menu">
                         <a class="header item" href="{{ route('index') }}">
-                            Университетский колледж
+                            <img src="{{ asset('img/ukit_logo_2.png') }}" alt="Главная страница">
                         </a>
                         <a class="item" href="{{ route('index') }}">
                             Главная
@@ -104,9 +104,13 @@
                                             <i class="file alternate outline icon"></i>
                                             Основные сведения
                                         </a>
-                                        <a class="item">
+                                        <a class="item" href="{{ route('personal') }}">
                                             <i class="users icon"></i>
                                             Руководство
+                                        </a>
+                                        <a class="item" href="{{ route('teachers') }}">
+                                            <i class="users icon"></i>
+                                            Преподавательский состав
                                         </a>
                                         <a class="item">
                                             <i class="file pdf outline icon"></i>

@@ -19,6 +19,28 @@ body {
     width: 100%;
 }
 
+/*
+    Страница: Руководство
+*/
+
+.ui.styled.accordion {
+    width: 100%;
+}
+
+#structure-college-figure {
+    text-align: center;
+}
+
+/*
+    Страница: Преподавательский состав
+*/
+
+#teachers-cards {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
 #footer {
     margin-top: 0px;
     margin-bottom: 0px;
