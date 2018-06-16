@@ -85,7 +85,7 @@
                         </div>
                     </div>
                     <div class="four wide column">
-                        <img src="{{ asset('img/personal/deputy-director-1.jpg') }}" width="100%" alt="Директор колледжа">
+                        <img src="{{ asset('img/personal/deputy-director-1.jpg') }}" width="100%" alt="Заместитель директора по общим вопросам">
                     </div>
                 </div>
             </div>
@@ -123,7 +123,7 @@
                         </div>
                     </div>
                     <div class="four wide column">
-                        <img src="{{ asset('img/personal/deputy-director-2.jpg') }}" width="100%" alt="Директор колледжа">
+                        <img src="{{ asset('img/personal/deputy-director-2.jpg') }}" width="100%" alt="Заместитель директора по воспитательной работе">
                     </div>
                 </div>
             </div>
@@ -149,7 +149,7 @@
                         </div>
                     </div>
                     <div class="four wide column">
-                        <img src="{{ asset('img/personal/deputy-director-3.jpg') }}" width="100%" alt="Директор колледжа">
+                        <img src="{{ asset('img/personal/deputy-director-3.jpg') }}" width="100%" alt="Заместитель директора по учебной работе">
                     </div>
                 </div>
             </div>

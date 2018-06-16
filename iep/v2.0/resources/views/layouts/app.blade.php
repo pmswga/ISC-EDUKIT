@@ -62,15 +62,15 @@
                                 <div class="item">
                                     <div class="header">Отделения</div>
                                     <div class="menu">
-                                        <a class="item">
+                                        <a class="item" href="{{ route('education-unit-1') }}">
                                             <i class="building outline icon"></i>
                                             Отделение №1
                                         </a>
-                                        <a class="item">
+                                        <a class="item" href="{{ route('education-unit-2') }}">
                                             <i class="building icon"></i>
                                             Отделение №2
                                         </a>
-                                        <a class="item">
+                                        <a class="item" href="{{ route('education-unit-3') }}">
                                             <i class="building outline icon"></i>
                                             Отделение №3
                                         </a>

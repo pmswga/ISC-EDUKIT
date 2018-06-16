@@ -13,6 +13,18 @@ Route::get('/contacts', function () {
 
 // Left menu
 
+Route::get('/education-unit-1', function() {
+    return view('pages.education_units.unit_1');
+})->name('education-unit-1');
+
+Route::get('/education-unit-2', function() {
+    return view('pages.education_units.unit_2');
+})->name('education-unit-2');
+
+Route::get('/education-unit-3', function() {
+    return view('pages.education_units.unit_3');
+})->name('education-unit-3');
+
 Route::get('/schedule', 'Pages\SchedulePageController@index')->name('schedule');
 Route::get('/personal', function() {
     return view('pages.personal');
