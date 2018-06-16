@@ -29,13 +29,7 @@
                         <a class="item" href="#news">
                             Новости
                         </a>
-                        <a class="item" href="#news">
-                            Мероприятия
-                        </a>
-                        <a class="item" href="#news">
-                            История
-                        </a>
-                        <a class="item" href="#news">
+                        <a class="item" href="{{ route('contacts') }}">
                             Контакты
                         </a>
                         <div class="right menu">
@@ -144,9 +138,6 @@
         </div>
 
         <div id="footer" class="ui inverted menu">
-            <div class="item">
-                Адрес: Москва, Костомаровская Набережная, 29 ст1
-            </div>
             <div class="right menu">
                 <a class="item" href="http://www.mgutm.ru/">
                     © ФГБОУ ВО "МГУТУ им. К.Г. Разумовского (ПКУ)" УНИКИТ 2018
