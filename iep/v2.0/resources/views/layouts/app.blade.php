@@ -79,7 +79,7 @@
                                 <div class="item">
                                     <div class="header">Студенту</div>
                                     <div class="menu">
-                                        <a class="item">
+                                        <a class="item" href="{{ route('schedule') }}">
                                             <i class="calendar alternate outline icon"></i>
                                             Расписание
                                         </a>

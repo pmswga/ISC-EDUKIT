@@ -15,6 +15,10 @@ body {
     width: 100%;
 }
 
+.ui.steps {
+    width: 100%;
+}
+
 #footer {
     margin-top: 0px;
     margin-bottom: 0px;
