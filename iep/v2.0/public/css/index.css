@@ -1,4 +1,21 @@
 
+body {
+    background-color: #EFF0EA;
+}
+
+#menu {
+    border-radius: 0%;
+}
+
 #left-menu {
     width: 100%;
+}
+
+
+#footer {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    border-radius: 0%;
+    width: 100%;
+    color: white;
 }

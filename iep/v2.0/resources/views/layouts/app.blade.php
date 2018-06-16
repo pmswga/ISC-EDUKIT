@@ -19,10 +19,10 @@
         <div class="ui internally stackable grid">
             <div class="row">
                 <div class="sixteen wide column">
-                    <div class="ui pointing stackable menu">
-                        <div class="header item">
-                            УНИКИТ
-                        </div>
+                    <div id="menu" class="ui pointing stackable menu">
+                        <a class="header item" href="{{ route('index') }}">
+                            Университетский колледж
+                        </a>
                         <a class="item" href="{{ route('index') }}">
                             Главная
                         </a>
@@ -142,12 +142,32 @@
                 </div>
             </div>
         </div>
-                
+
+        <div id="footer" class="ui inverted menu">
+            <div class="item">
+                Адрес: Москва, Костомаровская Набережная, 29 ст1
+            </div>
+            <div class="right menu">
+                <a class="item" href="http://www.mgutm.ru/">
+                    © ФГБОУ ВО "МГУТУ им. К.Г. Разумовского (ПКУ)" УНИКИТ 2018
+                <a/>
+            </div>
+        </div>
+                    
         <!-- Scripts -->
         <script>
 
             $('.ui.dropdown').dropdown();
             $('.ui.accordion').accordion();
+
+            $('.message .close')
+                .on('click', function() {
+                    $(this)
+                    .closest('.message')
+                    .transition('fade')
+                    ;
+                })
+                ;
 
         </script>
     </body>

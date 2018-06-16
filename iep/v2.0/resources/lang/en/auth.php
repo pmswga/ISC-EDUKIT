@@ -13,6 +13,12 @@ return [
     |
     */
 
+    'email_field' => "E-Mail",
+    'passwd_field' => 'Password',
+    'fogot_passwd_field' => 'Fogot password',
+    'remember_me_field' => 'Remember me',
+    
+    
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
