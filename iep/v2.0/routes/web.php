@@ -16,26 +16,32 @@ Route::get('/contacts', function () {
 
 // Left menu
 
-Route::get('/education-unit-1', function() {
+Route::get('/education-unit-1', function () {
     return view('pages.education_units.unit_1');
 })->name('education-unit-1');
 
-Route::get('/education-unit-2', function() {
+Route::get('/education-unit-2', function () {
     return view('pages.education_units.unit_2');
 })->name('education-unit-2');
 
-Route::get('/education-unit-3', function() {
+Route::get('/education-unit-3', function () {
     return view('pages.education_units.unit_3');
 })->name('education-unit-3');
 
 Route::get('/schedule', 'Pages\SchedulePageController@index')->name('schedule');
-Route::get('/personal', function() {
+Route::get('/personal', function () {
     return view('pages.personal');
 })->name('personal');
-Route::get('/teachers', function() {
+Route::get('/teachers', function () {
     return view('pages.teachers');
 })->name('teachers');
 
 Route::resource('/feedback', 'FeedbackController');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['prefix' => 'student', 'namespace' => 'Accounts', 'middleware' => ['auth', 'isStudent']], function () {
+
+    Route::get('/', 'StudentController@index')->name('student.index');
+});
+
+    
+    

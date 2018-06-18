@@ -1,0 +1,8 @@
+
+.ui.statistic {
+    width: 100%;
+}
+
+.ui.statistic.value {
+    text-align: center;
+}

@@ -42,7 +42,7 @@
                                     {{ Auth::user()->email }}
                                     <i class="dropdown icon"></i>
                                     <div class="menu">
-                                        <a class="item" href="{{ route('home') }}">Профиль</a>
+                                        <a class="item" href="{{ route('student.index') }}">Профиль</a>
                                         <a class="item" href="{{ route('logout') }}">Выйти</a>
                                     </div>
                                 </div>
@@ -155,14 +155,9 @@
             $('.ui.dropdown').dropdown();
             $('.ui.accordion').accordion();
 
-            $('.message .close')
-                .on('click', function() {
-                    $(this)
-                    .closest('.message')
-                    .transition('fade')
-                    ;
-                })
-                ;
+            $('.message .close').on('click', function() {
+                $(this).closest('.message').transition('fade');
+            });
 
         </script>
     </body>
