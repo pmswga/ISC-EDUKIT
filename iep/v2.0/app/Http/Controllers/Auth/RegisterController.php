@@ -62,8 +62,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        
-
         return IEPAccount::create([
             'name' => $data['name'],
             'email' => $data['email'],

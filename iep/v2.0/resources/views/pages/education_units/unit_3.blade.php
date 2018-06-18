@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Учебное отделение 1')
+@section('title', 'Учебное отделение №3')
 
 @section('content')
     <div class="ui segment">

@@ -36,5 +36,6 @@ Route::get('/teachers', function() {
     return view('pages.teachers');
 })->name('teachers');
 
+Route::resource('/feedback', 'FeedbackController');
 
 Route::get('/home', 'HomeController@index')->name('home');

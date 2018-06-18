@@ -4,5 +4,8 @@
 
 @section('content')
 
+    <div class="ui segment">
+
+    </div>
 
 @endsection

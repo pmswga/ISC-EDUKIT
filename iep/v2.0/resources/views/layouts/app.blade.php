@@ -121,7 +121,7 @@
                                 <div class="item">
                                     <div class="header">Поддержка</div>
                                     <div class="menu">
-                                        <a class="item">
+                                        <a class="item" href="{{ route('feedback.index') }}">
                                             <i class="envelope outline icon"></i>
                                             Написать пиьсмо
                                         </a>
