@@ -25,4 +25,15 @@ class IEPAccount extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function group()
+    {
+        return "";
+    }
+
+    public function cellPhone()
+    {
+        return "";
+    }
+
 }

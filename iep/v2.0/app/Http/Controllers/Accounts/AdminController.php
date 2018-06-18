@@ -5,17 +5,17 @@ namespace App\Http\Controllers\Accounts;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class StudentController extends Controller
+class AdminController extends Controller
 {
-
+    
     public function index()
     {
-        return view('accounts.student.index');
+        return view('accounts.admin.index');
     }
 
     public function settings()
     {
-        return view('accounts.student.settings');
+        return view('accounts.admin.settings');
     }
 
 }

@@ -16,7 +16,9 @@ class isStudent
      */
     public function handle($request, Closure $next)
     {
-        
+        if (Auth::user()->id_account_type !== 3) {
+            return back();
+        }   
         
         return $next($request);
     }

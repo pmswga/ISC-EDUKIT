@@ -38,10 +38,30 @@ Route::get('/teachers', function () {
 
 Route::resource('/feedback', 'FeedbackController');
 
+
+
 Route::group(['prefix' => 'student', 'namespace' => 'Accounts', 'middleware' => ['auth', 'isStudent']], function () {
 
     Route::get('/', 'StudentController@index')->name('student.index');
+    Route::get('/settings', 'StudentController@settings')->name('student.settings');
+
 });
 
+Route::group(['prefix' => 'elder', 'namespace' => 'Accounts', 'middleware' => ['auth', 'isElder']], function () {
+
     
+
+});
+
+Route::group(['prefix' => 'parent', 'namespace' => 'Accounts', 'middleware' => ['auth', 'isParent']], function () {
+
+    Route::get('/', 'ParentController@index')->name('parent.index');
+
+});
     
+Route::group(['prefix' => 'admin', 'namespace' => 'Accounts', 'middleware' => ['auth', 'isAdmin']], function () {
+
+    Route::get('/', 'AdminController@index')->name('admin.index');
+    Route::get('/settings', 'AdminController@settings')->name('admin.settings');
+
+});

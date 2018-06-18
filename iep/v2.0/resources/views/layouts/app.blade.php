@@ -42,7 +42,26 @@
                                     {{ Auth::user()->email }}
                                     <i class="dropdown icon"></i>
                                     <div class="menu">
-                                        <a class="item" href="{{ route('student.index') }}">Профиль</a>
+                                        @switch(Auth::user()->id_account_type)
+                                            @case(1)
+                                                <a class="item" href="{{ route('student.index') }}">Профиль</a>
+                                            @break
+                                            @case(2)
+
+                                            @break
+                                            @case(3)
+                                                <a class="item" href="{{ route('student.index') }}">Профиль</a>
+                                            @break
+                                            @case(4)
+
+                                            @break
+                                            @case(5)
+
+                                            @break
+                                            @case(6)
+                                                <a class="item" href="{{ route('admin.index') }}">Профиль</a>
+                                            @break
+                                        @endswitch
                                         <a class="item" href="{{ route('logout') }}">Выйти</a>
                                     </div>
                                 </div>
@@ -57,7 +76,7 @@
                         <div class="three wide column">
                             <div id="left-menu" class="ui vertical menu">
                                 <div class="header item">
-                                        <img src="{{ asset('img/logos/logo_1.png') }}"  class="ui meduim image" alt="Главная страница">
+                                    <img src="{{ asset('img/logos/logo_1.png') }}"  class="ui meduim image" alt="Главная страница">
                                 </div>
                                 <div class="item">
                                     <div class="header">Отделения</div>

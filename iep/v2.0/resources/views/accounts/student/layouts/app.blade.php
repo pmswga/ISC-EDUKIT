@@ -24,7 +24,7 @@
                         <a class="header item" href="{{ route('index') }}">
                             Главная
                         </a>
-                        <a class="item">
+                        <a class="item" href="{{ route('student.settings') }}">
                             Настройки
                         </a>
                         <div class="right menu">

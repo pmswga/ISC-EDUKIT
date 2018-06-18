@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             ListAccountTypeSeeder::class,
+            IEPAccountSeeder::class,
         ]);
     }
 }
