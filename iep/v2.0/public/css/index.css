@@ -11,9 +11,18 @@ body {
     width: 100%;
 }
 
+
+/*
+    Страница: Контакты
+*/
+
 #map {
     width: 100%;
 }
+
+/*
+    Страница: Расписание
+*/
 
 .ui.steps {
     width: 100%;
@@ -41,8 +50,12 @@ body {
     flex-wrap: wrap;
 }
 
+/*
+    Footer site
+*/
+
 #footer {
-    margin-top: 0px;
+    margin-top: 15px;
     margin-bottom: 0px;
     border-radius: 0%;
     width: 100%;

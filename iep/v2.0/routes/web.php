@@ -7,6 +7,9 @@ Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 // Main menu
 
 Route::get('/', 'Pages\IndexPageController@index')->name('index');
+Route::get('/news', function () {
+    return view('pages.news');
+})->name('news');
 Route::get('/contacts', function () {
     return view('pages.contacts');
 })->name('contacts');

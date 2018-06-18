@@ -21,12 +21,9 @@
                 <div class="sixteen wide column">
                     <div id="menu" class="ui pointing stackable menu">
                         <a class="header item" href="{{ route('index') }}">
-                            <img src="{{ asset('img/ukit_logo_2.png') }}" alt="Главная страница">
-                        </a>
-                        <a class="item" href="{{ route('index') }}">
                             Главная
                         </a>
-                        <a class="item" href="#news">
+                        <a class="item" href="{{ route('news') }}">
                             Новости
                         </a>
                         <a class="item" href="{{ route('contacts') }}">
@@ -54,11 +51,14 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div id="content" class="row">
                 <div class="sixteen wide column">
                     <div class="ui internally celled stackable grid">
                         <div class="three wide column">
                             <div id="left-menu" class="ui vertical menu">
+                                <div class="header item">
+                                        <img src="{{ asset('img/logos/logo_1.png') }}"  class="ui meduim image" alt="Главная страница">
+                                </div>
                                 <div class="item">
                                     <div class="header">Отделения</div>
                                     <div class="menu">
@@ -141,7 +141,7 @@
             </div>
         </div>
 
-        <div id="footer" class="ui inverted menu">
+        <div id="footer" class="ui borderless inverted menu">
             <div class="right menu">
                 <a class="item" href="http://www.mgutm.ru/">
                     © ФГБОУ ВО "МГУТУ им. К.Г. Разумовского (ПКУ)" УНИКИТ 2018
