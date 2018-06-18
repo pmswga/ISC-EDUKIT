@@ -7,7 +7,7 @@
         <div class="ui error message">
             <i class="close icon"></i>
             <div class="header">
-                Обнаружены ошибки при регистрации
+                Ошибка регистрации
             </div>
             <ul class="list">
                 @foreach ($errors->all() as $error)
@@ -21,8 +21,18 @@
             {{ csrf_field() }}
 
             <div class="field">
-                <label for="name">@lang('reg.first_name_field')</label>
-                <input type="text" name="name" value="{{ old('name') }}" required autofocus>
+                <label for="second_name">@lang('reg.second_name_field')</label>
+                <input type="text" name="second_name" value="{{ old('second_name') }}" required autofocus>
+            </div>
+            
+            <div class="field">
+                <label for="first_name">@lang('reg.first_name_field')</label>
+                <input type="text" name="first_name" value="{{ old('first_name') }}" required autofocus>
+            </div>
+
+            <div class="field">
+                <label for="patronymic">@lang('reg.patronymic_field')</label>
+                <input type="text" name="patronymic" value="{{ old('patronymic') }}" required autofocus>
             </div>
 
             <div class="field">

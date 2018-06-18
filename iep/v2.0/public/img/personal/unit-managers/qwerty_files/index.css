@@ -1,0 +1,63 @@
+
+body {
+    background-color: #EFF0EA;
+}
+
+#menu {
+    border-radius: 0%;
+}
+
+#left-menu {
+    width: 100%;
+}
+
+
+/*
+    Страница: Контакты
+*/
+
+#map {
+    width: 100%;
+}
+
+/*
+    Страница: Расписание
+*/
+
+.ui.steps {
+    width: 100%;
+}
+
+/*
+    Страница: Руководство
+*/
+
+.ui.styled.accordion {
+    width: 100%;
+}
+
+#structure-college-figure {
+    text-align: center;
+}
+
+/*
+    Страница: Преподавательский состав
+*/
+
+#teachers-cards {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+/*
+    Footer site
+*/
+
+#footer {
+    margin-top: 15px;
+    margin-bottom: 0px;
+    border-radius: 0%;
+    width: 100%;
+    color: white;
+}

@@ -10,12 +10,9 @@
                 Ошибка аутентификации
             </div>
             <ul class="list">
-                @if ($errors->has('email'))
-                    <li>{{ $errors->first('email') }}</li>
-                @endif
-                @if ($errors->has('password'))
-                    <li>{{ $errors->first('password') }}</li>
-                @endif
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
             </ul>
         </div>
     @endif

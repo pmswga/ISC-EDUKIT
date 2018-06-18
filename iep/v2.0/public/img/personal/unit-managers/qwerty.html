@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<!-- saved from url=(0035)http://edukit/iep/v2.0/public/login -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Вход</title>
+
+        <!-- Meta -->
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="csrf-token" content="7vXveKhEfUkCeVN9TzkC4icckDF6l3wwRJlJOA8B">
+
+        <!-- Styles -->
+        <link rel="stylesheet" href="./qwerty_files/semantic.css">
+        <link rel="stylesheet" href="./qwerty_files/index.css">
+        <script src="./qwerty_files/jquery.js.Без названия"></script>
+        <script src="./qwerty_files/semantic.js.Без названия"></script>
+    </head>
+    <body cz-shortcut-listen="true">
+        <div class="ui internally stackable grid">
+            <div class="row">
+                <div class="sixteen wide column">
+                    <div id="menu" class="ui pointing stackable menu">
+                        <a class="header item" href="http://edukit/iep/v2.0/public">
+                            Главная
+                        </a>
+                        <a class="item" href="http://edukit/iep/v2.0/public/news">
+                            Новости
+                        </a>
+                        <a class="item" href="http://edukit/iep/v2.0/public/contacts">
+                            Контакты
+                        </a>
+                        <div class="right menu">
+                                                            <a class="item" href="http://edukit/iep/v2.0/public/login">
+                                    Войти
+                                </a>
+                                <a class="item" href="http://edukit/iep/v2.0/public/register">
+                                    Регистрация
+                                </a>
+                                                    </div>
+                    </div>
+                </div>
+            </div>
+            <div id="content" class="row">
+                <div class="sixteen wide column">
+                    <div class="ui internally celled stackable grid">
+                        <div class="three wide column">
+                            <div id="left-menu" class="ui vertical menu">
+                                <div class="header item">
+                                        <img src="./qwerty_files/logo_1.png" class="ui meduim image" alt="Главная страница">
+                                </div>
+                                <div class="item">
+                                    <div class="header">Отделения</div>
+                                    <div class="menu">
+                                        <a class="item" href="http://edukit/iep/v2.0/public/education-unit-1">
+                                            <i class="building outline icon"></i>
+                                            Отделение №1
+                                        </a>
+                                        <a class="item" href="http://edukit/iep/v2.0/public/education-unit-2">
+                                            <i class="building icon"></i>
+                                            Отделение №2
+                                        </a>
+                                        <a class="item" href="http://edukit/iep/v2.0/public/education-unit-3">
+                                            <i class="building outline icon"></i>
+                                            Отделение №3
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="header">Студенту</div>
+                                    <div class="menu">
+                                        <a class="item" href="http://edukit/iep/v2.0/public/schedule">
+                                            <i class="calendar alternate outline icon"></i>
+                                            Расписание
+                                        </a>
+                                        <a class="item">
+                                            <i class="book icon"></i>
+                                            Учебные материалы
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="header">Абитуриенту</div>
+                                    <div class="menu">
+                                        <a class="item">Стоимость обучения</a>
+                                        <a class="item">Дни открытых дверей</a>
+                                        <a class="item">Документы для поступления</a>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="header">Об организации</div>
+                                    <div class="menu">
+                                        <a class="item">
+                                            <i class="file alternate outline icon"></i>
+                                            Основные сведения
+                                        </a>
+                                        <a class="item" href="http://edukit/iep/v2.0/public/personal">
+                                            <i class="users icon"></i>
+                                            Руководство
+                                        </a>
+                                        <a class="item" href="http://edukit/iep/v2.0/public/teachers">
+                                            <i class="users icon"></i>
+                                            Преподавательский состав
+                                        </a>
+                                        <a class="item">
+                                            <i class="file pdf outline icon"></i>
+                                            Документы
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="header">Поддержка</div>
+                                    <div class="menu">
+                                        <a class="item" href="http://edukit/iep/v2.0/public/feedback">
+                                            <i class="envelope outline icon"></i>
+                                            Написать пиьсмо
+                                        </a>
+                                        <a class="item">
+                                            <i class="question circle outline icon"></i>
+                                            Руководство пользователя
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="thirteen wide column">
+                                    <div class="ui segment">
+        <form class="ui form" method="POST" action="http://edukit/iep/v2.0/public/login">
+            <input type="hidden" name="_token" value="7vXveKhEfUkCeVN9TzkC4icckDF6l3wwRJlJOA8B">
+
+            <div class="field">
+                <label for="email" class="col-md-4 control-label">E-Mail</label>
+                <input type="email" name="email" value="" required="" autofocus="">
+            </div>
+
+            <div class="field">
+                <label for="password">Password</label>
+                <input type="password" name="password" required="">
+
+            </div>
+
+            <div class="field">
+                <div class="ui checkbox">
+                    <input type="checkbox" name="remember"> 
+                    <label>Remember me</label>
+                </div>
+            </div>
+
+            <div class="field">
+                <button type="submit" class="ui primary button">
+                    Войти
+                </button>
+
+                <a class="btn btn-link" href="http://edukit/iep/v2.0/public/password/reset">
+                    Fogot password?
+                </a>
+            </div>
+        </form>
+    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer" class="ui borderless inverted menu">
+            <div class="right menu">
+                <a class="item" href="http://www.mgutm.ru/">
+                    © ФГБОУ ВО "МГУТУ им. К.Г. Разумовского (ПКУ)" УНИКИТ 2018
+                </a><a>
+            </a></div><a>
+        </a></div><a>
+                    
+        <!-- Scripts -->
+        <script>
+
+            $('.ui.dropdown').dropdown();
+            $('.ui.accordion').accordion();
+
+            $('.message .close').on('click', function() {
+                $(this).closest('.message').transition('fade');
+            });
+
+        </script>
+    
+
+</a></body></html>

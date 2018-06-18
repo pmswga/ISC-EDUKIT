@@ -11,21 +11,17 @@ class IEPAccount extends Authenticatable
 
     protected $table = 'IEPAccount';
     protected $primaryKey = 'id_account';
+    public $timestamps = false;
     
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
-        'name', 'email', 'password',
+        'second_name',
+        'first_name',
+        'patronymic',
+        'email',
+        'password',
+        'id_account_type'
     ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
+    
     protected $hidden = [
         'password', 'remember_token',
     ];
