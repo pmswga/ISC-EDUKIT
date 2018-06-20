@@ -89,6 +89,19 @@
                                     </div>
                                 </div>
                                 <div class="item">
+                                    <div class="header">Управление отделениями</div>
+                                    <div class="menu">
+                                        <a class="item" href="{{ route('units.create') }}">
+                                            <i class="building outline icon"></i>
+                                            Добавить
+                                        </a>
+                                        <a class="item" href="{{ route('units.index') }}">
+                                            <i class="list icon"></i>
+                                            Список отделений
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="item">
                                     <div class="header">Управление специальностями</div>
                                     <div class="menu">
                                         <a class="item">

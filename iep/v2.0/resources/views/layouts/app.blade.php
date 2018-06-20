@@ -160,14 +160,17 @@
             </div>
         </div>
 
-        <div id="footer" class="ui borderless inverted menu">
-            <div class="right menu">
-                <a class="item" href="http://www.mgutm.ru/">
-                    © ФГБОУ ВО "МГУТУ им. К.Г. Разумовского (ПКУ)" УНИКИТ 2018
-                <a/>
-            </div>
-        </div>
-                    
+        <div class="ui inverted vertical footer segment">
+			<div class="ui center aligned container">
+				<div class="ui horizontal inverted small divided link list">
+                    <a class="item" href="http://www.mgutm.ru/">
+                        Copyright © ФГБОУ ВО "МГУТУ им. К.Г. Разумовского (ПКУ)" УНИКИТ
+                    <a/>
+					<a class="item" href="#">Карта сайта</a>
+					<a class="item" href="#contacts">Контакты</a>
+				</div>
+			</div>
+		</div>
         <!-- Scripts -->
         <script>
 

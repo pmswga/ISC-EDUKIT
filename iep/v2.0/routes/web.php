@@ -65,6 +65,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Accounts', 'middleware' => ['
     Route::get('/users', '\App\Http\Controllers\CRUD\UserController@index')->name('admin.accounts.index');
     Route::get('/settings', 'AdminController@settings')->name('admin.settings');
 
+    Route::resource('/units', '\App\Http\Controllers\CRUD\Lists\ListEducationUnitController');
     Route::resource('/groups', '\App\Http\Controllers\CRUD\GroupController');
     Route::resource('/subjects', '\App\Http\Controllers\CRUD\SubjectController');
 
