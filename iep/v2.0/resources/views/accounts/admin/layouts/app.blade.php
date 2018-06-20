@@ -25,10 +25,10 @@
                         <a class="header item" href="{{ route('index') }}">
                             Главная
                         </a>
-                        <a class="item" href="{{ route('admin.settings') }}">
-                            Настройки
-                        </a>
                         <div class="right menu">
+                            <a class="item" href="{{ route('admin.settings') }}">
+                                Настройки
+                            </a>
                             <div class="ui dropdown item">
                                 {{ Auth::user()->email }}
                                 <i class="dropdown icon"></i>

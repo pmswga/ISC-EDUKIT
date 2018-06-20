@@ -6,24 +6,47 @@
     <div class="ui segment">
         <div class="ui stackable grid">
             <div class="row">
-                <div class="five wide column">
-                    <div class="ui blue segment">
-                        <h3>Вопросы</h3>
-                        <hr>
-                        <ul class="ui list">
+                <div class="eight wide column">
+                    <fieldset class="ui blue segment">
+                        <legend>Вопросы</legend>
+                        <div class="ui cards">
                             @foreach ($feedback_list_1 as $list)
-
-                                <li class="list">
-                                    {{ $list->subject }}
-                                </li>
+                                <div class="ui link fluid card">
+                                    <div class="content">
+                                        <a class="header">{{ $list->subject }}</a>
+                                        <div class="meta">
+                                            
+                                        </div>
+                                        <div class="description">
+                                            {{ $list->content }}
+                                        </div>
+                                    </div>
+                                    <div class="extra content">
+                                        <div class="ui styled accordion">
+                                            <div class="title">
+                                                Дать ответ
+                                            </div>
+                                            <div class="content">
+                                                <form class="ui form">
+                                                    <div class="field">
+                                                        <label>Ответ</label>
+                                                        <textarea name="answer"></textarea>
+                                                    </div>
+                                                    <div class="field">
+                                                        <input type="submit" name="" value="Ответить" class="ui primary button">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             @endforeach
-                        </ul>
-                    </div>
+                        </div>
+                    </fieldset>
                 </div>
-                <div class="six wide column">
-                    <div class="ui green segment">
-                        <h3>Предложения</h3>
-                        <hr>
+                <div class="eight wide column">
+                    <fieldset class="ui green segment">
+                        <legend>Предложения</legend>
                         <ul class="ui list">
                             @foreach ($feedback_list_2 as $list)
 
@@ -32,21 +55,7 @@
                                 </li>
                             @endforeach
                         </ul>
-                    </div>
-                </div>
-                <div class="five wide column">
-                    <div class="ui red segment">
-                        <h3>Жалобы</h3>
-                        <hr>
-                        <ul class="ui list">
-                            @foreach ($feedback_list_3 as $list)
-
-                                <li class="list">
-                                    {{ $list->subject }}
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
+                    </fieldset>
                 </div>
             </div>
         </div>
