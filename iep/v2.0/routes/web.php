@@ -62,6 +62,7 @@ Route::group(['prefix' => 'parent', 'namespace' => 'Accounts', 'middleware' => [
 Route::group(['prefix' => 'admin', 'namespace' => 'Accounts', 'middleware' => ['auth', 'isAdmin']], function () {
 
     Route::get('/', 'AdminController@index')->name('admin.index');
+    Route::get('/users', '\App\Http\Controllers\CRUD\UserController@index')->name('admin.accounts.index');
     Route::get('/settings', 'AdminController@settings')->name('admin.settings');
 
 });

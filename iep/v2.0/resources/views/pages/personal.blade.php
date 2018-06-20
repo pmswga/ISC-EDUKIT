@@ -5,7 +5,7 @@
 @section('content')
     <div class="ui segment">
         <figure id="structure-college-figure">
-            <img src="{{ asset('img/personal/structure.png') }}" alt="Структура колледжа">
+            <img src="{{ asset('img/personal/structure.png') }}" class="ui fluid image" alt="Структура колледжа">
             <figcaption>Структура колледжа</figcaption>
         </figure>
         <br>

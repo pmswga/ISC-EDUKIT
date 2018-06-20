@@ -11,6 +11,7 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/semantic.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ asset('css/index.css') }}">
         <link rel="stylesheet" href="{{ asset('css/accounts.css') }}">
         <script src="{{ asset('js/jquery.js') }}"></script>
@@ -81,7 +82,7 @@
                                             <i class="add user icon"></i>
                                             Добавить администратора
                                         </a>
-                                        <a class="item">
+                                        <a class="item" href="{{ route('admin.accounts.index') }}">
                                             <i class="list icon"></i>
                                             Список пользователей
                                         </a>

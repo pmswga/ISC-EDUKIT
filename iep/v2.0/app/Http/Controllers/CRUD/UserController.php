@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\CRUD;
 
-use App\Models\IEPAccount;
+use App\IEPAccount;
+use App\Models\Accounts\IEPStudent;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -16,7 +17,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $user_list = IEPAccount::paginate(15);
+
+        return view('accounts.admin.accounts.index', [
+            'user_list' => $user_list,
+            'student_list' => IEPStudent::get(),
+        ]);
     }
 
     /**
