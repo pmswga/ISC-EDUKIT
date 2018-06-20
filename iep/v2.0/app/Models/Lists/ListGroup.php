@@ -10,4 +10,14 @@ class ListGroup extends Model
     protected $primaryKey = 'id_group';
     public $timestamps = false;
 
+    protected $fillable = [
+        'id_specialty',
+        'id_education_unit',
+        'caption',
+        'education_year_start',
+        'education_year_end'
+    ];
+
+    
+
 }

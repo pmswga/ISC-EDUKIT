@@ -89,7 +89,7 @@
                                     </div>
                                 </div>
                                 <div class="item">
-                                    <div class="header">Управление специальности</div>
+                                    <div class="header">Управление специальностями</div>
                                     <div class="menu">
                                         <a class="item">
                                             <i class="add icon"></i>
@@ -102,13 +102,26 @@
                                     </div>
                                 </div>
                                 <div class="item">
-                                    <div class="header">Управление дисциплинами</div>
+                                    <div class="header">Управление группами</div>
                                     <div class="menu">
-                                        <a class="item">
+                                        <a class="item" href="{{ route('groups.create') }}">
                                             <i class="add icon"></i>
                                             Добавить
                                         </a>
-                                        <a class="item">
+                                        <a class="item" href="{{ route('groups.index') }}">
+                                            <i class="list icon"></i>
+                                            Список групп
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="header">Управление дисциплинами</div>
+                                    <div class="menu">
+                                        <a class="item" href="{{ route('subjects.create') }}">
+                                            <i class="add icon"></i>
+                                            Добавить
+                                        </a>
+                                        <a class="item" href="{{ route('subjects.index') }}">
                                             <i class="list icon"></i>
                                             Список дисциплин
                                         </a>

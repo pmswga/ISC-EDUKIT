@@ -57,7 +57,7 @@ class FeedbackController extends Controller
             'content'
         ]);
         
-        $result = Feedback::create([
+        Feedback::create([
             'second_name' => $data['second_name'],
             'first_name'  => $data['first_name'],
             'patronymic'  => $data['patronymic'],

@@ -55,7 +55,6 @@
                 <select name="type">
                     <option value="1">Вопрос</option>
                     <option value="2">Предложение</option>
-                    <option value="3">Жалоба</option>
                 </select>
             </div>
             <div class="field">
