@@ -25,7 +25,7 @@
                     Поздравляем!
                 </div>
                 <div class="content">
-                        {{ session()->get('success_msg') }}
+                    {{ session()->get('success_msg') }}
                 </div>
             </div>
         @endif
@@ -52,7 +52,7 @@
             </div>
             <div class="field">
                 <label>Тип письма</label>
-                <select name="type">
+                <select name="id_feedback_type">
                     <option value="1">Вопрос</option>
                     <option value="2">Предложение</option>
                 </select>

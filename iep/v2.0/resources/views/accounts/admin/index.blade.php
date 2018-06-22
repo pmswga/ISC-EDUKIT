@@ -15,7 +15,7 @@
                                     <div class="content">
                                         <a class="header">{{ $list->subject }}</a>
                                         <div class="meta">
-                                            
+                                            {{ $list->second_name." ".$list->first_name." ".$list->patronymic }}
                                         </div>
                                         <div class="description">
                                             {{ $list->content }}
@@ -47,12 +47,37 @@
                 <div class="eight wide column">
                     <fieldset class="ui green segment">
                         <legend>Предложения</legend>
-                        <ul class="ui list">
+                        <ul class="ui cards">
                             @foreach ($feedback_list_2 as $list)
-
-                                <li class="list">
-                                    {{ $list->subject }}
-                                </li>
+                                <div class="ui link fluid card">
+                                    <div class="content">
+                                        <a class="header">{{ $list->subject }}</a>
+                                        <div class="meta">
+                                            {{ $list->second_name." ".$list->first_name." ".$list->patronymic }}
+                                        </div>
+                                        <div class="description">
+                                            {{ $list->content }}
+                                        </div>
+                                    </div>
+                                    <div class="extra content">
+                                        <div class="ui styled accordion">
+                                            <div class="title">
+                                                Дать ответ
+                                            </div>
+                                            <div class="content">
+                                                <form class="ui form">
+                                                    <div class="field">
+                                                        <label>Ответ</label>
+                                                        <textarea name="answer"></textarea>
+                                                    </div>
+                                                    <div class="field">
+                                                        <input type="submit" name="" value="Ответить" class="ui primary button">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             @endforeach
                         </ul>
                     </fieldset>

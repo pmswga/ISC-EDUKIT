@@ -15,7 +15,7 @@ class Feedback extends Model
         'first_name',
         'patronymic',
         'email',
-        'type',
+        'id_feedback_type',
         'subject',
         'content'
     ];

@@ -42,7 +42,7 @@ class FeedbackController extends Controller
             'first_name' => 'bail|required|max:30',
             'patronymic' => 'bail|required|max:30',
             'email' => 'bail|required|max:255',
-            'type' => 'bail|required',
+            'id_feedback_type' => 'bail|required',
             'subject' => 'bail|required|max:255',
             'content' => 'bail|required',
         ])->validate();
@@ -52,7 +52,7 @@ class FeedbackController extends Controller
             'first_name',
             'patronymic',
             'email',
-            'type',
+            'id_feedback_type',
             'subject',
             'content'
         ]);
@@ -62,7 +62,7 @@ class FeedbackController extends Controller
             'first_name'  => $data['first_name'],
             'patronymic'  => $data['patronymic'],
             'email'       => $data['email'],
-            'type'        => $data['type'],
+            'id_feedback_type' => $data['id_feedback_type'],
             'subject'     => $data['subject'],
             'content'     => $data['content'],
         ]);
