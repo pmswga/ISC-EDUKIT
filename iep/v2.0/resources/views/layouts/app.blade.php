@@ -113,7 +113,7 @@
                                     <div class="menu">
                                         <a class="item" href="{{ route('price') }}">Стоимость обучения</a>
                                         <a class="item">Дни открытых дверей</a>
-                                        <a class="item">Документы для поступления</a>
+                                        <a class="item" href="{{ route('admission-documents') }}">Документы для поступления</a>
                                     </div>
                                 </div>
                                 <div class="item">

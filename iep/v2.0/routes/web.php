@@ -32,10 +32,16 @@ Route::get('/price', function () {
     return view('pages.price');
 })->name('price');
 
+Route::get('/admission-documents', function () {
+    return view('pages.admission-documents');
+})->name('admission-documents');
+
 Route::get('/schedule', 'Pages\SchedulePageController@index')->name('schedule');
+
 Route::get('/personal', function () {
     return view('pages.personal');
 })->name('personal');
+
 Route::get('/teachers', function () {
     return view('pages.teachers');
 })->name('teachers');
