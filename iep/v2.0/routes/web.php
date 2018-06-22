@@ -28,6 +28,10 @@ Route::get('/education-unit-3', function () {
     return view('pages.education_units.unit_3');
 })->name('education-unit-3');
 
+Route::get('/price', function () {
+    return view('pages.price');
+})->name('price');
+
 Route::get('/schedule', 'Pages\SchedulePageController@index')->name('schedule');
 Route::get('/personal', function () {
     return view('pages.personal');

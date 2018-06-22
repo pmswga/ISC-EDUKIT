@@ -111,7 +111,7 @@
                                 <div class="item">
                                     <div class="header">Абитуриенту</div>
                                     <div class="menu">
-                                        <a class="item">Стоимость обучения</a>
+                                        <a class="item" href="{{ route('price') }}">Стоимость обучения</a>
                                         <a class="item">Дни открытых дверей</a>
                                         <a class="item">Документы для поступления</a>
                                     </div>
