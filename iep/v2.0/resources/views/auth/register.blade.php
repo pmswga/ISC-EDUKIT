@@ -49,7 +49,25 @@
                 <label for="password-confirm">@lang('reg.confirm_passwd_field')</label>
                 <input type="password" name="password_confirmation" required>
             </div>
-
+            
+            <div class="field">
+                <label>Вы</label>
+                <div class="tow fields">
+                    <div class="field">
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="frequency" checked="checked">
+                            <label>Студент</label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="frequency">
+                            <label>Родитель</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
             <div class="field">
                 <button type="submit" class="ui primary button">
                     @lang('reg.submit_field')
