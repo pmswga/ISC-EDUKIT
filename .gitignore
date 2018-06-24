@@ -1,4 +1,6 @@
 *.pdf
 *.tpl.php
 /iep/v2.0/nbproject/private/
+/vendor
+/storage
 *.tmp
