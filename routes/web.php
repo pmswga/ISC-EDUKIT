@@ -16,10 +16,6 @@ Route::get('/contacts', function () {
 
 // Left menu
 
-Route::get('/hell', function () {
-    return view('hell');
-})->name('hell');
-
 Route::get('/education-unit-1', function () {
     return view('pages.education_units.unit_1');
 })->name('education-unit-1');
