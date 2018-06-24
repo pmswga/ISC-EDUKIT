@@ -166,8 +166,6 @@
                     <a class="item" href="http://www.mgutm.ru/">
                         Copyright © ФГБОУ ВО "МГУТУ им. К.Г. Разумовского (ПКУ)" УНИКИТ
                     <a/>
-					<a class="item" href="#">Карта сайта</a>
-					<a class="item" href="#contacts">Контакты</a>
 				</div>
 			</div>
 		</div>
