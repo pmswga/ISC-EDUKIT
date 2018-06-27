@@ -4,3 +4,4 @@
 /vendor
 /storage
 *.tmp
+.env
