@@ -1,0 +1,39 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+body{
+    background-color: #FDF5E6;
+}
+
+
+/*CONTENT*/
+.welcom_message/*Дви с приветсвием на сайт*/
+{
+    width: 80%;
+    height: 90%;
+    text-align: left;
+    margin: auto;
+    color: black;
+    margin-top: 80px;
+}
+.welcom_message hr
+{
+    width: 100%;
+    border: 1px solid;
+    margin: left;
+}
+.welcom_message h1/*Надпись Добро пожаловать*/
+{
+    padding-top: 15px;
+    font-family: Tahoma;
+    font-size: 32px;
+    text-align: center;
+}
+.welcom_message h2 {/*Мелкие загаловки*/
+    padding-top: 25px; 
+    font-size: 28px; 
+    font-family: Tahoma;
+    text-align: center; 
+}
+.welcom_message p {font-family: Arial;}

@@ -1,0 +1,19 @@
+#calc{
+    width: 100%;
+}
+
+option{
+    width: 100%;
+}
+select {
+    display: block;
+    margin: auto;
+    text-align: center;
+    width: 60%;
+}
+
+
+
+#res {
+    text-align: center;
+}
