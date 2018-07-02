@@ -1,0 +1,100 @@
+#menu{/*Меню сайта*/
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: rgb(50, 50, 50);
+    border-color: rgb(50, 50, 50);
+}
+#menu a{
+    color: rgb(180, 172, 171);
+}
+#right {
+    float: right;
+}
+
+/*Остальные кнопки меню*/
+#menu_button a{
+    width: 100%;
+    height: 50px;
+    color: rgb(185, 180, 179);
+    outline: none;
+    font-size: 12px;
+    
+    transition-property: all;
+    transition-duration: 0.2s; 
+}
+#menu_button a:hover{
+    transform: translate(-3px, 3px);
+    color: white;
+    background-color: green;
+}
+#menu_button a:active {
+    transform: translate(3px, 0px);
+    background-color: black;
+    color: rgb(185, 180, 179);
+    font-family: cursive;
+}
+/*===================================================*/
+
+/*Кнопки "Group" "Developer" "YouTube"*/
+#vk a{
+    width: 100%;
+    height: 50px;
+    color: rgb(185, 180, 179);
+    outline: none;
+    font-size: 12px;
+    
+    transition-property: all;
+    transition-duration: 0.2s; 
+}
+#vk a:hover{
+    transform: translate(-3px, 3px);
+    color: white;
+    background-color: rgb(82, 115, 151);
+}
+#vk a:active {
+    transform: translate(3px, 0px);
+    background-color: black;
+    font-family: cursive;
+}
+
+#dev a{
+    width: 100%;
+    height: 50px;
+    color: rgb(185, 180, 179);
+    outline: none;
+    font-size: 12px;
+    
+    transition-property: all;
+    transition-duration: 0.2s; 
+}
+#dev a:hover{
+    transform: translate(-3px, 3px);
+    color: white;
+    background-color: orange;
+}
+#dev a:active {
+    transform: translate(3px, 0px);
+    background-color: black;
+    font-family: cursive;
+}
+
+#tub a{
+    width: 100%;
+    height: 50px;
+    color: rgb(185, 180, 179);
+    outline: none;
+    font-size: 12px;
+    
+    transition-property: all;
+    transition-duration: 0.2s; 
+}
+#tub a:hover{
+    transform: translate(-3px, 3px);
+    color: white;
+    background-color: rgb(224, 41, 39);
+}
+#tub a:active {
+    transform: translate(3px, 0px);
+    background-color: black;
+    font-family: cursive;
+}

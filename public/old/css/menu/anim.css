@@ -1,0 +1,66 @@
+@-webkit-keyframes one{/*Анимация отдельного элемента меню*/
+    from{
+        transform: translate(0px, -100px);
+    }
+}
+@-webkit-keyframes rotate{/*Анимация текста "104"*/
+    from{
+        transform: rotate(360deg);
+    }
+}
+/*=====================================================*/
+
+#brand {/*Текст "104"*/
+    font-size: 45px;
+    -webkit-animation: rotate;
+    -webkit-animation-duration: 1s;
+    -moz-animation: rotate;
+    -moz-animation-duration: 1s;
+    -o-animation: rotate;
+    background-origin: : 1s;
+}
+
+#one{/*Главная*/
+    -webkit-animation: one;
+    -webkit-animation-duration: 0.5s;
+    -moz-animation: one;
+    -moz-animation-duration: 0.5s;
+    -o-animation: one;
+    -o-animation-duration: 0.5s;
+}
+
+#two{/*Новости*/
+    -webkit-animation: one;
+    -webkit-animation-duration: 0.7s;
+    -moz-animation: one;
+    -moz-animation-duration: 0.7s;
+    -o-animation: one;
+    -o-animation-duration: 0.7s;
+}
+
+#three{/*Конспекты*/
+    -webkit-animation: one;
+    -webkit-animation-duration: 0.9s;
+    -moz-animation: one;
+    -moz-animation-duration: 0.9s;
+    -o-animation: one;
+    -o-animation-duration: 0.9s;
+}
+
+#four{/*Расписание*/
+    -webkit-animation: one;
+    -webkit-animation-duration: 1.1s;
+    -moz-animation: one;
+    -moz-animation-duration: 1.1s;
+    -o-animation: one;
+    -o-animation-duration: 1.1s;
+}
+
+#five{/*YandexDisk*/
+    -webkit-animation: one;
+    -webkit-animation-duration: 1.3s;
+    -moz-animation: one;
+    -moz-animation-duration: 1.3s;
+    -o-animation: one;
+    -o-animation-duration: 1.3s;
+}
