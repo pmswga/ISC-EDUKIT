@@ -160,15 +160,12 @@
             </div>
         </div>
 
-        <div class="ui inverted vertical footer segment">
-			<div class="ui center aligned container">
-				<div class="ui horizontal inverted small divided link list">
-                    <a class="item" href="http://www.mgutm.ru/">
-                        Copyright © ФГБОУ ВО "МГУТУ им. К.Г. Разумовского (ПКУ)" УНИКИТ
-                    <a/>
-				</div>
-			</div>
+        <div id="footer" class="ui inverted vertical footer segment">
+            <a class="footer-text" target="__blank" href="http://www.mgutm.ru/">
+                Copyright © ФГБОУ ВО "МГУТУ им. К.Г. Разумовского (ПКУ)" УНИКИТ
+            <a/>
 		</div>
+
         <!-- Scripts -->
         <script>
 

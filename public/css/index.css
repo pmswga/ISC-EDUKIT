@@ -63,8 +63,17 @@ body {
     border-radius: 0%;
     width: 100%;
     color: white;
+    text-align: center;
 }
 
+.footer-text {
+    color: white;
+    text-align: center;
+}
+
+.footer-text:hover {
+    color: gray;
+}
 
 /*
     Old CSS
