@@ -63,7 +63,7 @@ Route::group(['prefix' => 'student', 'namespace' => 'Accounts', 'middleware' => 
 
 Route::group(['prefix' => 'elder', 'namespace' => 'Accounts', 'middleware' => ['auth', 'isElder']], function () {
 
-    
+    Route::get('/', 'ElderController@index')->name('elder.index');
 
 });
 

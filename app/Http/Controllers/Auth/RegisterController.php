@@ -35,7 +35,7 @@ class RegisterController extends Controller
             'patronymic'      => $data['patronymic'],
             'email'           => $data['email'],
             'password'        => bcrypt($data['password']),
-            'id_account_type' => 3,
+            'id_account_type' => $data['account'],
         ]);
     }
 }

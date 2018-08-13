@@ -53,10 +53,10 @@
                                                 <a class="item" href="{{ route('student.index') }}">Профиль</a>
                                             @break
                                             @case(4)
-
+                                                <a class="item" href="{{ route('elder.index') }}">Профиль</a>
                                             @break
                                             @case(5)
-
+                                                <a class="item" href="{{ route('parent.index') }}">Профиль</a>
                                             @break
                                             @case(6)
                                                 <a class="item" href="{{ route('admin.index') }}">Профиль</a>
