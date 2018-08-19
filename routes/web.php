@@ -81,6 +81,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Accounts', 'middleware' => ['
 
     // Temp routes
 
+    Route::get('/news/add', function () {
+        return view('accounts.admin.news.add');
+    });
+
     Route::get('/news', function () {
         return view('accounts.admin.news.index');
     });
