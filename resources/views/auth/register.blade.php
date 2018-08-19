@@ -55,13 +55,13 @@
                 <div class="tow fields">
                     <div class="field">
                         <div class="ui radio checkbox">
-                            <input type="radio" name="frequency" checked="checked">
+                            <input type="radio" name="account" checked value="3">
                             <label>Студент</label>
                         </div>
                     </div>
                     <div class="field">
                         <div class="ui radio checkbox">
-                            <input type="radio" name="frequency">
+                            <input type="radio" name="account" value="5">
                             <label>Родитель</label>
                         </div>
                     </div>

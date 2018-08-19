@@ -63,7 +63,7 @@ Route::group(['prefix' => 'student', 'namespace' => 'Accounts', 'middleware' => 
 
 Route::group(['prefix' => 'elder', 'namespace' => 'Accounts', 'middleware' => ['auth', 'isElder']], function () {
 
-    
+    Route::get('/', 'ElderController@index')->name('elder.index');
 
 });
 
@@ -78,6 +78,20 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Accounts', 'middleware' => ['
     Route::get('/', 'AdminController@index')->name('admin.index');
     Route::get('/users', '\App\Http\Controllers\CRUD\UserController@index')->name('admin.accounts.index');
     Route::get('/settings', 'AdminController@settings')->name('admin.settings');
+
+    // Temp routes
+
+    Route::get('/news/add', function () {
+        return view('accounts.admin.news.add');
+    });
+
+    Route::get('/news', function () {
+        return view('accounts.admin.news.index');
+    });
+
+    /*!
+        Resource routes
+    */
 
     Route::resource('/units', '\App\Http\Controllers\CRUD\Lists\ListEducationUnitController');
     Route::resource('/groups', '\App\Http\Controllers\CRUD\GroupController');
